@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package com.apihug.rad.infra.settings;
+import "apihug/protobuf/extend/constant.proto";
+import "apihug/protobuf/swagger/annotations.proto";
+
+enum  RadAuthorityEnum {
+
+    option (hope.swagger.enm) = {
+        description: "Example Authority Enum for the project, MODIFY IT"
+    };
+
+    USER_ADD = 0 [(hope.constant.field) = {code: 1,message: "user:add", message2: "Authority to remove user(Remove or modify this template sample)"}];
+    USER_DELETE = 1 [(hope.constant.field) = {code: 2,message: "user:remove", message2: "Authority to delete user(Remove or modify this template sample)"}];
+
+}

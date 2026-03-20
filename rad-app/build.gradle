@@ -1,0 +1,118 @@
+plugins {
+    id "java"
+
+    alias(libs.plugins.spring.boot)
+    alias(libs.plugins.spring.dependency)
+    //Since 2026-01 upgrade to hope, no wire|stub plugin
+    alias(libs.plugins.hope)
+    //alias(libs.plugins.liquibase)
+
+}
+
+//0. Java
+apply from: "${rootProject.projectDir}/gradle/java.gradle"
+//1. DB Migration
+apply from: "${rootProject.projectDir}/gradle/liquibase.gradle"
+
+hope {
+
+    // please refer to the doc for details usage:
+    // https://apihug.github.io/docs/tool/gradle-stub
+    debug = false
+    // enableFrontVue = true
+    // if enable vue please follow the doc:
+    // https://apihug.github.io/docs/ui/002_vue
+
+    // enableMcp = true
+    // If you try this experimental feature, please follow the documentation carefully:
+    // https://apihug.github.io/docs/mcp/001_start
+
+    //
+    //TBD,  Manage your APIs property on ApiHug's SAAS(in-house deploy) platform
+    //  You will has a centralized dashboard to manage and statistic your company's all APIs property
+    //
+    //url = "${System.getenv("HOPE_URL")}?"
+    //url = "https://api.hipo.com/system/workspace/open/upload-meta?"
+    //appKey = "${System.getenv("HOPE_APP_KEY")}"
+    //appKey = "just";
+    //appSecret = "${System.getenv("HOPE_APP_SECRET")}"
+    //appSecret = "just";
+}
+
+description("apihug rapid application deveopment tempalte")
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+dependencies {
+
+    //Hope START
+
+    // Use wireImport to import the wire proto dependency on
+    // This is for importing wire modules that contain generated Java code
+    // from Protocol Buffer definitions, if it not main module then you can declare micro service dependencies
+
+    //wireImport ('group:artifact:version')
+    //wireImport project(':module-name')
+    //wireImport libs.another.module
+
+    // Declare apihug wire proto dependencies here:
+    // protoImport project(":module-name")
+    // protoImport "group:artifact:version"
+    // This only for proto compile usage
+
+
+    implementation(libs.apihug.common.proto)
+    //OpenApi 3 specification
+    implementation(libs.swagger.models)
+    implementation(libs.swagger.annotations)
+    runtimeOnly 'jakarta.servlet:jakarta.servlet-api'
+
+    //Others:
+
+    implementation(libs.apihug.spring.cache)
+    implementation(libs.ehcache)
+    implementation(libs.apihug.spring.data)
+    implementation(libs.jakarta.validation.api)
+    implementation(libs.jakarta.persistence.api)
+
+    //Hope END
+
+    //Spring starter START
+    // BOM dependencies always follow this standard:
+    // implementation(platform(libs.spring.cloud.dependencies))
+    // implementation(platform(libs.spring.ai.bom))
+
+
+	implementation 'org.springframework.boot:spring-boot-starter-actuator'
+	implementation 'org.springframework.boot:spring-boot-starter-cache'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
+	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	runtimeOnly 'com.h2database:h2'
+	runtimeOnly 'com.mysql:mysql-connector-j'
+	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+    //Spring starter END
+
+    implementation 'org.springframework.security:spring-security-crypto'
+    implementation(libs.bundles.jwt)
+
+    //Extra Test Helper Libs
+    testImplementation(libs.awaitility)
+    testImplementation(libs.archunit.junit5.api)
+    testRuntimeOnly(libs.archunit.junit5.engine)
+    testRuntimeOnly(libs.assertj.core)
+
+}
+
+
+tasks.named('test') {
+    useJUnitPlatform()
+}

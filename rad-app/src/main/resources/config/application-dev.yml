@@ -1,0 +1,54 @@
+spring:
+  liquibase:
+    # Only open when you need it, make sure the change-log path exist
+    # This will auto generated after you defined entity in your proto project
+    enabled: false
+    change-log: classpath:liquibase/rad/master.xml
+  autoconfigure:
+    exclude:
+      - org.springframework.cloud.openfeign.FeignAutoConfiguration
+      - io.spring.initializr.web.autoconfigure.InitializrAutoConfiguration
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    url: jdbc:h2:mem:rad;DB_CLOSE_DELAY=-1;MODE=LEGACY
+    #url: jdbc:h2:file:./build/h2db/db/rad;DB_CLOSE_DELAY=-1;MODE=LEGACY
+    #username: TODO
+    #password: TODO
+    #url: jdbc:mysql://localhost:3306/TODO?useUnicode=true&characterEncoding=utf8&useSSL=false&useLegacyDatetimeCode=false&serverTimezone=UTC&createDatabaseIfNotExist=true
+    #username: TODO
+    #password: TODO
+    hikari:
+      poolName: Hikari
+      auto-commit: false
+
+hope:
+  security:
+    jwt:
+      # This token must be encoded using Base64 and be at least 256 bits long (you can type `openssl rand -base64 64` on your command line to generate a 512 bits one)
+      base64-secret: X8ZZgreZ0BpKqeGx2+h13QH7DegjLjTEG3iHCccdgUMZnc0UBvTqMcx9z1UvRhNT5KHZQ7HbpjvkvSoO3IOpcG/Hkw00mQh2ynYySV6x6HeDOQfMAYuy+2zDjjPi5pvvoBYfiFajkznjf5hHR8DNYjDo2NrjtS2VLEFisZsCuLs=
+      # Token is valid 24 hours
+      token-validity-in-seconds: 86400
+      token-validity-in-seconds-for-remember-me: 2592000
+  error:
+    # no_logging|message_only|with_stacktrace
+    log-level: with_stacktrace
+
+server:
+  port: 18089
+
+
+management:
+  endpoints:
+    web:
+      base-path: /management
+      exposure:
+        include:
+          [
+            'configprops',
+            'env',
+            'health',
+            'info',
+            'logfile',
+            'loggers',
+            'threaddump',
+          ]

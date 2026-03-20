@@ -1,0 +1,19 @@
+{
+  "knowledge" : [ {
+    "name" : "user_name",
+    "description" : "name of user",
+    "attributeType" : "STRING",
+    "notBlank" : true,
+    "pattern" : "",
+    "minLength" : 1,
+    "maxLength" : 64,
+    "sample" : "jake",
+    "trackId" : "04b01f17-dc5b-44ce-b7ad-da7744dae723",
+    "usage" : "BOTH"
+  } ],
+  "name" : "rad-app-proto",
+  "application" : "rad-app",
+  "packageName" : "com.apihug.rad",
+  "domain" : "rad",
+  "identifier" : "rad-app-proto"
+}

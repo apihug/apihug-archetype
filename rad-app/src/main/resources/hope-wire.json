@@ -1,0 +1,39 @@
+{
+  "packageName": "com.apihug.rad",
+  "name": "rad",
+  "application": "rad-app",
+  "artifact" : {
+    "groupId" : "com.apihug",
+    "artifactId" : "rad-app"
+  },
+  "domain": "rad",
+  "persistence" : {
+    "identifyType" : "LONG",
+    "tenantType" : "LONG"
+  },
+  "authority" : {
+    "enumClass" : "com.apihug.rad.infra.settings.RadAuthorityEnum",
+    "codePrefix" : 10240000
+  },
+  "apiRoot" : "/api",
+  "createdAt": "2026-03-20",
+  "createdBy" : "admin",
+  "api": {
+    "openapi" : "3.0.1",
+    "info" : {
+      "contact" : {
+        "name" : "developer@apihug.com",
+        "url" : "https://github.com/apihug/",
+        "email" : "developer@apihug.com"
+      }
+    },
+    "externalDocs" : {
+      "description" : "Hope is the best thing",
+      "url" : "https://github.com/apihug/"
+    },
+    "tags" : [ {
+      "name" : "sample",
+      "description" : "Sample Tag"
+    }]
+  }
+}

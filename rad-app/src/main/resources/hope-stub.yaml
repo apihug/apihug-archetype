@@ -1,0 +1,2 @@
+---
+module: "com.apihug.rad.wire.api.RadApiModule"
