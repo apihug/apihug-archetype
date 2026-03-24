@@ -135,11 +135,12 @@ service RoleService {
     };
   }
 
-  rpc AssignPermissions (AssignPermissionsRequest) returns (google.protobuf.Empty) {
+  // 为角色分配菜单（全量覆盖），参考 RuoYi insertRoleMenu
+  rpc AssignMenusToRole (AssignMenusRequest) returns (google.protobuf.Empty) {
     option (hope.swagger.operation) = {
-      post: "/roles/{roleId}/permissions";
-      description: "为角色分配权限";
-      summary: "分配权限";
+      post: "/roles/{roleId}/menus";
+      description: "为角色分配菜单（全量覆盖，菜单中 BUTTON 类型的 permission_code 即为权限）";
+      summary: "分配菜单给角色";
       tags: "role";
       authorization: {
         rbac: {
@@ -157,17 +158,18 @@ service RoleService {
         };
       };
       questions: [
-        "如何为角色分配权限？",
-        "可以分配多个权限吗？"
+        "如何为角色分配菜单？",
+        "分配菜单后权限如何生效？"
       ];
     };
   }
 
-  rpc RemovePermission (RemovePermissionRequest) returns (google.protobuf.Empty) {
+  // 移除角色的某个菜单关联
+  rpc RemoveMenuFromRole (google.protobuf.Empty) returns (google.protobuf.Empty) {
     option (hope.swagger.operation) = {
-      delete: "/roles/{roleId}/permissions/{permissionId}";
-      description: "移除角色权限";
-      summary: "移除权限";
+      delete: "/roles/{roleId}/menus/{menuId}";
+      description: "移除角色的某个菜单关联";
+      summary: "移除角色菜单";
       tags: "role";
       authorization: {
         rbac: {
@@ -184,7 +186,7 @@ service RoleService {
           };
         };
         parameter: {
-          name: "permissionId";
+          name: "menuId";
           in: PATH;
           schema: {
             format: INTEGER;
@@ -192,18 +194,15 @@ service RoleService {
           };
         };
       };
-      questions: [
-        "如何移除角色权限？",
-        "移除权限后用户会立即失去该权限吗？"
-      ];
     };
   }
 
-  rpc GetRolePermissions (google.protobuf.Empty) returns (RolePermissionSummary) {
+  // 获取角色关联的菜单列表
+  rpc GetRoleMenus (google.protobuf.Empty) returns (RoleMenuSummary) {
     option (hope.swagger.operation) = {
-      get: "/roles/{roleId}/permissions";
-      description: "获取角色的权限列表";
-      summary: "获取角色权限";
+      get: "/roles/{roleId}/menus";
+      description: "获取角色关联的菜单列表（含权限代码）";
+      summary: "获取角色菜单";
       tags: "role";
       authorization: {
         low_limit_risky_mode: LOGIN
@@ -218,10 +217,6 @@ service RoleService {
           };
         };
       };
-      questions: [
-        "如何获取角色的权限列表？",
-        "返回什么格式的权限信息？"
-      ];
     };
   }
 }
@@ -403,49 +398,26 @@ message SearchRolesRequest {
   }];
 }
 
-message AssignPermissionsRequest {
+message AssignMenusRequest {
   option (hope.swagger.schema) = {
     json_schema: {
-      title: "AssignPermissionsRequest";
-      description: "分配权限请求";
+      title: "AssignMenusRequest";
+      description: "分配菜单请求（全量覆盖）";
     };
   };
 
-  repeated int64 permission_ids = 1 [(hope.swagger.field) = {
-    description: "权限 ID 列表";
+  repeated int64 menu_ids = 1 [(hope.swagger.field) = {
+    description: "菜单 ID 列表";
     example: "[1, 2, 3]";
     empty: false;
   }];
 }
 
-message RemovePermissionRequest {
+message RoleMenuSummary {
   option (hope.swagger.schema) = {
     json_schema: {
-      title: "RemovePermissionRequest";
-      description: "移除权限请求";
-    };
-  };
-
-  int64 role_id = 1 [(hope.swagger.field) = {
-    description: "角色 ID";
-    example: "1";
-    empty: false;
-    minimum: 1;
-  }];
-
-  int64 permission_id = 2 [(hope.swagger.field) = {
-    description: "权限 ID";
-    example: "1";
-    empty: false;
-    minimum: 1;
-  }];
-}
-
-message RolePermissionSummary {
-  option (hope.swagger.schema) = {
-    json_schema: {
-      title: "RolePermissionSummary";
-      description: "角色权限摘要";
+      title: "RoleMenuSummary";
+      description: "角色菜单摘要";
     };
   };
 
@@ -455,36 +427,44 @@ message RolePermissionSummary {
     empty: false;
   }];
 
-  repeated PermissionInfo permissions = 2 [(hope.swagger.field) = {
-    description: "权限列表";
+  repeated RoleMenuItem menus = 2 [(hope.swagger.field) = {
+    description: "关联的菜单列表";
   }];
 }
 
-message PermissionInfo {
+message RoleMenuItem {
   option (hope.swagger.schema) = {
     json_schema: {
-      title: "PermissionInfo";
-      description: "权限信息";
+      title: "RoleMenuItem";
+      description: "角色关联的菜单项";
     };
   };
 
   int64 id = 1 [(hope.swagger.field) = {
-    description: "权限 ID";
+    description: "菜单 ID";
     example: "1";
     empty: false;
   }];
 
-  string permission_code = 2 [(hope.swagger.field) = {
-    description: "权限代码";
-    example: "user:create";
+  string menu_code = 2 [(hope.swagger.field) = {
+    description: "菜单代码";
+    example: "system:user";
     empty: false;
-    mock: {nature: NAME};
   }];
 
-  string permission_name = 3 [(hope.swagger.field) = {
-    description: "权限名称";
-    example: "创建用户";
+  string menu_name = 3 [(hope.swagger.field) = {
+    description: "菜单名称";
+    example: "用户管理";
     empty: false;
-    mock: {nature: NAME};
+  }];
+
+  string permission_code = 4 [(hope.swagger.field) = {
+    description: "权限代码（BUTTON 类型菜单的原子权限）";
+    example: "customer:create";
+  }];
+
+  string menu_type = 5 [(hope.swagger.field) = {
+    description: "菜单类型（DIRECTORY/MENU/BUTTON）";
+    example: "BUTTON";
   }];
 }

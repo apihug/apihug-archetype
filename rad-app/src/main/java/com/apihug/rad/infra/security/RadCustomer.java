@@ -2,7 +2,10 @@
 package com.apihug.rad.infra.security;
 
 import hope.common.spring.security.internal.CustomerLongIdentifyLongTenant;
-import javax.annotation.Generated;import java.util.Collection;import java.util.Set;
+import javax.annotation.Generated;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Set;
 
 /**
  * Rad system user identity entity carrying core information of authenticated users.
@@ -42,8 +45,13 @@ public class RadCustomer extends CustomerLongIdentifyLongTenant<RadCustomer> {
 
     protected Set<String> authorities;
 
-    @Override public Collection<String> getAuthorities() {
-        //TODO fetch the authorites from the service
+    @Override
+    public Collection<String> getAuthorities() {
+        return this.authorities != null ? this.authorities : Collections.emptySet();
+    }
 
-            return super.getAuthorities();
-    }}
+    public RadCustomer setAuthorities(Collection<String> authorities) {
+        this.authorities = authorities != null ? Set.copyOf(authorities) : Collections.emptySet();
+        return this;
+    }
+}

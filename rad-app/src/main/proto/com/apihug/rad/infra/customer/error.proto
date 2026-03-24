@@ -8,39 +8,25 @@ import "apihug/protobuf/swagger/annotations.proto";
 enum CustomerErrorEnum {
 
   option (hope.swagger.enm) = {
-    description: "Error happen during customer domain";
+    description: "客户领域相关错误"
   };
 
   CUSTOMER_NOT_FOUND = 0  [
     (hope.constant.field) = {
       code: 10001023, message: "Customer not found", message2: "客户不存在",
       error: {
-        tips: "Contract your admin or create a new customer",
+        tips: "Contact your admin or create a new customer",
         phase: DOMAIN,
         severity: FATAL,
       }}];
 
-  CUSTOMER_LOCK = 1  [
-    (hope.constant.field) = {
-      code: 10001024, message: "Customer not active", message2: "账户锁定",
-      error: {
-        tips: "Contract your admin",
-        phase: DOMAIN,
-        severity: WARN,
-      }}];
+  // 保留编号 1, 2 — 原 CUSTOMER_LOCK 和 CUSTOMER_LOGIN_FAIL 已合并到 AuthErrorEnum
+  reserved 1, 2;
+  reserved "CUSTOMER_LOCK", "CUSTOMER_LOGIN_FAIL";
 
-  CUSTOMER_LOGIN_FAIL = 2  [
+  CUSTOMER_ALREADY_EXISTS = 3  [
     (hope.constant.field) = {
-      code: 10001025, message: "Login fail", message2: "登录失败",
-      error: {
-        tips: "Contract your admin, check your username and password",
-        phase: DOMAIN,
-        severity: WARN,
-      }}];
-
-  USER_ALREADY_EXISTS = 3  [
-    (hope.constant.field) = {
-      code: 10001026, message: "User already exists", message2: "用户已存在",
+      code: 10001026, message: "Customer already exists", message2: "客户已存在",
       error: {
         tips: "Use a different username or email",
         phase: DOMAIN,

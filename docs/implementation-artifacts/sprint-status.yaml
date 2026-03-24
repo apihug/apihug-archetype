@@ -2,14 +2,14 @@
 sprint: 1
 project_name: rad
 created: '2026-03-20'
-last_updated: '2026-03-20'
+last_updated: '2026-03-24'
 ---
 
 # Sprint Status
 
 ## Sprint 1
 
-**Goal:** 完成用户管理基础功能
+**Goal:** 完成用户管理基础功能 + 多租户架构重构
 
 ### Development Status
 
@@ -21,7 +21,7 @@ last_updated: '2026-03-20'
 | 2-1-tenant-management | 租户管理 API | done | 2026-03-20 |
 | 2-2-department-management | 部门管理 API | done | 2026-03-20 |
 | 2-3-department-employee | 部门员工管理 API | done | 2026-03-20 |
-| 3-1-advanced-auth-organization | 高级认证与组织管理 | ready-for-dev | 2026-03-20 |
+| 4-1-multi-tenant-restructure | Customer+Tenant+TenantMember 三层架构重构 | done | 2026-03-24 |
 
 ### Epic Status
 
@@ -29,12 +29,5 @@ last_updated: '2026-03-20'
 |------|-------|--------|
 | epic-1 | 基础用户管理 | done |
 | epic-2 | 多租户管理 | done |
-| epic-3 | 高级认证与权限 | in-progress |
-
-### Epic Status
-
-| Epic | Title | Status |
-|------|-------|--------|
-| epic-1 | 基础用户管理 | done |
-|------|-------|--------|
-| epic-1 | 基础用户管理 | backlog |
+| epic-3 | 高级认证与权限 | done |
+| epic-4 | 多租户与组织管理 | done |

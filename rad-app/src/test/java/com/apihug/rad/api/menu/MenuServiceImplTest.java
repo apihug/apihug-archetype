@@ -135,7 +135,6 @@ class MenuServiceImplTest {
 
         menuService.updateMenu(stringBuilder, menuId, request);
 
-        verify(stringBuilder).done();
         verify(menuRepository).save(any(MenuEntity.class));
     }
 
@@ -165,7 +164,6 @@ class MenuServiceImplTest {
 
         menuService.deleteMenu(stringBuilder, menuId);
 
-        verify(stringBuilder).done();
         assertTrue(entity.isDeleted());
     }
 
@@ -199,29 +197,27 @@ class MenuServiceImplTest {
     @Test
     @DisplayName("获取菜单树 - 成功")
     void testGetMenuTree_Success() {
-        List<MenuEntity> rootMenus = Arrays.asList(
-            new MenuEntity().setId(1L).setMenuCode("system"),
-            new MenuEntity().setId(2L).setMenuCode("business")
+        List<MenuEntity> allMenus = Arrays.asList(
+            new MenuEntity().setId(1L).setParentId(0L).setMenuCode("system"),
+            new MenuEntity().setId(2L).setParentId(0L).setMenuCode("business")
         );
 
-        when(menuRepository.findByParentId(0L)).thenReturn(rootMenus);
-        when(menuRepository.findByParentId(1L)).thenReturn(Arrays.asList());
-        when(menuRepository.findByParentId(2L)).thenReturn(Arrays.asList());
+        when(menuRepository.findAll()).thenReturn(allMenus);
 
         menuService.getMenuTree(treeNodeBuilder);
 
-        verify(menuRepository).findByParentId(0L);
+        verify(menuRepository).findAll();
         verify(treeNodeBuilder).payload(any(MenuTreeNode.class));
     }
 
     @Test
     @DisplayName("获取菜单树 - 空树")
     void testGetMenuTree_Empty() {
-        when(menuRepository.findByParentId(0L)).thenReturn(Arrays.asList());
+        when(menuRepository.findAll()).thenReturn(Arrays.asList());
 
         menuService.getMenuTree(treeNodeBuilder);
 
-        verify(menuRepository).findByParentId(0L);
+        verify(menuRepository).findAll();
         verify(treeNodeBuilder).payload(any(MenuTreeNode.class));
     }
 

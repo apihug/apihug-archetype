@@ -99,11 +99,11 @@ public interface RoleService {
    * 	<li>Authorities: [ROLE_ASSIGN_PERMISSION]</li>
    * </ul>
    * @apiNote
-   * 	<p>{@code /api/roles/roles/{roleId}/permissions}
-   * 	<p>{@code 为角色分配权限}
+   * 	<p>{@code /api/roles/roles/{roleId}/menus}
+   * 	<p>{@code 为角色分配菜单（全量覆盖，菜单中 BUTTON 类型的 permission_code 即为权限）}
    */
-  default void assignPermissions(SimpleResultBuilder<String> builder, Integer roleId,
-      AssignPermissionsRequest assignPermissionsRequest) {
+  default void assignMenusToRole(SimpleResultBuilder<String> builder, Integer roleId,
+      AssignMenusRequest assignMenusRequest) {
     builder.notImplemented();
   }
 
@@ -115,21 +115,20 @@ public interface RoleService {
    * 	<li>Authorities: [ROLE_ASSIGN_PERMISSION]</li>
    * </ul>
    * @apiNote
-   * 	<p>{@code /api/roles/roles/{roleId}/permissions/{permissionId}}
-   * 	<p>{@code 移除角色权限}
+   * 	<p>{@code /api/roles/roles/{roleId}/menus/{menuId}}
+   * 	<p>{@code 移除角色的某个菜单关联}
    */
-  default void removePermission(SimpleResultBuilder<String> builder, Integer roleId,
-      Integer permissionId, RemovePermissionRequest removePermissionRequest) {
+  default void removeMenuFromRole(SimpleResultBuilder<String> builder, Integer roleId,
+      Integer menuId) {
     builder.notImplemented();
   }
 
   /**
    * @apiNote
-   * 	<p>{@code /api/roles/roles/{roleId}/permissions}
-   * 	<p>{@code 获取角色的权限列表}
+   * 	<p>{@code /api/roles/roles/{roleId}/menus}
+   * 	<p>{@code 获取角色关联的菜单列表（含权限代码）}
    */
-  default void getRolePermissions(SimpleResultBuilder<RolePermissionSummary> builder,
-      Integer roleId) {
+  default void getRoleMenus(SimpleResultBuilder<RoleMenuSummary> builder, Integer roleId) {
     builder.notImplemented();
   }
 }

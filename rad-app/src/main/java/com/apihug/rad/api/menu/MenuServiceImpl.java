@@ -14,6 +14,7 @@ import hope.common.spring.SimpleResultBuilder;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
@@ -128,7 +129,6 @@ public class MenuServiceImpl implements MenuService {
     }
 
     menuRepository.save(entity);
-    builder.done();
   }
 
   /**
@@ -151,7 +151,6 @@ public class MenuServiceImpl implements MenuService {
         .setDeletedBy(((Long) hope.common.spring.security.context.HopeContextHolder.customer().getId()));
 
     menuRepository.save(entity);
-    builder.done();
   }
 
   /**
@@ -159,19 +158,18 @@ public class MenuServiceImpl implements MenuService {
    */
   @Override
   public void getMenuTree(SimpleResultBuilder<MenuTreeNode> builder) {
-    // 获取所有根菜单（parent_id = 0）
-    List<MenuEntity> rootMenus = menuRepository.findByParentId(0L);
+    // 一次性加载所有菜单，避免递归 N+1，过滤软删除记录
+    List<MenuEntity> allMenus = menuRepository.findAll().stream()
+        .filter(m -> !Boolean.TRUE.equals(m.isDeleted()))
+        .collect(Collectors.toList());
 
-    // 构建树形结构
+    // 按 parentId 分组
+    Map<Long, List<MenuEntity>> childrenMap = allMenus.stream()
+        .collect(Collectors.groupingBy(MenuEntity::getParentId));
+
+    // 构建树形结构（根菜单 parentId = 0）
     MenuTreeNode root = new MenuTreeNode();
-    List<MenuTreeNode> children = new ArrayList<>();
-
-    for (MenuEntity rootMenu : rootMenus) {
-      MenuTreeNode node = buildMenuTreeNode(rootMenu);
-      children.add(node);
-    }
-
-    root.setChildren(children);
+    root.setChildren(buildMenuChildren(childrenMap, 0L));
     builder.payload(root);
   }
 
@@ -228,17 +226,26 @@ public class MenuServiceImpl implements MenuService {
   }
 
   private MenuTreeNode buildMenuTreeNode(MenuEntity entity) {
+    // 单独节点构建（已不再用于树构建，保留以备其他场景使用）
     MenuTreeNode node = new MenuTreeNode();
     node.setMenu(buildMenuSummary(entity));
-
-    // 递归构建子菜单
-    List<MenuEntity> children = menuRepository.findByParentId(entity.getId());
-    List<MenuTreeNode> childNodes = new ArrayList<>();
-    for (MenuEntity child : children) {
-      childNodes.add(buildMenuTreeNode(child));
-    }
-    node.setChildren(childNodes);
-
+    node.setChildren(List.of());
     return node;
+  }
+
+  /**
+   * Build menu tree children from pre-loaded map
+   */
+  private List<MenuTreeNode> buildMenuChildren(
+      Map<Long, List<MenuEntity>> childrenMap, Long parentId) {
+    List<MenuEntity> children = childrenMap.getOrDefault(parentId, List.of());
+    List<MenuTreeNode> nodes = new ArrayList<>();
+    for (MenuEntity entity : children) {
+      MenuTreeNode node = new MenuTreeNode();
+      node.setMenu(buildMenuSummary(entity));
+      node.setChildren(buildMenuChildren(childrenMap, entity.getId()));
+      nodes.add(node);
+    }
+    return nodes;
   }
 }

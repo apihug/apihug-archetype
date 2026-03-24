@@ -74,11 +74,11 @@ service CustomerService {
     };
   }
 
-  rpc GetCurrentUserInfo (google.protobuf.Empty) returns (CurrentUserInfo) {
+  rpc GetCurrentCustomerInfo (google.protobuf.Empty) returns (CurrentCustomerInfo) {
     option (hope.swagger.operation) = {
-      get: "/current-user-info";
-      description: "获取当前客户完整信息（包含权限、角色、部门）";
-      summary: "获取当前客户信息";
+      get: "/current-info";
+      description: "获取当前客户完整信息（包含权限、角色、部门、当前租户）";
+      summary: "获取当前客户完整信息";
       tags: "customer";
       authorization: {
         low_limit_risky_mode: LOGIN
@@ -91,11 +91,11 @@ service CustomerService {
     };
   }
 
-  rpc GetUserOrganizations (google.protobuf.Empty) returns (OrganizationList) {
+  rpc GetCustomerTenants (google.protobuf.Empty) returns (TenantList) {
     option (hope.swagger.operation) = {
-      get: "/user-organizations";
-      description: "获取客户的所有组织列表";
-      summary: "获取客户组织";
+      get: "/tenants";
+      description: "获取客户加入的所有租户列表";
+      summary: "获取客户租户列表";
       tags: "customer";
       authorization: {
         low_limit_risky_mode: LOGIN
@@ -103,18 +103,18 @@ service CustomerService {
     };
   }
 
-  rpc SwitchOrganization (SwitchOrganizationRequest) returns (LoginResponse) {
+  rpc SwitchTenant (SwitchTenantRequest) returns (LoginResponse) {
     option (hope.swagger.operation) = {
-      post: "/switch-organization";
-      description: "切换到指定组织";
-      summary: "切换组织";
+      post: "/switch-tenant";
+      description: "切换到指定租户，重新签发 Token";
+      summary: "切换租户";
       tags: "customer";
       authorization: {
         low_limit_risky_mode: LOGIN
       };
       questions: [
-        "切换组织后返回什么？",
-        "切换组织后权限如何变化？"
+        "切换租户后返回什么？",
+        "切换租户后权限如何变化？"
       ];
     };
   }
@@ -147,111 +147,8 @@ service CustomerManagementService {
     };
   }
 
-  rpc GetCustomer (google.protobuf.Empty) returns (CustomerDetail) {
-    option (hope.swagger.operation) = {
-      get: "/customers/{customerId}";
-      description: "获取客户详情";
-      summary: "获取客户详情";
-      tags: "customer";
-      authorization: {
-        rbac:{
-          predefined_role_checker: TENANT
-          combinator: OR
-          authorities: "CUSTOMER_VIEW"
-        }
-      };
-      parameters: {
-        parameter: {
-          name: "customerId";
-          in: PATH;
-          schema: {
-            format: INTEGER;
-            empty: false;
-          };
-        };
-      };
-      questions: [
-        "如何获取客户详情？",
-        "客户详情包含哪些信息？"
-      ];
-    };
-  }
-
-  rpc UpdateCustomer (UpdateCustomerRequest) returns (google.protobuf.Empty) {
-    option (hope.swagger.operation) = {
-      put: "/customers/{customerId}";
-      description: "更新客户信息";
-      summary: "更新客户";
-      tags: "customer";
-      authorization: {
-        rbac: {
-          authorities: ["CUSTOMER_UPDATE"];
-        }
-      };
-      parameters: {
-        parameter: {
-          name: "customerId";
-          in: PATH;
-          schema: {
-            format: INTEGER;
-            empty: false;
-          };
-        };
-      };
-      questions: [
-        "如何更新客户信息？",
-        "哪些字段可以更新？"
-      ];
-    };
-  }
-
-  rpc DeleteCustomer (google.protobuf.Empty) returns (google.protobuf.Empty) {
-    option (hope.swagger.operation) = {
-      delete: "/customers/{customerId}";
-      description: "删除客户（软删除）";
-      summary: "删除客户";
-      tags: "customer";
-      authorization: {
-        rbac: {
-          authorities: ["CUSTOMER_DELETE"];
-        }
-      };
-      parameters: {
-        parameter: {
-          name: "customerId";
-          in: PATH;
-          schema: {
-            format: INTEGER;
-            empty: false;
-          };
-        };
-      };
-      questions: [
-        "如何删除客户？",
-        "是物理删除还是软删除？"
-      ];
-    };
-  }
-
-  rpc SearchCustomers (SearchCustomersRequest) returns (CustomerSummary) {
-    option (hope.swagger.operation) = {
-      post: "/customers/search";
-      description: "搜索客户（分页）";
-      summary: "搜索客户";
-      tags: "customer";
-      authorization: {
-        rbac: {
-          authorities: ["CUSTOMER_VIEW"];
-        }
-      };
-      pageable: true;
-      questions: [
-        "如何搜索客户？",
-        "支持哪些筛选条件？",
-        "如何分页？"
-      ];
-    };
-  }
+  // GetCustomer/UpdateCustomer/DeleteCustomer/SearchCustomers 已迁移至 TenantMemberService
+  // 租户管理员应通过 /api/tenant-members/tenants/{tenantId}/members 管理租户内成员
 
   rpc ForgotPassword (ForgotPasswordRequest) returns (google.protobuf.Empty) {
     option (hope.swagger.operation) = {
@@ -347,55 +244,60 @@ message LoginResponse {
     mock: {nature: NAME};
   }];
 
-  // 是否需要选择组织（当用户有多个组织且未设置默认组织时）
-  bool needs_organization_selection = 4 [(hope.swagger.field) = {
-    description: "是否需要选择组织";
+  // 是否需要选择租户（当客户加入多个租户且未设置默认租户时）
+  bool needs_tenant_selection = 4 [(hope.swagger.field) = {
+    description: "是否需要选择租户";
     example: "false";
   }];
 
-  // 用户的组织列表（当 needs_organization_selection=true 时返回）
-  repeated OrganizationInfo organizations = 5 [(hope.swagger.field) = {
-    description: "用户的组织列表";
+  // 客户的租户列表（当 needs_tenant_selection=true 时返回）
+  repeated TenantInfo tenants = 5 [(hope.swagger.field) = {
+    description: "客户的租户列表";
   }];
 
-  // 默认组织信息
-  OrganizationInfo default_organization = 6 [(hope.swagger.field) = {
-    description: "默认组织信息";
+  // 默认租户信息
+  TenantInfo default_tenant = 6 [(hope.swagger.field) = {
+    description: "默认租户信息";
   }];
 }
 
-// 组织信息（用于登录响应）
-message OrganizationInfo {
+// 租户信息（用于登录响应、客户租户列表等）
+message TenantInfo {
   option (hope.swagger.schema) = {
     json_schema: {
-      title: "OrganizationInfo";
-      description: "组织信息";
+      title: "TenantInfo";
+      description: "租户信息";
     };
   };
 
   int64 id = 1 [(hope.swagger.field) = {
-    description: "组织 ID";
+    description: "租户 ID";
     example: "1";
     empty: false;
   }];
 
-  string organization_code = 2 [(hope.swagger.field) = {
-    description: "组织代码";
+  string tenant_code = 2 [(hope.swagger.field) = {
+    description: "租户代码";
     example: "acme_corp";
     empty: false;
     mock: {nature: NAME};
   }];
 
-  string organization_name = 3 [(hope.swagger.field) = {
-    description: "组织名称";
+  string tenant_name = 3 [(hope.swagger.field) = {
+    description: "租户名称";
     example: "Acme 公司";
     empty: false;
     mock: {nature: NAME};
   }];
 
   bool is_default = 4 [(hope.swagger.field) = {
-    description: "是否默认组织";
+    description: "是否默认租户";
     example: "true";
+  }];
+
+  bool is_platform = 5 [(hope.swagger.field) = {
+    description: "是否平台租户";
+    example: "false";
   }];
 }
 
@@ -438,15 +340,15 @@ message CustomerInfo {
   }];
 }
 
-message CurrentUserInfo {
+message CurrentCustomerInfo {
   option (hope.swagger.schema) = {
     json_schema: {
-      title: "CurrentUserInfo";
+      title: "CurrentCustomerInfo";
       description: "当前客户完整信息";
     };
   };
 
-  CustomerInfo user = 1 [(hope.swagger.field) = {
+  CustomerInfo customer = 1 [(hope.swagger.field) = {
     description: "客户基本信息";
   }];
 
@@ -462,39 +364,39 @@ message CurrentUserInfo {
     description: "客户部门信息";
   }];
 
-  OrganizationInfo current_organization = 5 [(hope.swagger.field) = {
-    description: "当前组织信息";
+  TenantInfo current_tenant = 5 [(hope.swagger.field) = {
+    description: "当前租户信息";
   }];
 }
 
-message OrganizationList {
+message TenantList {
   option (hope.swagger.schema) = {
     json_schema: {
-      title: "OrganizationList";
-      description: "组织列表";
+      title: "TenantList";
+      description: "租户列表";
     };
   };
 
-  repeated OrganizationInfo organizations = 1 [(hope.swagger.field) = {
-    description: "组织列表";
+  repeated TenantInfo tenants = 1 [(hope.swagger.field) = {
+    description: "租户列表";
   }];
 
-  int64 default_organization_id = 2 [(hope.swagger.field) = {
-    description: "默认组织 ID";
+  int64 default_tenant_id = 2 [(hope.swagger.field) = {
+    description: "默认租户 ID";
     example: "1";
   }];
 }
 
-message SwitchOrganizationRequest {
+message SwitchTenantRequest {
   option (hope.swagger.schema) = {
     json_schema: {
-      title: "SwitchOrganizationRequest";
-      description: "切换组织请求";
+      title: "SwitchTenantRequest";
+      description: "切换租户请求";
     };
   };
 
-  int64 organization_id = 1 [(hope.swagger.field) = {
-    description: "目标组织 ID";
+  int64 tenant_id = 1 [(hope.swagger.field) = {
+    description: "目标租户 ID";
     example: "2";
     empty: false;
     minimum: 1;
@@ -588,101 +490,8 @@ message CustomerSummary {
   }];
 }
 
-message CustomerDetail {
-  option (hope.swagger.schema) = {
-    json_schema: {
-      title: "CustomerDetail";
-      description: "客户详情信息";
-    };
-  };
-
-  int64 id = 1 [(hope.swagger.field) = {
-    description: "客户 ID";
-    example: "1";
-    empty: false;
-    minimum: 1;
-  }];
-
-  string username = 2 [(hope.swagger.field) = {
-    description: "用户名";
-    example: "zhangsan";
-    empty: false;
-    mock: {nature: NAME};
-  }];
-
-  string email = 3 [(hope.swagger.field) = {
-    description: "邮箱";
-    example: "zhangsan@example.com";
-    empty: false;
-    mock: {nature: EMAIL};
-  }];
-
-  com.apihug.rad.infra.customer.CustomerStatusEnum status = 4 [(hope.swagger.field) = {
-    description: "客户状态";
-    example: "ACTIVE";
-    empty: false;
-  }];
-
-  int64 default_tenant_id = 5 [(hope.swagger.field) = {
-    description: "默认租户 ID";
-    example: "1";
-    empty: false;
-  }];
-
-  string created_at = 6 [(hope.swagger.field) = {
-    description: "创建时间";
-    example: "2024-01-15T10:30:00";
-    date_format: ISO_LOCAL_DATE_TIME;
-  }];
-
-  string updated_at = 7 [(hope.swagger.field) = {
-    description: "更新时间";
-    example: "2024-01-16T10:30:00";
-    date_format: ISO_LOCAL_DATE_TIME;
-  }];
-}
-
-message UpdateCustomerRequest {
-  option (hope.swagger.schema) = {
-    json_schema: {
-      title: "UpdateCustomerRequest";
-      description: "更新客户请求";
-    };
-  };
-
-  string email = 1 [(hope.swagger.field) = {
-    description: "邮箱";
-    example: "zhangsan@example.com";
-    empty: false;
-    max_length: 100;
-    mock: {nature: EMAIL};
-  }];
-
-  com.apihug.rad.infra.customer.CustomerStatusEnum status = 2 [(hope.swagger.field) = {
-    description: "客户状态";
-    example: "ACTIVE";
-    empty: false;
-  }];
-}
-
-message SearchCustomersRequest {
-  option (hope.swagger.schema) = {
-    json_schema: {
-      title: "SearchCustomersRequest";
-      description: "搜索客户请求";
-    };
-  };
-
-  string keyword = 1 [(hope.swagger.field) = {
-    description: "搜索关键词（用户名或邮箱）";
-    example: "zhangsan";
-  }];
-
-  com.apihug.rad.infra.customer.CustomerStatusEnum status = 2 [(hope.swagger.field) = {
-    description: "客户状态筛选";
-    example: "ACTIVE";
-  }];
-}
+// CustomerDetail, UpdateCustomerRequest, SearchCustomersRequest 已移除
+// 租户内成员查看/搜索/管理 → TenantMemberService
 
 message ForgotPasswordRequest {
   option (hope.swagger.schema) = {

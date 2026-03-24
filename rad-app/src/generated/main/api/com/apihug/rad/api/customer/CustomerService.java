@@ -26,29 +26,29 @@ public interface CustomerService {
 
   /**
    * @apiNote
-   * 	<p>{@code /api/customer/current-user-info}
-   * 	<p>{@code 获取当前客户完整信息（包含权限、角色、部门）}
+   * 	<p>{@code /api/customer/current-info}
+   * 	<p>{@code 获取当前客户完整信息（包含权限、角色、部门、当前租户）}
    */
-  default void getCurrentUserInfo(SimpleResultBuilder<CurrentUserInfo> builder) {
+  default void getCurrentCustomerInfo(SimpleResultBuilder<CurrentCustomerInfo> builder) {
     builder.notImplemented();
   }
 
   /**
    * @apiNote
-   * 	<p>{@code /api/customer/user-organizations}
-   * 	<p>{@code 获取客户的所有组织列表}
+   * 	<p>{@code /api/customer/tenants}
+   * 	<p>{@code 获取客户加入的所有租户列表}
    */
-  default void getUserOrganizations(SimpleResultBuilder<OrganizationList> builder) {
+  default void getCustomerTenants(SimpleResultBuilder<TenantList> builder) {
     builder.notImplemented();
   }
 
   /**
    * @apiNote
-   * 	<p>{@code /api/customer/switch-organization}
-   * 	<p>{@code 切换到指定组织}
+   * 	<p>{@code /api/customer/switch-tenant}
+   * 	<p>{@code 切换到指定租户，重新签发 Token}
    */
-  default void switchOrganization(SimpleResultBuilder<LoginResponse> builder,
-      SwitchOrganizationRequest switchOrganizationRequest) {
+  default void switchTenant(SimpleResultBuilder<LoginResponse> builder,
+      SwitchTenantRequest switchTenantRequest) {
     builder.notImplemented();
   }
 }

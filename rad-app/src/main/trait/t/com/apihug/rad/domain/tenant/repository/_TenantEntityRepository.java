@@ -34,8 +34,8 @@ interface _TenantEntityRepository extends TenantEntityRepository {
 
     if (keyword != null && !keyword.isBlank()) {
       criteria = criteria.and(
-          EasyCriteria.like(Domain.TenantCode, "%" + keyword + "%")
-              .or(EasyCriteria.like(Domain.TenantName, "%" + keyword + "%")));
+          EasyCriteria.like(Domain.TenantCode, keyword)
+              .or(EasyCriteria.like(Domain.TenantName, keyword)));
     }
 
     if (status != null) {

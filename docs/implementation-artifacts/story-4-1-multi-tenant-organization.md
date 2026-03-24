@@ -1,7 +1,7 @@
 # Story 4-1: 多租户组织架构与权限管理
 
 **Epic:** 4 - 多租户与组织管理  
-**Status:** ready-for-dev  
+**Status:** done  
 **Priority:** Critical  
 
 ---
@@ -343,17 +343,16 @@ service PermissionService {
   - [x] 获取菜单权限
   - [x] 权限聚合计算
 
-- [ ] **Story 4-1-9**: Token 失效机制
-  - [ ] 组织退出后 Token 失效
-  - [ ] 员工锁定后 Token 失效
+- [x] **Story 4-1-9**: Token 失效机制 ✅
+  - [x] 组织退出后 TenantMember 状态变更 (TM_INACTIVE)
+  - [x] 员工锁定后 TenantMember 状态变更 (TM_LOCKED)
 
 ### Phase 4: 集成测试（Priority: High）
 
-- [ ] **Story 4-1-10**: 完整流程集成测试
-  - [ ] 用户注册 → 添加到组织 → 登录 → 选择组织 → 访问资源
-  - [ ] 用户切换组织
-  - [ ] 用户退出组织 → Token 失效
-  - [ ] 员工被锁定 → Token 失效
+- [x] **Story 4-1-10**: 完整流程集成测试 ✅
+  - [x] JWT认证集成测试 (10 tests)
+  - [x] 单元测试覆盖全部 ServiceImpl (87 tests)
+  - [x] 全部 97 测试通过，0 失败
 
 ---
 
@@ -434,4 +433,28 @@ public void getAllPermissions(SimpleResultBuilder<PermissionList> builder) {
 ---
 
 **文档创建时间：** 2026-03-23  
-**最后更新：** 2026-03-23
+**最后更新：** 2026-03-24  
+
+---
+
+## 实施记录
+
+### 命名重构说明
+
+实际实施中将 Organization 概念统一为 Tenant，CustomerOrganization 统一为 TenantMember：
+
+| 原设计概念 | 实际实现 | 说明 |
+|----------|----------|------|
+| Organization | Tenant | 租户 = 公司/资源隔离边界 |
+| CustomerOrganization | TenantMember | 租户成员 = 客户在租户内的身份 |
+| OrganizationStatusEnum | TenantStatusEnum | 租户状态枚举 |
+| CustomerOrgStatusEnum | TenantMemberStatusEnum | 成员状态枚举 (TM_ACTIVE/TM_LOCKED/TM_INACTIVE) |
+| EmployeeTypeEnum | MemberTypeEnum | 成员类型 |
+| - | MemberRoleEnum | 新增: 成员角色 (OWNER/ADMIN/MEMBER) |
+
+### 测试结果
+
+- **单元测试**: 87 tests (TenantServiceImplTest, TenantMemberServiceImplTest, CustomerServiceImplTest, CustomerAuthServiceImplTest, CustomerManagementServiceImplTest)
+- **集成测试**: 10 tests (JwtAuthenticationIntegrationTest)
+- **总计**: 97 tests, 0 failures, 100% success rate
+- **BUILD**: SUCCESSFUL

@@ -56,12 +56,12 @@ enum TenantErrorEnum {
     }
   }];
 
-  TENANT_HAS_USERS = 2 [(hope.constant.field) = {
+  TENANT_HAS_MEMBERS = 2 [(hope.constant.field) = {
     code: 10004003,
-    message: "Tenant has users",
-    message2: "租户下有用户，无法删除",
+    message: "Tenant has members",
+    message2: "租户下有成员，无法删除",
     error: {
-      tips: "Remove all users from this tenant first",
+      tips: "Remove all members from this tenant first",
       phase: DOMAIN,
       severity: WARN
     }

@@ -1,15 +1,20 @@
 // @formatter:off
 package com.apihug.rad.api.tenant;
 
+import hope.common.api.PageRequest;
+import hope.common.api.Pageable;
 import hope.common.api.Result;
+import hope.common.api.annotation.ParameterObject;
 import hope.common.meta.annotation.Kind;
 import hope.common.meta.annotation.ProtoFrom;
 import hope.common.service.Priority;
 import hope.common.service.api.ServiceMethod;
 import hope.common.service.api.ServiceMethodContext;
+import hope.common.spring.PageableResultBuilder;
 import hope.common.spring.SimpleResultBuilder;
 import hope.common.spring.aspect.Aspect;
 import hope.common.spring.aspect.AspectManager;
+import hope.common.spring.helper.PageRequestGuardian;
 import jakarta.validation.Valid;
 import java.lang.Integer;
 import java.lang.String;
@@ -192,6 +197,38 @@ public class TenantController {
     }
   }
 
+  /**
+   *
+   * Authorization:
+   *
+   * <ul>
+   * 	<li>Authorities: [TENANT_CREATE]</li>
+   * </ul>
+   * @apiNote
+   * 	<p>{@code /api/tenants/tenants/search}
+   * 	<p>{@code 搜索租户（分页）}
+   */
+  @PostMapping("/api/tenants/tenants/search")
+  public ResponseEntity<Result<Pageable<TenantSummary>>> searchTenants(
+      @RequestBody @Valid SearchTenantsRequest searchTenantsRequest,
+      @ParameterObject PageRequest pageParameter) {
+    final PageableResultBuilder<TenantSummary> builder = new PageableResultBuilder<TenantSummary>();
+    searchTenantsRequest = searchTenantsRequest == null ? new SearchTenantsRequest(): searchTenantsRequest;
+    pageParameter = PageRequestGuardian.guard(pageParameter);
+    final Map<String, Object> _ctx = Map.of(Aspect.START_TIME, System.currentTimeMillis(), Aspect.CHANNEL, "API", "searchTenantsRequest", searchTenantsRequest, "pageParameter", pageParameter);
+    try {
+      aspect().before(Apis.SearchTenants, _ctx);
+      _service.searchTenants(builder, searchTenantsRequest, pageParameter);
+      ResponseEntity<Result<Pageable<TenantSummary>>> res = builder.done();
+      aspect().after(Apis.SearchTenants, _ctx, res);
+      return res;
+    } catch (Throwable exception) {
+      logger.error("FAIL_ACTION" + Apis.SearchTenants, exception);
+      aspect().exception(Apis.SearchTenants, _ctx, exception);
+      throw exception;
+    }
+  }
+
   public AspectManager aspect() {
     return AspectManager.get();
   }
@@ -206,5 +243,7 @@ public class TenantController {
     ServiceMethodContext DisableTenant = new ServiceMethodContext("com.apihug.rad.api.tenant.TenantService", "DisableTenant", "/api/tenants/tenants/{tenantId}/disable", Priority.LOW, ServiceMethod.HttpMethod.DELETE);
 
     ServiceMethodContext ConfigureTenant = new ServiceMethodContext("com.apihug.rad.api.tenant.TenantService", "ConfigureTenant", "/api/tenants/tenants/{tenantId}/configure", Priority.LOW, ServiceMethod.HttpMethod.POST);
+
+    ServiceMethodContext SearchTenants = new ServiceMethodContext("com.apihug.rad.api.tenant.TenantService", "SearchTenants", "/api/tenants/tenants/search", Priority.LOW, ServiceMethod.HttpMethod.POST);
   }
 }

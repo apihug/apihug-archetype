@@ -5,39 +5,11 @@ package com.apihug.rad.infra.auth;
 import "apihug/protobuf/extend/constant.proto";
 import "apihug/protobuf/swagger/annotations.proto";
 
-enum UserStatusEnum {
-  option (hope.swagger.enm) = {
-    description: "用户状态枚举"
-  };
-
-  ACTIVE = 0 [(hope.constant.field) = {
-    code: 1,
-    message: "active",
-    message2: "活跃"
-  }];
-
-  INACTIVE = 1 [(hope.constant.field) = {
-    code: 2,
-    message: "inactive",
-    message2: "未激活"
-  }];
-
-  LOCKED = 2 [(hope.constant.field) = {
-    code: 3,
-    message: "locked",
-    message2: "锁定"
-  }];
-
-  DISABLED = 3 [(hope.constant.field) = {
-    code: 4,
-    message: "disabled",
-    message2: "禁用"
-  }];
-}
+// UserStatusEnum 已删除 — 统一使用 CustomerStatusEnum (infra/customer/constant.proto)
 
 enum AuthErrorEnum {
   option (hope.swagger.enm) = {
-    description: "认证相关错误"
+    description: "认证流程相关错误"
   };
 
   LOGIN_FAIL = 0 [(hope.constant.field) = {
@@ -62,21 +34,21 @@ enum AuthErrorEnum {
     }
   }];
 
-  ORGANIZATION_NOT_FOUND = 2 [(hope.constant.field) = {
+  TENANT_NOT_FOUND = 2 [(hope.constant.field) = {
     code: 10006003,
-    message: "Organization not found",
-    message2: "组织不存在",
+    message: "Tenant not found",
+    message2: "租户不存在",
     error: {
-      tips: "Check if the organization ID is correct",
+      tips: "Check if the tenant ID is correct",
       phase: SERVICE,
       severity: FATAL
     }
   }];
 
-  NO_ORGANIZATION_ACCESS = 3 [(hope.constant.field) = {
+  NO_TENANT_ACCESS = 3 [(hope.constant.field) = {
     code: 10006004,
-    message: "No access to this organization",
-    message2: "无权访问该组织",
+    message: "No access to this tenant",
+    message2: "无权访问该租户",
     error: {
       tips: "Contact your administrator",
       phase: SERVICE,

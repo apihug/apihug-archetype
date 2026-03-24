@@ -40,11 +40,11 @@ enum RadAuthorityEnum {
     DEPARTMENT_DELETE = 19 [(hope.constant.field) = {code: 20, message: "department:delete", message2: "删除部门"}];
     DEPARTMENT_ASSIGN_EMPLOYEE = 20 [(hope.constant.field) = {code: 21, message: "department:assign_employee", message2: "分配员工到部门"}];
 
-    // 组织员工管理权限
-    ORGANIZATION_MEMBER_VIEW = 21 [(hope.constant.field) = {code: 22, message: "organization:member:view", message2: "查看组织员工"}];
-    ORGANIZATION_MEMBER_ADD = 22 [(hope.constant.field) = {code: 23, message: "organization:member:add", message2: "添加组织员工"}];
-    ORGANIZATION_MEMBER_REMOVE = 23 [(hope.constant.field) = {code: 24, message: "organization:member:remove", message2: "移除组织员工"}];
-    ORGANIZATION_MEMBER_LOCK = 24 [(hope.constant.field) = {code: 25, message: "organization:member:lock", message2: "锁定组织员工"}];
-    ORGANIZATION_MEMBER_ASSIGN_ROLE = 25 [(hope.constant.field) = {code: 26, message: "organization:member:assign_role", message2: "分配员工角色"}];
-    ORGANIZATION_MEMBER_ASSIGN_MENU = 26 [(hope.constant.field) = {code: 27, message: "organization:member:assign_menu", message2: "分配员工菜单"}];
+    // 租户成员管理权限
+    TENANT_MEMBER_VIEW = 21 [(hope.constant.field) = {code: 22, message: "tenant:member:view", message2: "查看租户成员"}];
+    TENANT_MEMBER_ADD = 22 [(hope.constant.field) = {code: 23, message: "tenant:member:add", message2: "添加租户成员"}];
+    TENANT_MEMBER_REMOVE = 23 [(hope.constant.field) = {code: 24, message: "tenant:member:remove", message2: "移除租户成员"}];
+    TENANT_MEMBER_LOCK = 24 [(hope.constant.field) = {code: 25, message: "tenant:member:lock", message2: "锁定租户成员"}];
+    TENANT_MEMBER_ASSIGN_ROLE = 25 [(hope.constant.field) = {code: 26, message: "tenant:member:assign_role", message2: "分配成员角色"}];
+    TENANT_MEMBER_ASSIGN_DEPARTMENT = 26 [(hope.constant.field) = {code: 27, message: "tenant:member:assign_department", message2: "分配成员部门"}];
 }

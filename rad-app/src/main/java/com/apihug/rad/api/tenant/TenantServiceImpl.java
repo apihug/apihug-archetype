@@ -1,5 +1,7 @@
 // @formatter:off
 package com.apihug.rad.api.tenant;
+import java.lang.Override;
+import java.lang.SuppressWarnings;
 
 import com.apihug.rad.domain.tenant.TenantEntity;
 import com.apihug.rad.domain.tenant.repository.TenantEntityRepository;
@@ -11,7 +13,7 @@ import hope.common.meta.annotation.Kind;
 import hope.common.meta.annotation.ProtoFrom;
 import hope.common.meta.annotation.Template;import hope.common.spring.PageableResultBuilder;
 import hope.common.spring.SimpleResultBuilder;
-import java.beans.Transient;import java.time.LocalDateTime;
+import java.time.LocalDateTime;
 import java.util.stream.Collectors;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;import org.springframework.transaction.annotation.Transactional;
@@ -88,18 +90,15 @@ public class TenantServiceImpl implements TenantService {
         .setContactEmail(entity.getContactEmail())
         .setContactPhone(entity.getContactPhone())
         .setStatus(entity.getStatus())
-        .setMaxUsers(entity.getMaxUsers())
+        .setMaxMembers(entity.getMaxUsers())
         .setMaxStorageMb(entity.getMaxStorageMb())
         .setCreatedAt(entity.getCreatedAt());
 
     builder.payload(detail);
   }
 
-  @Transactional
-  /**
-   * Update tenant
-   */
   @Override
+  @Transactional
   public void updateTenant(SimpleResultBuilder<String> builder, Integer tenantId,
       UpdateTenantRequest updateTenantRequest) {
     TenantEntity entity = tenantRepository.findById(tenantId.longValue())
@@ -120,7 +119,6 @@ public class TenantServiceImpl implements TenantService {
     }
 
     tenantRepository.save(entity);
-    builder.done();
   }
 
   /**
@@ -133,7 +131,6 @@ public class TenantServiceImpl implements TenantService {
 
     entity.setStatus(TenantStatusEnum.DISABLED);
     tenantRepository.save(entity);
-    builder.done();
   }
 
   /**
@@ -146,8 +143,8 @@ public class TenantServiceImpl implements TenantService {
         .orElseThrow(() -> HopeErrorDetailException.errorBuilder(TenantErrorEnum.TENANT_NOT_FOUND).build());
 
     // 更新配置
-    if (configureTenantRequest.getMaxUsers() != null) {
-      entity.setMaxUsers(configureTenantRequest.getMaxUsers());
+    if (configureTenantRequest.getMaxMembers() != null) {
+      entity.setMaxUsers(configureTenantRequest.getMaxMembers());
     }
     if (configureTenantRequest.getMaxStorageMb() != null) {
       entity.setMaxStorageMb(configureTenantRequest.getMaxStorageMb());
@@ -157,6 +154,24 @@ public class TenantServiceImpl implements TenantService {
     }
 
     tenantRepository.save(entity);
-    builder.done();
   }
+
+
+/**
+ * Authorization:
+ *
+ * <ul>
+ * 	<li>Authorities: [TENANT_CREATE]</li>
+ * </ul>
+ * @apiNote
+ * 	<p>{@code /api/tenants/tenants/search}
+ * 	<p>{@code 搜索租户（分页）}
+ * @see TenantService#searchTenants
+ */
+@Override
+public void searchTenants(PageableResultBuilder<TenantSummary> builder, SearchTenantsRequest searchTenantsRequest, PageRequest pageParameter) {
+    builder.notImplemented();
+}
+
+
 }

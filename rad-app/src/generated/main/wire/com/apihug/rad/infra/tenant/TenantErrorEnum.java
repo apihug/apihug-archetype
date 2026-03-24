@@ -36,7 +36,7 @@ public enum TenantErrorEnum implements Errors {
 
   public static final Error TENANT_CODE_EXISTS = new Error();
 
-  public static final Error TENANT_HAS_USERS = new Error();
+  public static final Error TENANT_HAS_MEMBERS = new Error();
 
   static {
     Map<String, Error> _ERRORS_MAP = new LinkedHashMap<>();
@@ -58,15 +58,15 @@ public enum TenantErrorEnum implements Errors {
     TENANT_CODE_EXISTS.setSeverity(Severity.WARN);
     _ERRORS_MAP.put("TENANT_CODE_EXISTS", TENANT_CODE_EXISTS);
     ERRORS.add(TENANT_CODE_EXISTS);
-    TENANT_HAS_USERS.setDomain("rad");
-    TENANT_HAS_USERS.setCode(10004003);
-    TENANT_HAS_USERS.setDescription("Tenant has users");
-    TENANT_HAS_USERS.setDescription2("租户下有用户，无法删除");
-    TENANT_HAS_USERS.setTips("Remove all users from this tenant first");
-    TENANT_HAS_USERS.setPhase(Phase.DOMAIN);
-    TENANT_HAS_USERS.setSeverity(Severity.WARN);
-    _ERRORS_MAP.put("TENANT_HAS_USERS", TENANT_HAS_USERS);
-    ERRORS.add(TENANT_HAS_USERS);
+    TENANT_HAS_MEMBERS.setDomain("rad");
+    TENANT_HAS_MEMBERS.setCode(10004003);
+    TENANT_HAS_MEMBERS.setDescription("Tenant has members");
+    TENANT_HAS_MEMBERS.setDescription2("租户下有成员，无法删除");
+    TENANT_HAS_MEMBERS.setTips("Remove all members from this tenant first");
+    TENANT_HAS_MEMBERS.setPhase(Phase.DOMAIN);
+    TENANT_HAS_MEMBERS.setSeverity(Severity.WARN);
+    _ERRORS_MAP.put("TENANT_HAS_MEMBERS", TENANT_HAS_MEMBERS);
+    ERRORS.add(TENANT_HAS_MEMBERS);
     ERRORS_MAP = Collections.unmodifiableMap(_ERRORS_MAP);
   }
 

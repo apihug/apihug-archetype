@@ -1,23 +1,23 @@
 // @formatter:off
 package com.apihug.rad.domain.bootstrap.converter;
 
-import com.apihug.rad.domain.bootstrap.mixer.CustomerOrgStatusEnumTitleList;
 import com.apihug.rad.domain.bootstrap.mixer.CustomerStatusEnumTitleList;
 import com.apihug.rad.domain.bootstrap.mixer.DeptStatusEnumTitleList;
-import com.apihug.rad.domain.bootstrap.mixer.EmployeeTypeEnumTitleList;
+import com.apihug.rad.domain.bootstrap.mixer.MemberRoleEnumTitleList;
+import com.apihug.rad.domain.bootstrap.mixer.MemberTypeEnumTitleList;
 import com.apihug.rad.domain.bootstrap.mixer.MenuStatusEnumTitleList;
 import com.apihug.rad.domain.bootstrap.mixer.MenuTypeEnumTitleList;
-import com.apihug.rad.domain.bootstrap.mixer.OrganizationStatusEnumTitleList;
 import com.apihug.rad.domain.bootstrap.mixer.RoleStatusEnumTitleList;
+import com.apihug.rad.domain.bootstrap.mixer.TenantMemberStatusEnumTitleList;
 import com.apihug.rad.domain.bootstrap.mixer.TenantStatusEnumTitleList;
 import com.apihug.rad.infra.customer.CustomerStatusEnum;
 import com.apihug.rad.infra.department.DeptStatusEnum;
 import com.apihug.rad.infra.menu.MenuStatusEnum;
 import com.apihug.rad.infra.menu.MenuTypeEnum;
-import com.apihug.rad.infra.organization.CustomerOrgStatusEnum;
-import com.apihug.rad.infra.organization.EmployeeTypeEnum;
-import com.apihug.rad.infra.organization.OrganizationStatusEnum;
 import com.apihug.rad.infra.role.RoleStatusEnum;
+import com.apihug.rad.infra.tenant.MemberRoleEnum;
+import com.apihug.rad.infra.tenant.MemberTypeEnum;
+import com.apihug.rad.infra.tenant.TenantMemberStatusEnum;
 import com.apihug.rad.infra.tenant.TenantStatusEnum;
 import java.lang.Override;
 import java.lang.String;
@@ -33,10 +33,6 @@ import org.springframework.data.convert.WritingConverter;
 public abstract class RadConverters {
   public static List<Converter> getConvertersToRegister() {
     List<Converter> converters = new ArrayList<>();
-    converters.add(CustomerOrgStatusEnumReaderTitleConverter.INSTANCE);
-    converters.add(CustomerOrgStatusEnumTitleListReaderConverter.INSTANCE);
-    converters.add(CustomerOrgStatusEnumTitleListWriterConverter.INSTANCE);
-    converters.add(CustomerOrgStatusEnumWriterTitleConverter.INSTANCE);
     converters.add(CustomerStatusEnumReaderTitleConverter.INSTANCE);
     converters.add(CustomerStatusEnumTitleListReaderConverter.INSTANCE);
     converters.add(CustomerStatusEnumTitleListWriterConverter.INSTANCE);
@@ -45,10 +41,14 @@ public abstract class RadConverters {
     converters.add(DeptStatusEnumTitleListReaderConverter.INSTANCE);
     converters.add(DeptStatusEnumTitleListWriterConverter.INSTANCE);
     converters.add(DeptStatusEnumWriterTitleConverter.INSTANCE);
-    converters.add(EmployeeTypeEnumReaderTitleConverter.INSTANCE);
-    converters.add(EmployeeTypeEnumTitleListReaderConverter.INSTANCE);
-    converters.add(EmployeeTypeEnumTitleListWriterConverter.INSTANCE);
-    converters.add(EmployeeTypeEnumWriterTitleConverter.INSTANCE);
+    converters.add(MemberRoleEnumReaderTitleConverter.INSTANCE);
+    converters.add(MemberRoleEnumTitleListReaderConverter.INSTANCE);
+    converters.add(MemberRoleEnumTitleListWriterConverter.INSTANCE);
+    converters.add(MemberRoleEnumWriterTitleConverter.INSTANCE);
+    converters.add(MemberTypeEnumReaderTitleConverter.INSTANCE);
+    converters.add(MemberTypeEnumTitleListReaderConverter.INSTANCE);
+    converters.add(MemberTypeEnumTitleListWriterConverter.INSTANCE);
+    converters.add(MemberTypeEnumWriterTitleConverter.INSTANCE);
     converters.add(MenuStatusEnumReaderTitleConverter.INSTANCE);
     converters.add(MenuStatusEnumTitleListReaderConverter.INSTANCE);
     converters.add(MenuStatusEnumTitleListWriterConverter.INSTANCE);
@@ -57,72 +57,19 @@ public abstract class RadConverters {
     converters.add(MenuTypeEnumTitleListReaderConverter.INSTANCE);
     converters.add(MenuTypeEnumTitleListWriterConverter.INSTANCE);
     converters.add(MenuTypeEnumWriterTitleConverter.INSTANCE);
-    converters.add(OrganizationStatusEnumReaderTitleConverter.INSTANCE);
-    converters.add(OrganizationStatusEnumTitleListReaderConverter.INSTANCE);
-    converters.add(OrganizationStatusEnumTitleListWriterConverter.INSTANCE);
-    converters.add(OrganizationStatusEnumWriterTitleConverter.INSTANCE);
     converters.add(RoleStatusEnumReaderTitleConverter.INSTANCE);
     converters.add(RoleStatusEnumTitleListReaderConverter.INSTANCE);
     converters.add(RoleStatusEnumTitleListWriterConverter.INSTANCE);
     converters.add(RoleStatusEnumWriterTitleConverter.INSTANCE);
+    converters.add(TenantMemberStatusEnumReaderTitleConverter.INSTANCE);
+    converters.add(TenantMemberStatusEnumTitleListReaderConverter.INSTANCE);
+    converters.add(TenantMemberStatusEnumTitleListWriterConverter.INSTANCE);
+    converters.add(TenantMemberStatusEnumWriterTitleConverter.INSTANCE);
     converters.add(TenantStatusEnumReaderTitleConverter.INSTANCE);
     converters.add(TenantStatusEnumTitleListReaderConverter.INSTANCE);
     converters.add(TenantStatusEnumTitleListWriterConverter.INSTANCE);
     converters.add(TenantStatusEnumWriterTitleConverter.INSTANCE);
     return converters;
-  }
-
-  @ReadingConverter
-  public enum CustomerOrgStatusEnumReaderTitleConverter implements Converter<String, CustomerOrgStatusEnum> {
-    INSTANCE;
-
-    @Override
-    public CustomerOrgStatusEnum convert(String source) {
-      return source == null ? CustomerOrgStatusEnum.NA : CustomerOrgStatusEnum.NA.mapFromName(source);
-    }
-  }
-
-  @ReadingConverter
-  public enum CustomerOrgStatusEnumTitleListReaderConverter implements Converter<String, CustomerOrgStatusEnumTitleList> {
-    INSTANCE;
-
-    @Override
-    public CustomerOrgStatusEnumTitleList convert(String source) {
-      if (source == null || source.isBlank()) {
-        return CustomerOrgStatusEnumTitleList.EMPTY;
-      }
-      final CustomerOrgStatusEnumTitleList res = new CustomerOrgStatusEnumTitleList();
-      for (final String each : source.split(",")) {
-        CustomerOrgStatusEnum got = CustomerOrgStatusEnum.NA.mapFromName(each);
-        if (CustomerOrgStatusEnum.NA != got) {
-          res.add(got);
-        }
-      }
-      return res;
-    }
-  }
-
-  @WritingConverter
-  public enum CustomerOrgStatusEnumTitleListWriterConverter implements Converter<CustomerOrgStatusEnumTitleList, String> {
-    INSTANCE;
-
-    @Override
-    public String convert(CustomerOrgStatusEnumTitleList source) {
-      if (source == null || source.isEmpty()) {
-        return null;
-      }
-      return source.stream().map(it -> it.name()).collect(Collectors.joining(","));
-    }
-  }
-
-  @WritingConverter
-  public enum CustomerOrgStatusEnumWriterTitleConverter implements Converter<CustomerOrgStatusEnum, String> {
-    INSTANCE;
-
-    @Override
-    public String convert(CustomerOrgStatusEnum source) {
-      return source == null ? null : source.title();
-    }
   }
 
   @ReadingConverter
@@ -232,28 +179,28 @@ public abstract class RadConverters {
   }
 
   @ReadingConverter
-  public enum EmployeeTypeEnumReaderTitleConverter implements Converter<String, EmployeeTypeEnum> {
+  public enum MemberRoleEnumReaderTitleConverter implements Converter<String, MemberRoleEnum> {
     INSTANCE;
 
     @Override
-    public EmployeeTypeEnum convert(String source) {
-      return source == null ? EmployeeTypeEnum.NA : EmployeeTypeEnum.NA.mapFromName(source);
+    public MemberRoleEnum convert(String source) {
+      return source == null ? MemberRoleEnum.NA : MemberRoleEnum.NA.mapFromName(source);
     }
   }
 
   @ReadingConverter
-  public enum EmployeeTypeEnumTitleListReaderConverter implements Converter<String, EmployeeTypeEnumTitleList> {
+  public enum MemberRoleEnumTitleListReaderConverter implements Converter<String, MemberRoleEnumTitleList> {
     INSTANCE;
 
     @Override
-    public EmployeeTypeEnumTitleList convert(String source) {
+    public MemberRoleEnumTitleList convert(String source) {
       if (source == null || source.isBlank()) {
-        return EmployeeTypeEnumTitleList.EMPTY;
+        return MemberRoleEnumTitleList.EMPTY;
       }
-      final EmployeeTypeEnumTitleList res = new EmployeeTypeEnumTitleList();
+      final MemberRoleEnumTitleList res = new MemberRoleEnumTitleList();
       for (final String each : source.split(",")) {
-        EmployeeTypeEnum got = EmployeeTypeEnum.NA.mapFromName(each);
-        if (EmployeeTypeEnum.NA != got) {
+        MemberRoleEnum got = MemberRoleEnum.NA.mapFromName(each);
+        if (MemberRoleEnum.NA != got) {
           res.add(got);
         }
       }
@@ -262,11 +209,11 @@ public abstract class RadConverters {
   }
 
   @WritingConverter
-  public enum EmployeeTypeEnumTitleListWriterConverter implements Converter<EmployeeTypeEnumTitleList, String> {
+  public enum MemberRoleEnumTitleListWriterConverter implements Converter<MemberRoleEnumTitleList, String> {
     INSTANCE;
 
     @Override
-    public String convert(EmployeeTypeEnumTitleList source) {
+    public String convert(MemberRoleEnumTitleList source) {
       if (source == null || source.isEmpty()) {
         return null;
       }
@@ -275,11 +222,64 @@ public abstract class RadConverters {
   }
 
   @WritingConverter
-  public enum EmployeeTypeEnumWriterTitleConverter implements Converter<EmployeeTypeEnum, String> {
+  public enum MemberRoleEnumWriterTitleConverter implements Converter<MemberRoleEnum, String> {
     INSTANCE;
 
     @Override
-    public String convert(EmployeeTypeEnum source) {
+    public String convert(MemberRoleEnum source) {
+      return source == null ? null : source.title();
+    }
+  }
+
+  @ReadingConverter
+  public enum MemberTypeEnumReaderTitleConverter implements Converter<String, MemberTypeEnum> {
+    INSTANCE;
+
+    @Override
+    public MemberTypeEnum convert(String source) {
+      return source == null ? MemberTypeEnum.NA : MemberTypeEnum.NA.mapFromName(source);
+    }
+  }
+
+  @ReadingConverter
+  public enum MemberTypeEnumTitleListReaderConverter implements Converter<String, MemberTypeEnumTitleList> {
+    INSTANCE;
+
+    @Override
+    public MemberTypeEnumTitleList convert(String source) {
+      if (source == null || source.isBlank()) {
+        return MemberTypeEnumTitleList.EMPTY;
+      }
+      final MemberTypeEnumTitleList res = new MemberTypeEnumTitleList();
+      for (final String each : source.split(",")) {
+        MemberTypeEnum got = MemberTypeEnum.NA.mapFromName(each);
+        if (MemberTypeEnum.NA != got) {
+          res.add(got);
+        }
+      }
+      return res;
+    }
+  }
+
+  @WritingConverter
+  public enum MemberTypeEnumTitleListWriterConverter implements Converter<MemberTypeEnumTitleList, String> {
+    INSTANCE;
+
+    @Override
+    public String convert(MemberTypeEnumTitleList source) {
+      if (source == null || source.isEmpty()) {
+        return null;
+      }
+      return source.stream().map(it -> it.name()).collect(Collectors.joining(","));
+    }
+  }
+
+  @WritingConverter
+  public enum MemberTypeEnumWriterTitleConverter implements Converter<MemberTypeEnum, String> {
+    INSTANCE;
+
+    @Override
+    public String convert(MemberTypeEnum source) {
       return source == null ? null : source.title();
     }
   }
@@ -391,59 +391,6 @@ public abstract class RadConverters {
   }
 
   @ReadingConverter
-  public enum OrganizationStatusEnumReaderTitleConverter implements Converter<String, OrganizationStatusEnum> {
-    INSTANCE;
-
-    @Override
-    public OrganizationStatusEnum convert(String source) {
-      return source == null ? OrganizationStatusEnum.NA : OrganizationStatusEnum.NA.mapFromName(source);
-    }
-  }
-
-  @ReadingConverter
-  public enum OrganizationStatusEnumTitleListReaderConverter implements Converter<String, OrganizationStatusEnumTitleList> {
-    INSTANCE;
-
-    @Override
-    public OrganizationStatusEnumTitleList convert(String source) {
-      if (source == null || source.isBlank()) {
-        return OrganizationStatusEnumTitleList.EMPTY;
-      }
-      final OrganizationStatusEnumTitleList res = new OrganizationStatusEnumTitleList();
-      for (final String each : source.split(",")) {
-        OrganizationStatusEnum got = OrganizationStatusEnum.NA.mapFromName(each);
-        if (OrganizationStatusEnum.NA != got) {
-          res.add(got);
-        }
-      }
-      return res;
-    }
-  }
-
-  @WritingConverter
-  public enum OrganizationStatusEnumTitleListWriterConverter implements Converter<OrganizationStatusEnumTitleList, String> {
-    INSTANCE;
-
-    @Override
-    public String convert(OrganizationStatusEnumTitleList source) {
-      if (source == null || source.isEmpty()) {
-        return null;
-      }
-      return source.stream().map(it -> it.name()).collect(Collectors.joining(","));
-    }
-  }
-
-  @WritingConverter
-  public enum OrganizationStatusEnumWriterTitleConverter implements Converter<OrganizationStatusEnum, String> {
-    INSTANCE;
-
-    @Override
-    public String convert(OrganizationStatusEnum source) {
-      return source == null ? null : source.title();
-    }
-  }
-
-  @ReadingConverter
   public enum RoleStatusEnumReaderTitleConverter implements Converter<String, RoleStatusEnum> {
     INSTANCE;
 
@@ -492,6 +439,59 @@ public abstract class RadConverters {
 
     @Override
     public String convert(RoleStatusEnum source) {
+      return source == null ? null : source.title();
+    }
+  }
+
+  @ReadingConverter
+  public enum TenantMemberStatusEnumReaderTitleConverter implements Converter<String, TenantMemberStatusEnum> {
+    INSTANCE;
+
+    @Override
+    public TenantMemberStatusEnum convert(String source) {
+      return source == null ? TenantMemberStatusEnum.NA : TenantMemberStatusEnum.NA.mapFromName(source);
+    }
+  }
+
+  @ReadingConverter
+  public enum TenantMemberStatusEnumTitleListReaderConverter implements Converter<String, TenantMemberStatusEnumTitleList> {
+    INSTANCE;
+
+    @Override
+    public TenantMemberStatusEnumTitleList convert(String source) {
+      if (source == null || source.isBlank()) {
+        return TenantMemberStatusEnumTitleList.EMPTY;
+      }
+      final TenantMemberStatusEnumTitleList res = new TenantMemberStatusEnumTitleList();
+      for (final String each : source.split(",")) {
+        TenantMemberStatusEnum got = TenantMemberStatusEnum.NA.mapFromName(each);
+        if (TenantMemberStatusEnum.NA != got) {
+          res.add(got);
+        }
+      }
+      return res;
+    }
+  }
+
+  @WritingConverter
+  public enum TenantMemberStatusEnumTitleListWriterConverter implements Converter<TenantMemberStatusEnumTitleList, String> {
+    INSTANCE;
+
+    @Override
+    public String convert(TenantMemberStatusEnumTitleList source) {
+      if (source == null || source.isEmpty()) {
+        return null;
+      }
+      return source.stream().map(it -> it.name()).collect(Collectors.joining(","));
+    }
+  }
+
+  @WritingConverter
+  public enum TenantMemberStatusEnumWriterTitleConverter implements Converter<TenantMemberStatusEnum, String> {
+    INSTANCE;
+
+    @Override
+    public String convert(TenantMemberStatusEnum source) {
       return source == null ? null : source.title();
     }
   }

@@ -8,13 +8,13 @@
 
 ## 📋 功能概述
 
-认证模块提供完整的用户认证和授权功能，包括：
+认证模块提供完整的客户认证和授权功能，包括：
 
-- ✅ 用户登录/登出
+- ✅ 客户登录/登出
 - ✅ JWT Token 生成和验证
-- ✅ 获取当前用户完整信息
-- ✅ 用户组织管理
-- ✅ 组织切换
+- ✅ 获取当前客户完整信息
+- ✅ 客户租户列表
+- ✅ 租户切换
 
 ---
 
@@ -30,9 +30,9 @@
 │  ┌─────────────────────────────────────────────────┐    │
 │  │ - login()                                       │    │
 │  │ - logout()                                      │    │
-│  │ - getCurrentUserInfo()                          │    │
-│  │ - getUserOrganizations()                        │    │
-│  │ - switchOrganization()                          │    │
+│  │ - getCurrentCustomerInfo()                      │    │
+│  │ - getCustomerTenants()                          │    │
+│  │ - switchTenant()                                │    │
 │  └─────────────────────────────────────────────────┘    │
 │                     ↓                                    │
 │  ┌─────────────────────────────────────────────────┐    │
@@ -48,7 +48,7 @@
 | 依赖 | 用途 |
 |------|------|
 | `JWTTokenProvider` | JWT Token 生成和验证 |
-| `CustomerEntityRepository` | 用户数据访问 |
+| `CustomerEntityRepository` | 客户数据访问 |
 | `PasswordEncoder` | 密码加密（SHA256） |
 | `HopeContextHolder` | 获取当前登录用户上下文 |
 
@@ -59,15 +59,15 @@
 ### 登录流程
 
 ```
-1. 用户请求 POST /api/auth/login
+1. 客户请求 POST /api/auth/login
    ↓
 2. CustomerAuthServiceImpl.login()
    ↓
-3. 验证用户名密码
+3. 验证客户名密码
    - customerRepository.findByUsername()
    - passwordEncoder.matches()
    ↓
-4. 检查用户状态
+4. 检查客户状态
    - status == ACTIVE
    ↓
 5. 生成 JWT Token
@@ -75,8 +75,8 @@
    ↓
 6. 返回 LoginResponse
    - access_token
-   - user_info
-   - organizations
+   - customer_info
+   - tenants
 ```
 
 ### 代码示例
@@ -86,7 +86,7 @@
 public void login(SimpleResultBuilder<LoginResponse> builder,
     LoginRequest loginRequest) {
   
-  // 1. 查找用户
+  // 1. 查找客户
   CustomerEntity customer = customerRepository.findByUsername(loginRequest.getUsername())
       .orElseThrow(() -> HopeErrorDetailException.errorBuilder(AuthErrorEnum.LOGIN_FAIL).build());
 
@@ -96,7 +96,7 @@ public void login(SimpleResultBuilder<LoginResponse> builder,
   }
 
   // 3. 检查状态
-  if (customer.getStatus() != UserStatusEnum.ACTIVE) {
+  if (customer.getStatus() != CustomerStatusEnum.ACTIVE) {
     throw HopeErrorDetailException.errorBuilder(AuthErrorEnum.ACCOUNT_LOCKED).build();
   }
 
@@ -116,37 +116,35 @@ public void login(SimpleResultBuilder<LoginResponse> builder,
 
 ---
 
-## 👤 获取当前用户信息
+## 👤 获取当前客户信息
 
-### API: GET /api/auth/current-user-info
+### API: GET /api/customer/current-info
 
-**功能：** 获取当前登录用户的完整信息，包括权限、角色、部门等。
+**功能：** 获取当前登录客户的完整信息，包括权限、角色、部门等。
 
 **实现：**
 
 ```java
 @Override
-public void getCurrentUserInfo(SimpleResultBuilder<CurrentUserInfo> builder) {
-    // 1. 获取当前登录用户 ID
+public void getCurrentCustomerInfo(SimpleResultBuilder<CurrentCustomerInfo> builder) {
+    // 1. 获取当前登录客户 ID
     Long customerId = (Long) HopeContextHolder.customer().getId();
     
-    // 2. 查询用户信息
+    // 2. 查询客户信息
     CustomerEntity customer = customerRepository.findById(customerId)
         .orElseThrow(() -> HopeErrorDetailException.errorBuilder(CustomerErrorEnum.CUSTOMER_NOT_FOUND).build());
 
-    // 3. 构建响应
-    CurrentUserInfo userInfo = new CurrentUserInfo()
-        .setUser(new CustomerInfo()
+    // 3. 查询客户当前租户的成员信息
+    // 4. 加载租户详情
+
+    // 5. 构建响应
+    CurrentCustomerInfo info = new CurrentCustomerInfo()
+        .setCustomer(new CustomerInfo()
             .setCustomerId(customer.getId())
             .setUsername(customer.getUsername())
             .setTenantId(customer.getDefaultTenantId()));
 
-    // TODO: 加载用户角色列表
-    // TODO: 加载用户权限列表
-    // TODO: 加载用户部门信息
-    // TODO: 加载当前组织信息
-
-    builder.payload(userInfo);
+    builder.payload(info);
 }
 ```
 
@@ -169,8 +167,8 @@ public void getCurrentUserInfo(SimpleResultBuilder<CurrentUserInfo> builder) {
       }
     ],
     "authorities": [
-      "user:view",
-      "user:create",
+      "customer:view",
+      "customer:create",
       "role:view"
     ],
     "department": {
@@ -178,10 +176,11 @@ public void getCurrentUserInfo(SimpleResultBuilder<CurrentUserInfo> builder) {
       "dept_code": "tech_dev",
       "dept_name": "研发部"
     },
-    "current_organization": {
+    "current_tenant": {
       "id": 1,
-      "organization_code": "acme_corp",
-      "organization_name": "Acme 公司"
+      "tenant_code": "acme_corp",
+      "tenant_name": "Acme 公司",
+      "is_platform": false
     }
   }
 }
@@ -189,21 +188,21 @@ public void getCurrentUserInfo(SimpleResultBuilder<CurrentUserInfo> builder) {
 
 ---
 
-## 🏢 组织切换
+## 🏢 租户切换
 
-### API: POST /api/auth/switch-organization
+### API: POST /api/customer/switch-tenant
 
-**功能：** 用户切换到另一个组织，生成新的 Token。
+**功能：** 客户切换到另一个租户，生成新的 Token。
 
 **实现：**
 
 ```java
 @Override
-public void switchOrganization(SimpleResultBuilder<LoginResponse> builder,
-    SwitchOrganizationRequest switchOrganizationRequest) {
+public void switchTenant(SimpleResultBuilder<LoginResponse> builder,
+    SwitchTenantRequest switchTenantRequest) {
   
-  // 1. 验证用户是否有该组织权限
-  // 2. 生成新 Token（包含新组织 ID）
+  // 1. 验证客户是否是该租户的成员
+  // 2. 生成新 Token（包含新租户 ID）
   // 3. 返回新的登录响应
   
   LoginResponse response = new LoginResponse();
@@ -212,15 +211,15 @@ public void switchOrganization(SimpleResultBuilder<LoginResponse> builder,
 ```
 
 **TODO 实现：**
-- [ ] 验证用户组织权限
-- [ ] 生成包含新组织 ID 的 Token
-- [ ] 刷新用户权限缓存
+- [ ] 验证客户租户成员身份
+- [ ] 生成包含新租户 ID 的 Token
+- [ ] 刷新客户权限缓存
 
 ---
 
 ## 📊 数据库表结构
 
-### SYS_CUSTOMER (用户表)
+### SYS_CUSTOMER (客户表)
 
 | 字段 | 类型 | 说明 |
 |------|------|------|
@@ -236,15 +235,17 @@ public void switchOrganization(SimpleResultBuilder<LoginResponse> builder,
 | UPDATED_AT | TIMESTAMP | 更新时间 |
 | UPDATED_BY | BIGINT | 更新人 |
 
-### SYS_USER_ORGANIZATION (用户组织关联表)
+### SYS_TENANT_MEMBER (租户成员关联表)
 
 | 字段 | 类型 | 说明 |
 |------|------|------|
 | ID | BIGINT | 主键 |
-| USER_ID | BIGINT | 用户 ID |
-| ORGANIZATION_ID | BIGINT | 组织 ID |
-| IS_DEFAULT | BOOLEAN | 是否默认组织 |
+| CUSTOMER_ID | BIGINT | 客户 ID |
+| TENANT_ID | BIGINT | 租户 ID |
+| MEMBER_ROLE | VARCHAR(20) | 成员角色（OWNER/ADMIN/MEMBER） |
 | DEPARTMENT_ID | BIGINT | 部门 ID |
+| IS_LOCKED | BOOLEAN | 是否锁定 |
+| IS_DEFAULT | BOOLEAN | 是否默认租户 |
 | CREATED_AT | TIMESTAMP | 创建时间 |
 | CREATED_BY | BIGINT | 创建人 |
 
@@ -295,7 +296,7 @@ void testLogin_Success() {
     CustomerEntity customer = new CustomerEntity()
         .setId(1L)
         .setUsername("admin")
-        .setStatus(UserStatusEnum.ACTIVE);
+        .setStatus(CustomerStatusEnum.ACTIVE);
 
     when(customerRepository.findByUsername("admin")).thenReturn(Optional.of(customer));
 
@@ -315,12 +316,12 @@ void testLogin_Success() {
 - [ ] 登录失败次数限制（Redis 计数）
 - [ ] 账户锁定时间控制
 - [ ] 密码强度验证
-- [ ] 用户角色列表加载
-- [ ] 用户权限列表加载
-- [ ] 用户部门信息加载
+- [ ] 客户角色列表加载
+- [ ] 客户权限列表加载
+- [ ] 客户部门信息加载
 
 ### 中优先级
-- [ ] 组织切换完整实现
+- [ ] 租户切换完整实现
 - [ ] Token 刷新接口
 - [ ] 登录日志记录
 - [ ] 在线用户管理
@@ -337,4 +338,4 @@ void testLogin_Success() {
 
 ---
 
-**文档更新日期：** 2026-03-20
+**文档更新日期：** 2026-03-24

@@ -1,26 +1,24 @@
 # 部门管理模块详细文档
 
 **模块路径：** `com.apihug.rad.api.department`  
-**主要 Service：** `DepartmentServiceImpl`, `DepartmentEmployeeServiceImpl`  
-**Proto 文件：** `api/department/api.proto`, `api/department/employee.proto`  
-**实体文件：** `domain/department/domain.proto`, `domain/department/employee.proto`  
+**主要 Service：** `DepartmentServiceImpl`  
+**Proto 文件：** `api/department/api.proto`  
+**实体文件：** `domain/department/domain.proto`  
 
 ---
 
 ## 📋 功能概述
 
-部门管理模块提供完整的部门 CRUD 和员工管理功能：
+部门管理模块提供完整的部门 CRUD 功能：
 
 ### 部门管理
 - ✅ 部门 CRUD
 - ✅ 部门树查询
 - ✅ 部门搜索（分页）
+- ✅ 租户隔离（tenant_id）
 
-### 员工管理
-- ✅ 添加员工到部门
-- ✅ 从部门移除员工
-- ✅ 员工调岗
-- ✅ 获取部门员工列表
+> **注意：** 员工/成员与部门的关联已移至租户成员管理模块（TenantMemberService），
+> 通过 TenantMemberEntity.department_id 实现成员部门分配。
 
 ---
 
@@ -45,22 +43,6 @@
 │         _DepartmentEntityRepository (Trait)             │
 │  - findByParentId()                                     │
 │  - searchDepartments()                                  │
-└─────────────────────────────────────────────────────────┘
-
-┌─────────────────────────────────────────────────────────┐
-│         DepartmentEmployeeController (Generated)         │
-├─────────────────────────────────────────────────────────┤
-│         DepartmentEmployeeServiceImpl                    │
-│  - addEmployeeToDepartment()                             │
-│  - removeEmployeeFromDepartment()                        │
-│  - transferEmployee()                                    │
-│  - getDepartmentEmployees()                              │
-└─────────────────────────────────────────────────────────┘
-                          ↓
-┌─────────────────────────────────────────────────────────┐
-│    _DepartmentEmployeeEntityRepository (Trait)          │
-│  - findByEmployeeIdAndDepartmentId()                    │
-│  - findByDepartmentId()                                 │
 └─────────────────────────────────────────────────────────┘
 ```
 
@@ -97,6 +79,7 @@ public void createDepartment(SimpleResultBuilder<DepartmentSummary> builder,
 
   // 3. 创建实体
   DepartmentEntity entity = new DepartmentEntity()
+      .setTenantId(createRequest.getTenantId())
       .setParentId(createRequest.getParentId())
       .setDeptCode(createRequest.getDeptCode())
       .setDeptName(createRequest.getDeptName())
@@ -257,6 +240,7 @@ public void transferEmployee(SimpleResultBuilder<String> builder,
 | 字段 | 类型 | 约束 | 说明 |
 |------|------|------|------|
 | ID | BIGINT | PRIMARY KEY | 主键 |
+| TENANT_ID | BIGINT | NOT NULL | 租户 ID |
 | PARENT_ID | BIGINT | NOT NULL, DEFAULT 0 | 父部门 ID |
 | DEPT_CODE | VARCHAR(50) | UNIQUE, NOT NULL | 部门代码 |
 | DEPT_NAME | VARCHAR(100) | NOT NULL | 部门名称 |
@@ -275,26 +259,11 @@ public void transferEmployee(SimpleResultBuilder<String> builder,
 ```sql
 CREATE UNIQUE INDEX UK_SYS_DEPT_CODE ON SYS_DEPARTMENT(DEPT_CODE);
 CREATE INDEX IDX_SYS_DEPT_PARENT_ID ON SYS_DEPARTMENT(PARENT_ID);
+CREATE INDEX IDX_SYS_DEPT_TENANT_ID ON SYS_DEPARTMENT(TENANT_ID);
 CREATE INDEX IDX_SYS_DEPT_CODE ON SYS_DEPARTMENT(DEPT_CODE);
 ```
 
-### SYS_DEPARTMENT_EMPLOYEE (部门员工关联表)
-
-| 字段 | 类型 | 约束 | 说明 |
-|------|------|------|------|
-| ID | BIGINT | PRIMARY KEY | 主键 |
-| EMPLOYEE_ID | BIGINT | NOT NULL | 员工 ID |
-| DEPARTMENT_ID | BIGINT | NOT NULL | 部门 ID |
-| POSITION | VARCHAR(100) | | 职位 |
-| IS_PRIMARY | BOOLEAN | NOT NULL, DEFAULT FALSE | 是否主部门 |
-| CREATED_AT | TIMESTAMP | NOT NULL | 创建时间 |
-| CREATED_BY | BIGINT | NOT NULL | 创建人 |
-
-**唯一约束：**
-```sql
-CREATE UNIQUE INDEX UK_SYS_DEPT_EMP ON SYS_DEPARTMENT_EMPLOYEE(EMPLOYEE_ID, DEPARTMENT_ID);
-CREATE INDEX IDX_SYS_DEPT_EMP_DEPT_ID ON SYS_DEPARTMENT_EMPLOYEE(DEPARTMENT_ID);
-```
+> **注意：** 原 SYS_DEPARTMENT_EMPLOYEE 表已废弃，成员部门关联通过 SYS_TENANT_MEMBER.DEPARTMENT_ID 实现。
 
 ---
 
@@ -305,7 +274,6 @@ CREATE INDEX IDX_SYS_DEPT_EMP_DEPT_ID ON SYS_DEPARTMENT_EMPLOYEE(DEPARTMENT_ID);
 | 测试类 | 测试方法数 | 覆盖功能 |
 |--------|-----------|---------|
 | `DepartmentServiceImplTest` | 11 | 部门 CRUD、树查询 |
-| `DepartmentEmployeeServiceImplTest` | 7 | 员工管理、调岗 |
 
 ---
 
@@ -313,8 +281,8 @@ CREATE INDEX IDX_SYS_DEPT_EMP_DEPT_ID ON SYS_DEPARTMENT_EMPLOYEE(DEPARTMENT_ID);
 
 ### 高优先级
 - [ ] 部门路径计算（用于快速查询上级部门）
-- [ ] 部门负责人自动关联用户
-- [ ] 部门员工统计
+- [ ] 部门负责人自动关联客户
+- [ ] 部门成员统计（通过 TenantMember.department_id 查询）
 
 ### 中优先级
 - [ ] 部门合并功能
@@ -323,4 +291,4 @@ CREATE INDEX IDX_SYS_DEPT_EMP_DEPT_ID ON SYS_DEPARTMENT_EMPLOYEE(DEPARTMENT_ID);
 
 ---
 
-**文档更新日期：** 2026-03-20
+**文档更新日期：** 2026-03-24

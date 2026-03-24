@@ -1,0 +1,88 @@
+syntax = "proto3";
+
+package com.apihug.rad.domain.tenant;
+
+import "apihug/protobuf/domain/annotations.proto";
+import "com/apihug/rad/infra/tenant/member_constant.proto";
+
+// 租户成员实体 — 表示 Customer 在某个 Tenant 中的身份（员工/成员）
+// 替代原 CustomerOrganizationEntity
+message TenantMemberEntity {
+  option (hope.persistence.table) = {
+    name: "SYS_TENANT_MEMBER",
+    description: "租户成员表（客户与租户的关联，表示成员身份）",
+    wires: [IDENTIFIABLE, AUDITABLE],
+    indexes: {
+      name: "IDX_SYS_TM_CUSTOMER_ID",
+      column_list: ["customer_id"]
+    },
+    indexes: {
+      name: "IDX_SYS_TM_TENANT_ID",
+      column_list: ["tenant_id"]
+    },
+    unique_constraints: {
+      name: "UK_SYS_TM_CUSTOMER_TENANT",
+      column_list: ["customer_id", "tenant_id"]
+    }
+  };
+
+  int64 customer_id = 1 [(hope.persistence.column) = {
+    name: "CUSTOMER_ID",
+    description: "客户 ID",
+    nullable: false
+  }];
+
+  int64 tenant_id = 2 [(hope.persistence.column) = {
+    name: "TENANT_ID",
+    description: "租户 ID",
+    nullable: false
+  }];
+
+  bool is_default = 3 [(hope.persistence.column) = {
+    name: "IS_DEFAULT",
+    description: "是否默认租户",
+    nullable: false,
+    default_value: "false"
+  }];
+
+  com.apihug.rad.infra.tenant.MemberTypeEnum member_type = 4 [(hope.persistence.column) = {
+    name: "MEMBER_TYPE",
+    description: "成员类型（全职/兼职/外包/实习）",
+    nullable: false,
+    enum_type: STRING,
+    length: 20,
+    default_value: "FULL_TIME"
+  }];
+
+  com.apihug.rad.infra.tenant.MemberRoleEnum member_role = 5 [(hope.persistence.column) = {
+    name: "MEMBER_ROLE",
+    description: "成员角色（拥有者/管理员/普通成员）",
+    nullable: false,
+    enum_type: STRING,
+    length: 20,
+    default_value: "MEMBER"
+  }];
+
+  com.apihug.rad.infra.tenant.TenantMemberStatusEnum status = 6 [(hope.persistence.column) = {
+    name: "STATUS_CODE",
+    description: "在租户内的状态",
+    nullable: false,
+    enum_type: STRING,
+    length: 20,
+    default_value: "TM_ACTIVE"
+  }];
+
+  int64 department_id = 7 [(hope.persistence.column) = {
+    name: "DEPARTMENT_ID",
+    description: "所属部门 ID",
+    nullable: true
+  }];
+
+  string position = 8 [(hope.persistence.column) = {
+    name: "POSITION",
+    description: "职位",
+    nullable: true,
+    length: 100,
+    type: VARCHAR
+  }];
+}

@@ -14,6 +14,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Index;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
+import java.lang.Boolean;
 import java.lang.Integer;
 import java.lang.Long;
 import java.lang.Override;
@@ -142,6 +143,30 @@ public final class TenantEntity implements Identifiable<TenantEntity>, Auditable
   )
   protected LocalDateTime expiryDate;
 
+  /**
+   * Default value: false
+   */
+  @org.springframework.data.relational.core.mapping.Column("IS_PLATFORM")
+  @Description("是否为平台租户（平台拥有全局管理权限）")
+  @Column(
+      name = "IS_PLATFORM",
+      insertable = true,
+      updatable = true,
+      length = 255
+  )
+  protected Boolean isPlatform;
+
+  @org.springframework.data.relational.core.mapping.Column("DESCRIPTION")
+  @Description("租户描述")
+  @Column(
+      name = "DESCRIPTION",
+      nullable = true,
+      insertable = true,
+      updatable = true,
+      length = 500
+  )
+  protected String description;
+
   @Column(
       nullable = false,
       updatable = false,
@@ -257,6 +282,24 @@ public final class TenantEntity implements Identifiable<TenantEntity>, Auditable
 
   public TenantEntity setExpiryDate(LocalDateTime expiryDate) {
     this.expiryDate = expiryDate;
+    return this;
+  }
+
+  public Boolean getIsPlatform() {
+    return isPlatform;
+  }
+
+  public TenantEntity setIsPlatform(Boolean isPlatform) {
+    this.isPlatform = isPlatform;
+    return this;
+  }
+
+  public String getDescription() {
+    return description;
+  }
+
+  public TenantEntity setDescription(String description) {
+    this.description = description;
     return this;
   }
 

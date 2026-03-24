@@ -6,6 +6,7 @@ import hope.common.meta.annotation.Kind;
 import hope.common.meta.annotation.ProtoFrom;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
+import java.lang.Boolean;
 import java.lang.Override;
 import java.lang.String;
 import java.util.StringJoiner;
@@ -47,6 +48,13 @@ public class CreateTenantRequest {
   protected String contactPhone;
 
   protected TenantStatusEnum status;
+
+  protected Boolean isPlatform;
+
+  @Size(
+      max = 500
+  )
+  protected String description;
 
   public String getTenantCode() {
     return tenantCode;
@@ -93,6 +101,24 @@ public class CreateTenantRequest {
     return this;
   }
 
+  public Boolean getIsPlatform() {
+    return isPlatform;
+  }
+
+  public CreateTenantRequest setIsPlatform(Boolean isPlatform) {
+    this.isPlatform = isPlatform;
+    return this;
+  }
+
+  public String getDescription() {
+    return description;
+  }
+
+  public CreateTenantRequest setDescription(String description) {
+    this.description = description;
+    return this;
+  }
+
   @Override
   public String toString() {
     return new StringJoiner(", ", "CreateTenantRequest[" , "]")
@@ -101,6 +127,8 @@ public class CreateTenantRequest {
     	.add("contactEmail=" + contactEmail)
     	.add("contactPhone=" + contactPhone)
     	.add("status=" + status)
+    	.add("isPlatform=" + isPlatform)
+    	.add("description=" + description)
         .toString();
   }
 }

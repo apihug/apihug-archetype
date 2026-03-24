@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Error happen during customer domain
+ * 客户领域相关错误
  */
 @ProtoFrom(
     value = "com/apihug/rad/infra/customer/error.proto",
@@ -34,11 +34,7 @@ public enum CustomerErrorEnum implements Errors {
 
   public static final Error CUSTOMER_NOT_FOUND = new Error();
 
-  public static final Error CUSTOMER_LOCK = new Error();
-
-  public static final Error CUSTOMER_LOGIN_FAIL = new Error();
-
-  public static final Error USER_ALREADY_EXISTS = new Error();
+  public static final Error CUSTOMER_ALREADY_EXISTS = new Error();
 
   public static final Error INVALID_RESET_TOKEN = new Error();
 
@@ -52,38 +48,20 @@ public enum CustomerErrorEnum implements Errors {
     CUSTOMER_NOT_FOUND.setCode(10001023);
     CUSTOMER_NOT_FOUND.setDescription("Customer not found");
     CUSTOMER_NOT_FOUND.setDescription2("客户不存在");
-    CUSTOMER_NOT_FOUND.setTips("Contract your admin or create a new customer");
+    CUSTOMER_NOT_FOUND.setTips("Contact your admin or create a new customer");
     CUSTOMER_NOT_FOUND.setPhase(Phase.DOMAIN);
     CUSTOMER_NOT_FOUND.setSeverity(Severity.FATAL);
     _ERRORS_MAP.put("CUSTOMER_NOT_FOUND", CUSTOMER_NOT_FOUND);
     ERRORS.add(CUSTOMER_NOT_FOUND);
-    CUSTOMER_LOCK.setDomain("rad");
-    CUSTOMER_LOCK.setCode(10001024);
-    CUSTOMER_LOCK.setDescription("Customer not active");
-    CUSTOMER_LOCK.setDescription2("账户锁定");
-    CUSTOMER_LOCK.setTips("Contract your admin");
-    CUSTOMER_LOCK.setPhase(Phase.DOMAIN);
-    CUSTOMER_LOCK.setSeverity(Severity.WARN);
-    _ERRORS_MAP.put("CUSTOMER_LOCK", CUSTOMER_LOCK);
-    ERRORS.add(CUSTOMER_LOCK);
-    CUSTOMER_LOGIN_FAIL.setDomain("rad");
-    CUSTOMER_LOGIN_FAIL.setCode(10001025);
-    CUSTOMER_LOGIN_FAIL.setDescription("Login fail");
-    CUSTOMER_LOGIN_FAIL.setDescription2("登录失败");
-    CUSTOMER_LOGIN_FAIL.setTips("Contract your admin, check your username and password");
-    CUSTOMER_LOGIN_FAIL.setPhase(Phase.DOMAIN);
-    CUSTOMER_LOGIN_FAIL.setSeverity(Severity.WARN);
-    _ERRORS_MAP.put("CUSTOMER_LOGIN_FAIL", CUSTOMER_LOGIN_FAIL);
-    ERRORS.add(CUSTOMER_LOGIN_FAIL);
-    USER_ALREADY_EXISTS.setDomain("rad");
-    USER_ALREADY_EXISTS.setCode(10001026);
-    USER_ALREADY_EXISTS.setDescription("User already exists");
-    USER_ALREADY_EXISTS.setDescription2("用户已存在");
-    USER_ALREADY_EXISTS.setTips("Use a different username or email");
-    USER_ALREADY_EXISTS.setPhase(Phase.DOMAIN);
-    USER_ALREADY_EXISTS.setSeverity(Severity.WARN);
-    _ERRORS_MAP.put("USER_ALREADY_EXISTS", USER_ALREADY_EXISTS);
-    ERRORS.add(USER_ALREADY_EXISTS);
+    CUSTOMER_ALREADY_EXISTS.setDomain("rad");
+    CUSTOMER_ALREADY_EXISTS.setCode(10001026);
+    CUSTOMER_ALREADY_EXISTS.setDescription("Customer already exists");
+    CUSTOMER_ALREADY_EXISTS.setDescription2("客户已存在");
+    CUSTOMER_ALREADY_EXISTS.setTips("Use a different username or email");
+    CUSTOMER_ALREADY_EXISTS.setPhase(Phase.DOMAIN);
+    CUSTOMER_ALREADY_EXISTS.setSeverity(Severity.WARN);
+    _ERRORS_MAP.put("CUSTOMER_ALREADY_EXISTS", CUSTOMER_ALREADY_EXISTS);
+    ERRORS.add(CUSTOMER_ALREADY_EXISTS);
     INVALID_RESET_TOKEN.setDomain("rad");
     INVALID_RESET_TOKEN.setCode(10001027);
     INVALID_RESET_TOKEN.setDescription("Invalid reset token");

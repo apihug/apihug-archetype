@@ -1,12 +1,9 @@
 // @formatter:off
 package com.apihug.rad.api.customer;
 
-import hope.common.api.PageRequest;
 import hope.common.meta.annotation.Kind;
 import hope.common.meta.annotation.ProtoFrom;
-import hope.common.spring.PageableResultBuilder;
 import hope.common.spring.SimpleResultBuilder;
-import java.lang.Integer;
 import java.lang.String;
 import javax.annotation.Generated;
 
@@ -32,69 +29,6 @@ public interface CustomerManagementService {
    */
   default void createCustomer(SimpleResultBuilder<CustomerSummary> builder,
       CreateCustomerRequest createCustomerRequest) {
-    builder.notImplemented();
-  }
-
-  /**
-   *
-   * Authorization:
-   *
-   * <ul>
-   * 	<li>PredefinedRoleCheckerType: TENANT</li>
-   * 	<li>Authorities: [CUSTOMER_VIEW]</li>
-   * </ul>
-   * @apiNote
-   * 	<p>{@code /api/customers/customers/{customerId}}
-   * 	<p>{@code 获取客户详情}
-   */
-  default void getCustomer(SimpleResultBuilder<CustomerDetail> builder, Integer customerId) {
-    builder.notImplemented();
-  }
-
-  /**
-   *
-   * Authorization:
-   *
-   * <ul>
-   * 	<li>Authorities: [CUSTOMER_UPDATE]</li>
-   * </ul>
-   * @apiNote
-   * 	<p>{@code /api/customers/customers/{customerId}}
-   * 	<p>{@code 更新客户信息}
-   */
-  default void updateCustomer(SimpleResultBuilder<String> builder, Integer customerId,
-      UpdateCustomerRequest updateCustomerRequest) {
-    builder.notImplemented();
-  }
-
-  /**
-   *
-   * Authorization:
-   *
-   * <ul>
-   * 	<li>Authorities: [CUSTOMER_DELETE]</li>
-   * </ul>
-   * @apiNote
-   * 	<p>{@code /api/customers/customers/{customerId}}
-   * 	<p>{@code 删除客户（软删除）}
-   */
-  default void deleteCustomer(SimpleResultBuilder<String> builder, Integer customerId) {
-    builder.notImplemented();
-  }
-
-  /**
-   *
-   * Authorization:
-   *
-   * <ul>
-   * 	<li>Authorities: [CUSTOMER_VIEW]</li>
-   * </ul>
-   * @apiNote
-   * 	<p>{@code /api/customers/customers/search}
-   * 	<p>{@code 搜索客户（分页）}
-   */
-  default void searchCustomers(PageableResultBuilder<CustomerSummary> builder,
-      SearchCustomersRequest searchCustomersRequest, PageRequest pageParameter) {
     builder.notImplemented();
   }
 

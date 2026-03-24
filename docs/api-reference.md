@@ -1,7 +1,7 @@
 # API 参考文档
 
 **版本：** 1.0  
-**更新日期：** 2026-03-20  
+**更新日期：** 2026-03-24  
 **基础路径：** `/api`  
 
 ---
@@ -9,20 +9,19 @@
 ## 📋 目录
 
 1. [认证 API](#认证-api)
-2. [用户管理 API](#用户管理-api)
+2. [客户管理 API](#客户管理-api)
 3. [角色管理 API](#角色管理-api)
 4. [菜单管理 API](#菜单管理-api)
 5. [租户管理 API](#租户管理-api)
-6. [部门管理 API](#部门管理-api)
-7. [部门员工 API](#部门员工-api)
-8. [组织管理 API](#组织管理-api)
-9. [审计日志 API](#审计日志-api)
+6. [租户成员管理 API](#租户成员管理-api)
+7. [部门管理 API](#部门管理-api)
+8. [审计日志 API](#审计日志-api)
 
 ---
 
 ## 认证 API
 
-### 1. 用户登录
+### 1. 客户登录
 
 ```http
 POST /auth/login
@@ -34,7 +33,7 @@ POST /auth/login
 {
   "username": "admin",
   "password": "admin123",
-  "organization_id": 1,
+  "tenant_id": 1,
   "captcha": "abcd"
 }
 ```
@@ -48,16 +47,17 @@ POST /auth/login
     "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
     "token_type": "Bearer",
     "expires_in": 7200,
-    "user_info": {
+    "customer_info": {
       "id": 1,
       "username": "admin",
       "nickname": "管理员",
       "status": "ACTIVE"
     },
-    "current_organization": {
+    "current_tenant": {
       "id": 1,
-      "organization_code": "acme_corp",
-      "organization_name": "Acme 公司"
+      "tenant_code": "acme_corp",
+      "tenant_name": "Acme 公司",
+      "is_platform": false
     }
   }
 }
@@ -82,10 +82,10 @@ Authorization: Bearer {token}
 
 ---
 
-### 3. 获取当前用户信息
+### 3. 获取当前客户信息
 
 ```http
-GET /auth/current-user-info
+GET /api/customer/current-info
 Authorization: Bearer {token}
 ```
 
@@ -95,7 +95,7 @@ Authorization: Bearer {token}
 {
   "code": 200,
   "data": {
-    "user": {
+    "customer": {
       "customer_id": 1,
       "username": "admin",
       "tenant_id": 1
@@ -108,18 +108,19 @@ Authorization: Bearer {token}
       }
     ],
     "authorities": [
-      "user:view",
-      "user:create"
+      "customer:view",
+      "customer:create"
     ],
     "department": {
       "id": 1,
       "dept_code": "tech_dev",
       "dept_name": "研发部"
     },
-    "current_organization": {
+    "current_tenant": {
       "id": 1,
-      "organization_code": "acme_corp",
-      "organization_name": "Acme 公司"
+      "tenant_code": "acme_corp",
+      "tenant_name": "Acme 公司",
+      "is_platform": false
     }
   }
 }
@@ -127,10 +128,10 @@ Authorization: Bearer {token}
 
 ---
 
-### 4. 获取用户组织列表
+### 4. 获取客户租户列表
 
 ```http
-GET /auth/user-organizations
+GET /api/customer/tenants
 Authorization: Bearer {token}
 ```
 
@@ -140,36 +141,38 @@ Authorization: Bearer {token}
 {
   "code": 200,
   "data": {
-    "organizations": [
+    "tenants": [
       {
         "id": 1,
-        "organization_code": "acme_corp",
-        "organization_name": "Acme 公司",
+        "tenant_code": "acme_corp",
+        "tenant_name": "Acme 公司",
+        "is_platform": false,
         "is_default": true
       },
       {
         "id": 2,
-        "organization_code": "sub_org",
-        "organization_name": "分公司",
+        "tenant_code": "sub_tenant",
+        "tenant_name": "分公司",
+        "is_platform": false,
         "is_default": false
       }
     ],
-    "default_organization_id": 1
+    "default_tenant": 1
   }
 }
 ```
 
 ---
 
-### 5. 切换组织
+### 5. 切换租户
 
 ```http
-POST /auth/switch-organization
+POST /api/customer/switch-tenant
 Authorization: Bearer {token}
 Content-Type: application/json
 
 {
-  "organization_id": 2
+  "tenant_id": 2
 }
 ```
 
@@ -188,12 +191,12 @@ Content-Type: application/json
 
 ---
 
-## 用户管理 API
+## 客户管理 API
 
-### 1. 创建用户
+### 1. 创建客户
 
 ```http
-POST /api/users
+POST /api/customers/customers
 Authorization: Bearer {token}
 Content-Type: application/json
 
@@ -221,10 +224,10 @@ Content-Type: application/json
 
 ---
 
-### 2. 获取用户详情
+### 2. 获取客户详情
 
 ```http
-GET /api/users/{userId}
+GET /api/customers/customers/{customerId}
 Authorization: Bearer {token}
 ```
 
@@ -246,10 +249,10 @@ Authorization: Bearer {token}
 
 ---
 
-### 3. 更新用户
+### 3. 更新客户
 
 ```http
-PUT /api/users/{userId}
+PUT /api/customers/customers/{customerId}
 Authorization: Bearer {token}
 Content-Type: application/json
 
@@ -269,10 +272,10 @@ Content-Type: application/json
 
 ---
 
-### 4. 删除用户
+### 4. 删除客户
 
 ```http
-DELETE /api/users/{userId}
+DELETE /api/customers/customers/{customerId}
 Authorization: Bearer {token}
 ```
 
@@ -286,10 +289,10 @@ Authorization: Bearer {token}
 
 ---
 
-### 5. 搜索用户
+### 5. 搜索客户
 
 ```http
-POST /api/users/search?page=0&size=10
+POST /api/customers/customers/search?page=0&size=10
 Authorization: Bearer {token}
 Content-Type: application/json
 
@@ -405,6 +408,112 @@ Authorization: Bearer {token}
 
 ---
 
+## 租户成员管理 API
+
+### 1. 获取租户成员列表
+
+```http
+GET /api/tenants/{tenantId}/members?page=0&size=10
+Authorization: Bearer {token}
+```
+
+**响应：**
+
+```json
+{
+  "code": 200,
+  "data": {
+    "page_index": 0,
+    "page_size": 10,
+    "total_count": 2,
+    "total_page": 1,
+    "data": [
+      {
+        "id": 1,
+        "customer_id": 1,
+        "username": "admin",
+        "member_role": "OWNER",
+        "department_id": 1,
+        "is_locked": false
+      }
+    ]
+  }
+}
+```
+
+---
+
+### 2. 添加成员到租户
+
+```http
+POST /api/tenants/{tenantId}/members
+Authorization: Bearer {token}
+Content-Type: application/json
+
+{
+  "customer_id": 2,
+  "member_role": "MEMBER",
+  "department_id": 1
+}
+```
+
+---
+
+### 3. 从租户移除成员
+
+```http
+DELETE /api/tenants/{tenantId}/members/{memberId}
+Authorization: Bearer {token}
+```
+
+---
+
+### 4. 切换成员锁定状态
+
+```http
+POST /api/tenants/{tenantId}/members/{memberId}/toggle-lock
+Authorization: Bearer {token}
+```
+
+---
+
+### 5. 更新成员角色
+
+```http
+PUT /api/tenants/{tenantId}/members/{memberId}/role
+Authorization: Bearer {token}
+Content-Type: application/json
+
+{
+  "member_role": "ADMIN"
+}
+```
+
+---
+
+### 6. 分配成员部门
+
+```http
+PUT /api/tenants/{tenantId}/members/{memberId}/department
+Authorization: Bearer {token}
+Content-Type: application/json
+
+{
+  "department_id": 2
+}
+```
+
+---
+
+### 7. 设置默认租户
+
+```http
+POST /api/tenants/{tenantId}/set-default
+Authorization: Bearer {token}
+```
+
+---
+
 ## 部门管理 API
 
 ### 1. 获取部门树
@@ -424,7 +533,8 @@ Authorization: Bearer {token}
       "id": 1,
       "parent_id": 0,
       "dept_code": "tech",
-      "dept_name": "技术部"
+      "dept_name": "技术部",
+      "tenant_id": 1
     },
     "children": [
       {
@@ -432,45 +542,13 @@ Authorization: Bearer {token}
           "id": 2,
           "parent_id": 1,
           "dept_code": "tech_dev",
-          "dept_name": "研发部"
+          "dept_name": "研发部",
+          "tenant_id": 1
         },
         "children": []
       }
     ]
   }
-}
-```
-
----
-
-### 2. 添加员工到部门
-
-```http
-POST /api/department-employees
-Authorization: Bearer {token}
-Content-Type: application/json
-
-{
-  "employee_id": 1,
-  "department_id": 2,
-  "position": "工程师"
-}
-```
-
----
-
-### 3. 员工调岗
-
-```http
-POST /api/department-employees/transfer
-Authorization: Bearer {token}
-Content-Type: application/json
-
-{
-  "employee_id": 1,
-  "from_department_id": 2,
-  "to_department_id": 3,
-  "position": "经理"
 }
 ```
 
@@ -496,7 +574,7 @@ Content-Type: application/json
 | 10001023 | 客户不存在 |
 | 10001024 | 账户锁定 |
 | 10001025 | 登录失败 |
-| 10001026 | 用户已存在 |
+| 10001026 | 客户已存在 |
 | 10002001 | 角色不存在 |
 | 10002002 | 角色代码已存在 |
 | 10003001 | 菜单不存在 |
@@ -505,12 +583,8 @@ Content-Type: application/json
 | 10005001 | 部门不存在 |
 | 10005002 | 部门代码已存在 |
 | 10005003 | 部门有子部门 |
-| 10005004 | 部门有员工 |
-| 10006001 | 登录失败 |
-| 10006002 | 账户已锁定 |
-| 10006003 | 组织不存在 |
-| 10006004 | 无权访问该组织 |
+| 10005004 | 部门有成员 |
 
 ---
 
-**文档更新日期：** 2026-03-20
+**文档更新日期：** 2026-03-24

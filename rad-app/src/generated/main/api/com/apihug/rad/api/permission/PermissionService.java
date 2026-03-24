@@ -19,7 +19,7 @@ public interface PermissionService {
   /**
    * @apiNote
    * 	<p>{@code /api/permissions/roles}
-   * 	<p>{@code 获取用户的角色权限集合}
+   * 	<p>{@code 获取当前客户的角色权限集合}
    */
   default void getRolePermissions(SimpleResultBuilder<List<PermissionInfo>> builder) {
     builder.notImplemented();
@@ -28,7 +28,7 @@ public interface PermissionService {
   /**
    * @apiNote
    * 	<p>{@code /api/permissions/menus}
-   * 	<p>{@code 获取用户的菜单权限集合}
+   * 	<p>{@code 获取当前客户的菜单权限集合}
    */
   default void getMenuPermissions(SimpleResultBuilder<List<PermissionInfo>> builder) {
     builder.notImplemented();
@@ -37,7 +37,7 @@ public interface PermissionService {
   /**
    * @apiNote
    * 	<p>{@code /api/permissions/all}
-   * 	<p>{@code 获取用户的所有权限（聚合）}
+   * 	<p>{@code 获取当前客户的所有权限（聚合）}
    */
   default void getAllPermissions(SimpleResultBuilder<List<PermissionInfo>> builder) {
     builder.notImplemented();

@@ -15,9 +15,15 @@ project:
   status:
     deprecated: false
     createdTimestamp: "2026-03-20"
-    updatedTimestamp: "2026-03-24 10:57:15"
+    updatedTimestamp: "2026-03-24 15:36:57"
 module: com.apihug.rad.wire.api.RadApiModule
 services:
+  "com.apihug.rad.api.department.DepartmentService":
+  - "CreateDepartment"
+  - "GetDepartment"
+  - "UpdateDepartment"
+  - "DeleteDepartment"
+  - "GetDepartmentTree"
   "com.apihug.rad.api.meta.ApihugService":
   - "Apis"
   - "Errors"
@@ -28,23 +34,30 @@ services:
   - "GetRolePermissions"
   - "GetMenuPermissions"
   - "GetAllPermissions"
-  "com.apihug.rad.api.organization.OrganizationService":
-  - "GetOrganizationTree"
-  - "GetDepartmentTree"
-  - "GetUserDepartments"
-  - "GetUserOrganizations"
-  - "SetDefaultOrganization"
   "com.apihug.rad.api.customer.CustomerService":
   - "Info"
-  - "GetCurrentUserInfo"
-  - "GetUserOrganizations"
-  - "SwitchOrganization"
+  - "GetCurrentCustomerInfo"
+  - "GetCustomerTenants"
+  - "SwitchTenant"
   "com.apihug.rad.api.tenant.TenantService":
   - "CreateTenant"
   - "GetTenant"
   - "UpdateTenant"
   - "DisableTenant"
   - "ConfigureTenant"
+  - "SearchTenants"
+  "com.apihug.rad.api.tenant.TenantMemberService":
+  - "GetTenantMembers"
+  - "AddMemberToTenant"
+  - "RemoveMemberFromTenant"
+  - "ToggleMemberLock"
+  - "UpdateMemberRole"
+  - "AssignMemberDepartment"
+  - "GetMemberDetail"
+  - "SetDefaultTenant"
+  - "AssignRolesToMember"
+  - "GetMemberRoles"
+  - "RemoveRoleFromMember"
   "com.apihug.rad.api.audit.AccessLogService":
   - "QueryAccessLogs"
   - "GetAccessLogStats"
@@ -55,41 +68,19 @@ services:
   - "DeleteMenu"
   - "GetMenuTree"
   - "SearchMenus"
+  "com.apihug.rad.api.customer.CustomerAuthService":
+  - "Login"
+  - "Logout"
+  "com.apihug.rad.api.customer.CustomerManagementService":
+  - "CreateCustomer"
+  - "ForgotPassword"
+  - "ResetPassword"
   "com.apihug.rad.api.role.RoleService":
   - "CreateRole"
   - "GetRole"
   - "UpdateRole"
   - "DeleteRole"
   - "SearchRoles"
-  - "AssignPermissions"
-  - "RemovePermission"
-  - "GetRolePermissions"
-  "com.apihug.rad.api.department.DepartmentService":
-  - "CreateDepartment"
-  - "GetDepartment"
-  - "UpdateDepartment"
-  - "DeleteDepartment"
-  - "GetDepartmentTree"
-  "com.apihug.rad.api.department.DepartmentEmployeeService":
-  - "AddEmployeeToDepartment"
-  - "RemoveEmployeeFromDepartment"
-  - "TransferEmployee"
-  - "GetDepartmentEmployees"
-  "com.apihug.rad.api.organization.CustomerOrganizationService":
-  - "GetOrganizationMembers"
-  - "AddMemberToOrganization"
-  - "RemoveMemberFromOrganization"
-  - "ToggleMemberLock"
-  - "AssignMemberRoles"
-  - "AssignMemberMenus"
-  "com.apihug.rad.api.customer.CustomerAuthService":
-  - "Login"
-  - "Logout"
-  "com.apihug.rad.api.customer.CustomerManagementService":
-  - "CreateCustomer"
-  - "GetCustomer"
-  - "UpdateCustomer"
-  - "DeleteCustomer"
-  - "SearchCustomers"
-  - "ForgotPassword"
-  - "ResetPassword"
+  - "AssignMenusToRole"
+  - "RemoveMenuFromRole"
+  - "GetRoleMenus"

@@ -7,17 +7,52 @@
   <changeSet id="0.1.1-SNAPSHOT-9999999" author="hope" context="auto" labels="0.1.1-SNAPSHOT">
   </changeSet>
 
-  <!-- 测试数据 - 密码使用 BCrypt 加密 -->
-  <!-- 密码 "admin123" 的 BCrypt 哈希 (由 PasswordEncoder 生成：$2a$10$x.oDl2BhjvICQrSlprqnveu1W31drQ3RVZ6fZl85yaa4UyuhbXrgC) -->
-  <changeSet id="test-data-001" author="test">
+  <!-- 测试数据 - 仅在 test context 下执行 -->
+  <!-- 密码统一使用 "admin123" 的 BCrypt 哈希 -->
+  <changeSet id="test-data-001" author="test" context="test">
+    <!-- test_admin: 正常活跃用户 -->
     <insert tableName="SYS_CUSTOMER">
       <column name="ID" valueNumeric="1"/>
       <column name="USERNAME" value="test_admin"/>
       <column name="PASSWORD_HASH" value="$2a$10$x.oDl2BhjvICQrSlprqnveu1W31drQ3RVZ6fZl85yaa4UyuhbXrgC"/>
-      <column name="PASSWORD_SLAT" value="salt1"/>
       <column name="EMAIL" value="test@example.com"/>
       <column name="STATUS" value="ACTIVE"/>
       <column name="DEFAULT_TENANT_ID" valueNumeric="1"/>
+      <column name="CREATED_AT" valueDate="2024-01-01 00:00:00"/>
+      <column name="CREATED_BY" valueNumeric="1"/>
+    </insert>
+    <!-- test_user: 正常活跃用户 -->
+    <insert tableName="SYS_CUSTOMER">
+      <column name="ID" valueNumeric="2"/>
+      <column name="USERNAME" value="test_user"/>
+      <column name="PASSWORD_HASH" value="$2a$10$x.oDl2BhjvICQrSlprqnveu1W31drQ3RVZ6fZl85yaa4UyuhbXrgC"/>
+      <column name="EMAIL" value="user@example.com"/>
+      <column name="STATUS" value="ACTIVE"/>
+      <column name="DEFAULT_TENANT_ID" valueNumeric="1"/>
+      <column name="CREATED_AT" valueDate="2024-01-02 00:00:00"/>
+      <column name="CREATED_BY" valueNumeric="1"/>
+    </insert>
+    <!-- locked_user: 锁定用户（密码也是 admin123） -->
+    <insert tableName="SYS_CUSTOMER">
+      <column name="ID" valueNumeric="3"/>
+      <column name="USERNAME" value="locked_user"/>
+      <column name="PASSWORD_HASH" value="$2a$10$x.oDl2BhjvICQrSlprqnveu1W31drQ3RVZ6fZl85yaa4UyuhbXrgC"/>
+      <column name="EMAIL" value="locked@example.com"/>
+      <column name="STATUS" value="LOCKED"/>
+      <column name="DEFAULT_TENANT_ID" valueNumeric="1"/>
+      <column name="CREATED_AT" valueDate="2024-01-03 00:00:00"/>
+      <column name="CREATED_BY" valueNumeric="1"/>
+    </insert>
+    <!-- 测试租户 -->
+    <insert tableName="SYS_TENANT">
+      <column name="ID" valueNumeric="1"/>
+      <column name="TENANT_CODE" value="TEST_TENANT"/>
+      <column name="TENANT_NAME" value="测试租户"/>
+      <column name="CONTACT_EMAIL" value="tenant@example.com"/>
+      <column name="STATUS_CODE" value="ACTIVE"/>
+      <column name="MAX_USERS" valueNumeric="100"/>
+      <column name="MAX_STORAGE_MB" valueNumeric="10240"/>
+      <column name="IS_PLATFORM" valueBoolean="false"/>
       <column name="CREATED_AT" valueDate="2024-01-01 00:00:00"/>
       <column name="CREATED_BY" valueNumeric="1"/>
     </insert>

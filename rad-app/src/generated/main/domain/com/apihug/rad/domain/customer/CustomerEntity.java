@@ -87,20 +87,6 @@ public final class CustomerEntity extends Domain<CustomerEntity, Long, Long> {
   )
   protected CustomerStatusEnum status;
 
-  /**
-   * Default value: 0
-   */
-  @Column("DEFAULT_ORGANIZATION_ID")
-  @Description("默认组织 ID")
-  @jakarta.persistence.Column(
-      name = "DEFAULT_ORGANIZATION_ID",
-      nullable = true,
-      insertable = true,
-      updatable = true,
-      length = 255
-  )
-  protected Long defaultOrganizationId;
-
   public Long getDefaultTenantId() {
     return defaultTenantId;
   }
@@ -143,15 +129,6 @@ public final class CustomerEntity extends Domain<CustomerEntity, Long, Long> {
 
   public CustomerEntity setStatus(CustomerStatusEnum status) {
     this.status = status;
-    return this;
-  }
-
-  public Long getDefaultOrganizationId() {
-    return defaultOrganizationId;
-  }
-
-  public CustomerEntity setDefaultOrganizationId(Long defaultOrganizationId) {
-    this.defaultOrganizationId = defaultOrganizationId;
     return this;
   }
 }

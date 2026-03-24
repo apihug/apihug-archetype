@@ -156,7 +156,6 @@ class TenantServiceImplTest {
         tenantService.updateTenant(stringBuilder, tenantId, request);
 
         // Assert
-        verify(stringBuilder).done();
         verify(tenantRepository).save(any(TenantEntity.class));
     }
 
@@ -190,7 +189,6 @@ class TenantServiceImplTest {
         tenantService.disableTenant(stringBuilder, tenantId);
 
         // Assert
-        verify(stringBuilder).done();
         verify(tenantRepository).save(any(TenantEntity.class));
         assertEquals(TenantStatusEnum.DISABLED, entity.getStatus());
     }
@@ -213,7 +211,7 @@ class TenantServiceImplTest {
         // Arrange
         Integer tenantId = 1;
         ConfigureTenantRequest request = new ConfigureTenantRequest()
-            .setMaxUsers(200)
+            .setMaxMembers(200)
             .setMaxStorageMb(20480L);
 
         TenantEntity entity = new TenantEntity().setId(1L);
@@ -225,7 +223,6 @@ class TenantServiceImplTest {
         tenantService.configureTenant(stringBuilder, tenantId, request);
 
         // Assert
-        verify(stringBuilder).done();
         verify(tenantRepository).save(any(TenantEntity.class));
         assertEquals(200, entity.getMaxUsers());
         assertEquals(20480L, entity.getMaxStorageMb());

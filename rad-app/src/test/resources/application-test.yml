@@ -16,6 +16,7 @@ spring:
   liquibase:
     enabled: true
     change-log: classpath:liquibase/rad/master.xml
+    contexts: auto,test
 
   security:
     oauth2:

@@ -1,7 +1,7 @@
 {
   "domain" : "rad",
   "version" : "0.1.1-SNAPSHOT",
-  "lastBuildTime" : "2026-03-24 10:57:15",
+  "lastBuildTime" : "2026-03-24 15:36:57",
   "codeOffset" : 10240000,
   "javaClass" : "com.apihug.rad.infra.settings.RadAuthorityEnum",
   "deprecated" : false,
@@ -155,44 +155,44 @@
     "domain" : "rad"
   }, {
     "code" : 22,
-    "name" : "ORGANIZATION_MEMBER_VIEW",
-    "expression" : "organization:member:view",
-    "description" : "查看组织员工",
+    "name" : "TENANT_MEMBER_VIEW",
+    "expression" : "tenant:member:view",
+    "description" : "查看租户成员",
     "deprecated" : false,
     "domain" : "rad"
   }, {
     "code" : 23,
-    "name" : "ORGANIZATION_MEMBER_ADD",
-    "expression" : "organization:member:add",
-    "description" : "添加组织员工",
+    "name" : "TENANT_MEMBER_ADD",
+    "expression" : "tenant:member:add",
+    "description" : "添加租户成员",
     "deprecated" : false,
     "domain" : "rad"
   }, {
     "code" : 24,
-    "name" : "ORGANIZATION_MEMBER_REMOVE",
-    "expression" : "organization:member:remove",
-    "description" : "移除组织员工",
+    "name" : "TENANT_MEMBER_REMOVE",
+    "expression" : "tenant:member:remove",
+    "description" : "移除租户成员",
     "deprecated" : false,
     "domain" : "rad"
   }, {
     "code" : 25,
-    "name" : "ORGANIZATION_MEMBER_LOCK",
-    "expression" : "organization:member:lock",
-    "description" : "锁定组织员工",
+    "name" : "TENANT_MEMBER_LOCK",
+    "expression" : "tenant:member:lock",
+    "description" : "锁定租户成员",
     "deprecated" : false,
     "domain" : "rad"
   }, {
     "code" : 26,
-    "name" : "ORGANIZATION_MEMBER_ASSIGN_ROLE",
-    "expression" : "organization:member:assign_role",
-    "description" : "分配员工角色",
+    "name" : "TENANT_MEMBER_ASSIGN_ROLE",
+    "expression" : "tenant:member:assign_role",
+    "description" : "分配成员角色",
     "deprecated" : false,
     "domain" : "rad"
   }, {
     "code" : 27,
-    "name" : "ORGANIZATION_MEMBER_ASSIGN_MENU",
-    "expression" : "organization:member:assign_menu",
-    "description" : "分配员工菜单",
+    "name" : "TENANT_MEMBER_ASSIGN_DEPARTMENT",
+    "expression" : "tenant:member:assign_department",
+    "description" : "分配成员部门",
     "deprecated" : false,
     "domain" : "rad"
   } ]

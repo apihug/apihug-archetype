@@ -120,7 +120,7 @@ class JwtAuthenticationIntegrationTest {
         // Arrange
         LoginRequest loginRequest = new LoginRequest()
             .setUsername("locked_user")
-            .setPassword("user123");
+            .setPassword("admin123");
 
         // Act & Assert - 错误时返回 500
         mockMvc.perform(post("/api/auth/login")
@@ -149,12 +149,12 @@ class JwtAuthenticationIntegrationTest {
         String token = objectMapper.readTree(responseContent).get("data").get("accessToken").asText();
 
         // Act - 使用 Token 获取当前客户信息
-        mockMvc.perform(get("/api/customer/current-user-info")
+        mockMvc.perform(get("/api/customer/current-info")
                 .header("Authorization", "Bearer " + token))
             .andExpect(status().isOk())
             .andExpect(jsonPath("$.code").value(0))
-            .andExpect(jsonPath("$.data.user.customerId").exists())
-            .andExpect(jsonPath("$.data.user.username").value("test_admin"))
+            .andExpect(jsonPath("$.data.customer.customerId").exists())
+            .andExpect(jsonPath("$.data.customer.username").value("test_admin"))
             .andDo(print());
     }
 

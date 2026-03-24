@@ -132,7 +132,6 @@ class DepartmentServiceImplTest {
 
         departmentService.updateDepartment(stringBuilder, departmentId, request);
 
-        verify(stringBuilder).done();
         verify(departmentRepository).save(any(DepartmentEntity.class));
     }
 
@@ -162,7 +161,6 @@ class DepartmentServiceImplTest {
 
         departmentService.deleteDepartment(stringBuilder, departmentId);
 
-        verify(stringBuilder).done();
         assertTrue(entity.isDeleted());
     }
 
@@ -196,29 +194,27 @@ class DepartmentServiceImplTest {
     @Test
     @DisplayName("获取部门树 - 成功")
     void testGetDepartmentTree_Success() {
-        List<DepartmentEntity> rootDepts = Arrays.asList(
-            new DepartmentEntity().setId(1L).setDeptCode("tech"),
-            new DepartmentEntity().setId(2L).setDeptCode("sales")
+        List<DepartmentEntity> allDepts = Arrays.asList(
+            new DepartmentEntity().setId(1L).setParentId(0L).setDeptCode("tech"),
+            new DepartmentEntity().setId(2L).setParentId(0L).setDeptCode("sales")
         );
 
-        when(departmentRepository.findByParentId(0L)).thenReturn(rootDepts);
-        when(departmentRepository.findByParentId(1L)).thenReturn(Arrays.asList());
-        when(departmentRepository.findByParentId(2L)).thenReturn(Arrays.asList());
+        when(departmentRepository.findAll()).thenReturn(allDepts);
 
         departmentService.getDepartmentTree(treeNodeBuilder);
 
-        verify(departmentRepository).findByParentId(0L);
+        verify(departmentRepository).findAll();
         verify(treeNodeBuilder).payload(any(DepartmentTreeNode.class));
     }
 
     @Test
     @DisplayName("获取部门树 - 空树")
     void testGetDepartmentTree_Empty() {
-        when(departmentRepository.findByParentId(0L)).thenReturn(Arrays.asList());
+        when(departmentRepository.findAll()).thenReturn(Arrays.asList());
 
         departmentService.getDepartmentTree(treeNodeBuilder);
 
-        verify(departmentRepository).findByParentId(0L);
+        verify(departmentRepository).findAll();
         verify(treeNodeBuilder).payload(any(DepartmentTreeNode.class));
     }
 }

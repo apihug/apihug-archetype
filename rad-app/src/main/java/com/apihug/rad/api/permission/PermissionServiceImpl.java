@@ -1,11 +1,15 @@
 // @formatter:off
 package com.apihug.rad.api.permission;
 
+import com.apihug.rad.infra.security.RadPermissionResolver;
 import hope.common.meta.annotation.Kind;
 import hope.common.meta.annotation.ProtoFrom;
 import hope.common.meta.annotation.Template;import hope.common.spring.SimpleResultBuilder;
+import hope.common.spring.security.context.HopeContextHolder;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 
 @Template(type = Template.Type.SERVICE, usage = "Permission management", percentage = 90)
@@ -20,6 +24,12 @@ import org.springframework.stereotype.Service;
 )
 public class PermissionServiceImpl implements PermissionService {
 
+  private final RadPermissionResolver permissionResolver;
+
+  public PermissionServiceImpl(RadPermissionResolver permissionResolver) {
+    this.permissionResolver = permissionResolver;
+  }
+
   /**
    * @apiNote
    * 	<p>{@code /api/permissions/roles}
@@ -27,14 +37,15 @@ public class PermissionServiceImpl implements PermissionService {
    */
   @Override
   public void getRolePermissions(SimpleResultBuilder<List<PermissionInfo>> builder) {
-    // 待实现：从数据库查询用户的角色权限
-    List<PermissionInfo> permissions = new ArrayList<>();
-    permissions.add(new PermissionInfo()
-        .setPermissionCode("user:view")
-        .setPermissionName("查看用户"));
-    permissions.add(new PermissionInfo()
-        .setPermissionCode("user:create")
-        .setPermissionName("创建用户"));
+    Long customerId = (Long) HopeContextHolder.customer().getId();
+    Long tenantId = (Long) HopeContextHolder.customer().getTenantId();
+
+    Set<String> roles = permissionResolver.resolveRoles(customerId, tenantId);
+    List<PermissionInfo> permissions = roles.stream()
+        .map(code -> new PermissionInfo()
+            .setPermissionCode(code)
+            .setPermissionName(code))
+        .collect(Collectors.toList());
 
     builder.payload(permissions);
   }
@@ -46,14 +57,15 @@ public class PermissionServiceImpl implements PermissionService {
    */
   @Override
   public void getMenuPermissions(SimpleResultBuilder<List<PermissionInfo>> builder) {
-    // 待实现：从数据库查询用户的菜单权限
-    List<PermissionInfo> permissions = new ArrayList<>();
-    permissions.add(new PermissionInfo()
-        .setPermissionCode("menu:system")
-        .setPermissionName("系统管理"));
-    permissions.add(new PermissionInfo()
-        .setPermissionCode("menu:user")
-        .setPermissionName("用户管理"));
+    Long customerId = (Long) HopeContextHolder.customer().getId();
+    Long tenantId = (Long) HopeContextHolder.customer().getTenantId();
+
+    Set<String> authorities = permissionResolver.resolveAuthorities(customerId, tenantId);
+    List<PermissionInfo> permissions = authorities.stream()
+        .map(code -> new PermissionInfo()
+            .setPermissionCode(code)
+            .setPermissionName(code))
+        .collect(Collectors.toList());
 
     builder.payload(permissions);
   }
@@ -65,28 +77,23 @@ public class PermissionServiceImpl implements PermissionService {
    */
   @Override
   public void getAllPermissions(SimpleResultBuilder<List<PermissionInfo>> builder) {
-    // 获取角色权限
-    List<PermissionInfo> rolePermissions = new ArrayList<>();
-    rolePermissions.add(new PermissionInfo()
-        .setPermissionCode("user:view")
-        .setPermissionName("查看用户"));
-    rolePermissions.add(new PermissionInfo()
-        .setPermissionCode("user:create")
-        .setPermissionName("创建用户"));
+    Long customerId = (Long) HopeContextHolder.customer().getId();
+    Long tenantId = (Long) HopeContextHolder.customer().getTenantId();
 
-    // 获取菜单权限
-    List<PermissionInfo> menuPermissions = new ArrayList<>();
-    menuPermissions.add(new PermissionInfo()
-        .setPermissionCode("menu:system")
-        .setPermissionName("系统管理"));
-    menuPermissions.add(new PermissionInfo()
-        .setPermissionCode("menu:user")
-        .setPermissionName("用户管理"));
+    Set<String> roles = permissionResolver.resolveRoles(customerId, tenantId);
+    Set<String> authorities = permissionResolver.resolveAuthorities(customerId, tenantId);
 
-    // 聚合权限（去重）
     List<PermissionInfo> allPermissions = new ArrayList<>();
-    allPermissions.addAll(rolePermissions);
-    allPermissions.addAll(menuPermissions);
+
+    // 角色
+    roles.forEach(code -> allPermissions.add(new PermissionInfo()
+        .setPermissionCode("role:" + code)
+        .setPermissionName(code)));
+
+    // 权限
+    authorities.forEach(code -> allPermissions.add(new PermissionInfo()
+        .setPermissionCode(code)
+        .setPermissionName(code)));
 
     builder.payload(allPermissions);
   }

@@ -49,12 +49,12 @@ import javax.annotation.Generated;
         "DEPARTMENT_UPDATE",
         "DEPARTMENT_DELETE",
         "DEPARTMENT_ASSIGN_EMPLOYEE",
-        "ORGANIZATION_MEMBER_VIEW",
-        "ORGANIZATION_MEMBER_ADD",
-        "ORGANIZATION_MEMBER_REMOVE",
-        "ORGANIZATION_MEMBER_LOCK",
-        "ORGANIZATION_MEMBER_ASSIGN_ROLE",
-        "ORGANIZATION_MEMBER_ASSIGN_MENU"
+        "TENANT_MEMBER_VIEW",
+        "TENANT_MEMBER_ADD",
+        "TENANT_MEMBER_REMOVE",
+        "TENANT_MEMBER_LOCK",
+        "TENANT_MEMBER_ASSIGN_ROLE",
+        "TENANT_MEMBER_ASSIGN_DEPARTMENT"
     },
     example = "CUSTOMER_CREATE",
     description = "RAD 权限枚举"
@@ -120,19 +120,19 @@ public enum RadAuthorityEnum implements Enumeration<RadAuthorityEnum> {
   DEPARTMENT_ASSIGN_EMPLOYEE(21, "department:assign_employee", "分配员工到部门"),
 
   /**
-   * 组织员工管理权限
+   * 租户成员管理权限
    */
-  ORGANIZATION_MEMBER_VIEW(22, "organization:member:view", "查看组织员工"),
+  TENANT_MEMBER_VIEW(22, "tenant:member:view", "查看租户成员"),
 
-  ORGANIZATION_MEMBER_ADD(23, "organization:member:add", "添加组织员工"),
+  TENANT_MEMBER_ADD(23, "tenant:member:add", "添加租户成员"),
 
-  ORGANIZATION_MEMBER_REMOVE(24, "organization:member:remove", "移除组织员工"),
+  TENANT_MEMBER_REMOVE(24, "tenant:member:remove", "移除租户成员"),
 
-  ORGANIZATION_MEMBER_LOCK(25, "organization:member:lock", "锁定组织员工"),
+  TENANT_MEMBER_LOCK(25, "tenant:member:lock", "锁定租户成员"),
 
-  ORGANIZATION_MEMBER_ASSIGN_ROLE(26, "organization:member:assign_role", "分配员工角色"),
+  TENANT_MEMBER_ASSIGN_ROLE(26, "tenant:member:assign_role", "分配成员角色"),
 
-  ORGANIZATION_MEMBER_ASSIGN_MENU(27, "organization:member:assign_menu", "分配员工菜单");
+  TENANT_MEMBER_ASSIGN_DEPARTMENT(27, "tenant:member:assign_department", "分配成员部门");
 
   public static final List<String> VALUES;
 

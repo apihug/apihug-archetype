@@ -2,31 +2,32 @@
 package com.apihug.rad.domain.bootstrap.mybatis;
 
 import com.apihug.rad.domain.audit.dsl.AccessLogEntityDSL;
-import com.apihug.rad.domain.bootstrap.mybatis.type.CustomerOrgStatusEnumTitleTypeHandler;
 import com.apihug.rad.domain.bootstrap.mybatis.type.CustomerStatusEnumTitleTypeHandler;
 import com.apihug.rad.domain.bootstrap.mybatis.type.DeptStatusEnumTitleTypeHandler;
-import com.apihug.rad.domain.bootstrap.mybatis.type.EmployeeTypeEnumTitleTypeHandler;
+import com.apihug.rad.domain.bootstrap.mybatis.type.MemberRoleEnumTitleTypeHandler;
+import com.apihug.rad.domain.bootstrap.mybatis.type.MemberTypeEnumTitleTypeHandler;
 import com.apihug.rad.domain.bootstrap.mybatis.type.MenuStatusEnumTitleTypeHandler;
 import com.apihug.rad.domain.bootstrap.mybatis.type.MenuTypeEnumTitleTypeHandler;
-import com.apihug.rad.domain.bootstrap.mybatis.type.OrganizationStatusEnumTitleTypeHandler;
 import com.apihug.rad.domain.bootstrap.mybatis.type.RoleStatusEnumTitleTypeHandler;
+import com.apihug.rad.domain.bootstrap.mybatis.type.TenantMemberStatusEnumTitleTypeHandler;
 import com.apihug.rad.domain.bootstrap.mybatis.type.TenantStatusEnumTitleTypeHandler;
 import com.apihug.rad.domain.customer.dsl.CustomerEntityDSL;
 import com.apihug.rad.domain.department.dsl.DepartmentEmployeeEntityDSL;
 import com.apihug.rad.domain.department.dsl.DepartmentEntityDSL;
 import com.apihug.rad.domain.menu.dsl.MenuEntityDSL;
-import com.apihug.rad.domain.organization.dsl.CustomerOrganizationEntityDSL;
-import com.apihug.rad.domain.organization.dsl.OrganizationEntityDSL;
 import com.apihug.rad.domain.role.dsl.RoleEntityDSL;
+import com.apihug.rad.domain.role.dsl.RoleMenuEntityDSL;
+import com.apihug.rad.domain.tenant.dsl.MemberRoleEntityDSL;
 import com.apihug.rad.domain.tenant.dsl.TenantEntityDSL;
+import com.apihug.rad.domain.tenant.dsl.TenantMemberEntityDSL;
 import com.apihug.rad.infra.customer.CustomerStatusEnum;
 import com.apihug.rad.infra.department.DeptStatusEnum;
 import com.apihug.rad.infra.menu.MenuStatusEnum;
 import com.apihug.rad.infra.menu.MenuTypeEnum;
-import com.apihug.rad.infra.organization.CustomerOrgStatusEnum;
-import com.apihug.rad.infra.organization.EmployeeTypeEnum;
-import com.apihug.rad.infra.organization.OrganizationStatusEnum;
 import com.apihug.rad.infra.role.RoleStatusEnum;
+import com.apihug.rad.infra.tenant.MemberRoleEnum;
+import com.apihug.rad.infra.tenant.MemberTypeEnum;
+import com.apihug.rad.infra.tenant.TenantMemberStatusEnum;
 import com.apihug.rad.infra.tenant.TenantStatusEnum;
 import hope.common.spring.data.persistence.mybatis.AnalystHelper;
 import hope.common.spring.data.persistence.wire.Wirer.Known;
@@ -65,21 +66,25 @@ public interface RadDatabase {
 
   Supplier<RadDatabase.MenuEntity> SYS_MENU_ALIAS = MenuEntity::new;
 
-  RadDatabase.CustomerOrganizationEntity SYS_CUSTOMER_ORGANIZATION = new CustomerOrganizationEntity();
-
-  Supplier<RadDatabase.CustomerOrganizationEntity> SYS_CUSTOMER_ORGANIZATION_ALIAS = CustomerOrganizationEntity::new;
-
-  RadDatabase.OrganizationEntity SYS_ORGANIZATION = new OrganizationEntity();
-
-  Supplier<RadDatabase.OrganizationEntity> SYS_ORGANIZATION_ALIAS = OrganizationEntity::new;
-
   RadDatabase.RoleEntity SYS_ROLE = new RoleEntity();
 
   Supplier<RadDatabase.RoleEntity> SYS_ROLE_ALIAS = RoleEntity::new;
 
+  RadDatabase.RoleMenuEntity SYS_ROLE_MENU = new RoleMenuEntity();
+
+  Supplier<RadDatabase.RoleMenuEntity> SYS_ROLE_MENU_ALIAS = RoleMenuEntity::new;
+
+  RadDatabase.MemberRoleEntity SYS_MEMBER_ROLE = new MemberRoleEntity();
+
+  Supplier<RadDatabase.MemberRoleEntity> SYS_MEMBER_ROLE_ALIAS = MemberRoleEntity::new;
+
   RadDatabase.TenantEntity SYS_TENANT = new TenantEntity();
 
   Supplier<RadDatabase.TenantEntity> SYS_TENANT_ALIAS = TenantEntity::new;
+
+  RadDatabase.TenantMemberEntity SYS_TENANT_MEMBER = new TenantMemberEntity();
+
+  Supplier<RadDatabase.TenantMemberEntity> SYS_TENANT_MEMBER_ALIAS = TenantMemberEntity::new;
 
   final class AccessLogEntity extends SqlTable {
     private final List<SqlColumn>[] _CACHE_COLUMN_LIST;
@@ -208,8 +213,6 @@ public interface RadDatabase {
 
     public final SqlColumn<CustomerStatusEnum> Status = AnalystHelper.mapper(CustomerEntityDSL.Domain.Status, this, "com.apihug.rad.domain.bootstrap.mybatis.type.CustomerStatusEnumTitleTypeHandler", CustomerStatusEnumTitleTypeHandler.PTC);
 
-    public final SqlColumn<Long> DefaultOrganizationId = AnalystHelper.mapper(CustomerEntityDSL.Domain.DefaultOrganizationId, this);
-
     public final SqlColumn<Long> Id = AnalystHelper.mapper(CustomerEntityDSL.Domain.Id, this);
 
     public final SqlColumn<LocalDateTime> CreatedAt = AnalystHelper.mapper(CustomerEntityDSL.Domain.CreatedAt, this);
@@ -281,7 +284,6 @@ public interface RadDatabase {
           res.add(PasswordHash);
           res.add(Email);
           res.add(Status);
-          res.add(DefaultOrganizationId);
         }
         if(kind.auditIncluded()) {
           res.add(CreatedAt);
@@ -621,207 +623,6 @@ public interface RadDatabase {
     }
   }
 
-  final class CustomerOrganizationEntity extends SqlTable {
-    private final List<SqlColumn>[] _CACHE_COLUMN_LIST;
-
-    public final SqlColumn<Long> CustomerId = AnalystHelper.mapper(CustomerOrganizationEntityDSL.Domain.CustomerId, this);
-
-    public final SqlColumn<Long> OrganizationId = AnalystHelper.mapper(CustomerOrganizationEntityDSL.Domain.OrganizationId, this);
-
-    public final SqlColumn<Boolean> IsDefault = AnalystHelper.mapper(CustomerOrganizationEntityDSL.Domain.IsDefault, this);
-
-    public final SqlColumn<EmployeeTypeEnum> EmployeeType = AnalystHelper.mapper(CustomerOrganizationEntityDSL.Domain.EmployeeType, this, "com.apihug.rad.domain.bootstrap.mybatis.type.EmployeeTypeEnumTitleTypeHandler", EmployeeTypeEnumTitleTypeHandler.PTC);
-
-    public final SqlColumn<CustomerOrgStatusEnum> Status = AnalystHelper.mapper(CustomerOrganizationEntityDSL.Domain.Status, this, "com.apihug.rad.domain.bootstrap.mybatis.type.CustomerOrgStatusEnumTitleTypeHandler", CustomerOrgStatusEnumTitleTypeHandler.PTC);
-
-    public final SqlColumn<Long> DepartmentId = AnalystHelper.mapper(CustomerOrganizationEntityDSL.Domain.DepartmentId, this);
-
-    public final SqlColumn<String> Position = AnalystHelper.mapper(CustomerOrganizationEntityDSL.Domain.Position, this);
-
-    public final SqlColumn<Long> Id = AnalystHelper.mapper(CustomerOrganizationEntityDSL.Domain.Id, this);
-
-    public final SqlColumn<LocalDateTime> CreatedAt = AnalystHelper.mapper(CustomerOrganizationEntityDSL.Domain.CreatedAt, this);
-
-    public final SqlColumn<Long> CreatedBy = AnalystHelper.mapper(CustomerOrganizationEntityDSL.Domain.CreatedBy, this);
-
-    public final SqlColumn<LocalDateTime> UpdatedAt = AnalystHelper.mapper(CustomerOrganizationEntityDSL.Domain.UpdatedAt, this);
-
-    public final SqlColumn<Long> UpdatedBy = AnalystHelper.mapper(CustomerOrganizationEntityDSL.Domain.UpdatedBy, this);
-
-    public CustomerOrganizationEntity() {
-      super("SYS_CUSTOMER_ORGANIZATION");
-      _CACHE_COLUMN_LIST = new List[Known._SIZE_+1];;
-    }
-
-    public boolean isIdentifiable() {
-      return true;
-    }
-
-    public boolean isAuditable() {
-      return true;
-    }
-
-    public boolean isSoftDeletable() {
-      return false;
-    }
-
-    public boolean isVersionable() {
-      return false;
-    }
-
-    public boolean isTenantable() {
-      return false;
-    }
-
-    public List<SqlColumn> columnsOfDomain() {
-      return columnsOf(Known.DOMAIN);
-    }
-
-    public List<SqlColumn> columnsOfIdentifiedDomain() {
-      return columnsOf(Known.IDENTIFIED_DOMAIN);
-    }
-
-    public List<SqlColumn> columnsOfAll() {
-      return columnsOf(Known.ALL);
-    }
-
-    public List<SqlColumn> columnsOf(Mixer kind) {
-      assert kind.good() : "Exceed the range of predefined column composited kind";
-      List<SqlColumn> res = _CACHE_COLUMN_LIST[kind.bit()];
-      if (res == null) {
-        res = new ArrayList<>();
-        if (kind.idIncluded()) {
-          res.add(Id);
-        }
-        if (kind.domainIncluded()) {
-          res.add(CustomerId);
-          res.add(OrganizationId);
-          res.add(IsDefault);
-          res.add(EmployeeType);
-          res.add(Status);
-          res.add(DepartmentId);
-          res.add(Position);
-        }
-        if(kind.auditIncluded()) {
-          res.add(CreatedAt);
-          res.add(CreatedBy);
-          res.add(UpdatedAt);
-          res.add(UpdatedBy);
-        }
-        _CACHE_COLUMN_LIST[kind.bit()] = res;
-      }
-      return res;
-    }
-  }
-
-  final class OrganizationEntity extends SqlTable {
-    private final List<SqlColumn>[] _CACHE_COLUMN_LIST;
-
-    public final SqlColumn<Long> ParentId = AnalystHelper.mapper(OrganizationEntityDSL.Domain.ParentId, this);
-
-    public final SqlColumn<String> OrganizationCode = AnalystHelper.mapper(OrganizationEntityDSL.Domain.OrganizationCode, this);
-
-    public final SqlColumn<String> OrganizationName = AnalystHelper.mapper(OrganizationEntityDSL.Domain.OrganizationName, this);
-
-    public final SqlColumn<Integer> SortOrder = AnalystHelper.mapper(OrganizationEntityDSL.Domain.SortOrder, this);
-
-    public final SqlColumn<OrganizationStatusEnum> Status = AnalystHelper.mapper(OrganizationEntityDSL.Domain.Status, this, "com.apihug.rad.domain.bootstrap.mybatis.type.OrganizationStatusEnumTitleTypeHandler", OrganizationStatusEnumTitleTypeHandler.PTC);
-
-    public final SqlColumn<Long> Id = AnalystHelper.mapper(OrganizationEntityDSL.Domain.Id, this);
-
-    public final SqlColumn<LocalDateTime> CreatedAt = AnalystHelper.mapper(OrganizationEntityDSL.Domain.CreatedAt, this);
-
-    public final SqlColumn<Long> CreatedBy = AnalystHelper.mapper(OrganizationEntityDSL.Domain.CreatedBy, this);
-
-    public final SqlColumn<LocalDateTime> UpdatedAt = AnalystHelper.mapper(OrganizationEntityDSL.Domain.UpdatedAt, this);
-
-    public final SqlColumn<Long> UpdatedBy = AnalystHelper.mapper(OrganizationEntityDSL.Domain.UpdatedBy, this);
-
-    public final SqlColumn<Boolean> Deleted = AnalystHelper.mapper(OrganizationEntityDSL.Domain.Deleted, this);
-
-    public final SqlColumn<LocalDateTime> DeletedAt = AnalystHelper.mapper(OrganizationEntityDSL.Domain.DeletedAt, this);
-
-    public final SqlColumn<Long> DeletedBy = AnalystHelper.mapper(OrganizationEntityDSL.Domain.DeletedBy, this);
-
-    public final SqlColumn<Long> Version = AnalystHelper.mapper(OrganizationEntityDSL.Domain.Version, this);
-
-    public final SqlColumn<Long> TenantId = AnalystHelper.mapper(OrganizationEntityDSL.Domain.TenantId, this);
-
-    public OrganizationEntity() {
-      super("SYS_ORGANIZATION");
-      _CACHE_COLUMN_LIST = new List[Known._SIZE_+1];;
-    }
-
-    public boolean isIdentifiable() {
-      return true;
-    }
-
-    public boolean isAuditable() {
-      return true;
-    }
-
-    public boolean isSoftDeletable() {
-      return true;
-    }
-
-    public boolean isVersionable() {
-      return true;
-    }
-
-    public boolean isTenantable() {
-      return true;
-    }
-
-    public List<SqlColumn> columnsOfDomain() {
-      return columnsOf(Known.DOMAIN);
-    }
-
-    public List<SqlColumn> columnsOfIdentifiedDomain() {
-      return columnsOf(Known.IDENTIFIED_DOMAIN);
-    }
-
-    public List<SqlColumn> columnsOfAll() {
-      return columnsOf(Known.ALL);
-    }
-
-    public List<SqlColumn> columnsOf(Mixer kind) {
-      assert kind.good() : "Exceed the range of predefined column composited kind";
-      List<SqlColumn> res = _CACHE_COLUMN_LIST[kind.bit()];
-      if (res == null) {
-        res = new ArrayList<>();
-        if (kind.idIncluded()) {
-          res.add(Id);
-        }
-        if (kind.domainIncluded()) {
-          res.add(ParentId);
-          res.add(OrganizationCode);
-          res.add(OrganizationName);
-          res.add(SortOrder);
-          res.add(Status);
-        }
-        if(kind.auditIncluded()) {
-          res.add(CreatedAt);
-          res.add(CreatedBy);
-          res.add(UpdatedAt);
-          res.add(UpdatedBy);
-        }
-        if(kind.deleteIncluded()) {
-          res.add(Deleted);
-          res.add(DeletedAt);
-          res.add(DeletedBy);
-        }
-        if(kind.versionIncluded()) {
-          res.add(Version);
-        }
-        if(kind.tenantIncluded()) {
-          res.add(TenantId);
-        }
-        _CACHE_COLUMN_LIST[kind.bit()] = res;
-      }
-      return res;
-    }
-  }
-
   final class RoleEntity extends SqlTable {
     private final List<SqlColumn>[] _CACHE_COLUMN_LIST;
 
@@ -927,6 +728,134 @@ public interface RadDatabase {
     }
   }
 
+  final class RoleMenuEntity extends SqlTable {
+    private final List<SqlColumn>[] _CACHE_COLUMN_LIST;
+
+    public final SqlColumn<Long> RoleId = AnalystHelper.mapper(RoleMenuEntityDSL.Domain.RoleId, this);
+
+    public final SqlColumn<Long> MenuId = AnalystHelper.mapper(RoleMenuEntityDSL.Domain.MenuId, this);
+
+    public final SqlColumn<Long> Id = AnalystHelper.mapper(RoleMenuEntityDSL.Domain.Id, this);
+
+    public RoleMenuEntity() {
+      super("SYS_ROLE_MENU");
+      _CACHE_COLUMN_LIST = new List[Known._SIZE_+1];;
+    }
+
+    public boolean isIdentifiable() {
+      return true;
+    }
+
+    public boolean isAuditable() {
+      return false;
+    }
+
+    public boolean isSoftDeletable() {
+      return false;
+    }
+
+    public boolean isVersionable() {
+      return false;
+    }
+
+    public boolean isTenantable() {
+      return false;
+    }
+
+    public List<SqlColumn> columnsOfDomain() {
+      return columnsOf(Known.DOMAIN);
+    }
+
+    public List<SqlColumn> columnsOfIdentifiedDomain() {
+      return columnsOf(Known.IDENTIFIED_DOMAIN);
+    }
+
+    public List<SqlColumn> columnsOfAll() {
+      return columnsOf(Known.ALL);
+    }
+
+    public List<SqlColumn> columnsOf(Mixer kind) {
+      assert kind.good() : "Exceed the range of predefined column composited kind";
+      List<SqlColumn> res = _CACHE_COLUMN_LIST[kind.bit()];
+      if (res == null) {
+        res = new ArrayList<>();
+        if (kind.idIncluded()) {
+          res.add(Id);
+        }
+        if (kind.domainIncluded()) {
+          res.add(RoleId);
+          res.add(MenuId);
+        }
+        _CACHE_COLUMN_LIST[kind.bit()] = res;
+      }
+      return res;
+    }
+  }
+
+  final class MemberRoleEntity extends SqlTable {
+    private final List<SqlColumn>[] _CACHE_COLUMN_LIST;
+
+    public final SqlColumn<Long> MemberId = AnalystHelper.mapper(MemberRoleEntityDSL.Domain.MemberId, this);
+
+    public final SqlColumn<Long> RoleId = AnalystHelper.mapper(MemberRoleEntityDSL.Domain.RoleId, this);
+
+    public final SqlColumn<Long> Id = AnalystHelper.mapper(MemberRoleEntityDSL.Domain.Id, this);
+
+    public MemberRoleEntity() {
+      super("SYS_MEMBER_ROLE");
+      _CACHE_COLUMN_LIST = new List[Known._SIZE_+1];;
+    }
+
+    public boolean isIdentifiable() {
+      return true;
+    }
+
+    public boolean isAuditable() {
+      return false;
+    }
+
+    public boolean isSoftDeletable() {
+      return false;
+    }
+
+    public boolean isVersionable() {
+      return false;
+    }
+
+    public boolean isTenantable() {
+      return false;
+    }
+
+    public List<SqlColumn> columnsOfDomain() {
+      return columnsOf(Known.DOMAIN);
+    }
+
+    public List<SqlColumn> columnsOfIdentifiedDomain() {
+      return columnsOf(Known.IDENTIFIED_DOMAIN);
+    }
+
+    public List<SqlColumn> columnsOfAll() {
+      return columnsOf(Known.ALL);
+    }
+
+    public List<SqlColumn> columnsOf(Mixer kind) {
+      assert kind.good() : "Exceed the range of predefined column composited kind";
+      List<SqlColumn> res = _CACHE_COLUMN_LIST[kind.bit()];
+      if (res == null) {
+        res = new ArrayList<>();
+        if (kind.idIncluded()) {
+          res.add(Id);
+        }
+        if (kind.domainIncluded()) {
+          res.add(MemberId);
+          res.add(RoleId);
+        }
+        _CACHE_COLUMN_LIST[kind.bit()] = res;
+      }
+      return res;
+    }
+  }
+
   final class TenantEntity extends SqlTable {
     private final List<SqlColumn>[] _CACHE_COLUMN_LIST;
 
@@ -945,6 +874,10 @@ public interface RadDatabase {
     public final SqlColumn<Long> MaxStorageMb = AnalystHelper.mapper(TenantEntityDSL.Domain.MaxStorageMb, this);
 
     public final SqlColumn<LocalDateTime> ExpiryDate = AnalystHelper.mapper(TenantEntityDSL.Domain.ExpiryDate, this);
+
+    public final SqlColumn<Boolean> IsPlatform = AnalystHelper.mapper(TenantEntityDSL.Domain.IsPlatform, this);
+
+    public final SqlColumn<String> Description = AnalystHelper.mapper(TenantEntityDSL.Domain.Description, this);
 
     public final SqlColumn<Long> Id = AnalystHelper.mapper(TenantEntityDSL.Domain.Id, this);
 
@@ -1010,6 +943,104 @@ public interface RadDatabase {
           res.add(MaxUsers);
           res.add(MaxStorageMb);
           res.add(ExpiryDate);
+          res.add(IsPlatform);
+          res.add(Description);
+        }
+        if(kind.auditIncluded()) {
+          res.add(CreatedAt);
+          res.add(CreatedBy);
+          res.add(UpdatedAt);
+          res.add(UpdatedBy);
+        }
+        _CACHE_COLUMN_LIST[kind.bit()] = res;
+      }
+      return res;
+    }
+  }
+
+  final class TenantMemberEntity extends SqlTable {
+    private final List<SqlColumn>[] _CACHE_COLUMN_LIST;
+
+    public final SqlColumn<Long> CustomerId = AnalystHelper.mapper(TenantMemberEntityDSL.Domain.CustomerId, this);
+
+    public final SqlColumn<Long> TenantId = AnalystHelper.mapper(TenantMemberEntityDSL.Domain.TenantId, this);
+
+    public final SqlColumn<Boolean> IsDefault = AnalystHelper.mapper(TenantMemberEntityDSL.Domain.IsDefault, this);
+
+    public final SqlColumn<MemberTypeEnum> MemberType = AnalystHelper.mapper(TenantMemberEntityDSL.Domain.MemberType, this, "com.apihug.rad.domain.bootstrap.mybatis.type.MemberTypeEnumTitleTypeHandler", MemberTypeEnumTitleTypeHandler.PTC);
+
+    public final SqlColumn<MemberRoleEnum> MemberRole = AnalystHelper.mapper(TenantMemberEntityDSL.Domain.MemberRole, this, "com.apihug.rad.domain.bootstrap.mybatis.type.MemberRoleEnumTitleTypeHandler", MemberRoleEnumTitleTypeHandler.PTC);
+
+    public final SqlColumn<TenantMemberStatusEnum> Status = AnalystHelper.mapper(TenantMemberEntityDSL.Domain.Status, this, "com.apihug.rad.domain.bootstrap.mybatis.type.TenantMemberStatusEnumTitleTypeHandler", TenantMemberStatusEnumTitleTypeHandler.PTC);
+
+    public final SqlColumn<Long> DepartmentId = AnalystHelper.mapper(TenantMemberEntityDSL.Domain.DepartmentId, this);
+
+    public final SqlColumn<String> Position = AnalystHelper.mapper(TenantMemberEntityDSL.Domain.Position, this);
+
+    public final SqlColumn<Long> Id = AnalystHelper.mapper(TenantMemberEntityDSL.Domain.Id, this);
+
+    public final SqlColumn<LocalDateTime> CreatedAt = AnalystHelper.mapper(TenantMemberEntityDSL.Domain.CreatedAt, this);
+
+    public final SqlColumn<Long> CreatedBy = AnalystHelper.mapper(TenantMemberEntityDSL.Domain.CreatedBy, this);
+
+    public final SqlColumn<LocalDateTime> UpdatedAt = AnalystHelper.mapper(TenantMemberEntityDSL.Domain.UpdatedAt, this);
+
+    public final SqlColumn<Long> UpdatedBy = AnalystHelper.mapper(TenantMemberEntityDSL.Domain.UpdatedBy, this);
+
+    public TenantMemberEntity() {
+      super("SYS_TENANT_MEMBER");
+      _CACHE_COLUMN_LIST = new List[Known._SIZE_+1];;
+    }
+
+    public boolean isIdentifiable() {
+      return true;
+    }
+
+    public boolean isAuditable() {
+      return true;
+    }
+
+    public boolean isSoftDeletable() {
+      return false;
+    }
+
+    public boolean isVersionable() {
+      return false;
+    }
+
+    public boolean isTenantable() {
+      return false;
+    }
+
+    public List<SqlColumn> columnsOfDomain() {
+      return columnsOf(Known.DOMAIN);
+    }
+
+    public List<SqlColumn> columnsOfIdentifiedDomain() {
+      return columnsOf(Known.IDENTIFIED_DOMAIN);
+    }
+
+    public List<SqlColumn> columnsOfAll() {
+      return columnsOf(Known.ALL);
+    }
+
+    public List<SqlColumn> columnsOf(Mixer kind) {
+      assert kind.good() : "Exceed the range of predefined column composited kind";
+      List<SqlColumn> res = _CACHE_COLUMN_LIST[kind.bit()];
+      if (res == null) {
+        res = new ArrayList<>();
+        if (kind.idIncluded()) {
+          res.add(Id);
+        }
+        if (kind.domainIncluded()) {
+          res.add(CustomerId);
+          res.add(TenantId);
+          res.add(IsDefault);
+          res.add(MemberType);
+          res.add(MemberRole);
+          res.add(Status);
+          res.add(DepartmentId);
+          res.add(Position);
         }
         if(kind.auditIncluded()) {
           res.add(CreatedAt);

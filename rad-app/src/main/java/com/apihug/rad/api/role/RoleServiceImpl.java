@@ -5,8 +5,12 @@ import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
 
+import com.apihug.rad.domain.menu.MenuEntity;
+import com.apihug.rad.domain.menu.repository.MenuEntityRepository;
 import com.apihug.rad.domain.role.RoleEntity;
+import com.apihug.rad.domain.role.RoleMenuEntity;
 import com.apihug.rad.domain.role.repository.RoleEntityRepository;
+import com.apihug.rad.domain.role.repository.RoleMenuEntityRepository;
 import com.apihug.rad.infra.role.RoleErrorEnum;
 import com.apihug.rad.infra.role.RoleStatusEnum;
 import hope.common.api.PageRequest;
@@ -17,6 +21,7 @@ import hope.common.meta.annotation.Template;import hope.common.spring.PageableRe
 import hope.common.spring.SimpleResultBuilder;
 import hope.common.spring.security.context.HopeContextHolder;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.data.domain.Page;
@@ -73,9 +78,16 @@ import org.springframework.stereotype.Service;
 public class RoleServiceImpl implements RoleService {
 
   private final RoleEntityRepository roleRepository;
+  private final RoleMenuEntityRepository roleMenuRepository;
+  private final MenuEntityRepository menuRepository;
 
-  public RoleServiceImpl(RoleEntityRepository roleRepository) {
+  public RoleServiceImpl(
+      RoleEntityRepository roleRepository,
+      RoleMenuEntityRepository roleMenuRepository,
+      MenuEntityRepository menuRepository) {
     this.roleRepository = roleRepository;
+    this.roleMenuRepository = roleMenuRepository;
+    this.menuRepository = menuRepository;
   }
 
   /**
@@ -173,7 +185,6 @@ public class RoleServiceImpl implements RoleService {
     }
 
     roleRepository.save(entity);
-    builder.done();
   }
 
   /**
@@ -199,7 +210,6 @@ public class RoleServiceImpl implements RoleService {
         .setDeletedBy(((Long) HopeContextHolder.customer().getId()));
 
     roleRepository.save(entity);
-    builder.done();
   }
 
   /**
@@ -239,56 +249,92 @@ public class RoleServiceImpl implements RoleService {
   }
 
   /**
-   *
    * Authorization:
-   *
    * <ul>
    * 	<li>Authorities: [ROLE_ASSIGN_PERMISSION]</li>
    * </ul>
    * @apiNote
-   * 	<p>{@code /api/roles/roles/{roleId}/permissions}
-   * 	<p>{@code 为角色分配权限}
-   * @see RoleService#assignPermissions
+   * 	<p>{@code /api/roles/roles/{roleId}/menus}
+   * 	<p>{@code 为角色分配菜单（全量覆盖）}
+   * @see RoleService#assignMenusToRole
    */
   @Override
-  public void assignPermissions(SimpleResultBuilder<String> builder, Integer roleId,
-      AssignPermissionsRequest assignPermissionsRequest) {
-    // TODO: 实现角色权限分配逻辑
-    // 需要创建 RolePermissionEntity 和对应的 Repository
-    builder.done();
+  public void assignMenusToRole(SimpleResultBuilder<String> builder, Integer roleId,
+      AssignMenusRequest assignMenusRequest) {
+    // 验证角色存在
+    RoleEntity role = roleRepository.findById(roleId.longValue())
+        .orElseThrow(() -> HopeErrorDetailException.errorBuilder(RoleErrorEnum.ROLE_NOT_FOUND).build());
+
+    // 全量覆盖：先删除旧关联
+    roleMenuRepository.deleteByRoleId(role.getId());
+
+    // 批量插入新关联
+    if (assignMenusRequest.getMenuIds() != null && !assignMenusRequest.getMenuIds().isEmpty()) {
+      List<RoleMenuEntity> roleMenus = new ArrayList<>();
+      for (Long menuId : assignMenusRequest.getMenuIds()) {
+        RoleMenuEntity rm = new RoleMenuEntity()
+            .setRoleId(role.getId())
+            .setMenuId(menuId);
+        roleMenus.add(rm);
+      }
+      roleMenuRepository.saveAll(roleMenus);
+    }
   }
 
   /**
-   *
    * Authorization:
-   *
    * <ul>
    * 	<li>Authorities: [ROLE_ASSIGN_PERMISSION]</li>
    * </ul>
    * @apiNote
-   * 	<p>{@code /api/roles/roles/{roleId}/permissions/{permissionId}}
-   * 	<p>{@code 移除角色权限}
-   * @see RoleService#removePermission
+   * 	<p>{@code /api/roles/roles/{roleId}/menus/{menuId}}
+   * 	<p>{@code 移除角色的某个菜单关联}
+   * @see RoleService#removeMenuFromRole
    */
   @Override
-  public void removePermission(SimpleResultBuilder<String> builder, Integer roleId,
-      Integer permissionId, RemovePermissionRequest removePermissionRequest) {
-    // TODO: 实现移除角色权限逻辑
-    builder.done();
+  public void removeMenuFromRole(SimpleResultBuilder<String> builder, Integer roleId,
+      Integer menuId) {
+    // 验证角色存在
+    roleRepository.findById(roleId.longValue())
+        .orElseThrow(() -> HopeErrorDetailException.errorBuilder(RoleErrorEnum.ROLE_NOT_FOUND).build());
+
+    roleMenuRepository.deleteByRoleIdAndMenuId(roleId.longValue(), menuId.longValue());
   }
 
   /**
    * @apiNote
-   * 	<p>{@code /api/roles/roles/{roleId}/permissions}
-   * 	<p>{@code 获取角色的权限列表}
-   * @see RoleService#getRolePermissions
+   * 	<p>{@code /api/roles/roles/{roleId}/menus}
+   * 	<p>{@code 获取角色关联的菜单列表}
+   * @see RoleService#getRoleMenus
    */
   @Override
-  public void getRolePermissions(SimpleResultBuilder<RolePermissionSummary> builder,
-      Integer roleId) {
-    // TODO: 实现获取角色权限列表逻辑
-    RolePermissionSummary summary = new RolePermissionSummary();
-    summary.setRoleId(roleId.longValue());
+  public void getRoleMenus(SimpleResultBuilder<RoleMenuSummary> builder, Integer roleId) {
+    // 验证角色存在
+    roleRepository.findById(roleId.longValue())
+        .orElseThrow(() -> HopeErrorDetailException.errorBuilder(RoleErrorEnum.ROLE_NOT_FOUND).build());
+
+    // 查找角色关联的菜单
+    List<RoleMenuEntity> roleMenus = roleMenuRepository.findByRoleId(roleId.longValue());
+
+    List<RoleMenuItem> menuItems = new ArrayList<>();
+    if (!roleMenus.isEmpty()) {
+      List<Long> menuIds = roleMenus.stream()
+          .map(RoleMenuEntity::getMenuId)
+          .collect(Collectors.toList());
+      List<MenuEntity> menus = menuRepository.findAllById(menuIds);
+      menuItems = menus.stream()
+          .map(m -> new RoleMenuItem()
+              .setId(m.getId())
+              .setMenuCode(m.getMenuCode())
+              .setMenuName(m.getMenuName())
+              .setPermissionCode(m.getPermissionCode())
+              .setMenuType(m.getMenuType() != null ? m.getMenuType().name() : null))
+          .collect(Collectors.toList());
+    }
+
+    RoleMenuSummary summary = new RoleMenuSummary()
+        .setRoleId(roleId.longValue())
+        .setMenus(menuItems);
     builder.payload(summary);
   }
 }

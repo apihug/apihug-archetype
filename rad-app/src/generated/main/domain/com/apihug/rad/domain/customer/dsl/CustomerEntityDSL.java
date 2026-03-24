@@ -97,7 +97,6 @@ public interface CustomerEntityDSL extends DSL<CustomerEntity> {
     carrier[beginIndex + 2] = entity.getPasswordHash();
     carrier[beginIndex + 3] = entity.getEmail();
     carrier[beginIndex + 4] = entity.getStatus().name();
-    carrier[beginIndex + 5] = entity.getDefaultOrganizationId();
     return carrier;
   }
 
@@ -261,7 +260,6 @@ public interface CustomerEntityDSL extends DSL<CustomerEntity> {
     	Map.entry("PASSWORDHASH", Domain.PasswordHash),
     	Map.entry("EMAIL", Domain.Email),
     	Map.entry("STATUS", Domain.Status),
-    	Map.entry("DEFAULTORGANIZATIONID", Domain.DefaultOrganizationId),
     	// Auditable,
     	Map.entry("CREATED_AT", _Auditable_.CREATED_AT),
     	Map.entry("CREATED_BY", _Auditable_.CREATED_BY),
@@ -341,19 +339,7 @@ public interface CustomerEntityDSL extends DSL<CustomerEntity> {
     		.setEnumType(EnumType.STRING)
     		.setDefaultValue("STATUS"));
 
-    ColumnMix DefaultOrganizationId = ColumnMix.of(table, 
-    	new Column().setFieldName("defaultOrganizationId")
-    		.setName("DEFAULT_ORGANIZATION_ID")
-    		.setClz("java.lang.Long")
-    		.setType(Types.BIGINT)
-    		.setDescription("默认组织 ID")
-    		.setUpdatable(true)
-    		.setNullable(true)
-    		.setInsertable(true)
-    		.setLength(255)
-    		.setDefaultValue("DEFAULT_ORGANIZATION_ID"));
-
-    List<ColumnMix> ALL = List.of(DefaultTenantId, Username, PasswordHash, Email, Status, DefaultOrganizationId);
+    List<ColumnMix> ALL = List.of(DefaultTenantId, Username, PasswordHash, Email, Status);
 
     ColumnMix Id = _Identifiable_.ID;
 
@@ -384,7 +370,6 @@ public interface CustomerEntityDSL extends DSL<CustomerEntity> {
     ps.setString(3, entity.getPasswordHash());
     ps.setString(4, entity.getEmail());
     ps.setString(5, entity.getStatus().name());
-    ps.setLong(6, entity.getDefaultOrganizationId());
     };
 
     RowMapper<CustomerEntity> MAPPER = new RowMapper() {
@@ -397,30 +382,29 @@ public interface CustomerEntityDSL extends DSL<CustomerEntity> {
         entity.setPasswordHash(rs.getString(4));
         entity.setEmail(rs.getString(5));
         entity.setStatus(CustomerStatusEnum.NA.mapFromName(rs.getString(6)));
-        entity.setDefaultOrganizationId(rs.getLong(7));
-        Timestamp _8 = rs.getTimestamp(8);
-        if (_8 != null) {
-          entity.setCreatedAt(_8.toLocalDateTime());
+        Timestamp _7 = rs.getTimestamp(7);
+        if (_7 != null) {
+          entity.setCreatedAt(_7.toLocalDateTime());
         }
-        entity.setCreatedBy(rs.getLong(9));
-        Timestamp _10 = rs.getTimestamp(10);
-        if (_10 != null) {
-          entity.setUpdatedAt(_10.toLocalDateTime());
+        entity.setCreatedBy(rs.getLong(8));
+        Timestamp _9 = rs.getTimestamp(9);
+        if (_9 != null) {
+          entity.setUpdatedAt(_9.toLocalDateTime());
         }
-        entity.setUpdatedBy(rs.getLong(11));
-        Boolean _12 = rs.getBoolean(12);
-        if (_12 != null) {
-        entity.setDeleted(_12);
+        entity.setUpdatedBy(rs.getLong(10));
+        Boolean _11 = rs.getBoolean(11);
+        if (_11 != null) {
+        entity.setDeleted(_11);
         } else {
         entity.setDeleted(false);
         }
-        Timestamp _13 = rs.getTimestamp(13);
-        if (_13 != null) {
-          entity.setDeletedAt(_13.toLocalDateTime());
+        Timestamp _12 = rs.getTimestamp(12);
+        if (_12 != null) {
+          entity.setDeletedAt(_12.toLocalDateTime());
         }
-        entity.setDeletedBy(rs.getLong(14));
-        entity.setVersion(rs.getLong(15));
-        entity.setTenantId(rs.getLong(16));
+        entity.setDeletedBy(rs.getLong(13));
+        entity.setVersion(rs.getLong(14));
+        entity.setTenantId(rs.getLong(15));
         return entity;
       }
     };

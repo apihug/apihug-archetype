@@ -234,20 +234,20 @@ public final class RadApiCollector implements Collector {
     _Info.setHttpMethod(ServiceMethod.HttpMethod.GET);
     _Info.setPath("/api/customer/info");
     res.addItem(_Info);
-    var _GetCurrentUserInfo = new ServiceMethod();
-    _GetCurrentUserInfo.setName("GetCurrentUserInfo");
-    _GetCurrentUserInfo.setProtoLine(77);
-    _GetCurrentUserInfo.setProtoColumn(3);
-    _GetCurrentUserInfo.setRequestRef("hope.common.adaptor.Empty");
-    _GetCurrentUserInfo.setResponseRef("com.apihug.rad.api.customer.CurrentUserInfo");
-    _GetCurrentUserInfo.setSchema(new Supplier<Operation>() {
+    var _GetCurrentCustomerInfo = new ServiceMethod();
+    _GetCurrentCustomerInfo.setName("GetCurrentCustomerInfo");
+    _GetCurrentCustomerInfo.setProtoLine(77);
+    _GetCurrentCustomerInfo.setProtoColumn(3);
+    _GetCurrentCustomerInfo.setRequestRef("hope.common.adaptor.Empty");
+    _GetCurrentCustomerInfo.setResponseRef("com.apihug.rad.api.customer.CurrentCustomerInfo");
+    _GetCurrentCustomerInfo.setSchema(new Supplier<Operation>() {
       @Override
       public Operation get() {
         Operation res  = new Operation();
         res.setTags(Arrays.asList("customer"));
-        res.setSummary("获取当前客户信息");
-        res.setDescription("获取当前客户完整信息（包含权限、角色、部门）");
-        res.setGet("/api/customer/current-user-info");
+        res.setSummary("获取当前客户完整信息");
+        res.setDescription("获取当前客户完整信息（包含权限、角色、部门、当前租户）");
+        res.setGet("/api/customer/current-info");
         res.setAuthorization(new Supplier<Authorization>() {
           @Override
           public Authorization get() {
@@ -260,23 +260,23 @@ public final class RadApiCollector implements Collector {
         return res;
       }
     }.get());
-    _GetCurrentUserInfo.setHttpMethod(ServiceMethod.HttpMethod.GET);
-    _GetCurrentUserInfo.setPath("/api/customer/current-user-info");
-    res.addItem(_GetCurrentUserInfo);
-    var _GetUserOrganizations = new ServiceMethod();
-    _GetUserOrganizations.setName("GetUserOrganizations");
-    _GetUserOrganizations.setProtoLine(94);
-    _GetUserOrganizations.setProtoColumn(3);
-    _GetUserOrganizations.setRequestRef("hope.common.adaptor.Empty");
-    _GetUserOrganizations.setResponseRef("com.apihug.rad.api.customer.OrganizationList");
-    _GetUserOrganizations.setSchema(new Supplier<Operation>() {
+    _GetCurrentCustomerInfo.setHttpMethod(ServiceMethod.HttpMethod.GET);
+    _GetCurrentCustomerInfo.setPath("/api/customer/current-info");
+    res.addItem(_GetCurrentCustomerInfo);
+    var _GetCustomerTenants = new ServiceMethod();
+    _GetCustomerTenants.setName("GetCustomerTenants");
+    _GetCustomerTenants.setProtoLine(94);
+    _GetCustomerTenants.setProtoColumn(3);
+    _GetCustomerTenants.setRequestRef("hope.common.adaptor.Empty");
+    _GetCustomerTenants.setResponseRef("com.apihug.rad.api.customer.TenantList");
+    _GetCustomerTenants.setSchema(new Supplier<Operation>() {
       @Override
       public Operation get() {
         Operation res  = new Operation();
         res.setTags(Arrays.asList("customer"));
-        res.setSummary("获取客户组织");
-        res.setDescription("获取客户的所有组织列表");
-        res.setGet("/api/customer/user-organizations");
+        res.setSummary("获取客户租户列表");
+        res.setDescription("获取客户加入的所有租户列表");
+        res.setGet("/api/customer/tenants");
         res.setAuthorization(new Supplier<Authorization>() {
           @Override
           public Authorization get() {
@@ -288,23 +288,23 @@ public final class RadApiCollector implements Collector {
         return res;
       }
     }.get());
-    _GetUserOrganizations.setHttpMethod(ServiceMethod.HttpMethod.GET);
-    _GetUserOrganizations.setPath("/api/customer/user-organizations");
-    res.addItem(_GetUserOrganizations);
-    var _SwitchOrganization = new ServiceMethod();
-    _SwitchOrganization.setName("SwitchOrganization");
-    _SwitchOrganization.setProtoLine(106);
-    _SwitchOrganization.setProtoColumn(3);
-    _SwitchOrganization.setRequestRef("com.apihug.rad.api.customer.SwitchOrganizationRequest");
-    _SwitchOrganization.setResponseRef("com.apihug.rad.api.customer.LoginResponse");
-    _SwitchOrganization.setSchema(new Supplier<Operation>() {
+    _GetCustomerTenants.setHttpMethod(ServiceMethod.HttpMethod.GET);
+    _GetCustomerTenants.setPath("/api/customer/tenants");
+    res.addItem(_GetCustomerTenants);
+    var _SwitchTenant = new ServiceMethod();
+    _SwitchTenant.setName("SwitchTenant");
+    _SwitchTenant.setProtoLine(106);
+    _SwitchTenant.setProtoColumn(3);
+    _SwitchTenant.setRequestRef("com.apihug.rad.api.customer.SwitchTenantRequest");
+    _SwitchTenant.setResponseRef("com.apihug.rad.api.customer.LoginResponse");
+    _SwitchTenant.setSchema(new Supplier<Operation>() {
       @Override
       public Operation get() {
         Operation res  = new Operation();
         res.setTags(Arrays.asList("customer"));
-        res.setSummary("切换组织");
-        res.setDescription("切换到指定组织");
-        res.setPost("/api/customer/switch-organization");
+        res.setSummary("切换租户");
+        res.setDescription("切换到指定租户，重新签发 Token");
+        res.setPost("/api/customer/switch-tenant");
         res.setAuthorization(new Supplier<Authorization>() {
           @Override
           public Authorization get() {
@@ -313,13 +313,13 @@ public final class RadApiCollector implements Collector {
             return res;
           }
         }.get());
-        res.setQuestions(Arrays.asList("切换组织后返回什么？","切换组织后权限如何变化？"));
+        res.setQuestions(Arrays.asList("切换租户后返回什么？","切换租户后权限如何变化？"));
         return res;
       }
     }.get());
-    _SwitchOrganization.setHttpMethod(ServiceMethod.HttpMethod.POST);
-    _SwitchOrganization.setPath("/api/customer/switch-organization");
-    res.addItem(_SwitchOrganization);
+    _SwitchTenant.setHttpMethod(ServiceMethod.HttpMethod.POST);
+    _SwitchTenant.setPath("/api/customer/switch-tenant");
+    res.addItem(_SwitchTenant);
     services.put("com.apihug.rad.api.customer.CustomerService", res);
   }
 
@@ -366,194 +366,9 @@ public final class RadApiCollector implements Collector {
     _CreateCustomer.setHttpMethod(ServiceMethod.HttpMethod.POST);
     _CreateCustomer.setPath("/api/customers/customers");
     res.addItem(_CreateCustomer);
-    var _GetCustomer = new ServiceMethod();
-    _GetCustomer.setName("GetCustomer");
-    _GetCustomer.setProtoLine(150);
-    _GetCustomer.setProtoColumn(3);
-    _GetCustomer.setRequestRef("hope.common.adaptor.Empty");
-    _GetCustomer.setResponseRef("com.apihug.rad.api.customer.CustomerDetail");
-    _GetCustomer.setSchema(new Supplier<Operation>() {
-      @Override
-      public Operation get() {
-        Operation res  = new Operation();
-        res.setTags(Arrays.asList("customer"));
-        res.setSummary("获取客户详情");
-        res.setDescription("获取客户详情");
-        res.setGet("/api/customers/customers/{customerId}");
-        res.addParameter(new Supplier<Parameter>() {
-          @Override
-          public Parameter get() {
-            Parameter res = new Parameter();
-            res.setIn(Parameter.IN.PATH);
-            res.setSchema(new Supplier<JSONSchema>() {
-              @Override
-              public JSONSchema get() {
-                JSONSchema res  = new JSONSchema();
-                res.setEmpty(false);
-                res.setFormat(JSONSchema.JSONSchemaFormat.INTEGER);
-                return res;
-              }
-            }.get());
-            res.setName("customerId");
-            return res;
-          }
-        }.get());
-        res.setAuthorization(new Supplier<Authorization>() {
-          @Override
-          public Authorization get() {
-            Authorization res = new Authorization();
-            RBAC rbac = new RBAC();
-            rbac.setAuthorityClz("com.apihug.rad.infra.settings.RadAuthorityEnum");
-            rbac.setAuthorities(Arrays.asList("CUSTOMER_VIEW"));
-            rbac.setPredefinedRoleChecker(RBAC.PredefinedRoleCheckerType.TENANT);
-            rbac.setCombinator(RBAC.Combinator.OR);
-            res.setRbac(rbac);
-            return res;
-          }
-        }.get());
-        res.setQuestions(Arrays.asList("如何获取客户详情？","客户详情包含哪些信息？"));
-        return res;
-      }
-    }.get());
-    _GetCustomer.setHttpMethod(ServiceMethod.HttpMethod.GET);
-    _GetCustomer.setPath("/api/customers/customers/{customerId}");
-    res.addItem(_GetCustomer);
-    var _UpdateCustomer = new ServiceMethod();
-    _UpdateCustomer.setName("UpdateCustomer");
-    _UpdateCustomer.setProtoLine(180);
-    _UpdateCustomer.setProtoColumn(3);
-    _UpdateCustomer.setRequestRef("com.apihug.rad.api.customer.UpdateCustomerRequest");
-    _UpdateCustomer.setResponseRef("hope.common.adaptor.Empty");
-    _UpdateCustomer.setSchema(new Supplier<Operation>() {
-      @Override
-      public Operation get() {
-        Operation res  = new Operation();
-        res.setTags(Arrays.asList("customer"));
-        res.setSummary("更新客户");
-        res.setDescription("更新客户信息");
-        res.setPut("/api/customers/customers/{customerId}");
-        res.addParameter(new Supplier<Parameter>() {
-          @Override
-          public Parameter get() {
-            Parameter res = new Parameter();
-            res.setIn(Parameter.IN.PATH);
-            res.setSchema(new Supplier<JSONSchema>() {
-              @Override
-              public JSONSchema get() {
-                JSONSchema res  = new JSONSchema();
-                res.setEmpty(false);
-                res.setFormat(JSONSchema.JSONSchemaFormat.INTEGER);
-                return res;
-              }
-            }.get());
-            res.setName("customerId");
-            return res;
-          }
-        }.get());
-        res.setAuthorization(new Supplier<Authorization>() {
-          @Override
-          public Authorization get() {
-            Authorization res = new Authorization();
-            RBAC rbac = new RBAC();
-            rbac.setAuthorityClz("com.apihug.rad.infra.settings.RadAuthorityEnum");
-            rbac.setAuthorities(Arrays.asList("CUSTOMER_UPDATE"));
-            res.setRbac(rbac);
-            return res;
-          }
-        }.get());
-        res.setQuestions(Arrays.asList("如何更新客户信息？","哪些字段可以更新？"));
-        return res;
-      }
-    }.get());
-    _UpdateCustomer.setHttpMethod(ServiceMethod.HttpMethod.PUT);
-    _UpdateCustomer.setPath("/api/customers/customers/{customerId}");
-    res.addItem(_UpdateCustomer);
-    var _DeleteCustomer = new ServiceMethod();
-    _DeleteCustomer.setName("DeleteCustomer");
-    _DeleteCustomer.setProtoLine(208);
-    _DeleteCustomer.setProtoColumn(3);
-    _DeleteCustomer.setRequestRef("hope.common.adaptor.Empty");
-    _DeleteCustomer.setResponseRef("hope.common.adaptor.Empty");
-    _DeleteCustomer.setSchema(new Supplier<Operation>() {
-      @Override
-      public Operation get() {
-        Operation res  = new Operation();
-        res.setTags(Arrays.asList("customer"));
-        res.setSummary("删除客户");
-        res.setDescription("删除客户（软删除）");
-        res.setDelete("/api/customers/customers/{customerId}");
-        res.addParameter(new Supplier<Parameter>() {
-          @Override
-          public Parameter get() {
-            Parameter res = new Parameter();
-            res.setIn(Parameter.IN.PATH);
-            res.setSchema(new Supplier<JSONSchema>() {
-              @Override
-              public JSONSchema get() {
-                JSONSchema res  = new JSONSchema();
-                res.setEmpty(false);
-                res.setFormat(JSONSchema.JSONSchemaFormat.INTEGER);
-                return res;
-              }
-            }.get());
-            res.setName("customerId");
-            return res;
-          }
-        }.get());
-        res.setAuthorization(new Supplier<Authorization>() {
-          @Override
-          public Authorization get() {
-            Authorization res = new Authorization();
-            RBAC rbac = new RBAC();
-            rbac.setAuthorityClz("com.apihug.rad.infra.settings.RadAuthorityEnum");
-            rbac.setAuthorities(Arrays.asList("CUSTOMER_DELETE"));
-            res.setRbac(rbac);
-            return res;
-          }
-        }.get());
-        res.setQuestions(Arrays.asList("如何删除客户？","是物理删除还是软删除？"));
-        return res;
-      }
-    }.get());
-    _DeleteCustomer.setHttpMethod(ServiceMethod.HttpMethod.DELETE);
-    _DeleteCustomer.setPath("/api/customers/customers/{customerId}");
-    res.addItem(_DeleteCustomer);
-    var _SearchCustomers = new ServiceMethod();
-    _SearchCustomers.setName("SearchCustomers");
-    _SearchCustomers.setProtoLine(236);
-    _SearchCustomers.setProtoColumn(3);
-    _SearchCustomers.setRequestRef("com.apihug.rad.api.customer.SearchCustomersRequest");
-    _SearchCustomers.setResponseRef("com.apihug.rad.api.customer.CustomerSummary");
-    _SearchCustomers.setSchema(new Supplier<Operation>() {
-      @Override
-      public Operation get() {
-        Operation res  = new Operation();
-        res.setTags(Arrays.asList("customer"));
-        res.setSummary("搜索客户");
-        res.setDescription("搜索客户（分页）");
-        res.setPageable(true);
-        res.setPost("/api/customers/customers/search");
-        res.setAuthorization(new Supplier<Authorization>() {
-          @Override
-          public Authorization get() {
-            Authorization res = new Authorization();
-            RBAC rbac = new RBAC();
-            rbac.setAuthorityClz("com.apihug.rad.infra.settings.RadAuthorityEnum");
-            rbac.setAuthorities(Arrays.asList("CUSTOMER_VIEW"));
-            res.setRbac(rbac);
-            return res;
-          }
-        }.get());
-        res.setQuestions(Arrays.asList("如何搜索客户？","支持哪些筛选条件？","如何分页？"));
-        return res;
-      }
-    }.get());
-    _SearchCustomers.setHttpMethod(ServiceMethod.HttpMethod.POST);
-    _SearchCustomers.setPath("/api/customers/customers/search");
-    res.addItem(_SearchCustomers);
     var _ForgotPassword = new ServiceMethod();
     _ForgotPassword.setName("ForgotPassword");
-    _ForgotPassword.setProtoLine(256);
+    _ForgotPassword.setProtoLine(153);
     _ForgotPassword.setProtoColumn(3);
     _ForgotPassword.setRequestRef("com.apihug.rad.api.customer.ForgotPasswordRequest");
     _ForgotPassword.setResponseRef("hope.common.adaptor.Empty");
@@ -563,7 +378,9 @@ public final class RadApiCollector implements Collector {
         Operation res  = new Operation();
         res.setTags(Arrays.asList("auth"));
         res.setSummary("找回密码");
-        res.setDescription("申请找回密码（发送重置邮件）");
+        res.setDescription("GetCustomer/UpdateCustomer/DeleteCustomer/SearchCustomers 已迁移至 TenantMemberService\n"
+                + "租户管理员应通过 /api/tenant-members/tenants/{tenantId}/members 管理租户内成员\n"
+                + "申请找回密码（发送重置邮件）");
         res.setPost("/api/customers/auth/forgot-password");
         res.setAuthorization(new Supplier<Authorization>() {
           @Override
@@ -582,7 +399,7 @@ public final class RadApiCollector implements Collector {
     res.addItem(_ForgotPassword);
     var _ResetPassword = new ServiceMethod();
     _ResetPassword.setName("ResetPassword");
-    _ResetPassword.setProtoLine(272);
+    _ResetPassword.setProtoLine(169);
     _ResetPassword.setProtoColumn(3);
     _ResetPassword.setRequestRef("com.apihug.rad.api.customer.ResetPasswordRequest");
     _ResetPassword.setResponseRef("hope.common.adaptor.Empty");
@@ -827,177 +644,6 @@ public final class RadApiCollector implements Collector {
     _GetDepartmentTree.setPath("/api/departments/departments/tree");
     res.addItem(_GetDepartmentTree);
     services.put("com.apihug.rad.api.department.DepartmentService", res);
-  }
-
-  void initServiceapi_departmentDepartmentEmployeeService() {
-    Service res = new Service();
-    res.setDescription("============ 部门员工管理 API ============\n"
-            + "部门员工管理服务，提供员工部门关联功能");
-    res.setClzName("com.apihug.rad.api.department.DepartmentEmployeeService");
-    res.setName("DepartmentEmployeeService");
-    res.setProtoFrom("com/apihug/rad/api/department/employee.proto");
-    res.setProtoLine(10);
-    res.setProtoColumn(1);
-    res.setProtoEntity("DepartmentEmployeeService");
-    res.setPath("/department-employees");
-    var _AddEmployeeToDepartment = new ServiceMethod();
-    _AddEmployeeToDepartment.setName("AddEmployeeToDepartment");
-    _AddEmployeeToDepartment.setProtoLine(16);
-    _AddEmployeeToDepartment.setProtoColumn(3);
-    _AddEmployeeToDepartment.setRequestRef("com.apihug.rad.api.department.AddEmployeeRequest");
-    _AddEmployeeToDepartment.setResponseRef("hope.common.adaptor.Empty");
-    _AddEmployeeToDepartment.setSchema(new Supplier<Operation>() {
-      @Override
-      public Operation get() {
-        Operation res  = new Operation();
-        res.setTags(Arrays.asList("department-employee"));
-        res.setSummary("添加员工");
-        res.setDescription("添加员工到部门");
-        res.setPost("/api/department-employees/department-employees");
-        res.setAuthorization(new Supplier<Authorization>() {
-          @Override
-          public Authorization get() {
-            Authorization res = new Authorization();
-            RBAC rbac = new RBAC();
-            rbac.setAuthorityClz("com.apihug.rad.infra.settings.RadAuthorityEnum");
-            rbac.setAuthorities(Arrays.asList("DEPARTMENT_ASSIGN_EMPLOYEE"));
-            res.setRbac(rbac);
-            return res;
-          }
-        }.get());
-        return res;
-      }
-    }.get());
-    _AddEmployeeToDepartment.setHttpMethod(ServiceMethod.HttpMethod.POST);
-    _AddEmployeeToDepartment.setPath("/api/department-employees/department-employees");
-    res.addItem(_AddEmployeeToDepartment);
-    var _RemoveEmployeeFromDepartment = new ServiceMethod();
-    _RemoveEmployeeFromDepartment.setName("RemoveEmployeeFromDepartment");
-    _RemoveEmployeeFromDepartment.setProtoLine(30);
-    _RemoveEmployeeFromDepartment.setProtoColumn(3);
-    _RemoveEmployeeFromDepartment.setRequestRef("com.apihug.rad.api.department.RemoveEmployeeRequest");
-    _RemoveEmployeeFromDepartment.setResponseRef("hope.common.adaptor.Empty");
-    _RemoveEmployeeFromDepartment.setSchema(new Supplier<Operation>() {
-      @Override
-      public Operation get() {
-        Operation res  = new Operation();
-        res.setTags(Arrays.asList("department-employee"));
-        res.setSummary("移除员工");
-        res.setDescription("从部门移除员工");
-        res.setDelete("/api/department-employees/department-employees/{employeeId}");
-        res.addParameter(new Supplier<Parameter>() {
-          @Override
-          public Parameter get() {
-            Parameter res = new Parameter();
-            res.setIn(Parameter.IN.PATH);
-            res.setSchema(new Supplier<JSONSchema>() {
-              @Override
-              public JSONSchema get() {
-                JSONSchema res  = new JSONSchema();
-                res.setEmpty(false);
-                res.setFormat(JSONSchema.JSONSchemaFormat.INTEGER);
-                return res;
-              }
-            }.get());
-            res.setName("employeeId");
-            return res;
-          }
-        }.get());
-        res.setAuthorization(new Supplier<Authorization>() {
-          @Override
-          public Authorization get() {
-            Authorization res = new Authorization();
-            RBAC rbac = new RBAC();
-            rbac.setAuthorityClz("com.apihug.rad.infra.settings.RadAuthorityEnum");
-            rbac.setAuthorities(Arrays.asList("DEPARTMENT_ASSIGN_EMPLOYEE"));
-            res.setRbac(rbac);
-            return res;
-          }
-        }.get());
-        return res;
-      }
-    }.get());
-    _RemoveEmployeeFromDepartment.setHttpMethod(ServiceMethod.HttpMethod.DELETE);
-    _RemoveEmployeeFromDepartment.setPath("/api/department-employees/department-employees/{employeeId}");
-    res.addItem(_RemoveEmployeeFromDepartment);
-    var _TransferEmployee = new ServiceMethod();
-    _TransferEmployee.setName("TransferEmployee");
-    _TransferEmployee.setProtoLine(54);
-    _TransferEmployee.setProtoColumn(3);
-    _TransferEmployee.setRequestRef("com.apihug.rad.api.department.TransferEmployeeRequest");
-    _TransferEmployee.setResponseRef("hope.common.adaptor.Empty");
-    _TransferEmployee.setSchema(new Supplier<Operation>() {
-      @Override
-      public Operation get() {
-        Operation res  = new Operation();
-        res.setTags(Arrays.asList("department-employee"));
-        res.setSummary("员工调岗");
-        res.setDescription("员工调岗");
-        res.setPost("/api/department-employees/department-employees/transfer");
-        res.setAuthorization(new Supplier<Authorization>() {
-          @Override
-          public Authorization get() {
-            Authorization res = new Authorization();
-            RBAC rbac = new RBAC();
-            rbac.setAuthorityClz("com.apihug.rad.infra.settings.RadAuthorityEnum");
-            rbac.setAuthorities(Arrays.asList("DEPARTMENT_ASSIGN_EMPLOYEE"));
-            res.setRbac(rbac);
-            return res;
-          }
-        }.get());
-        return res;
-      }
-    }.get());
-    _TransferEmployee.setHttpMethod(ServiceMethod.HttpMethod.POST);
-    _TransferEmployee.setPath("/api/department-employees/department-employees/transfer");
-    res.addItem(_TransferEmployee);
-    var _GetDepartmentEmployees = new ServiceMethod();
-    _GetDepartmentEmployees.setName("GetDepartmentEmployees");
-    _GetDepartmentEmployees.setProtoLine(68);
-    _GetDepartmentEmployees.setProtoColumn(3);
-    _GetDepartmentEmployees.setRequestRef("hope.common.adaptor.Empty");
-    _GetDepartmentEmployees.setResponseRef("com.apihug.rad.api.department.DepartmentEmployeeList");
-    _GetDepartmentEmployees.setSchema(new Supplier<Operation>() {
-      @Override
-      public Operation get() {
-        Operation res  = new Operation();
-        res.setTags(Arrays.asList("department-employee"));
-        res.setSummary("获取部门员工");
-        res.setDescription("获取部门员工列表");
-        res.setGet("/api/department-employees/departments/{departmentId}/employees");
-        res.addParameter(new Supplier<Parameter>() {
-          @Override
-          public Parameter get() {
-            Parameter res = new Parameter();
-            res.setIn(Parameter.IN.PATH);
-            res.setSchema(new Supplier<JSONSchema>() {
-              @Override
-              public JSONSchema get() {
-                JSONSchema res  = new JSONSchema();
-                res.setEmpty(false);
-                res.setFormat(JSONSchema.JSONSchemaFormat.INTEGER);
-                return res;
-              }
-            }.get());
-            res.setName("departmentId");
-            return res;
-          }
-        }.get());
-        res.setAuthorization(new Supplier<Authorization>() {
-          @Override
-          public Authorization get() {
-            Authorization res = new Authorization();
-            res.setLowLimitRiskyMode(Authorization.LowLimitRiskyMode.LOGIN);
-            return res;
-          }
-        }.get());
-        return res;
-      }
-    }.get());
-    _GetDepartmentEmployees.setHttpMethod(ServiceMethod.HttpMethod.GET);
-    _GetDepartmentEmployees.setPath("/api/department-employees/departments/{departmentId}/employees");
-    res.addItem(_GetDepartmentEmployees);
-    services.put("com.apihug.rad.api.department.DepartmentEmployeeService", res);
   }
 
   void initServiceapi_menuMenuService() {
@@ -1423,568 +1069,6 @@ public final class RadApiCollector implements Collector {
     services.put("com.apihug.rad.api.meta.ApihugService", res);
   }
 
-  void initServiceapi_organizationOrganizationService() {
-    Service res = new Service();
-    res.setDescription("============ 组织管理 API ============\n"
-            + "组织管理服务，提供组织树、部门树查询等功能");
-    res.setClzName("com.apihug.rad.api.organization.OrganizationService");
-    res.setName("OrganizationService");
-    res.setProtoFrom("com/apihug/rad/api/organization/api.proto");
-    res.setProtoLine(10);
-    res.setProtoColumn(1);
-    res.setProtoEntity("OrganizationService");
-    res.setPath("/organizations");
-    var _GetOrganizationTree = new ServiceMethod();
-    _GetOrganizationTree.setName("GetOrganizationTree");
-    _GetOrganizationTree.setProtoLine(16);
-    _GetOrganizationTree.setProtoColumn(3);
-    _GetOrganizationTree.setRequestRef("hope.common.adaptor.Empty");
-    _GetOrganizationTree.setResponseRef("com.apihug.rad.api.organization.OrganizationTreeNode");
-    _GetOrganizationTree.setSchema(new Supplier<Operation>() {
-      @Override
-      public Operation get() {
-        Operation res  = new Operation();
-        res.setTags(Arrays.asList("organization"));
-        res.setSummary("获取组织树");
-        res.setDescription("获取组织树形结构");
-        res.setGet("/api/organizations/tree");
-        res.setAuthorization(new Supplier<Authorization>() {
-          @Override
-          public Authorization get() {
-            Authorization res = new Authorization();
-            res.setLowLimitRiskyMode(Authorization.LowLimitRiskyMode.LOGIN);
-            return res;
-          }
-        }.get());
-        return res;
-      }
-    }.get());
-    _GetOrganizationTree.setHttpMethod(ServiceMethod.HttpMethod.GET);
-    _GetOrganizationTree.setPath("/api/organizations/tree");
-    res.addItem(_GetOrganizationTree);
-    var _GetDepartmentTree = new ServiceMethod();
-    _GetDepartmentTree.setName("GetDepartmentTree");
-    _GetDepartmentTree.setProtoLine(28);
-    _GetDepartmentTree.setProtoColumn(3);
-    _GetDepartmentTree.setRequestRef("hope.common.adaptor.Empty");
-    _GetDepartmentTree.setResponseRef("com.apihug.rad.api.organization.DepartmentTreeNode");
-    _GetDepartmentTree.setSchema(new Supplier<Operation>() {
-      @Override
-      public Operation get() {
-        Operation res  = new Operation();
-        res.setTags(Arrays.asList("organization"));
-        res.setSummary("获取部门树");
-        res.setDescription("获取当前组织的部门树形结构");
-        res.setGet("/api/organizations/department-tree");
-        res.setAuthorization(new Supplier<Authorization>() {
-          @Override
-          public Authorization get() {
-            Authorization res = new Authorization();
-            res.setLowLimitRiskyMode(Authorization.LowLimitRiskyMode.LOGIN);
-            return res;
-          }
-        }.get());
-        return res;
-      }
-    }.get());
-    _GetDepartmentTree.setHttpMethod(ServiceMethod.HttpMethod.GET);
-    _GetDepartmentTree.setPath("/api/organizations/department-tree");
-    res.addItem(_GetDepartmentTree);
-    var _GetUserDepartments = new ServiceMethod();
-    _GetUserDepartments.setName("GetUserDepartments");
-    _GetUserDepartments.setProtoLine(40);
-    _GetUserDepartments.setProtoColumn(3);
-    _GetUserDepartments.setRequestRef("hope.common.adaptor.Empty");
-    _GetUserDepartments.setResponseRef("com.apihug.rad.api.organization.UserDepartmentList");
-    _GetUserDepartments.setSchema(new Supplier<Operation>() {
-      @Override
-      public Operation get() {
-        Operation res  = new Operation();
-        res.setTags(Arrays.asList("organization"));
-        res.setSummary("获取用户部门");
-        res.setDescription("获取用户的部门列表");
-        res.setGet("/api/organizations/user-departments");
-        res.setAuthorization(new Supplier<Authorization>() {
-          @Override
-          public Authorization get() {
-            Authorization res = new Authorization();
-            res.setLowLimitRiskyMode(Authorization.LowLimitRiskyMode.LOGIN);
-            return res;
-          }
-        }.get());
-        return res;
-      }
-    }.get());
-    _GetUserDepartments.setHttpMethod(ServiceMethod.HttpMethod.GET);
-    _GetUserDepartments.setPath("/api/organizations/user-departments");
-    res.addItem(_GetUserDepartments);
-    var _GetUserOrganizations = new ServiceMethod();
-    _GetUserOrganizations.setName("GetUserOrganizations");
-    _GetUserOrganizations.setProtoLine(53);
-    _GetUserOrganizations.setProtoColumn(3);
-    _GetUserOrganizations.setRequestRef("hope.common.adaptor.Empty");
-    _GetUserOrganizations.setResponseRef("com.apihug.rad.api.organization.OrganizationSummary");
-    _GetUserOrganizations.setSchema(new Supplier<Operation>() {
-      @Override
-      public Operation get() {
-        Operation res  = new Operation();
-        res.setTags(Arrays.asList("organization"));
-        res.setSummary("获取我的组织");
-        res.setDescription("获取当前用户的组织列表\n"
-                + "获取当前用户所属的组织列表");
-        res.setPageable(true);
-        res.setGet("/api/organizations/my-organizations");
-        res.setAuthorization(new Supplier<Authorization>() {
-          @Override
-          public Authorization get() {
-            Authorization res = new Authorization();
-            res.setLowLimitRiskyMode(Authorization.LowLimitRiskyMode.LOGIN);
-            return res;
-          }
-        }.get());
-        return res;
-      }
-    }.get());
-    _GetUserOrganizations.setHttpMethod(ServiceMethod.HttpMethod.GET);
-    _GetUserOrganizations.setPath("/api/organizations/my-organizations");
-    res.addItem(_GetUserOrganizations);
-    var _SetDefaultOrganization = new ServiceMethod();
-    _SetDefaultOrganization.setName("SetDefaultOrganization");
-    _SetDefaultOrganization.setProtoLine(67);
-    _SetDefaultOrganization.setProtoColumn(3);
-    _SetDefaultOrganization.setRequestRef("com.apihug.rad.api.organization.SetDefaultOrganizationRequest");
-    _SetDefaultOrganization.setResponseRef("hope.common.adaptor.Empty");
-    _SetDefaultOrganization.setSchema(new Supplier<Operation>() {
-      @Override
-      public Operation get() {
-        Operation res  = new Operation();
-        res.setTags(Arrays.asList("organization"));
-        res.setSummary("设置默认组织");
-        res.setDescription("设置默认组织\n"
-                + "设置用户的默认组织");
-        res.setPost("/api/organizations/my-organizations/{organizationId}/default");
-        res.addParameter(new Supplier<Parameter>() {
-          @Override
-          public Parameter get() {
-            Parameter res = new Parameter();
-            res.setIn(Parameter.IN.PATH);
-            res.setSchema(new Supplier<JSONSchema>() {
-              @Override
-              public JSONSchema get() {
-                JSONSchema res  = new JSONSchema();
-                res.setEmpty(false);
-                res.setFormat(JSONSchema.JSONSchemaFormat.INTEGER);
-                return res;
-              }
-            }.get());
-            res.setName("organizationId");
-            return res;
-          }
-        }.get());
-        res.setAuthorization(new Supplier<Authorization>() {
-          @Override
-          public Authorization get() {
-            Authorization res = new Authorization();
-            res.setLowLimitRiskyMode(Authorization.LowLimitRiskyMode.LOGIN);
-            return res;
-          }
-        }.get());
-        return res;
-      }
-    }.get());
-    _SetDefaultOrganization.setHttpMethod(ServiceMethod.HttpMethod.POST);
-    _SetDefaultOrganization.setPath("/api/organizations/my-organizations/{organizationId}/default");
-    res.addItem(_SetDefaultOrganization);
-    services.put("com.apihug.rad.api.organization.OrganizationService", res);
-  }
-
-  void initServiceapi_organizationCustomerOrganizationService() {
-    Service res = new Service();
-    res.setDescription("============ 组织员工管理 API ============\n"
-            + "组织员工管理服务，提供员工 - 组织关系管理功能");
-    res.setClzName("com.apihug.rad.api.organization.CustomerOrganizationService");
-    res.setName("CustomerOrganizationService");
-    res.setProtoFrom("com/apihug/rad/api/organization/customer_org.proto");
-    res.setProtoLine(11);
-    res.setProtoColumn(1);
-    res.setProtoEntity("CustomerOrganizationService");
-    res.setPath("/customer-organizations");
-    var _GetOrganizationMembers = new ServiceMethod();
-    _GetOrganizationMembers.setName("GetOrganizationMembers");
-    _GetOrganizationMembers.setProtoLine(18);
-    _GetOrganizationMembers.setProtoColumn(3);
-    _GetOrganizationMembers.setRequestRef("com.apihug.rad.api.organization.GetOrganizationMembersRequest");
-    _GetOrganizationMembers.setResponseRef("com.apihug.rad.api.organization.CustomerOrganizationSummary");
-    _GetOrganizationMembers.setSchema(new Supplier<Operation>() {
-      @Override
-      public Operation get() {
-        Operation res  = new Operation();
-        res.setTags(Arrays.asList("customer-organization"));
-        res.setSummary("获取组织员工");
-        res.setDescription("获取组织员工列表 - 使用 pageable: true，返回单个对象，框架自动包装成 Page\n"
-                + "获取组织员工列表");
-        res.setPageable(true);
-        res.setGet("/api/customer-organizations/organizations/{organizationId}/members");
-        res.addParameter(new Supplier<Parameter>() {
-          @Override
-          public Parameter get() {
-            Parameter res = new Parameter();
-            res.setIn(Parameter.IN.PATH);
-            res.setSchema(new Supplier<JSONSchema>() {
-              @Override
-              public JSONSchema get() {
-                JSONSchema res  = new JSONSchema();
-                res.setEmpty(false);
-                res.setFormat(JSONSchema.JSONSchemaFormat.INTEGER);
-                return res;
-              }
-            }.get());
-            res.setName("organizationId");
-            return res;
-          }
-        }.get());
-        res.setAuthorization(new Supplier<Authorization>() {
-          @Override
-          public Authorization get() {
-            Authorization res = new Authorization();
-            RBAC rbac = new RBAC();
-            rbac.setAuthorityClz("com.apihug.rad.infra.settings.RadAuthorityEnum");
-            rbac.setAuthorities(Arrays.asList("ORGANIZATION_MEMBER_VIEW"));
-            res.setRbac(rbac);
-            return res;
-          }
-        }.get());
-        return res;
-      }
-    }.get());
-    _GetOrganizationMembers.setHttpMethod(ServiceMethod.HttpMethod.GET);
-    _GetOrganizationMembers.setPath("/api/customer-organizations/organizations/{organizationId}/members");
-    res.addItem(_GetOrganizationMembers);
-    var _AddMemberToOrganization = new ServiceMethod();
-    _AddMemberToOrganization.setName("AddMemberToOrganization");
-    _AddMemberToOrganization.setProtoLine(44);
-    _AddMemberToOrganization.setProtoColumn(3);
-    _AddMemberToOrganization.setRequestRef("com.apihug.rad.api.organization.AddMemberRequest");
-    _AddMemberToOrganization.setResponseRef("hope.common.adaptor.Empty");
-    _AddMemberToOrganization.setSchema(new Supplier<Operation>() {
-      @Override
-      public Operation get() {
-        Operation res  = new Operation();
-        res.setTags(Arrays.asList("customer-organization"));
-        res.setSummary("添加组织员工");
-        res.setDescription("添加员工到组织\n"
-                + "添加员工到组织");
-        res.setPost("/api/customer-organizations/organizations/{organizationId}/members");
-        res.addParameter(new Supplier<Parameter>() {
-          @Override
-          public Parameter get() {
-            Parameter res = new Parameter();
-            res.setIn(Parameter.IN.PATH);
-            res.setSchema(new Supplier<JSONSchema>() {
-              @Override
-              public JSONSchema get() {
-                JSONSchema res  = new JSONSchema();
-                res.setEmpty(false);
-                res.setFormat(JSONSchema.JSONSchemaFormat.INTEGER);
-                return res;
-              }
-            }.get());
-            res.setName("organizationId");
-            return res;
-          }
-        }.get());
-        res.setAuthorization(new Supplier<Authorization>() {
-          @Override
-          public Authorization get() {
-            Authorization res = new Authorization();
-            RBAC rbac = new RBAC();
-            rbac.setAuthorityClz("com.apihug.rad.infra.settings.RadAuthorityEnum");
-            rbac.setAuthorities(Arrays.asList("ORGANIZATION_MEMBER_ADD"));
-            res.setRbac(rbac);
-            return res;
-          }
-        }.get());
-        return res;
-      }
-    }.get());
-    _AddMemberToOrganization.setHttpMethod(ServiceMethod.HttpMethod.POST);
-    _AddMemberToOrganization.setPath("/api/customer-organizations/organizations/{organizationId}/members");
-    res.addItem(_AddMemberToOrganization);
-    var _RemoveMemberFromOrganization = new ServiceMethod();
-    _RemoveMemberFromOrganization.setName("RemoveMemberFromOrganization");
-    _RemoveMemberFromOrganization.setProtoLine(69);
-    _RemoveMemberFromOrganization.setProtoColumn(3);
-    _RemoveMemberFromOrganization.setRequestRef("com.apihug.rad.api.organization.RemoveMemberRequest");
-    _RemoveMemberFromOrganization.setResponseRef("hope.common.adaptor.Empty");
-    _RemoveMemberFromOrganization.setSchema(new Supplier<Operation>() {
-      @Override
-      public Operation get() {
-        Operation res  = new Operation();
-        res.setTags(Arrays.asList("customer-organization"));
-        res.setSummary("移除组织员工");
-        res.setDescription("从组织移除员工\n"
-                + "从组织移除员工");
-        res.setDelete("/api/customer-organizations/organizations/{organizationId}/members/{customerId}");
-        res.addParameter(new Supplier<Parameter>() {
-          @Override
-          public Parameter get() {
-            Parameter res = new Parameter();
-            res.setIn(Parameter.IN.PATH);
-            res.setSchema(new Supplier<JSONSchema>() {
-              @Override
-              public JSONSchema get() {
-                JSONSchema res  = new JSONSchema();
-                res.setEmpty(false);
-                res.setFormat(JSONSchema.JSONSchemaFormat.INTEGER);
-                return res;
-              }
-            }.get());
-            res.setName("organizationId");
-            return res;
-          }
-        }.get());
-        res.addParameter(new Supplier<Parameter>() {
-          @Override
-          public Parameter get() {
-            Parameter res = new Parameter();
-            res.setIn(Parameter.IN.PATH);
-            res.setSchema(new Supplier<JSONSchema>() {
-              @Override
-              public JSONSchema get() {
-                JSONSchema res  = new JSONSchema();
-                res.setEmpty(false);
-                res.setFormat(JSONSchema.JSONSchemaFormat.INTEGER);
-                return res;
-              }
-            }.get());
-            res.setName("customerId");
-            return res;
-          }
-        }.get());
-        res.setAuthorization(new Supplier<Authorization>() {
-          @Override
-          public Authorization get() {
-            Authorization res = new Authorization();
-            RBAC rbac = new RBAC();
-            rbac.setAuthorityClz("com.apihug.rad.infra.settings.RadAuthorityEnum");
-            rbac.setAuthorities(Arrays.asList("ORGANIZATION_MEMBER_REMOVE"));
-            res.setRbac(rbac);
-            return res;
-          }
-        }.get());
-        return res;
-      }
-    }.get());
-    _RemoveMemberFromOrganization.setHttpMethod(ServiceMethod.HttpMethod.DELETE);
-    _RemoveMemberFromOrganization.setPath("/api/customer-organizations/organizations/{organizationId}/members/{customerId}");
-    res.addItem(_RemoveMemberFromOrganization);
-    var _ToggleMemberLock = new ServiceMethod();
-    _ToggleMemberLock.setName("ToggleMemberLock");
-    _ToggleMemberLock.setProtoLine(102);
-    _ToggleMemberLock.setProtoColumn(3);
-    _ToggleMemberLock.setRequestRef("com.apihug.rad.api.organization.ToggleMemberLockRequest");
-    _ToggleMemberLock.setResponseRef("hope.common.adaptor.Empty");
-    _ToggleMemberLock.setSchema(new Supplier<Operation>() {
-      @Override
-      public Operation get() {
-        Operation res  = new Operation();
-        res.setTags(Arrays.asList("customer-organization"));
-        res.setSummary("切换员工锁定状态");
-        res.setDescription("锁定/解锁员工\n"
-                + "锁定/解锁组织员工");
-        res.setPost("/api/customer-organizations/organizations/{organizationId}/members/{customerId}/toggle-lock");
-        res.addParameter(new Supplier<Parameter>() {
-          @Override
-          public Parameter get() {
-            Parameter res = new Parameter();
-            res.setIn(Parameter.IN.PATH);
-            res.setSchema(new Supplier<JSONSchema>() {
-              @Override
-              public JSONSchema get() {
-                JSONSchema res  = new JSONSchema();
-                res.setEmpty(false);
-                res.setFormat(JSONSchema.JSONSchemaFormat.INTEGER);
-                return res;
-              }
-            }.get());
-            res.setName("organizationId");
-            return res;
-          }
-        }.get());
-        res.addParameter(new Supplier<Parameter>() {
-          @Override
-          public Parameter get() {
-            Parameter res = new Parameter();
-            res.setIn(Parameter.IN.PATH);
-            res.setSchema(new Supplier<JSONSchema>() {
-              @Override
-              public JSONSchema get() {
-                JSONSchema res  = new JSONSchema();
-                res.setEmpty(false);
-                res.setFormat(JSONSchema.JSONSchemaFormat.INTEGER);
-                return res;
-              }
-            }.get());
-            res.setName("customerId");
-            return res;
-          }
-        }.get());
-        res.setAuthorization(new Supplier<Authorization>() {
-          @Override
-          public Authorization get() {
-            Authorization res = new Authorization();
-            RBAC rbac = new RBAC();
-            rbac.setAuthorityClz("com.apihug.rad.infra.settings.RadAuthorityEnum");
-            rbac.setAuthorities(Arrays.asList("ORGANIZATION_MEMBER_LOCK"));
-            res.setRbac(rbac);
-            return res;
-          }
-        }.get());
-        return res;
-      }
-    }.get());
-    _ToggleMemberLock.setHttpMethod(ServiceMethod.HttpMethod.POST);
-    _ToggleMemberLock.setPath("/api/customer-organizations/organizations/{organizationId}/members/{customerId}/toggle-lock");
-    res.addItem(_ToggleMemberLock);
-    var _AssignMemberRoles = new ServiceMethod();
-    _AssignMemberRoles.setName("AssignMemberRoles");
-    _AssignMemberRoles.setProtoLine(135);
-    _AssignMemberRoles.setProtoColumn(3);
-    _AssignMemberRoles.setRequestRef("com.apihug.rad.api.organization.AssignMemberRolesRequest");
-    _AssignMemberRoles.setResponseRef("hope.common.adaptor.Empty");
-    _AssignMemberRoles.setSchema(new Supplier<Operation>() {
-      @Override
-      public Operation get() {
-        Operation res  = new Operation();
-        res.setTags(Arrays.asList("customer-organization"));
-        res.setSummary("分配员工角色");
-        res.setDescription("配置员工角色\n"
-                + "配置员工角色");
-        res.setPost("/api/customer-organizations/organizations/{organizationId}/members/{customerId}/roles");
-        res.addParameter(new Supplier<Parameter>() {
-          @Override
-          public Parameter get() {
-            Parameter res = new Parameter();
-            res.setIn(Parameter.IN.PATH);
-            res.setSchema(new Supplier<JSONSchema>() {
-              @Override
-              public JSONSchema get() {
-                JSONSchema res  = new JSONSchema();
-                res.setEmpty(false);
-                res.setFormat(JSONSchema.JSONSchemaFormat.INTEGER);
-                return res;
-              }
-            }.get());
-            res.setName("organizationId");
-            return res;
-          }
-        }.get());
-        res.addParameter(new Supplier<Parameter>() {
-          @Override
-          public Parameter get() {
-            Parameter res = new Parameter();
-            res.setIn(Parameter.IN.PATH);
-            res.setSchema(new Supplier<JSONSchema>() {
-              @Override
-              public JSONSchema get() {
-                JSONSchema res  = new JSONSchema();
-                res.setEmpty(false);
-                res.setFormat(JSONSchema.JSONSchemaFormat.INTEGER);
-                return res;
-              }
-            }.get());
-            res.setName("customerId");
-            return res;
-          }
-        }.get());
-        res.setAuthorization(new Supplier<Authorization>() {
-          @Override
-          public Authorization get() {
-            Authorization res = new Authorization();
-            RBAC rbac = new RBAC();
-            rbac.setAuthorityClz("com.apihug.rad.infra.settings.RadAuthorityEnum");
-            rbac.setAuthorities(Arrays.asList("ORGANIZATION_MEMBER_ASSIGN_ROLE"));
-            res.setRbac(rbac);
-            return res;
-          }
-        }.get());
-        return res;
-      }
-    }.get());
-    _AssignMemberRoles.setHttpMethod(ServiceMethod.HttpMethod.POST);
-    _AssignMemberRoles.setPath("/api/customer-organizations/organizations/{organizationId}/members/{customerId}/roles");
-    res.addItem(_AssignMemberRoles);
-    var _AssignMemberMenus = new ServiceMethod();
-    _AssignMemberMenus.setName("AssignMemberMenus");
-    _AssignMemberMenus.setProtoLine(168);
-    _AssignMemberMenus.setProtoColumn(3);
-    _AssignMemberMenus.setRequestRef("com.apihug.rad.api.organization.AssignMemberMenusRequest");
-    _AssignMemberMenus.setResponseRef("hope.common.adaptor.Empty");
-    _AssignMemberMenus.setSchema(new Supplier<Operation>() {
-      @Override
-      public Operation get() {
-        Operation res  = new Operation();
-        res.setTags(Arrays.asList("customer-organization"));
-        res.setSummary("分配员工菜单");
-        res.setDescription("配置员工菜单权限\n"
-                + "配置员工菜单权限");
-        res.setPost("/api/customer-organizations/organizations/{organizationId}/members/{customerId}/menus");
-        res.addParameter(new Supplier<Parameter>() {
-          @Override
-          public Parameter get() {
-            Parameter res = new Parameter();
-            res.setIn(Parameter.IN.PATH);
-            res.setSchema(new Supplier<JSONSchema>() {
-              @Override
-              public JSONSchema get() {
-                JSONSchema res  = new JSONSchema();
-                res.setEmpty(false);
-                res.setFormat(JSONSchema.JSONSchemaFormat.INTEGER);
-                return res;
-              }
-            }.get());
-            res.setName("organizationId");
-            return res;
-          }
-        }.get());
-        res.addParameter(new Supplier<Parameter>() {
-          @Override
-          public Parameter get() {
-            Parameter res = new Parameter();
-            res.setIn(Parameter.IN.PATH);
-            res.setSchema(new Supplier<JSONSchema>() {
-              @Override
-              public JSONSchema get() {
-                JSONSchema res  = new JSONSchema();
-                res.setEmpty(false);
-                res.setFormat(JSONSchema.JSONSchemaFormat.INTEGER);
-                return res;
-              }
-            }.get());
-            res.setName("customerId");
-            return res;
-          }
-        }.get());
-        res.setAuthorization(new Supplier<Authorization>() {
-          @Override
-          public Authorization get() {
-            Authorization res = new Authorization();
-            RBAC rbac = new RBAC();
-            rbac.setAuthorityClz("com.apihug.rad.infra.settings.RadAuthorityEnum");
-            rbac.setAuthorities(Arrays.asList("ORGANIZATION_MEMBER_ASSIGN_MENU"));
-            res.setRbac(rbac);
-            return res;
-          }
-        }.get());
-        return res;
-      }
-    }.get());
-    _AssignMemberMenus.setHttpMethod(ServiceMethod.HttpMethod.POST);
-    _AssignMemberMenus.setPath("/api/customer-organizations/organizations/{organizationId}/members/{customerId}/menus");
-    res.addItem(_AssignMemberMenus);
-    services.put("com.apihug.rad.api.organization.CustomerOrganizationService", res);
-  }
-
   void initServiceapi_permissionPermissionService() {
     Service res = new Service();
     res.setDescription("============ 权限管理 API ============\n"
@@ -2008,8 +1092,8 @@ public final class RadApiCollector implements Collector {
         Operation res  = new Operation();
         res.setTags(Arrays.asList("permission"));
         res.setSummary("获取角色权限");
-        res.setDescription("获取用户的角色权限集合\n"
-                + "获取用户的角色权限集合");
+        res.setDescription("获取当前客户的角色权限集合\n"
+                + "获取当前客户的角色权限集合");
         res.setOutputPlural(true);
         res.setGet("/api/permissions/roles");
         res.setAuthorization(new Supplier<Authorization>() {
@@ -2038,8 +1122,8 @@ public final class RadApiCollector implements Collector {
         Operation res  = new Operation();
         res.setTags(Arrays.asList("permission"));
         res.setSummary("获取菜单权限");
-        res.setDescription("获取用户的菜单权限集合\n"
-                + "获取用户的菜单权限集合");
+        res.setDescription("获取当前客户的菜单权限集合\n"
+                + "获取当前客户的菜单权限集合");
         res.setOutputPlural(true);
         res.setGet("/api/permissions/menus");
         res.setAuthorization(new Supplier<Authorization>() {
@@ -2068,8 +1152,8 @@ public final class RadApiCollector implements Collector {
         Operation res  = new Operation();
         res.setTags(Arrays.asList("permission"));
         res.setSummary("获取所有权限");
-        res.setDescription("获取用户的所有权限（角色权限 ∪ 菜单权限）\n"
-                + "获取用户的所有权限（聚合）");
+        res.setDescription("获取当前客户的所有权限（角色权限 ∪ 菜单权限）\n"
+                + "获取当前客户的所有权限（聚合）");
         res.setOutputPlural(true);
         res.setGet("/api/permissions/all");
         res.setAuthorization(new Supplier<Authorization>() {
@@ -2312,20 +1396,21 @@ public final class RadApiCollector implements Collector {
     _SearchRoles.setHttpMethod(ServiceMethod.HttpMethod.POST);
     _SearchRoles.setPath("/api/roles/roles/search");
     res.addItem(_SearchRoles);
-    var _AssignPermissions = new ServiceMethod();
-    _AssignPermissions.setName("AssignPermissions");
-    _AssignPermissions.setProtoLine(138);
-    _AssignPermissions.setProtoColumn(3);
-    _AssignPermissions.setRequestRef("com.apihug.rad.api.role.AssignPermissionsRequest");
-    _AssignPermissions.setResponseRef("hope.common.adaptor.Empty");
-    _AssignPermissions.setSchema(new Supplier<Operation>() {
+    var _AssignMenusToRole = new ServiceMethod();
+    _AssignMenusToRole.setName("AssignMenusToRole");
+    _AssignMenusToRole.setProtoLine(139);
+    _AssignMenusToRole.setProtoColumn(3);
+    _AssignMenusToRole.setRequestRef("com.apihug.rad.api.role.AssignMenusRequest");
+    _AssignMenusToRole.setResponseRef("hope.common.adaptor.Empty");
+    _AssignMenusToRole.setSchema(new Supplier<Operation>() {
       @Override
       public Operation get() {
         Operation res  = new Operation();
         res.setTags(Arrays.asList("role"));
-        res.setSummary("分配权限");
-        res.setDescription("为角色分配权限");
-        res.setPost("/api/roles/roles/{roleId}/permissions");
+        res.setSummary("分配菜单给角色");
+        res.setDescription("为角色分配菜单（全量覆盖），参考 RuoYi insertRoleMenu\n"
+                + "为角色分配菜单（全量覆盖，菜单中 BUTTON 类型的 permission_code 即为权限）");
+        res.setPost("/api/roles/roles/{roleId}/menus");
         res.addParameter(new Supplier<Parameter>() {
           @Override
           public Parameter get() {
@@ -2355,27 +1440,28 @@ public final class RadApiCollector implements Collector {
             return res;
           }
         }.get());
-        res.setQuestions(Arrays.asList("如何为角色分配权限？","可以分配多个权限吗？"));
+        res.setQuestions(Arrays.asList("如何为角色分配菜单？","分配菜单后权限如何生效？"));
         return res;
       }
     }.get());
-    _AssignPermissions.setHttpMethod(ServiceMethod.HttpMethod.POST);
-    _AssignPermissions.setPath("/api/roles/roles/{roleId}/permissions");
-    res.addItem(_AssignPermissions);
-    var _RemovePermission = new ServiceMethod();
-    _RemovePermission.setName("RemovePermission");
-    _RemovePermission.setProtoLine(166);
-    _RemovePermission.setProtoColumn(3);
-    _RemovePermission.setRequestRef("com.apihug.rad.api.role.RemovePermissionRequest");
-    _RemovePermission.setResponseRef("hope.common.adaptor.Empty");
-    _RemovePermission.setSchema(new Supplier<Operation>() {
+    _AssignMenusToRole.setHttpMethod(ServiceMethod.HttpMethod.POST);
+    _AssignMenusToRole.setPath("/api/roles/roles/{roleId}/menus");
+    res.addItem(_AssignMenusToRole);
+    var _RemoveMenuFromRole = new ServiceMethod();
+    _RemoveMenuFromRole.setName("RemoveMenuFromRole");
+    _RemoveMenuFromRole.setProtoLine(168);
+    _RemoveMenuFromRole.setProtoColumn(3);
+    _RemoveMenuFromRole.setRequestRef("hope.common.adaptor.Empty");
+    _RemoveMenuFromRole.setResponseRef("hope.common.adaptor.Empty");
+    _RemoveMenuFromRole.setSchema(new Supplier<Operation>() {
       @Override
       public Operation get() {
         Operation res  = new Operation();
         res.setTags(Arrays.asList("role"));
-        res.setSummary("移除权限");
-        res.setDescription("移除角色权限");
-        res.setDelete("/api/roles/roles/{roleId}/permissions/{permissionId}");
+        res.setSummary("移除角色菜单");
+        res.setDescription("移除角色的某个菜单关联\n"
+                + "移除角色的某个菜单关联");
+        res.setDelete("/api/roles/roles/{roleId}/menus/{menuId}");
         res.addParameter(new Supplier<Parameter>() {
           @Override
           public Parameter get() {
@@ -2408,7 +1494,7 @@ public final class RadApiCollector implements Collector {
                 return res;
               }
             }.get());
-            res.setName("permissionId");
+            res.setName("menuId");
             return res;
           }
         }.get());
@@ -2423,27 +1509,27 @@ public final class RadApiCollector implements Collector {
             return res;
           }
         }.get());
-        res.setQuestions(Arrays.asList("如何移除角色权限？","移除权限后用户会立即失去该权限吗？"));
         return res;
       }
     }.get());
-    _RemovePermission.setHttpMethod(ServiceMethod.HttpMethod.DELETE);
-    _RemovePermission.setPath("/api/roles/roles/{roleId}/permissions/{permissionId}");
-    res.addItem(_RemovePermission);
-    var _GetRolePermissions = new ServiceMethod();
-    _GetRolePermissions.setName("GetRolePermissions");
-    _GetRolePermissions.setProtoLine(202);
-    _GetRolePermissions.setProtoColumn(3);
-    _GetRolePermissions.setRequestRef("hope.common.adaptor.Empty");
-    _GetRolePermissions.setResponseRef("com.apihug.rad.api.role.RolePermissionSummary");
-    _GetRolePermissions.setSchema(new Supplier<Operation>() {
+    _RemoveMenuFromRole.setHttpMethod(ServiceMethod.HttpMethod.DELETE);
+    _RemoveMenuFromRole.setPath("/api/roles/roles/{roleId}/menus/{menuId}");
+    res.addItem(_RemoveMenuFromRole);
+    var _GetRoleMenus = new ServiceMethod();
+    _GetRoleMenus.setName("GetRoleMenus");
+    _GetRoleMenus.setProtoLine(201);
+    _GetRoleMenus.setProtoColumn(3);
+    _GetRoleMenus.setRequestRef("hope.common.adaptor.Empty");
+    _GetRoleMenus.setResponseRef("com.apihug.rad.api.role.RoleMenuSummary");
+    _GetRoleMenus.setSchema(new Supplier<Operation>() {
       @Override
       public Operation get() {
         Operation res  = new Operation();
         res.setTags(Arrays.asList("role"));
-        res.setSummary("获取角色权限");
-        res.setDescription("获取角色的权限列表");
-        res.setGet("/api/roles/roles/{roleId}/permissions");
+        res.setSummary("获取角色菜单");
+        res.setDescription("获取角色关联的菜单列表\n"
+                + "获取角色关联的菜单列表（含权限代码）");
+        res.setGet("/api/roles/roles/{roleId}/menus");
         res.addParameter(new Supplier<Parameter>() {
           @Override
           public Parameter get() {
@@ -2470,13 +1556,12 @@ public final class RadApiCollector implements Collector {
             return res;
           }
         }.get());
-        res.setQuestions(Arrays.asList("如何获取角色的权限列表？","返回什么格式的权限信息？"));
         return res;
       }
     }.get());
-    _GetRolePermissions.setHttpMethod(ServiceMethod.HttpMethod.GET);
-    _GetRolePermissions.setPath("/api/roles/roles/{roleId}/permissions");
-    res.addItem(_GetRolePermissions);
+    _GetRoleMenus.setHttpMethod(ServiceMethod.HttpMethod.GET);
+    _GetRoleMenus.setPath("/api/roles/roles/{roleId}/menus");
+    res.addItem(_GetRoleMenus);
     services.put("com.apihug.rad.api.role.RoleService", res);
   }
 
@@ -2715,7 +1800,766 @@ public final class RadApiCollector implements Collector {
     _ConfigureTenant.setHttpMethod(ServiceMethod.HttpMethod.POST);
     _ConfigureTenant.setPath("/api/tenants/tenants/{tenantId}/configure");
     res.addItem(_ConfigureTenant);
+    var _SearchTenants = new ServiceMethod();
+    _SearchTenants.setName("SearchTenants");
+    _SearchTenants.setProtoLine(126);
+    _SearchTenants.setProtoColumn(3);
+    _SearchTenants.setRequestRef("com.apihug.rad.api.tenant.SearchTenantsRequest");
+    _SearchTenants.setResponseRef("com.apihug.rad.api.tenant.TenantSummary");
+    _SearchTenants.setSchema(new Supplier<Operation>() {
+      @Override
+      public Operation get() {
+        Operation res  = new Operation();
+        res.setTags(Arrays.asList("tenant"));
+        res.setSummary("搜索租户");
+        res.setDescription("搜索租户（分页）\n"
+                + "搜索租户（分页）");
+        res.setPageable(true);
+        res.setPost("/api/tenants/tenants/search");
+        res.setAuthorization(new Supplier<Authorization>() {
+          @Override
+          public Authorization get() {
+            Authorization res = new Authorization();
+            RBAC rbac = new RBAC();
+            rbac.setAuthorityClz("com.apihug.rad.infra.settings.RadAuthorityEnum");
+            rbac.setAuthorities(Arrays.asList("TENANT_CREATE"));
+            res.setRbac(rbac);
+            return res;
+          }
+        }.get());
+        return res;
+      }
+    }.get());
+    _SearchTenants.setHttpMethod(ServiceMethod.HttpMethod.POST);
+    _SearchTenants.setPath("/api/tenants/tenants/search");
+    res.addItem(_SearchTenants);
     services.put("com.apihug.rad.api.tenant.TenantService", res);
+  }
+
+  void initServiceapi_tenantTenantMemberService() {
+    Service res = new Service();
+    res.setDescription("============ 租户成员管理 API ============\r\n"
+            + "替代原 CustomerOrganizationService — 管理 Customer 在 Tenant 中的身份\r\n"
+            + "租户成员管理服务，提供成员与租户关系管理功能");
+    res.setClzName("com.apihug.rad.api.tenant.TenantMemberService");
+    res.setName("TenantMemberService");
+    res.setProtoFrom("com/apihug/rad/api/tenant/member.proto");
+    res.setProtoLine(13);
+    res.setProtoColumn(1);
+    res.setProtoEntity("TenantMemberService");
+    res.setPath("/tenant-members");
+    var _GetTenantMembers = new ServiceMethod();
+    _GetTenantMembers.setName("GetTenantMembers");
+    _GetTenantMembers.setProtoLine(20);
+    _GetTenantMembers.setProtoColumn(3);
+    _GetTenantMembers.setRequestRef("com.apihug.rad.api.tenant.GetTenantMembersRequest");
+    _GetTenantMembers.setResponseRef("com.apihug.rad.api.tenant.TenantMemberSummary");
+    _GetTenantMembers.setSchema(new Supplier<Operation>() {
+      @Override
+      public Operation get() {
+        Operation res  = new Operation();
+        res.setTags(Arrays.asList("tenant-member"));
+        res.setSummary("获取租户成员");
+        res.setDescription("获取租户成员列表（分页）\r\n"
+                + "获取租户成员列表");
+        res.setPageable(true);
+        res.setGet("/api/tenant-members/tenants/{tenantId}/members");
+        res.addParameter(new Supplier<Parameter>() {
+          @Override
+          public Parameter get() {
+            Parameter res = new Parameter();
+            res.setIn(Parameter.IN.PATH);
+            res.setSchema(new Supplier<JSONSchema>() {
+              @Override
+              public JSONSchema get() {
+                JSONSchema res  = new JSONSchema();
+                res.setEmpty(false);
+                res.setFormat(JSONSchema.JSONSchemaFormat.INTEGER);
+                return res;
+              }
+            }.get());
+            res.setName("tenantId");
+            return res;
+          }
+        }.get());
+        res.setAuthorization(new Supplier<Authorization>() {
+          @Override
+          public Authorization get() {
+            Authorization res = new Authorization();
+            RBAC rbac = new RBAC();
+            rbac.setAuthorityClz("com.apihug.rad.infra.settings.RadAuthorityEnum");
+            rbac.setAuthorities(Arrays.asList("TENANT_MEMBER_VIEW"));
+            res.setRbac(rbac);
+            return res;
+          }
+        }.get());
+        return res;
+      }
+    }.get());
+    _GetTenantMembers.setHttpMethod(ServiceMethod.HttpMethod.GET);
+    _GetTenantMembers.setPath("/api/tenant-members/tenants/{tenantId}/members");
+    res.addItem(_GetTenantMembers);
+    var _AddMemberToTenant = new ServiceMethod();
+    _AddMemberToTenant.setName("AddMemberToTenant");
+    _AddMemberToTenant.setProtoLine(46);
+    _AddMemberToTenant.setProtoColumn(3);
+    _AddMemberToTenant.setRequestRef("com.apihug.rad.api.tenant.AddTenantMemberRequest");
+    _AddMemberToTenant.setResponseRef("hope.common.adaptor.Empty");
+    _AddMemberToTenant.setSchema(new Supplier<Operation>() {
+      @Override
+      public Operation get() {
+        Operation res  = new Operation();
+        res.setTags(Arrays.asList("tenant-member"));
+        res.setSummary("添加租户成员");
+        res.setDescription("添加成员到租户\r\n"
+                + "添加客户为租户成员");
+        res.setPost("/api/tenant-members/tenants/{tenantId}/members");
+        res.addParameter(new Supplier<Parameter>() {
+          @Override
+          public Parameter get() {
+            Parameter res = new Parameter();
+            res.setIn(Parameter.IN.PATH);
+            res.setSchema(new Supplier<JSONSchema>() {
+              @Override
+              public JSONSchema get() {
+                JSONSchema res  = new JSONSchema();
+                res.setEmpty(false);
+                res.setFormat(JSONSchema.JSONSchemaFormat.INTEGER);
+                return res;
+              }
+            }.get());
+            res.setName("tenantId");
+            return res;
+          }
+        }.get());
+        res.setAuthorization(new Supplier<Authorization>() {
+          @Override
+          public Authorization get() {
+            Authorization res = new Authorization();
+            RBAC rbac = new RBAC();
+            rbac.setAuthorityClz("com.apihug.rad.infra.settings.RadAuthorityEnum");
+            rbac.setAuthorities(Arrays.asList("TENANT_MEMBER_ADD"));
+            res.setRbac(rbac);
+            return res;
+          }
+        }.get());
+        return res;
+      }
+    }.get());
+    _AddMemberToTenant.setHttpMethod(ServiceMethod.HttpMethod.POST);
+    _AddMemberToTenant.setPath("/api/tenant-members/tenants/{tenantId}/members");
+    res.addItem(_AddMemberToTenant);
+    var _RemoveMemberFromTenant = new ServiceMethod();
+    _RemoveMemberFromTenant.setName("RemoveMemberFromTenant");
+    _RemoveMemberFromTenant.setProtoLine(71);
+    _RemoveMemberFromTenant.setProtoColumn(3);
+    _RemoveMemberFromTenant.setRequestRef("hope.common.adaptor.Empty");
+    _RemoveMemberFromTenant.setResponseRef("hope.common.adaptor.Empty");
+    _RemoveMemberFromTenant.setSchema(new Supplier<Operation>() {
+      @Override
+      public Operation get() {
+        Operation res  = new Operation();
+        res.setTags(Arrays.asList("tenant-member"));
+        res.setSummary("移除租户成员");
+        res.setDescription("从租户移除成员\r\n"
+                + "从租户移除成员");
+        res.setDelete("/api/tenant-members/tenants/{tenantId}/members/{memberId}");
+        res.addParameter(new Supplier<Parameter>() {
+          @Override
+          public Parameter get() {
+            Parameter res = new Parameter();
+            res.setIn(Parameter.IN.PATH);
+            res.setSchema(new Supplier<JSONSchema>() {
+              @Override
+              public JSONSchema get() {
+                JSONSchema res  = new JSONSchema();
+                res.setEmpty(false);
+                res.setFormat(JSONSchema.JSONSchemaFormat.INTEGER);
+                return res;
+              }
+            }.get());
+            res.setName("tenantId");
+            return res;
+          }
+        }.get());
+        res.addParameter(new Supplier<Parameter>() {
+          @Override
+          public Parameter get() {
+            Parameter res = new Parameter();
+            res.setIn(Parameter.IN.PATH);
+            res.setSchema(new Supplier<JSONSchema>() {
+              @Override
+              public JSONSchema get() {
+                JSONSchema res  = new JSONSchema();
+                res.setEmpty(false);
+                res.setFormat(JSONSchema.JSONSchemaFormat.INTEGER);
+                return res;
+              }
+            }.get());
+            res.setName("memberId");
+            return res;
+          }
+        }.get());
+        res.setAuthorization(new Supplier<Authorization>() {
+          @Override
+          public Authorization get() {
+            Authorization res = new Authorization();
+            RBAC rbac = new RBAC();
+            rbac.setAuthorityClz("com.apihug.rad.infra.settings.RadAuthorityEnum");
+            rbac.setAuthorities(Arrays.asList("TENANT_MEMBER_REMOVE"));
+            res.setRbac(rbac);
+            return res;
+          }
+        }.get());
+        return res;
+      }
+    }.get());
+    _RemoveMemberFromTenant.setHttpMethod(ServiceMethod.HttpMethod.DELETE);
+    _RemoveMemberFromTenant.setPath("/api/tenant-members/tenants/{tenantId}/members/{memberId}");
+    res.addItem(_RemoveMemberFromTenant);
+    var _ToggleMemberLock = new ServiceMethod();
+    _ToggleMemberLock.setName("ToggleMemberLock");
+    _ToggleMemberLock.setProtoLine(104);
+    _ToggleMemberLock.setProtoColumn(3);
+    _ToggleMemberLock.setRequestRef("hope.common.adaptor.Empty");
+    _ToggleMemberLock.setResponseRef("hope.common.adaptor.Empty");
+    _ToggleMemberLock.setSchema(new Supplier<Operation>() {
+      @Override
+      public Operation get() {
+        Operation res  = new Operation();
+        res.setTags(Arrays.asList("tenant-member"));
+        res.setSummary("切换成员锁定状态");
+        res.setDescription("锁定/解锁成员\r\n"
+                + "锁定/解锁租户成员");
+        res.setPost("/api/tenant-members/tenants/{tenantId}/members/{memberId}/toggle-lock");
+        res.addParameter(new Supplier<Parameter>() {
+          @Override
+          public Parameter get() {
+            Parameter res = new Parameter();
+            res.setIn(Parameter.IN.PATH);
+            res.setSchema(new Supplier<JSONSchema>() {
+              @Override
+              public JSONSchema get() {
+                JSONSchema res  = new JSONSchema();
+                res.setEmpty(false);
+                res.setFormat(JSONSchema.JSONSchemaFormat.INTEGER);
+                return res;
+              }
+            }.get());
+            res.setName("tenantId");
+            return res;
+          }
+        }.get());
+        res.addParameter(new Supplier<Parameter>() {
+          @Override
+          public Parameter get() {
+            Parameter res = new Parameter();
+            res.setIn(Parameter.IN.PATH);
+            res.setSchema(new Supplier<JSONSchema>() {
+              @Override
+              public JSONSchema get() {
+                JSONSchema res  = new JSONSchema();
+                res.setEmpty(false);
+                res.setFormat(JSONSchema.JSONSchemaFormat.INTEGER);
+                return res;
+              }
+            }.get());
+            res.setName("memberId");
+            return res;
+          }
+        }.get());
+        res.setAuthorization(new Supplier<Authorization>() {
+          @Override
+          public Authorization get() {
+            Authorization res = new Authorization();
+            RBAC rbac = new RBAC();
+            rbac.setAuthorityClz("com.apihug.rad.infra.settings.RadAuthorityEnum");
+            rbac.setAuthorities(Arrays.asList("TENANT_MEMBER_LOCK"));
+            res.setRbac(rbac);
+            return res;
+          }
+        }.get());
+        return res;
+      }
+    }.get());
+    _ToggleMemberLock.setHttpMethod(ServiceMethod.HttpMethod.POST);
+    _ToggleMemberLock.setPath("/api/tenant-members/tenants/{tenantId}/members/{memberId}/toggle-lock");
+    res.addItem(_ToggleMemberLock);
+    var _UpdateMemberRole = new ServiceMethod();
+    _UpdateMemberRole.setName("UpdateMemberRole");
+    _UpdateMemberRole.setProtoLine(137);
+    _UpdateMemberRole.setProtoColumn(3);
+    _UpdateMemberRole.setRequestRef("com.apihug.rad.api.tenant.UpdateMemberRoleRequest");
+    _UpdateMemberRole.setResponseRef("hope.common.adaptor.Empty");
+    _UpdateMemberRole.setSchema(new Supplier<Operation>() {
+      @Override
+      public Operation get() {
+        Operation res  = new Operation();
+        res.setTags(Arrays.asList("tenant-member"));
+        res.setSummary("更新成员角色");
+        res.setDescription("更新成员角色（OWNER/ADMIN/MEMBER）\r\n"
+                + "更新成员在租户中的角色（拥有者/管理员/普通成员）");
+        res.setPut("/api/tenant-members/tenants/{tenantId}/members/{memberId}/role");
+        res.addParameter(new Supplier<Parameter>() {
+          @Override
+          public Parameter get() {
+            Parameter res = new Parameter();
+            res.setIn(Parameter.IN.PATH);
+            res.setSchema(new Supplier<JSONSchema>() {
+              @Override
+              public JSONSchema get() {
+                JSONSchema res  = new JSONSchema();
+                res.setEmpty(false);
+                res.setFormat(JSONSchema.JSONSchemaFormat.INTEGER);
+                return res;
+              }
+            }.get());
+            res.setName("tenantId");
+            return res;
+          }
+        }.get());
+        res.addParameter(new Supplier<Parameter>() {
+          @Override
+          public Parameter get() {
+            Parameter res = new Parameter();
+            res.setIn(Parameter.IN.PATH);
+            res.setSchema(new Supplier<JSONSchema>() {
+              @Override
+              public JSONSchema get() {
+                JSONSchema res  = new JSONSchema();
+                res.setEmpty(false);
+                res.setFormat(JSONSchema.JSONSchemaFormat.INTEGER);
+                return res;
+              }
+            }.get());
+            res.setName("memberId");
+            return res;
+          }
+        }.get());
+        res.setAuthorization(new Supplier<Authorization>() {
+          @Override
+          public Authorization get() {
+            Authorization res = new Authorization();
+            RBAC rbac = new RBAC();
+            rbac.setAuthorityClz("com.apihug.rad.infra.settings.RadAuthorityEnum");
+            rbac.setAuthorities(Arrays.asList("TENANT_MEMBER_ASSIGN_ROLE"));
+            res.setRbac(rbac);
+            return res;
+          }
+        }.get());
+        return res;
+      }
+    }.get());
+    _UpdateMemberRole.setHttpMethod(ServiceMethod.HttpMethod.PUT);
+    _UpdateMemberRole.setPath("/api/tenant-members/tenants/{tenantId}/members/{memberId}/role");
+    res.addItem(_UpdateMemberRole);
+    var _AssignMemberDepartment = new ServiceMethod();
+    _AssignMemberDepartment.setName("AssignMemberDepartment");
+    _AssignMemberDepartment.setProtoLine(170);
+    _AssignMemberDepartment.setProtoColumn(3);
+    _AssignMemberDepartment.setRequestRef("com.apihug.rad.api.tenant.AssignMemberDepartmentRequest");
+    _AssignMemberDepartment.setResponseRef("hope.common.adaptor.Empty");
+    _AssignMemberDepartment.setSchema(new Supplier<Operation>() {
+      @Override
+      public Operation get() {
+        Operation res  = new Operation();
+        res.setTags(Arrays.asList("tenant-member"));
+        res.setSummary("分配成员部门");
+        res.setDescription("分配成员到部门\r\n"
+                + "将成员分配到指定部门");
+        res.setPut("/api/tenant-members/tenants/{tenantId}/members/{memberId}/department");
+        res.addParameter(new Supplier<Parameter>() {
+          @Override
+          public Parameter get() {
+            Parameter res = new Parameter();
+            res.setIn(Parameter.IN.PATH);
+            res.setSchema(new Supplier<JSONSchema>() {
+              @Override
+              public JSONSchema get() {
+                JSONSchema res  = new JSONSchema();
+                res.setEmpty(false);
+                res.setFormat(JSONSchema.JSONSchemaFormat.INTEGER);
+                return res;
+              }
+            }.get());
+            res.setName("tenantId");
+            return res;
+          }
+        }.get());
+        res.addParameter(new Supplier<Parameter>() {
+          @Override
+          public Parameter get() {
+            Parameter res = new Parameter();
+            res.setIn(Parameter.IN.PATH);
+            res.setSchema(new Supplier<JSONSchema>() {
+              @Override
+              public JSONSchema get() {
+                JSONSchema res  = new JSONSchema();
+                res.setEmpty(false);
+                res.setFormat(JSONSchema.JSONSchemaFormat.INTEGER);
+                return res;
+              }
+            }.get());
+            res.setName("memberId");
+            return res;
+          }
+        }.get());
+        res.setAuthorization(new Supplier<Authorization>() {
+          @Override
+          public Authorization get() {
+            Authorization res = new Authorization();
+            RBAC rbac = new RBAC();
+            rbac.setAuthorityClz("com.apihug.rad.infra.settings.RadAuthorityEnum");
+            rbac.setAuthorities(Arrays.asList("TENANT_MEMBER_ASSIGN_ROLE"));
+            res.setRbac(rbac);
+            return res;
+          }
+        }.get());
+        return res;
+      }
+    }.get());
+    _AssignMemberDepartment.setHttpMethod(ServiceMethod.HttpMethod.PUT);
+    _AssignMemberDepartment.setPath("/api/tenant-members/tenants/{tenantId}/members/{memberId}/department");
+    res.addItem(_AssignMemberDepartment);
+    var _GetMemberDetail = new ServiceMethod();
+    _GetMemberDetail.setName("GetMemberDetail");
+    _GetMemberDetail.setProtoLine(203);
+    _GetMemberDetail.setProtoColumn(3);
+    _GetMemberDetail.setRequestRef("hope.common.adaptor.Empty");
+    _GetMemberDetail.setResponseRef("com.apihug.rad.api.tenant.TenantMemberDetail");
+    _GetMemberDetail.setSchema(new Supplier<Operation>() {
+      @Override
+      public Operation get() {
+        Operation res  = new Operation();
+        res.setTags(Arrays.asList("tenant-member"));
+        res.setSummary("获取成员详情");
+        res.setDescription("获取成员详情（含客户信息 + 成员身份信息）\r\n"
+                + "获取租户成员详细信息（含客户账号信息和成员身份信息）");
+        res.setGet("/api/tenant-members/tenants/{tenantId}/members/{memberId}/detail");
+        res.addParameter(new Supplier<Parameter>() {
+          @Override
+          public Parameter get() {
+            Parameter res = new Parameter();
+            res.setIn(Parameter.IN.PATH);
+            res.setSchema(new Supplier<JSONSchema>() {
+              @Override
+              public JSONSchema get() {
+                JSONSchema res  = new JSONSchema();
+                res.setEmpty(false);
+                res.setFormat(JSONSchema.JSONSchemaFormat.INTEGER);
+                return res;
+              }
+            }.get());
+            res.setName("tenantId");
+            return res;
+          }
+        }.get());
+        res.addParameter(new Supplier<Parameter>() {
+          @Override
+          public Parameter get() {
+            Parameter res = new Parameter();
+            res.setIn(Parameter.IN.PATH);
+            res.setSchema(new Supplier<JSONSchema>() {
+              @Override
+              public JSONSchema get() {
+                JSONSchema res  = new JSONSchema();
+                res.setEmpty(false);
+                res.setFormat(JSONSchema.JSONSchemaFormat.INTEGER);
+                return res;
+              }
+            }.get());
+            res.setName("memberId");
+            return res;
+          }
+        }.get());
+        res.setAuthorization(new Supplier<Authorization>() {
+          @Override
+          public Authorization get() {
+            Authorization res = new Authorization();
+            RBAC rbac = new RBAC();
+            rbac.setAuthorityClz("com.apihug.rad.infra.settings.RadAuthorityEnum");
+            rbac.setAuthorities(Arrays.asList("TENANT_MEMBER_VIEW"));
+            res.setRbac(rbac);
+            return res;
+          }
+        }.get());
+        res.setQuestions(Arrays.asList("如何获取成员详情？","成员详情包含哪些信息？"));
+        return res;
+      }
+    }.get());
+    _GetMemberDetail.setHttpMethod(ServiceMethod.HttpMethod.GET);
+    _GetMemberDetail.setPath("/api/tenant-members/tenants/{tenantId}/members/{memberId}/detail");
+    res.addItem(_GetMemberDetail);
+    var _SetDefaultTenant = new ServiceMethod();
+    _SetDefaultTenant.setName("SetDefaultTenant");
+    _SetDefaultTenant.setProtoLine(240);
+    _SetDefaultTenant.setProtoColumn(3);
+    _SetDefaultTenant.setRequestRef("hope.common.adaptor.Empty");
+    _SetDefaultTenant.setResponseRef("hope.common.adaptor.Empty");
+    _SetDefaultTenant.setSchema(new Supplier<Operation>() {
+      @Override
+      public Operation get() {
+        Operation res  = new Operation();
+        res.setTags(Arrays.asList("tenant-member"));
+        res.setSummary("设置默认租户");
+        res.setDescription("设置默认租户\r\n"
+                + "将指定租户设为客户的默认租户");
+        res.setPost("/api/tenant-members/tenants/{tenantId}/set-default");
+        res.addParameter(new Supplier<Parameter>() {
+          @Override
+          public Parameter get() {
+            Parameter res = new Parameter();
+            res.setIn(Parameter.IN.PATH);
+            res.setSchema(new Supplier<JSONSchema>() {
+              @Override
+              public JSONSchema get() {
+                JSONSchema res  = new JSONSchema();
+                res.setEmpty(false);
+                res.setFormat(JSONSchema.JSONSchemaFormat.INTEGER);
+                return res;
+              }
+            }.get());
+            res.setName("tenantId");
+            return res;
+          }
+        }.get());
+        res.setAuthorization(new Supplier<Authorization>() {
+          @Override
+          public Authorization get() {
+            Authorization res = new Authorization();
+            res.setLowLimitRiskyMode(Authorization.LowLimitRiskyMode.LOGIN);
+            return res;
+          }
+        }.get());
+        return res;
+      }
+    }.get());
+    _SetDefaultTenant.setHttpMethod(ServiceMethod.HttpMethod.POST);
+    _SetDefaultTenant.setPath("/api/tenant-members/tenants/{tenantId}/set-default");
+    res.addItem(_SetDefaultTenant);
+    var _AssignRolesToMember = new ServiceMethod();
+    _AssignRolesToMember.setName("AssignRolesToMember");
+    _AssignRolesToMember.setProtoLine(263);
+    _AssignRolesToMember.setProtoColumn(3);
+    _AssignRolesToMember.setRequestRef("com.apihug.rad.api.tenant.AssignRolesRequest");
+    _AssignRolesToMember.setResponseRef("hope.common.adaptor.Empty");
+    _AssignRolesToMember.setSchema(new Supplier<Operation>() {
+      @Override
+      public Operation get() {
+        Operation res  = new Operation();
+        res.setTags(Arrays.asList("tenant-member"));
+        res.setSummary("分配成员角色");
+        res.setDescription("为成员分配 RBAC 角色（全量覆盖）\r\n"
+                + "为租户成员分配 RBAC 角色（全量覆盖，替换已有角色）");
+        res.setPost("/api/tenant-members/tenants/{tenantId}/members/{memberId}/roles");
+        res.addParameter(new Supplier<Parameter>() {
+          @Override
+          public Parameter get() {
+            Parameter res = new Parameter();
+            res.setIn(Parameter.IN.PATH);
+            res.setSchema(new Supplier<JSONSchema>() {
+              @Override
+              public JSONSchema get() {
+                JSONSchema res  = new JSONSchema();
+                res.setEmpty(false);
+                res.setFormat(JSONSchema.JSONSchemaFormat.INTEGER);
+                return res;
+              }
+            }.get());
+            res.setName("tenantId");
+            return res;
+          }
+        }.get());
+        res.addParameter(new Supplier<Parameter>() {
+          @Override
+          public Parameter get() {
+            Parameter res = new Parameter();
+            res.setIn(Parameter.IN.PATH);
+            res.setSchema(new Supplier<JSONSchema>() {
+              @Override
+              public JSONSchema get() {
+                JSONSchema res  = new JSONSchema();
+                res.setEmpty(false);
+                res.setFormat(JSONSchema.JSONSchemaFormat.INTEGER);
+                return res;
+              }
+            }.get());
+            res.setName("memberId");
+            return res;
+          }
+        }.get());
+        res.setAuthorization(new Supplier<Authorization>() {
+          @Override
+          public Authorization get() {
+            Authorization res = new Authorization();
+            RBAC rbac = new RBAC();
+            rbac.setAuthorityClz("com.apihug.rad.infra.settings.RadAuthorityEnum");
+            rbac.setAuthorities(Arrays.asList("TENANT_MEMBER_ASSIGN_ROLE"));
+            res.setRbac(rbac);
+            return res;
+          }
+        }.get());
+        return res;
+      }
+    }.get());
+    _AssignRolesToMember.setHttpMethod(ServiceMethod.HttpMethod.POST);
+    _AssignRolesToMember.setPath("/api/tenant-members/tenants/{tenantId}/members/{memberId}/roles");
+    res.addItem(_AssignRolesToMember);
+    var _GetMemberRoles = new ServiceMethod();
+    _GetMemberRoles.setName("GetMemberRoles");
+    _GetMemberRoles.setProtoLine(296);
+    _GetMemberRoles.setProtoColumn(3);
+    _GetMemberRoles.setRequestRef("hope.common.adaptor.Empty");
+    _GetMemberRoles.setResponseRef("com.apihug.rad.api.tenant.MemberRoleSummary");
+    _GetMemberRoles.setSchema(new Supplier<Operation>() {
+      @Override
+      public Operation get() {
+        Operation res  = new Operation();
+        res.setTags(Arrays.asList("tenant-member"));
+        res.setSummary("获取成员角色");
+        res.setDescription("获取成员的 RBAC 角色列表\r\n"
+                + "获取租户成员的 RBAC 角色列表");
+        res.setGet("/api/tenant-members/tenants/{tenantId}/members/{memberId}/roles");
+        res.addParameter(new Supplier<Parameter>() {
+          @Override
+          public Parameter get() {
+            Parameter res = new Parameter();
+            res.setIn(Parameter.IN.PATH);
+            res.setSchema(new Supplier<JSONSchema>() {
+              @Override
+              public JSONSchema get() {
+                JSONSchema res  = new JSONSchema();
+                res.setEmpty(false);
+                res.setFormat(JSONSchema.JSONSchemaFormat.INTEGER);
+                return res;
+              }
+            }.get());
+            res.setName("tenantId");
+            return res;
+          }
+        }.get());
+        res.addParameter(new Supplier<Parameter>() {
+          @Override
+          public Parameter get() {
+            Parameter res = new Parameter();
+            res.setIn(Parameter.IN.PATH);
+            res.setSchema(new Supplier<JSONSchema>() {
+              @Override
+              public JSONSchema get() {
+                JSONSchema res  = new JSONSchema();
+                res.setEmpty(false);
+                res.setFormat(JSONSchema.JSONSchemaFormat.INTEGER);
+                return res;
+              }
+            }.get());
+            res.setName("memberId");
+            return res;
+          }
+        }.get());
+        res.setAuthorization(new Supplier<Authorization>() {
+          @Override
+          public Authorization get() {
+            Authorization res = new Authorization();
+            RBAC rbac = new RBAC();
+            rbac.setAuthorityClz("com.apihug.rad.infra.settings.RadAuthorityEnum");
+            rbac.setAuthorities(Arrays.asList("TENANT_MEMBER_VIEW"));
+            res.setRbac(rbac);
+            return res;
+          }
+        }.get());
+        return res;
+      }
+    }.get());
+    _GetMemberRoles.setHttpMethod(ServiceMethod.HttpMethod.GET);
+    _GetMemberRoles.setPath("/api/tenant-members/tenants/{tenantId}/members/{memberId}/roles");
+    res.addItem(_GetMemberRoles);
+    var _RemoveRoleFromMember = new ServiceMethod();
+    _RemoveRoleFromMember.setName("RemoveRoleFromMember");
+    _RemoveRoleFromMember.setProtoLine(329);
+    _RemoveRoleFromMember.setProtoColumn(3);
+    _RemoveRoleFromMember.setRequestRef("hope.common.adaptor.Empty");
+    _RemoveRoleFromMember.setResponseRef("hope.common.adaptor.Empty");
+    _RemoveRoleFromMember.setSchema(new Supplier<Operation>() {
+      @Override
+      public Operation get() {
+        Operation res  = new Operation();
+        res.setTags(Arrays.asList("tenant-member"));
+        res.setSummary("移除成员角色");
+        res.setDescription("移除成员的某个 RBAC 角色\r\n"
+                + "移除租户成员的某个 RBAC 角色");
+        res.setDelete("/api/tenant-members/tenants/{tenantId}/members/{memberId}/roles/{roleId}");
+        res.addParameter(new Supplier<Parameter>() {
+          @Override
+          public Parameter get() {
+            Parameter res = new Parameter();
+            res.setIn(Parameter.IN.PATH);
+            res.setSchema(new Supplier<JSONSchema>() {
+              @Override
+              public JSONSchema get() {
+                JSONSchema res  = new JSONSchema();
+                res.setEmpty(false);
+                res.setFormat(JSONSchema.JSONSchemaFormat.INTEGER);
+                return res;
+              }
+            }.get());
+            res.setName("tenantId");
+            return res;
+          }
+        }.get());
+        res.addParameter(new Supplier<Parameter>() {
+          @Override
+          public Parameter get() {
+            Parameter res = new Parameter();
+            res.setIn(Parameter.IN.PATH);
+            res.setSchema(new Supplier<JSONSchema>() {
+              @Override
+              public JSONSchema get() {
+                JSONSchema res  = new JSONSchema();
+                res.setEmpty(false);
+                res.setFormat(JSONSchema.JSONSchemaFormat.INTEGER);
+                return res;
+              }
+            }.get());
+            res.setName("memberId");
+            return res;
+          }
+        }.get());
+        res.addParameter(new Supplier<Parameter>() {
+          @Override
+          public Parameter get() {
+            Parameter res = new Parameter();
+            res.setIn(Parameter.IN.PATH);
+            res.setSchema(new Supplier<JSONSchema>() {
+              @Override
+              public JSONSchema get() {
+                JSONSchema res  = new JSONSchema();
+                res.setEmpty(false);
+                res.setFormat(JSONSchema.JSONSchemaFormat.INTEGER);
+                return res;
+              }
+            }.get());
+            res.setName("roleId");
+            return res;
+          }
+        }.get());
+        res.setAuthorization(new Supplier<Authorization>() {
+          @Override
+          public Authorization get() {
+            Authorization res = new Authorization();
+            RBAC rbac = new RBAC();
+            rbac.setAuthorityClz("com.apihug.rad.infra.settings.RadAuthorityEnum");
+            rbac.setAuthorities(Arrays.asList("TENANT_MEMBER_ASSIGN_ROLE"));
+            res.setRbac(rbac);
+            return res;
+          }
+        }.get());
+        return res;
+      }
+    }.get());
+    _RemoveRoleFromMember.setHttpMethod(ServiceMethod.HttpMethod.DELETE);
+    _RemoveRoleFromMember.setPath("/api/tenant-members/tenants/{tenantId}/members/{memberId}/roles/{roleId}");
+    res.addItem(_RemoveRoleFromMember);
+    services.put("com.apihug.rad.api.tenant.TenantMemberService", res);
   }
 
   private void initServices() {
@@ -2724,14 +2568,12 @@ public final class RadApiCollector implements Collector {
     initServiceapi_customerCustomerService();
     initServiceapi_customerCustomerManagementService();
     initServiceapi_departmentDepartmentService();
-    initServiceapi_departmentDepartmentEmployeeService();
     initServiceapi_menuMenuService();
     initServiceapi_metaApihugService();
-    initServiceapi_organizationOrganizationService();
-    initServiceapi_organizationCustomerOrganizationService();
     initServiceapi_permissionPermissionService();
     initServiceapi_roleRoleService();
     initServiceapi_tenantTenantService();
+    initServiceapi_tenantTenantMemberService();
   }
 
   void initComponentapi_auditAccessLogInfo() {
@@ -3446,7 +3288,7 @@ public final class RadApiCollector implements Collector {
     res.setClzName("com.apihug.rad.api.customer.CreateCustomerRequest");
     res.setName("CreateCustomerRequest");
     res.setProtoFrom("com/apihug/rad/api/customer/api.proto");
-    res.setProtoLine(504);
+    res.setProtoLine(406);
     res.setProtoColumn(1);
     res.setProtoEntity("CreateCustomerRequest");
     res.setDescription("创建客户请求");
@@ -3471,7 +3313,7 @@ public final class RadApiCollector implements Collector {
     _username.setName("username");
     _username.setFieldName("username");
     _username.setTag(1);
-    _username.setProtoLine(512);
+    _username.setProtoLine(414);
     _username.setProtoColumn(3);
     _username.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -3498,7 +3340,7 @@ public final class RadApiCollector implements Collector {
     _password.setName("password");
     _password.setFieldName("password");
     _password.setTag(2);
-    _password.setProtoLine(520);
+    _password.setProtoLine(422);
     _password.setProtoColumn(3);
     _password.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -3518,7 +3360,7 @@ public final class RadApiCollector implements Collector {
     _email.setName("email");
     _email.setFieldName("email");
     _email.setTag(3);
-    _email.setProtoLine(528);
+    _email.setProtoLine(430);
     _email.setProtoColumn(3);
     _email.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -3545,7 +3387,7 @@ public final class RadApiCollector implements Collector {
     _status.setName("status");
     _status.setFieldName("status");
     _status.setTag(4);
-    _status.setProtoLine(536);
+    _status.setProtoLine(438);
     _status.setProtoColumn(3);
     _status.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -3563,7 +3405,7 @@ public final class RadApiCollector implements Collector {
     _defaultTenantId.setName("default_tenant_id");
     _defaultTenantId.setFieldName("defaultTenantId");
     _defaultTenantId.setTag(5);
-    _defaultTenantId.setProtoLine(542);
+    _defaultTenantId.setProtoLine(444);
     _defaultTenantId.setProtoColumn(3);
     _defaultTenantId.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -3579,14 +3421,14 @@ public final class RadApiCollector implements Collector {
     components.put("com.apihug.rad.api.customer.CreateCustomerRequest", res);
   }
 
-  void initComponentapi_customerCurrentUserInfo() {
+  void initComponentapi_customerCurrentCustomerInfo() {
     Component res = new Component();
-    res.setClzName("com.apihug.rad.api.customer.CurrentUserInfo");
-    res.setName("CurrentUserInfo");
+    res.setClzName("com.apihug.rad.api.customer.CurrentCustomerInfo");
+    res.setName("CurrentCustomerInfo");
     res.setProtoFrom("com/apihug/rad/api/customer/api.proto");
-    res.setProtoLine(441);
+    res.setProtoLine(343);
     res.setProtoColumn(1);
-    res.setProtoEntity("CurrentUserInfo");
+    res.setProtoEntity("CurrentCustomerInfo");
     res.setDescription("当前客户完整信息");
     res.setSchema(new Supplier<Schema>() {
       @Override
@@ -3596,7 +3438,7 @@ public final class RadApiCollector implements Collector {
           @Override
           public JSONSchema get() {
             JSONSchema res  = new JSONSchema();
-            res.setTitle("CurrentUserInfo");
+            res.setTitle("CurrentCustomerInfo");
             res.setDescription("当前客户完整信息");
             return res;
           }
@@ -3604,14 +3446,14 @@ public final class RadApiCollector implements Collector {
         return res;
       }
     }.get());
-    ComponentItem _user = new ComponentItem();
-    _user.setClzName("com.apihug.rad.api.customer.CustomerInfo");
-    _user.setName("user");
-    _user.setFieldName("user");
-    _user.setTag(1);
-    _user.setProtoLine(449);
-    _user.setProtoColumn(3);
-    _user.setSchema(new Supplier<JSONSchema>() {
+    ComponentItem _customer = new ComponentItem();
+    _customer.setClzName("com.apihug.rad.api.customer.CustomerInfo");
+    _customer.setName("customer");
+    _customer.setFieldName("customer");
+    _customer.setTag(1);
+    _customer.setProtoLine(351);
+    _customer.setProtoColumn(3);
+    _customer.setSchema(new Supplier<JSONSchema>() {
       @Override
       public JSONSchema get() {
         JSONSchema res  = new JSONSchema();
@@ -3619,13 +3461,13 @@ public final class RadApiCollector implements Collector {
         return res;
       }
     }.get());
-    res.addItem(_user);
+    res.addItem(_customer);
     ComponentItem _roles = new ComponentItem();
     _roles.setClzName("com.apihug.rad.api.customer.RoleInfo");
     _roles.setName("roles");
     _roles.setFieldName("roles");
     _roles.setTag(2);
-    _roles.setProtoLine(453);
+    _roles.setProtoLine(355);
     _roles.setProtoColumn(3);
     _roles.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -3642,7 +3484,7 @@ public final class RadApiCollector implements Collector {
     _authorities.setName("authorities");
     _authorities.setFieldName("authorities");
     _authorities.setTag(3);
-    _authorities.setProtoLine(457);
+    _authorities.setProtoLine(359);
     _authorities.setProtoColumn(3);
     _authorities.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -3659,7 +3501,7 @@ public final class RadApiCollector implements Collector {
     _department.setName("department");
     _department.setFieldName("department");
     _department.setTag(4);
-    _department.setProtoLine(461);
+    _department.setProtoLine(363);
     _department.setProtoColumn(3);
     _department.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -3670,194 +3512,23 @@ public final class RadApiCollector implements Collector {
       }
     }.get());
     res.addItem(_department);
-    ComponentItem _currentOrganization = new ComponentItem();
-    _currentOrganization.setClzName("com.apihug.rad.api.customer.OrganizationInfo");
-    _currentOrganization.setName("current_organization");
-    _currentOrganization.setFieldName("currentOrganization");
-    _currentOrganization.setTag(5);
-    _currentOrganization.setProtoLine(465);
-    _currentOrganization.setProtoColumn(3);
-    _currentOrganization.setSchema(new Supplier<JSONSchema>() {
+    ComponentItem _currentTenant = new ComponentItem();
+    _currentTenant.setClzName("com.apihug.rad.api.customer.TenantInfo");
+    _currentTenant.setName("current_tenant");
+    _currentTenant.setFieldName("currentTenant");
+    _currentTenant.setTag(5);
+    _currentTenant.setProtoLine(367);
+    _currentTenant.setProtoColumn(3);
+    _currentTenant.setSchema(new Supplier<JSONSchema>() {
       @Override
       public JSONSchema get() {
         JSONSchema res  = new JSONSchema();
-        res.setDescription("当前组织信息");
+        res.setDescription("当前租户信息");
         return res;
       }
     }.get());
-    res.addItem(_currentOrganization);
-    components.put("com.apihug.rad.api.customer.CurrentUserInfo", res);
-  }
-
-  void initComponentapi_customerCustomerDetail() {
-    Component res = new Component();
-    res.setClzName("com.apihug.rad.api.customer.CustomerDetail");
-    res.setName("CustomerDetail");
-    res.setProtoFrom("com/apihug/rad/api/customer/api.proto");
-    res.setProtoLine(591);
-    res.setProtoColumn(1);
-    res.setProtoEntity("CustomerDetail");
-    res.setDescription("客户详情信息");
-    res.setSchema(new Supplier<Schema>() {
-      @Override
-      public Schema get() {
-        Schema res  = new Schema();
-        res.setJsonSchema(new Supplier<JSONSchema>() {
-          @Override
-          public JSONSchema get() {
-            JSONSchema res  = new JSONSchema();
-            res.setTitle("CustomerDetail");
-            res.setDescription("客户详情信息");
-            return res;
-          }
-        }.get());
-        return res;
-      }
-    }.get());
-    ComponentItem _id = new ComponentItem();
-    _id.setClzName("java.lang.Long");
-    _id.setName("id");
-    _id.setFieldName("id");
-    _id.setTag(1);
-    _id.setProtoLine(599);
-    _id.setProtoColumn(3);
-    _id.setSchema(new Supplier<JSONSchema>() {
-      @Override
-      public JSONSchema get() {
-        JSONSchema res  = new JSONSchema();
-        res.setDescription("客户 ID");
-        res.setExample("1");
-        res.setMinimum(1.0D);
-        res.setEmpty(false);
-        return res;
-      }
-    }.get());
-    res.addItem(_id);
-    ComponentItem _username = new ComponentItem();
-    _username.setClzName("java.lang.String");
-    _username.setName("username");
-    _username.setFieldName("username");
-    _username.setTag(2);
-    _username.setProtoLine(606);
-    _username.setProtoColumn(3);
-    _username.setSchema(new Supplier<JSONSchema>() {
-      @Override
-      public JSONSchema get() {
-        JSONSchema res  = new JSONSchema();
-        res.setDescription("用户名");
-        res.setExample("zhangsan");
-        res.setEmpty(false);
-        res.setMock(new Supplier<Mock>() {
-          @Override
-          public Mock get() {
-            Mock res = new Mock();
-            res.setNature(Nature.NAME);
-            return res;
-          }
-        }.get());
-        return res;
-      }
-    }.get());
-    res.addItem(_username);
-    ComponentItem _email = new ComponentItem();
-    _email.setClzName("java.lang.String");
-    _email.setName("email");
-    _email.setFieldName("email");
-    _email.setTag(3);
-    _email.setProtoLine(613);
-    _email.setProtoColumn(3);
-    _email.setSchema(new Supplier<JSONSchema>() {
-      @Override
-      public JSONSchema get() {
-        JSONSchema res  = new JSONSchema();
-        res.setDescription("邮箱");
-        res.setExample("zhangsan@example.com");
-        res.setEmpty(false);
-        res.setMock(new Supplier<Mock>() {
-          @Override
-          public Mock get() {
-            Mock res = new Mock();
-            res.setNature(Nature.EMAIL);
-            return res;
-          }
-        }.get());
-        return res;
-      }
-    }.get());
-    res.addItem(_email);
-    ComponentItem _status = new ComponentItem();
-    _status.setClzName("com.apihug.rad.infra.customer.CustomerStatusEnum");
-    _status.setName("status");
-    _status.setFieldName("status");
-    _status.setTag(4);
-    _status.setProtoLine(620);
-    _status.setProtoColumn(3);
-    _status.setSchema(new Supplier<JSONSchema>() {
-      @Override
-      public JSONSchema get() {
-        JSONSchema res  = new JSONSchema();
-        res.setDescription("客户状态");
-        res.setExample("ACTIVE");
-        res.setEmpty(false);
-        return res;
-      }
-    }.get());
-    res.addItem(_status);
-    ComponentItem _defaultTenantId = new ComponentItem();
-    _defaultTenantId.setClzName("java.lang.Long");
-    _defaultTenantId.setName("default_tenant_id");
-    _defaultTenantId.setFieldName("defaultTenantId");
-    _defaultTenantId.setTag(5);
-    _defaultTenantId.setProtoLine(626);
-    _defaultTenantId.setProtoColumn(3);
-    _defaultTenantId.setSchema(new Supplier<JSONSchema>() {
-      @Override
-      public JSONSchema get() {
-        JSONSchema res  = new JSONSchema();
-        res.setDescription("默认租户 ID");
-        res.setExample("1");
-        res.setEmpty(false);
-        return res;
-      }
-    }.get());
-    res.addItem(_defaultTenantId);
-    ComponentItem _createdAt = new ComponentItem();
-    _createdAt.setClzName("java.time.LocalDateTime");
-    _createdAt.setName("created_at");
-    _createdAt.setFieldName("createdAt");
-    _createdAt.setTag(6);
-    _createdAt.setProtoLine(632);
-    _createdAt.setProtoColumn(3);
-    _createdAt.setSchema(new Supplier<JSONSchema>() {
-      @Override
-      public JSONSchema get() {
-        JSONSchema res  = new JSONSchema();
-        res.setDescription("创建时间");
-        res.setExample("2024-01-15T10:30:00");
-        res.setDateFormat(DateFormat.ISO_LOCAL_DATE_TIME);
-        return res;
-      }
-    }.get());
-    res.addItem(_createdAt);
-    ComponentItem _updatedAt = new ComponentItem();
-    _updatedAt.setClzName("java.time.LocalDateTime");
-    _updatedAt.setName("updated_at");
-    _updatedAt.setFieldName("updatedAt");
-    _updatedAt.setTag(7);
-    _updatedAt.setProtoLine(638);
-    _updatedAt.setProtoColumn(3);
-    _updatedAt.setSchema(new Supplier<JSONSchema>() {
-      @Override
-      public JSONSchema get() {
-        JSONSchema res  = new JSONSchema();
-        res.setDescription("更新时间");
-        res.setExample("2024-01-16T10:30:00");
-        res.setDateFormat(DateFormat.ISO_LOCAL_DATE_TIME);
-        return res;
-      }
-    }.get());
-    res.addItem(_updatedAt);
-    components.put("com.apihug.rad.api.customer.CustomerDetail", res);
+    res.addItem(_currentTenant);
+    components.put("com.apihug.rad.api.customer.CurrentCustomerInfo", res);
   }
 
   void initComponentapi_customerCustomerInfo() {
@@ -3865,7 +3536,7 @@ public final class RadApiCollector implements Collector {
     res.setClzName("com.apihug.rad.api.customer.CustomerInfo");
     res.setName("CustomerInfo");
     res.setProtoFrom("com/apihug/rad/api/customer/api.proto");
-    res.setProtoLine(402);
+    res.setProtoLine(304);
     res.setProtoColumn(1);
     res.setProtoEntity("CustomerInfo");
     res.setDescription("客户信息");
@@ -3889,7 +3560,7 @@ public final class RadApiCollector implements Collector {
     _customerId.setName("customer_id");
     _customerId.setFieldName("customerId");
     _customerId.setTag(1);
-    _customerId.setProtoLine(409);
+    _customerId.setProtoLine(311);
     _customerId.setProtoColumn(3);
     _customerId.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -3919,7 +3590,7 @@ public final class RadApiCollector implements Collector {
     _username.setName("username");
     _username.setFieldName("username");
     _username.setTag(3);
-    _username.setProtoLine(417);
+    _username.setProtoLine(319);
     _username.setProtoColumn(3);
     _username.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -3945,7 +3616,7 @@ public final class RadApiCollector implements Collector {
     _tenantId.setName("tenant_id");
     _tenantId.setFieldName("tenantId");
     _tenantId.setTag(4);
-    _tenantId.setProtoLine(424);
+    _tenantId.setProtoLine(326);
     _tenantId.setProtoColumn(3);
     _tenantId.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -3975,7 +3646,7 @@ public final class RadApiCollector implements Collector {
     _roles.setName("roles");
     _roles.setFieldName("roles");
     _roles.setTag(5);
-    _roles.setProtoLine(432);
+    _roles.setProtoLine(334);
     _roles.setProtoColumn(3);
     _roles.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -3992,7 +3663,7 @@ public final class RadApiCollector implements Collector {
     _authorities.setName("authorities");
     _authorities.setFieldName("authorities");
     _authorities.setTag(6);
-    _authorities.setProtoLine(436);
+    _authorities.setProtoLine(338);
     _authorities.setProtoColumn(3);
     _authorities.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -4012,7 +3683,7 @@ public final class RadApiCollector implements Collector {
     res.setClzName("com.apihug.rad.api.customer.CustomerSummary");
     res.setName("CustomerSummary");
     res.setProtoFrom("com/apihug/rad/api/customer/api.proto");
-    res.setProtoLine(549);
+    res.setProtoLine(451);
     res.setProtoColumn(1);
     res.setProtoEntity("CustomerSummary");
     res.setDescription("客户摘要信息");
@@ -4037,7 +3708,7 @@ public final class RadApiCollector implements Collector {
     _id.setName("id");
     _id.setFieldName("id");
     _id.setTag(1);
-    _id.setProtoLine(557);
+    _id.setProtoLine(459);
     _id.setProtoColumn(3);
     _id.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -4056,7 +3727,7 @@ public final class RadApiCollector implements Collector {
     _username.setName("username");
     _username.setFieldName("username");
     _username.setTag(2);
-    _username.setProtoLine(564);
+    _username.setProtoLine(466);
     _username.setProtoColumn(3);
     _username.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -4082,7 +3753,7 @@ public final class RadApiCollector implements Collector {
     _email.setName("email");
     _email.setFieldName("email");
     _email.setTag(3);
-    _email.setProtoLine(571);
+    _email.setProtoLine(473);
     _email.setProtoColumn(3);
     _email.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -4108,7 +3779,7 @@ public final class RadApiCollector implements Collector {
     _status.setName("status");
     _status.setFieldName("status");
     _status.setTag(4);
-    _status.setProtoLine(578);
+    _status.setProtoLine(480);
     _status.setProtoColumn(3);
     _status.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -4126,7 +3797,7 @@ public final class RadApiCollector implements Collector {
     _tenantId.setName("tenant_id");
     _tenantId.setFieldName("tenantId");
     _tenantId.setTag(5);
-    _tenantId.setProtoLine(584);
+    _tenantId.setProtoLine(486);
     _tenantId.setProtoColumn(3);
     _tenantId.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -4147,7 +3818,7 @@ public final class RadApiCollector implements Collector {
     res.setClzName("com.apihug.rad.api.customer.DepartmentInfo");
     res.setName("DepartmentInfo");
     res.setProtoFrom("com/apihug/rad/api/customer/api.proto");
-    res.setProtoLine(758);
+    res.setProtoLine(567);
     res.setProtoColumn(1);
     res.setProtoEntity("DepartmentInfo");
     res.setDescription("部门信息");
@@ -4172,7 +3843,7 @@ public final class RadApiCollector implements Collector {
     _id.setName("id");
     _id.setFieldName("id");
     _id.setTag(1);
-    _id.setProtoLine(766);
+    _id.setProtoLine(575);
     _id.setProtoColumn(3);
     _id.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -4190,7 +3861,7 @@ public final class RadApiCollector implements Collector {
     _deptCode.setName("dept_code");
     _deptCode.setFieldName("deptCode");
     _deptCode.setTag(2);
-    _deptCode.setProtoLine(772);
+    _deptCode.setProtoLine(581);
     _deptCode.setProtoColumn(3);
     _deptCode.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -4216,7 +3887,7 @@ public final class RadApiCollector implements Collector {
     _deptName.setName("dept_name");
     _deptName.setFieldName("deptName");
     _deptName.setTag(3);
-    _deptName.setProtoLine(779);
+    _deptName.setProtoLine(588);
     _deptName.setProtoColumn(3);
     _deptName.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -4242,7 +3913,7 @@ public final class RadApiCollector implements Collector {
     _parentId.setName("parent_id");
     _parentId.setFieldName("parentId");
     _parentId.setTag(4);
-    _parentId.setProtoLine(786);
+    _parentId.setProtoLine(595);
     _parentId.setProtoColumn(3);
     _parentId.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -4262,10 +3933,12 @@ public final class RadApiCollector implements Collector {
     res.setClzName("com.apihug.rad.api.customer.ForgotPasswordRequest");
     res.setName("ForgotPasswordRequest");
     res.setProtoFrom("com/apihug/rad/api/customer/api.proto");
-    res.setProtoLine(687);
+    res.setProtoLine(496);
     res.setProtoColumn(1);
     res.setProtoEntity("ForgotPasswordRequest");
-    res.setDescription("找回密码请求");
+    res.setDescription("CustomerDetail, UpdateCustomerRequest, SearchCustomersRequest 已移除\n"
+            + "租户内成员查看/搜索/管理 → TenantMemberService\n"
+            + "找回密码请求");
     res.setSchema(new Supplier<Schema>() {
       @Override
       public Schema get() {
@@ -4287,7 +3960,7 @@ public final class RadApiCollector implements Collector {
     _email.setName("email");
     _email.setFieldName("email");
     _email.setTag(1);
-    _email.setProtoLine(695);
+    _email.setProtoLine(504);
     _email.setProtoColumn(3);
     _email.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -4317,7 +3990,7 @@ public final class RadApiCollector implements Collector {
     res.setClzName("com.apihug.rad.api.customer.LoginRequest");
     res.setName("LoginRequest");
     res.setProtoFrom("com/apihug/rad/api/customer/api.proto");
-    res.setProtoLine(291);
+    res.setProtoLine(188);
     res.setProtoColumn(1);
     res.setProtoEntity("LoginRequest");
     res.setDescription("============ 消息类型定义 ============\n"
@@ -4343,7 +4016,7 @@ public final class RadApiCollector implements Collector {
     _username.setName("username");
     _username.setFieldName("username");
     _username.setTag(1);
-    _username.setProtoLine(299);
+    _username.setProtoLine(196);
     _username.setProtoColumn(3);
     _username.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -4370,7 +4043,7 @@ public final class RadApiCollector implements Collector {
     _password.setName("password");
     _password.setFieldName("password");
     _password.setTag(2);
-    _password.setProtoLine(307);
+    _password.setProtoLine(204);
     _password.setProtoColumn(3);
     _password.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -4390,7 +4063,7 @@ public final class RadApiCollector implements Collector {
     _rememberMe.setName("remember_me");
     _rememberMe.setFieldName("rememberMe");
     _rememberMe.setTag(3);
-    _rememberMe.setProtoLine(315);
+    _rememberMe.setProtoLine(212);
     _rememberMe.setProtoColumn(3);
     _rememberMe.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -4409,7 +4082,7 @@ public final class RadApiCollector implements Collector {
     res.setClzName("com.apihug.rad.api.customer.LoginResponse");
     res.setName("LoginResponse");
     res.setProtoFrom("com/apihug/rad/api/customer/api.proto");
-    res.setProtoLine(320);
+    res.setProtoLine(217);
     res.setProtoColumn(1);
     res.setProtoEntity("LoginResponse");
     res.setDescription("登录响应");
@@ -4434,7 +4107,7 @@ public final class RadApiCollector implements Collector {
     _accessToken.setName("access_token");
     _accessToken.setFieldName("accessToken");
     _accessToken.setTag(1);
-    _accessToken.setProtoLine(328);
+    _accessToken.setProtoLine(225);
     _accessToken.setProtoColumn(3);
     _accessToken.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -4460,7 +4133,7 @@ public final class RadApiCollector implements Collector {
     _customerId.setName("customer_id");
     _customerId.setFieldName("customerId");
     _customerId.setTag(2);
-    _customerId.setProtoLine(335);
+    _customerId.setProtoLine(232);
     _customerId.setProtoColumn(3);
     _customerId.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -4490,7 +4163,7 @@ public final class RadApiCollector implements Collector {
     _username.setName("username");
     _username.setFieldName("username");
     _username.setTag(3);
-    _username.setProtoLine(343);
+    _username.setProtoLine(240);
     _username.setProtoColumn(3);
     _username.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -4511,235 +4184,57 @@ public final class RadApiCollector implements Collector {
       }
     }.get());
     res.addItem(_username);
-    ComponentItem _needsOrganizationSelection = new ComponentItem();
-    _needsOrganizationSelection.setClzName("java.lang.Boolean");
-    _needsOrganizationSelection.setName("needs_organization_selection");
-    _needsOrganizationSelection.setFieldName("needsOrganizationSelection");
-    _needsOrganizationSelection.setTag(4);
-    _needsOrganizationSelection.setProtoLine(351);
-    _needsOrganizationSelection.setProtoColumn(3);
-    _needsOrganizationSelection.setSchema(new Supplier<JSONSchema>() {
+    ComponentItem _needsTenantSelection = new ComponentItem();
+    _needsTenantSelection.setClzName("java.lang.Boolean");
+    _needsTenantSelection.setName("needs_tenant_selection");
+    _needsTenantSelection.setFieldName("needsTenantSelection");
+    _needsTenantSelection.setTag(4);
+    _needsTenantSelection.setProtoLine(248);
+    _needsTenantSelection.setProtoColumn(3);
+    _needsTenantSelection.setSchema(new Supplier<JSONSchema>() {
       @Override
       public JSONSchema get() {
         JSONSchema res  = new JSONSchema();
-        res.setDescription("是否需要选择组织");
+        res.setDescription("是否需要选择租户");
         res.setExample("false");
         return res;
       }
     }.get());
-    res.addItem(_needsOrganizationSelection);
-    ComponentItem _organizations = new ComponentItem();
-    _organizations.setClzName("com.apihug.rad.api.customer.OrganizationInfo");
-    _organizations.setName("organizations");
-    _organizations.setFieldName("organizations");
-    _organizations.setTag(5);
-    _organizations.setProtoLine(357);
-    _organizations.setProtoColumn(3);
-    _organizations.setSchema(new Supplier<JSONSchema>() {
+    res.addItem(_needsTenantSelection);
+    ComponentItem _tenants = new ComponentItem();
+    _tenants.setClzName("com.apihug.rad.api.customer.TenantInfo");
+    _tenants.setName("tenants");
+    _tenants.setFieldName("tenants");
+    _tenants.setTag(5);
+    _tenants.setProtoLine(254);
+    _tenants.setProtoColumn(3);
+    _tenants.setSchema(new Supplier<JSONSchema>() {
       @Override
       public JSONSchema get() {
         JSONSchema res  = new JSONSchema();
-        res.setDescription("用户的组织列表");
+        res.setDescription("客户的租户列表");
         return res;
       }
     }.get());
-    _organizations.setComplex(ComponentItem.Complex.LIST);
-    res.addItem(_organizations);
-    ComponentItem _defaultOrganization = new ComponentItem();
-    _defaultOrganization.setClzName("com.apihug.rad.api.customer.OrganizationInfo");
-    _defaultOrganization.setName("default_organization");
-    _defaultOrganization.setFieldName("defaultOrganization");
-    _defaultOrganization.setTag(6);
-    _defaultOrganization.setProtoLine(362);
-    _defaultOrganization.setProtoColumn(3);
-    _defaultOrganization.setSchema(new Supplier<JSONSchema>() {
+    _tenants.setComplex(ComponentItem.Complex.LIST);
+    res.addItem(_tenants);
+    ComponentItem _defaultTenant = new ComponentItem();
+    _defaultTenant.setClzName("com.apihug.rad.api.customer.TenantInfo");
+    _defaultTenant.setName("default_tenant");
+    _defaultTenant.setFieldName("defaultTenant");
+    _defaultTenant.setTag(6);
+    _defaultTenant.setProtoLine(259);
+    _defaultTenant.setProtoColumn(3);
+    _defaultTenant.setSchema(new Supplier<JSONSchema>() {
       @Override
       public JSONSchema get() {
         JSONSchema res  = new JSONSchema();
-        res.setDescription("默认组织信息");
+        res.setDescription("默认租户信息");
         return res;
       }
     }.get());
-    res.addItem(_defaultOrganization);
+    res.addItem(_defaultTenant);
     components.put("com.apihug.rad.api.customer.LoginResponse", res);
-  }
-
-  void initComponentapi_customerOrganizationInfo() {
-    Component res = new Component();
-    res.setClzName("com.apihug.rad.api.customer.OrganizationInfo");
-    res.setName("OrganizationInfo");
-    res.setProtoFrom("com/apihug/rad/api/customer/api.proto");
-    res.setProtoLine(368);
-    res.setProtoColumn(1);
-    res.setProtoEntity("OrganizationInfo");
-    res.setDescription("组织信息（用于登录响应）\n"
-            + "组织信息");
-    res.setSchema(new Supplier<Schema>() {
-      @Override
-      public Schema get() {
-        Schema res  = new Schema();
-        res.setJsonSchema(new Supplier<JSONSchema>() {
-          @Override
-          public JSONSchema get() {
-            JSONSchema res  = new JSONSchema();
-            res.setTitle("OrganizationInfo");
-            res.setDescription("组织信息");
-            return res;
-          }
-        }.get());
-        return res;
-      }
-    }.get());
-    ComponentItem _id = new ComponentItem();
-    _id.setClzName("java.lang.Long");
-    _id.setName("id");
-    _id.setFieldName("id");
-    _id.setTag(1);
-    _id.setProtoLine(376);
-    _id.setProtoColumn(3);
-    _id.setSchema(new Supplier<JSONSchema>() {
-      @Override
-      public JSONSchema get() {
-        JSONSchema res  = new JSONSchema();
-        res.setDescription("组织 ID");
-        res.setExample("1");
-        res.setEmpty(false);
-        return res;
-      }
-    }.get());
-    res.addItem(_id);
-    ComponentItem _organizationCode = new ComponentItem();
-    _organizationCode.setClzName("java.lang.String");
-    _organizationCode.setName("organization_code");
-    _organizationCode.setFieldName("organizationCode");
-    _organizationCode.setTag(2);
-    _organizationCode.setProtoLine(382);
-    _organizationCode.setProtoColumn(3);
-    _organizationCode.setSchema(new Supplier<JSONSchema>() {
-      @Override
-      public JSONSchema get() {
-        JSONSchema res  = new JSONSchema();
-        res.setDescription("组织代码");
-        res.setExample("acme_corp");
-        res.setEmpty(false);
-        res.setMock(new Supplier<Mock>() {
-          @Override
-          public Mock get() {
-            Mock res = new Mock();
-            res.setNature(Nature.NAME);
-            return res;
-          }
-        }.get());
-        return res;
-      }
-    }.get());
-    res.addItem(_organizationCode);
-    ComponentItem _organizationName = new ComponentItem();
-    _organizationName.setClzName("java.lang.String");
-    _organizationName.setName("organization_name");
-    _organizationName.setFieldName("organizationName");
-    _organizationName.setTag(3);
-    _organizationName.setProtoLine(389);
-    _organizationName.setProtoColumn(3);
-    _organizationName.setSchema(new Supplier<JSONSchema>() {
-      @Override
-      public JSONSchema get() {
-        JSONSchema res  = new JSONSchema();
-        res.setDescription("组织名称");
-        res.setExample("Acme 公司");
-        res.setEmpty(false);
-        res.setMock(new Supplier<Mock>() {
-          @Override
-          public Mock get() {
-            Mock res = new Mock();
-            res.setNature(Nature.NAME);
-            return res;
-          }
-        }.get());
-        return res;
-      }
-    }.get());
-    res.addItem(_organizationName);
-    ComponentItem _isDefault = new ComponentItem();
-    _isDefault.setClzName("java.lang.Boolean");
-    _isDefault.setName("is_default");
-    _isDefault.setFieldName("isDefault");
-    _isDefault.setTag(4);
-    _isDefault.setProtoLine(396);
-    _isDefault.setProtoColumn(3);
-    _isDefault.setSchema(new Supplier<JSONSchema>() {
-      @Override
-      public JSONSchema get() {
-        JSONSchema res  = new JSONSchema();
-        res.setDescription("是否默认组织");
-        res.setExample("true");
-        return res;
-      }
-    }.get());
-    res.addItem(_isDefault);
-    components.put("com.apihug.rad.api.customer.OrganizationInfo", res);
-  }
-
-  void initComponentapi_customerOrganizationList() {
-    Component res = new Component();
-    res.setClzName("com.apihug.rad.api.customer.OrganizationList");
-    res.setName("OrganizationList");
-    res.setProtoFrom("com/apihug/rad/api/customer/api.proto");
-    res.setProtoLine(470);
-    res.setProtoColumn(1);
-    res.setProtoEntity("OrganizationList");
-    res.setDescription("组织列表");
-    res.setSchema(new Supplier<Schema>() {
-      @Override
-      public Schema get() {
-        Schema res  = new Schema();
-        res.setJsonSchema(new Supplier<JSONSchema>() {
-          @Override
-          public JSONSchema get() {
-            JSONSchema res  = new JSONSchema();
-            res.setTitle("OrganizationList");
-            res.setDescription("组织列表");
-            return res;
-          }
-        }.get());
-        return res;
-      }
-    }.get());
-    ComponentItem _organizations = new ComponentItem();
-    _organizations.setClzName("com.apihug.rad.api.customer.OrganizationInfo");
-    _organizations.setName("organizations");
-    _organizations.setFieldName("organizations");
-    _organizations.setTag(1);
-    _organizations.setProtoLine(478);
-    _organizations.setProtoColumn(3);
-    _organizations.setSchema(new Supplier<JSONSchema>() {
-      @Override
-      public JSONSchema get() {
-        JSONSchema res  = new JSONSchema();
-        res.setDescription("组织列表");
-        return res;
-      }
-    }.get());
-    _organizations.setComplex(ComponentItem.Complex.LIST);
-    res.addItem(_organizations);
-    ComponentItem _defaultOrganizationId = new ComponentItem();
-    _defaultOrganizationId.setClzName("java.lang.Long");
-    _defaultOrganizationId.setName("default_organization_id");
-    _defaultOrganizationId.setFieldName("defaultOrganizationId");
-    _defaultOrganizationId.setTag(2);
-    _defaultOrganizationId.setProtoLine(482);
-    _defaultOrganizationId.setProtoColumn(3);
-    _defaultOrganizationId.setSchema(new Supplier<JSONSchema>() {
-      @Override
-      public JSONSchema get() {
-        JSONSchema res  = new JSONSchema();
-        res.setDescription("默认组织 ID");
-        res.setExample("1");
-        return res;
-      }
-    }.get());
-    res.addItem(_defaultOrganizationId);
-    components.put("com.apihug.rad.api.customer.OrganizationList", res);
   }
 
   void initComponentapi_customerResetPasswordRequest() {
@@ -4747,7 +4242,7 @@ public final class RadApiCollector implements Collector {
     res.setClzName("com.apihug.rad.api.customer.ResetPasswordRequest");
     res.setName("ResetPasswordRequest");
     res.setProtoFrom("com/apihug/rad/api/customer/api.proto");
-    res.setProtoLine(704);
+    res.setProtoLine(513);
     res.setProtoColumn(1);
     res.setProtoEntity("ResetPasswordRequest");
     res.setDescription("重置密码请求");
@@ -4772,7 +4267,7 @@ public final class RadApiCollector implements Collector {
     _token.setName("token");
     _token.setFieldName("token");
     _token.setTag(1);
-    _token.setProtoLine(712);
+    _token.setProtoLine(521);
     _token.setProtoColumn(3);
     _token.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -4799,7 +4294,7 @@ public final class RadApiCollector implements Collector {
     _password.setName("password");
     _password.setFieldName("password");
     _password.setTag(2);
-    _password.setProtoLine(720);
+    _password.setProtoLine(529);
     _password.setProtoColumn(3);
     _password.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -4822,7 +4317,7 @@ public final class RadApiCollector implements Collector {
     res.setClzName("com.apihug.rad.api.customer.RoleInfo");
     res.setName("RoleInfo");
     res.setProtoFrom("com/apihug/rad/api/customer/api.proto");
-    res.setProtoLine(729);
+    res.setProtoLine(538);
     res.setProtoColumn(1);
     res.setProtoEntity("RoleInfo");
     res.setDescription("角色信息");
@@ -4847,7 +4342,7 @@ public final class RadApiCollector implements Collector {
     _id.setName("id");
     _id.setFieldName("id");
     _id.setTag(1);
-    _id.setProtoLine(737);
+    _id.setProtoLine(546);
     _id.setProtoColumn(3);
     _id.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -4865,7 +4360,7 @@ public final class RadApiCollector implements Collector {
     _roleCode.setName("role_code");
     _roleCode.setFieldName("roleCode");
     _roleCode.setTag(2);
-    _roleCode.setProtoLine(743);
+    _roleCode.setProtoLine(552);
     _roleCode.setProtoColumn(3);
     _roleCode.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -4891,7 +4386,7 @@ public final class RadApiCollector implements Collector {
     _roleName.setName("role_name");
     _roleName.setFieldName("roleName");
     _roleName.setTag(3);
-    _roleName.setProtoLine(750);
+    _roleName.setProtoLine(559);
     _roleName.setProtoColumn(3);
     _roleName.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -4915,15 +4410,15 @@ public final class RadApiCollector implements Collector {
     components.put("com.apihug.rad.api.customer.RoleInfo", res);
   }
 
-  void initComponentapi_customerSearchCustomersRequest() {
+  void initComponentapi_customerSwitchTenantRequest() {
     Component res = new Component();
-    res.setClzName("com.apihug.rad.api.customer.SearchCustomersRequest");
-    res.setName("SearchCustomersRequest");
+    res.setClzName("com.apihug.rad.api.customer.SwitchTenantRequest");
+    res.setName("SwitchTenantRequest");
     res.setProtoFrom("com/apihug/rad/api/customer/api.proto");
-    res.setProtoLine(668);
+    res.setProtoLine(390);
     res.setProtoColumn(1);
-    res.setProtoEntity("SearchCustomersRequest");
-    res.setDescription("搜索客户请求");
+    res.setProtoEntity("SwitchTenantRequest");
+    res.setDescription("切换租户请求");
     res.setSchema(new Supplier<Schema>() {
       @Override
       public Schema get() {
@@ -4932,107 +4427,46 @@ public final class RadApiCollector implements Collector {
           @Override
           public JSONSchema get() {
             JSONSchema res  = new JSONSchema();
-            res.setTitle("SearchCustomersRequest");
-            res.setDescription("搜索客户请求");
+            res.setTitle("SwitchTenantRequest");
+            res.setDescription("切换租户请求");
             return res;
           }
         }.get());
         return res;
       }
     }.get());
-    ComponentItem _keyword = new ComponentItem();
-    _keyword.setClzName("java.lang.String");
-    _keyword.setName("keyword");
-    _keyword.setFieldName("keyword");
-    _keyword.setTag(1);
-    _keyword.setProtoLine(676);
-    _keyword.setProtoColumn(3);
-    _keyword.setSchema(new Supplier<JSONSchema>() {
+    ComponentItem _tenantId = new ComponentItem();
+    _tenantId.setClzName("java.lang.Long");
+    _tenantId.setName("tenant_id");
+    _tenantId.setFieldName("tenantId");
+    _tenantId.setTag(1);
+    _tenantId.setProtoLine(398);
+    _tenantId.setProtoColumn(3);
+    _tenantId.setSchema(new Supplier<JSONSchema>() {
       @Override
       public JSONSchema get() {
         JSONSchema res  = new JSONSchema();
-        res.setDescription("搜索关键词（用户名或邮箱）");
-        res.setExample("zhangsan");
-        return res;
-      }
-    }.get());
-    res.addItem(_keyword);
-    ComponentItem _status = new ComponentItem();
-    _status.setClzName("com.apihug.rad.infra.customer.CustomerStatusEnum");
-    _status.setName("status");
-    _status.setFieldName("status");
-    _status.setTag(2);
-    _status.setProtoLine(681);
-    _status.setProtoColumn(3);
-    _status.setSchema(new Supplier<JSONSchema>() {
-      @Override
-      public JSONSchema get() {
-        JSONSchema res  = new JSONSchema();
-        res.setDescription("客户状态筛选");
-        res.setExample("ACTIVE");
-        return res;
-      }
-    }.get());
-    res.addItem(_status);
-    components.put("com.apihug.rad.api.customer.SearchCustomersRequest", res);
-  }
-
-  void initComponentapi_customerSwitchOrganizationRequest() {
-    Component res = new Component();
-    res.setClzName("com.apihug.rad.api.customer.SwitchOrganizationRequest");
-    res.setName("SwitchOrganizationRequest");
-    res.setProtoFrom("com/apihug/rad/api/customer/api.proto");
-    res.setProtoLine(488);
-    res.setProtoColumn(1);
-    res.setProtoEntity("SwitchOrganizationRequest");
-    res.setDescription("切换组织请求");
-    res.setSchema(new Supplier<Schema>() {
-      @Override
-      public Schema get() {
-        Schema res  = new Schema();
-        res.setJsonSchema(new Supplier<JSONSchema>() {
-          @Override
-          public JSONSchema get() {
-            JSONSchema res  = new JSONSchema();
-            res.setTitle("SwitchOrganizationRequest");
-            res.setDescription("切换组织请求");
-            return res;
-          }
-        }.get());
-        return res;
-      }
-    }.get());
-    ComponentItem _organizationId = new ComponentItem();
-    _organizationId.setClzName("java.lang.Long");
-    _organizationId.setName("organization_id");
-    _organizationId.setFieldName("organizationId");
-    _organizationId.setTag(1);
-    _organizationId.setProtoLine(496);
-    _organizationId.setProtoColumn(3);
-    _organizationId.setSchema(new Supplier<JSONSchema>() {
-      @Override
-      public JSONSchema get() {
-        JSONSchema res  = new JSONSchema();
-        res.setDescription("目标组织 ID");
+        res.setDescription("目标租户 ID");
         res.setExample("2");
         res.setMinimum(1.0D);
         res.setEmpty(false);
         return res;
       }
     }.get());
-    res.addItem(_organizationId);
-    components.put("com.apihug.rad.api.customer.SwitchOrganizationRequest", res);
+    res.addItem(_tenantId);
+    components.put("com.apihug.rad.api.customer.SwitchTenantRequest", res);
   }
 
-  void initComponentapi_customerUpdateCustomerRequest() {
+  void initComponentapi_customerTenantInfo() {
     Component res = new Component();
-    res.setClzName("com.apihug.rad.api.customer.UpdateCustomerRequest");
-    res.setName("UpdateCustomerRequest");
+    res.setClzName("com.apihug.rad.api.customer.TenantInfo");
+    res.setName("TenantInfo");
     res.setProtoFrom("com/apihug/rad/api/customer/api.proto");
-    res.setProtoLine(645);
+    res.setProtoLine(265);
     res.setProtoColumn(1);
-    res.setProtoEntity("UpdateCustomerRequest");
-    res.setDescription("更新客户请求");
+    res.setProtoEntity("TenantInfo");
+    res.setDescription("租户信息（用于登录响应、客户租户列表等）\n"
+            + "租户信息");
     res.setSchema(new Supplier<Schema>() {
       @Override
       public Schema get() {
@@ -5041,60 +4475,181 @@ public final class RadApiCollector implements Collector {
           @Override
           public JSONSchema get() {
             JSONSchema res  = new JSONSchema();
-            res.setTitle("UpdateCustomerRequest");
-            res.setDescription("更新客户请求");
+            res.setTitle("TenantInfo");
+            res.setDescription("租户信息");
             return res;
           }
         }.get());
         return res;
       }
     }.get());
-    ComponentItem _email = new ComponentItem();
-    _email.setClzName("java.lang.String");
-    _email.setName("email");
-    _email.setFieldName("email");
-    _email.setTag(1);
-    _email.setProtoLine(653);
-    _email.setProtoColumn(3);
-    _email.setSchema(new Supplier<JSONSchema>() {
+    ComponentItem _id = new ComponentItem();
+    _id.setClzName("java.lang.Long");
+    _id.setName("id");
+    _id.setFieldName("id");
+    _id.setTag(1);
+    _id.setProtoLine(273);
+    _id.setProtoColumn(3);
+    _id.setSchema(new Supplier<JSONSchema>() {
       @Override
       public JSONSchema get() {
         JSONSchema res  = new JSONSchema();
-        res.setDescription("邮箱");
-        res.setExample("zhangsan@example.com");
-        res.setMaxLength(100l);
+        res.setDescription("租户 ID");
+        res.setExample("1");
+        res.setEmpty(false);
+        return res;
+      }
+    }.get());
+    res.addItem(_id);
+    ComponentItem _tenantCode = new ComponentItem();
+    _tenantCode.setClzName("java.lang.String");
+    _tenantCode.setName("tenant_code");
+    _tenantCode.setFieldName("tenantCode");
+    _tenantCode.setTag(2);
+    _tenantCode.setProtoLine(279);
+    _tenantCode.setProtoColumn(3);
+    _tenantCode.setSchema(new Supplier<JSONSchema>() {
+      @Override
+      public JSONSchema get() {
+        JSONSchema res  = new JSONSchema();
+        res.setDescription("租户代码");
+        res.setExample("acme_corp");
         res.setEmpty(false);
         res.setMock(new Supplier<Mock>() {
           @Override
           public Mock get() {
             Mock res = new Mock();
-            res.setNature(Nature.EMAIL);
+            res.setNature(Nature.NAME);
             return res;
           }
         }.get());
         return res;
       }
     }.get());
-    res.addItem(_email);
-    ComponentItem _status = new ComponentItem();
-    _status.setClzName("com.apihug.rad.infra.customer.CustomerStatusEnum");
-    _status.setName("status");
-    _status.setFieldName("status");
-    _status.setTag(2);
-    _status.setProtoLine(661);
-    _status.setProtoColumn(3);
-    _status.setSchema(new Supplier<JSONSchema>() {
+    res.addItem(_tenantCode);
+    ComponentItem _tenantName = new ComponentItem();
+    _tenantName.setClzName("java.lang.String");
+    _tenantName.setName("tenant_name");
+    _tenantName.setFieldName("tenantName");
+    _tenantName.setTag(3);
+    _tenantName.setProtoLine(286);
+    _tenantName.setProtoColumn(3);
+    _tenantName.setSchema(new Supplier<JSONSchema>() {
       @Override
       public JSONSchema get() {
         JSONSchema res  = new JSONSchema();
-        res.setDescription("客户状态");
-        res.setExample("ACTIVE");
+        res.setDescription("租户名称");
+        res.setExample("Acme 公司");
         res.setEmpty(false);
+        res.setMock(new Supplier<Mock>() {
+          @Override
+          public Mock get() {
+            Mock res = new Mock();
+            res.setNature(Nature.NAME);
+            return res;
+          }
+        }.get());
         return res;
       }
     }.get());
-    res.addItem(_status);
-    components.put("com.apihug.rad.api.customer.UpdateCustomerRequest", res);
+    res.addItem(_tenantName);
+    ComponentItem _isDefault = new ComponentItem();
+    _isDefault.setClzName("java.lang.Boolean");
+    _isDefault.setName("is_default");
+    _isDefault.setFieldName("isDefault");
+    _isDefault.setTag(4);
+    _isDefault.setProtoLine(293);
+    _isDefault.setProtoColumn(3);
+    _isDefault.setSchema(new Supplier<JSONSchema>() {
+      @Override
+      public JSONSchema get() {
+        JSONSchema res  = new JSONSchema();
+        res.setDescription("是否默认租户");
+        res.setExample("true");
+        return res;
+      }
+    }.get());
+    res.addItem(_isDefault);
+    ComponentItem _isPlatform = new ComponentItem();
+    _isPlatform.setClzName("java.lang.Boolean");
+    _isPlatform.setName("is_platform");
+    _isPlatform.setFieldName("isPlatform");
+    _isPlatform.setTag(5);
+    _isPlatform.setProtoLine(298);
+    _isPlatform.setProtoColumn(3);
+    _isPlatform.setSchema(new Supplier<JSONSchema>() {
+      @Override
+      public JSONSchema get() {
+        JSONSchema res  = new JSONSchema();
+        res.setDescription("是否平台租户");
+        res.setExample("false");
+        return res;
+      }
+    }.get());
+    res.addItem(_isPlatform);
+    components.put("com.apihug.rad.api.customer.TenantInfo", res);
+  }
+
+  void initComponentapi_customerTenantList() {
+    Component res = new Component();
+    res.setClzName("com.apihug.rad.api.customer.TenantList");
+    res.setName("TenantList");
+    res.setProtoFrom("com/apihug/rad/api/customer/api.proto");
+    res.setProtoLine(372);
+    res.setProtoColumn(1);
+    res.setProtoEntity("TenantList");
+    res.setDescription("租户列表");
+    res.setSchema(new Supplier<Schema>() {
+      @Override
+      public Schema get() {
+        Schema res  = new Schema();
+        res.setJsonSchema(new Supplier<JSONSchema>() {
+          @Override
+          public JSONSchema get() {
+            JSONSchema res  = new JSONSchema();
+            res.setTitle("TenantList");
+            res.setDescription("租户列表");
+            return res;
+          }
+        }.get());
+        return res;
+      }
+    }.get());
+    ComponentItem _tenants = new ComponentItem();
+    _tenants.setClzName("com.apihug.rad.api.customer.TenantInfo");
+    _tenants.setName("tenants");
+    _tenants.setFieldName("tenants");
+    _tenants.setTag(1);
+    _tenants.setProtoLine(380);
+    _tenants.setProtoColumn(3);
+    _tenants.setSchema(new Supplier<JSONSchema>() {
+      @Override
+      public JSONSchema get() {
+        JSONSchema res  = new JSONSchema();
+        res.setDescription("租户列表");
+        return res;
+      }
+    }.get());
+    _tenants.setComplex(ComponentItem.Complex.LIST);
+    res.addItem(_tenants);
+    ComponentItem _defaultTenantId = new ComponentItem();
+    _defaultTenantId.setClzName("java.lang.Long");
+    _defaultTenantId.setName("default_tenant_id");
+    _defaultTenantId.setFieldName("defaultTenantId");
+    _defaultTenantId.setTag(2);
+    _defaultTenantId.setProtoLine(384);
+    _defaultTenantId.setProtoColumn(3);
+    _defaultTenantId.setSchema(new Supplier<JSONSchema>() {
+      @Override
+      public JSONSchema get() {
+        JSONSchema res  = new JSONSchema();
+        res.setDescription("默认租户 ID");
+        res.setExample("1");
+        return res;
+      }
+    }.get());
+    res.addItem(_defaultTenantId);
+    components.put("com.apihug.rad.api.customer.TenantList", res);
   }
 
   void initComponentapi_departmentCreateDepartmentRequest() {
@@ -5122,12 +4677,30 @@ public final class RadApiCollector implements Collector {
         return res;
       }
     }.get());
+    ComponentItem _tenantId = new ComponentItem();
+    _tenantId.setClzName("java.lang.Long");
+    _tenantId.setName("tenant_id");
+    _tenantId.setFieldName("tenantId");
+    _tenantId.setTag(1);
+    _tenantId.setProtoLine(122);
+    _tenantId.setProtoColumn(3);
+    _tenantId.setSchema(new Supplier<JSONSchema>() {
+      @Override
+      public JSONSchema get() {
+        JSONSchema res  = new JSONSchema();
+        res.setDescription("租户 ID（从当前上下文获取）");
+        res.setExample("1");
+        res.setMinimum(1.0D);
+        return res;
+      }
+    }.get());
+    res.addItem(_tenantId);
     ComponentItem _parentId = new ComponentItem();
     _parentId.setClzName("java.lang.Long");
     _parentId.setName("parent_id");
     _parentId.setFieldName("parentId");
-    _parentId.setTag(1);
-    _parentId.setProtoLine(122);
+    _parentId.setTag(2);
+    _parentId.setProtoLine(128);
     _parentId.setProtoColumn(3);
     _parentId.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -5144,8 +4717,8 @@ public final class RadApiCollector implements Collector {
     _deptCode.setClzName("java.lang.String");
     _deptCode.setName("dept_code");
     _deptCode.setFieldName("deptCode");
-    _deptCode.setTag(2);
-    _deptCode.setProtoLine(128);
+    _deptCode.setTag(3);
+    _deptCode.setProtoLine(134);
     _deptCode.setProtoColumn(3);
     _deptCode.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -5171,8 +4744,8 @@ public final class RadApiCollector implements Collector {
     _deptName.setClzName("java.lang.String");
     _deptName.setName("dept_name");
     _deptName.setFieldName("deptName");
-    _deptName.setTag(3);
-    _deptName.setProtoLine(136);
+    _deptName.setTag(4);
+    _deptName.setProtoLine(142);
     _deptName.setProtoColumn(3);
     _deptName.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -5198,8 +4771,8 @@ public final class RadApiCollector implements Collector {
     _sortOrder.setClzName("java.lang.Integer");
     _sortOrder.setName("sort_order");
     _sortOrder.setFieldName("sortOrder");
-    _sortOrder.setTag(4);
-    _sortOrder.setProtoLine(144);
+    _sortOrder.setTag(5);
+    _sortOrder.setProtoLine(150);
     _sortOrder.setProtoColumn(3);
     _sortOrder.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -5215,8 +4788,8 @@ public final class RadApiCollector implements Collector {
     _managerId.setClzName("java.lang.String");
     _managerId.setName("manager_id");
     _managerId.setFieldName("managerId");
-    _managerId.setTag(5);
-    _managerId.setProtoLine(149);
+    _managerId.setTag(6);
+    _managerId.setProtoLine(155);
     _managerId.setProtoColumn(3);
     _managerId.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -5233,8 +4806,8 @@ public final class RadApiCollector implements Collector {
     _status.setClzName("com.apihug.rad.infra.department.DeptStatusEnum");
     _status.setName("status");
     _status.setFieldName("status");
-    _status.setTag(6);
-    _status.setProtoLine(155);
+    _status.setTag(7);
+    _status.setProtoLine(161);
     _status.setProtoColumn(3);
     _status.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -5255,7 +4828,7 @@ public final class RadApiCollector implements Collector {
     res.setClzName("com.apihug.rad.api.department.DepartmentDetail");
     res.setName("DepartmentDetail");
     res.setProtoFrom("com/apihug/rad/api/department/api.proto");
-    res.setProtoLine(238);
+    res.setProtoLine(244);
     res.setProtoColumn(1);
     res.setProtoEntity("DepartmentDetail");
     res.setDescription("部门详情信息");
@@ -5280,7 +4853,7 @@ public final class RadApiCollector implements Collector {
     _id.setName("id");
     _id.setFieldName("id");
     _id.setTag(1);
-    _id.setProtoLine(246);
+    _id.setProtoLine(252);
     _id.setProtoColumn(3);
     _id.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -5299,7 +4872,7 @@ public final class RadApiCollector implements Collector {
     _parentId.setName("parent_id");
     _parentId.setFieldName("parentId");
     _parentId.setTag(2);
-    _parentId.setProtoLine(253);
+    _parentId.setProtoLine(259);
     _parentId.setProtoColumn(3);
     _parentId.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -5317,7 +4890,7 @@ public final class RadApiCollector implements Collector {
     _deptCode.setName("dept_code");
     _deptCode.setFieldName("deptCode");
     _deptCode.setTag(3);
-    _deptCode.setProtoLine(259);
+    _deptCode.setProtoLine(265);
     _deptCode.setProtoColumn(3);
     _deptCode.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -5343,7 +4916,7 @@ public final class RadApiCollector implements Collector {
     _deptName.setName("dept_name");
     _deptName.setFieldName("deptName");
     _deptName.setTag(4);
-    _deptName.setProtoLine(266);
+    _deptName.setProtoLine(272);
     _deptName.setProtoColumn(3);
     _deptName.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -5369,7 +4942,7 @@ public final class RadApiCollector implements Collector {
     _sortOrder.setName("sort_order");
     _sortOrder.setFieldName("sortOrder");
     _sortOrder.setTag(5);
-    _sortOrder.setProtoLine(273);
+    _sortOrder.setProtoLine(279);
     _sortOrder.setProtoColumn(3);
     _sortOrder.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -5386,7 +4959,7 @@ public final class RadApiCollector implements Collector {
     _managerId.setName("manager_id");
     _managerId.setFieldName("managerId");
     _managerId.setTag(6);
-    _managerId.setProtoLine(278);
+    _managerId.setProtoLine(284);
     _managerId.setProtoColumn(3);
     _managerId.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -5411,7 +4984,7 @@ public final class RadApiCollector implements Collector {
     _status.setName("status");
     _status.setFieldName("status");
     _status.setTag(7);
-    _status.setProtoLine(284);
+    _status.setProtoLine(290);
     _status.setProtoColumn(3);
     _status.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -5429,7 +5002,7 @@ public final class RadApiCollector implements Collector {
     _createdAt.setName("created_at");
     _createdAt.setFieldName("createdAt");
     _createdAt.setTag(8);
-    _createdAt.setProtoLine(290);
+    _createdAt.setProtoLine(296);
     _createdAt.setProtoColumn(3);
     _createdAt.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -5450,7 +5023,7 @@ public final class RadApiCollector implements Collector {
     res.setClzName("com.apihug.rad.api.department.DepartmentSummary");
     res.setName("DepartmentSummary");
     res.setProtoFrom("com/apihug/rad/api/department/api.proto");
-    res.setProtoLine(196);
+    res.setProtoLine(202);
     res.setProtoColumn(1);
     res.setProtoEntity("DepartmentSummary");
     res.setDescription("部门摘要信息");
@@ -5475,7 +5048,7 @@ public final class RadApiCollector implements Collector {
     _id.setName("id");
     _id.setFieldName("id");
     _id.setTag(1);
-    _id.setProtoLine(204);
+    _id.setProtoLine(210);
     _id.setProtoColumn(3);
     _id.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -5494,7 +5067,7 @@ public final class RadApiCollector implements Collector {
     _parentId.setName("parent_id");
     _parentId.setFieldName("parentId");
     _parentId.setTag(2);
-    _parentId.setProtoLine(211);
+    _parentId.setProtoLine(217);
     _parentId.setProtoColumn(3);
     _parentId.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -5512,7 +5085,7 @@ public final class RadApiCollector implements Collector {
     _deptCode.setName("dept_code");
     _deptCode.setFieldName("deptCode");
     _deptCode.setTag(3);
-    _deptCode.setProtoLine(217);
+    _deptCode.setProtoLine(223);
     _deptCode.setProtoColumn(3);
     _deptCode.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -5538,7 +5111,7 @@ public final class RadApiCollector implements Collector {
     _deptName.setName("dept_name");
     _deptName.setFieldName("deptName");
     _deptName.setTag(4);
-    _deptName.setProtoLine(224);
+    _deptName.setProtoLine(230);
     _deptName.setProtoColumn(3);
     _deptName.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -5564,7 +5137,7 @@ public final class RadApiCollector implements Collector {
     _status.setName("status");
     _status.setFieldName("status");
     _status.setTag(5);
-    _status.setProtoLine(231);
+    _status.setProtoLine(237);
     _status.setProtoColumn(3);
     _status.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -5585,7 +5158,7 @@ public final class RadApiCollector implements Collector {
     res.setClzName("com.apihug.rad.api.department.DepartmentTreeNode");
     res.setName("DepartmentTreeNode");
     res.setProtoFrom("com/apihug/rad/api/department/api.proto");
-    res.setProtoLine(297);
+    res.setProtoLine(303);
     res.setProtoColumn(1);
     res.setProtoEntity("DepartmentTreeNode");
     res.setDescription("部门树节点");
@@ -5610,7 +5183,7 @@ public final class RadApiCollector implements Collector {
     _department.setName("department");
     _department.setFieldName("department");
     _department.setTag(1);
-    _department.setProtoLine(305);
+    _department.setProtoLine(311);
     _department.setProtoColumn(3);
     _department.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -5626,7 +5199,7 @@ public final class RadApiCollector implements Collector {
     _children.setName("children");
     _children.setFieldName("children");
     _children.setTag(2);
-    _children.setProtoLine(309);
+    _children.setProtoLine(315);
     _children.setProtoColumn(3);
     _children.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -5646,7 +5219,7 @@ public final class RadApiCollector implements Collector {
     res.setClzName("com.apihug.rad.api.department.UpdateDepartmentRequest");
     res.setName("UpdateDepartmentRequest");
     res.setProtoFrom("com/apihug/rad/api/department/api.proto");
-    res.setProtoLine(162);
+    res.setProtoLine(168);
     res.setProtoColumn(1);
     res.setProtoEntity("UpdateDepartmentRequest");
     res.setDescription("更新部门请求");
@@ -5671,7 +5244,7 @@ public final class RadApiCollector implements Collector {
     _deptName.setName("dept_name");
     _deptName.setFieldName("deptName");
     _deptName.setTag(1);
-    _deptName.setProtoLine(170);
+    _deptName.setProtoLine(176);
     _deptName.setProtoColumn(3);
     _deptName.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -5698,7 +5271,7 @@ public final class RadApiCollector implements Collector {
     _sortOrder.setName("sort_order");
     _sortOrder.setFieldName("sortOrder");
     _sortOrder.setTag(2);
-    _sortOrder.setProtoLine(178);
+    _sortOrder.setProtoLine(184);
     _sortOrder.setProtoColumn(3);
     _sortOrder.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -5715,7 +5288,7 @@ public final class RadApiCollector implements Collector {
     _managerId.setName("manager_id");
     _managerId.setFieldName("managerId");
     _managerId.setTag(3);
-    _managerId.setProtoLine(183);
+    _managerId.setProtoLine(189);
     _managerId.setProtoColumn(3);
     _managerId.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -5733,7 +5306,7 @@ public final class RadApiCollector implements Collector {
     _status.setName("status");
     _status.setFieldName("status");
     _status.setTag(4);
-    _status.setProtoLine(189);
+    _status.setProtoLine(195);
     _status.setProtoColumn(3);
     _status.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -5747,469 +5320,6 @@ public final class RadApiCollector implements Collector {
     }.get());
     res.addItem(_status);
     components.put("com.apihug.rad.api.department.UpdateDepartmentRequest", res);
-  }
-
-  void initComponentapi_departmentAddEmployeeRequest() {
-    Component res = new Component();
-    res.setClzName("com.apihug.rad.api.department.AddEmployeeRequest");
-    res.setName("AddEmployeeRequest");
-    res.setProtoFrom("com/apihug/rad/api/department/employee.proto");
-    res.setProtoLine(91);
-    res.setProtoColumn(1);
-    res.setProtoEntity("AddEmployeeRequest");
-    res.setDescription("添加员工请求");
-    res.setSchema(new Supplier<Schema>() {
-      @Override
-      public Schema get() {
-        Schema res  = new Schema();
-        res.setJsonSchema(new Supplier<JSONSchema>() {
-          @Override
-          public JSONSchema get() {
-            JSONSchema res  = new JSONSchema();
-            res.setTitle("AddEmployeeRequest");
-            res.setDescription("添加员工请求");
-            return res;
-          }
-        }.get());
-        return res;
-      }
-    }.get());
-    ComponentItem _employeeId = new ComponentItem();
-    _employeeId.setClzName("java.lang.Long");
-    _employeeId.setName("employee_id");
-    _employeeId.setFieldName("employeeId");
-    _employeeId.setTag(1);
-    _employeeId.setProtoLine(99);
-    _employeeId.setProtoColumn(3);
-    _employeeId.setSchema(new Supplier<JSONSchema>() {
-      @Override
-      public JSONSchema get() {
-        JSONSchema res  = new JSONSchema();
-        res.setDescription("员工 ID");
-        res.setExample("1");
-        res.setMinimum(1.0D);
-        res.setEmpty(false);
-        return res;
-      }
-    }.get());
-    res.addItem(_employeeId);
-    ComponentItem _departmentId = new ComponentItem();
-    _departmentId.setClzName("java.lang.Long");
-    _departmentId.setName("department_id");
-    _departmentId.setFieldName("departmentId");
-    _departmentId.setTag(2);
-    _departmentId.setProtoLine(106);
-    _departmentId.setProtoColumn(3);
-    _departmentId.setSchema(new Supplier<JSONSchema>() {
-      @Override
-      public JSONSchema get() {
-        JSONSchema res  = new JSONSchema();
-        res.setDescription("部门 ID");
-        res.setExample("1");
-        res.setMinimum(1.0D);
-        res.setEmpty(false);
-        return res;
-      }
-    }.get());
-    res.addItem(_departmentId);
-    ComponentItem _position = new ComponentItem();
-    _position.setClzName("java.lang.String");
-    _position.setName("position");
-    _position.setFieldName("position");
-    _position.setTag(3);
-    _position.setProtoLine(113);
-    _position.setProtoColumn(3);
-    _position.setSchema(new Supplier<JSONSchema>() {
-      @Override
-      public JSONSchema get() {
-        JSONSchema res  = new JSONSchema();
-        res.setDescription("职位");
-        res.setExample("高级工程师");
-        res.setMaxLength(100l);
-        return res;
-      }
-    }.get());
-    res.addItem(_position);
-    components.put("com.apihug.rad.api.department.AddEmployeeRequest", res);
-  }
-
-  void initComponentapi_departmentDepartmentEmployeeList() {
-    Component res = new Component();
-    res.setClzName("com.apihug.rad.api.department.DepartmentEmployeeList");
-    res.setName("DepartmentEmployeeList");
-    res.setProtoFrom("com/apihug/rad/api/department/employee.proto");
-    res.setProtoLine(172);
-    res.setProtoColumn(1);
-    res.setProtoEntity("DepartmentEmployeeList");
-    res.setDescription("部门员工列表");
-    res.setSchema(new Supplier<Schema>() {
-      @Override
-      public Schema get() {
-        Schema res  = new Schema();
-        res.setJsonSchema(new Supplier<JSONSchema>() {
-          @Override
-          public JSONSchema get() {
-            JSONSchema res  = new JSONSchema();
-            res.setTitle("DepartmentEmployeeList");
-            res.setDescription("部门员工列表");
-            return res;
-          }
-        }.get());
-        return res;
-      }
-    }.get());
-    ComponentItem _departmentId = new ComponentItem();
-    _departmentId.setClzName("java.lang.Long");
-    _departmentId.setName("department_id");
-    _departmentId.setFieldName("departmentId");
-    _departmentId.setTag(1);
-    _departmentId.setProtoLine(180);
-    _departmentId.setProtoColumn(3);
-    _departmentId.setSchema(new Supplier<JSONSchema>() {
-      @Override
-      public JSONSchema get() {
-        JSONSchema res  = new JSONSchema();
-        res.setDescription("部门 ID");
-        res.setExample("1");
-        res.setEmpty(false);
-        return res;
-      }
-    }.get());
-    res.addItem(_departmentId);
-    ComponentItem _employees = new ComponentItem();
-    _employees.setClzName("com.apihug.rad.api.department.EmployeeInfo");
-    _employees.setName("employees");
-    _employees.setFieldName("employees");
-    _employees.setTag(2);
-    _employees.setProtoLine(186);
-    _employees.setProtoColumn(3);
-    _employees.setSchema(new Supplier<JSONSchema>() {
-      @Override
-      public JSONSchema get() {
-        JSONSchema res  = new JSONSchema();
-        res.setDescription("员工列表");
-        return res;
-      }
-    }.get());
-    _employees.setComplex(ComponentItem.Complex.LIST);
-    res.addItem(_employees);
-    components.put("com.apihug.rad.api.department.DepartmentEmployeeList", res);
-  }
-
-  void initComponentapi_departmentEmployeeInfo() {
-    Component res = new Component();
-    res.setClzName("com.apihug.rad.api.department.EmployeeInfo");
-    res.setName("EmployeeInfo");
-    res.setProtoFrom("com/apihug/rad/api/department/employee.proto");
-    res.setProtoLine(191);
-    res.setProtoColumn(1);
-    res.setProtoEntity("EmployeeInfo");
-    res.setDescription("员工信息");
-    res.setSchema(new Supplier<Schema>() {
-      @Override
-      public Schema get() {
-        Schema res  = new Schema();
-        res.setJsonSchema(new Supplier<JSONSchema>() {
-          @Override
-          public JSONSchema get() {
-            JSONSchema res  = new JSONSchema();
-            res.setTitle("EmployeeInfo");
-            res.setDescription("员工信息");
-            return res;
-          }
-        }.get());
-        return res;
-      }
-    }.get());
-    ComponentItem _id = new ComponentItem();
-    _id.setClzName("java.lang.Long");
-    _id.setName("id");
-    _id.setFieldName("id");
-    _id.setTag(1);
-    _id.setProtoLine(199);
-    _id.setProtoColumn(3);
-    _id.setSchema(new Supplier<JSONSchema>() {
-      @Override
-      public JSONSchema get() {
-        JSONSchema res  = new JSONSchema();
-        res.setDescription("员工 ID");
-        res.setExample("1");
-        res.setEmpty(false);
-        return res;
-      }
-    }.get());
-    res.addItem(_id);
-    ComponentItem _username = new ComponentItem();
-    _username.setClzName("java.lang.String");
-    _username.setName("username");
-    _username.setFieldName("username");
-    _username.setTag(2);
-    _username.setProtoLine(205);
-    _username.setProtoColumn(3);
-    _username.setSchema(new Supplier<JSONSchema>() {
-      @Override
-      public JSONSchema get() {
-        JSONSchema res  = new JSONSchema();
-        res.setDescription("用户名");
-        res.setExample("zhangsan");
-        res.setEmpty(false);
-        res.setMock(new Supplier<Mock>() {
-          @Override
-          public Mock get() {
-            Mock res = new Mock();
-            res.setNature(Nature.NAME);
-            return res;
-          }
-        }.get());
-        return res;
-      }
-    }.get());
-    res.addItem(_username);
-    ComponentItem _realName = new ComponentItem();
-    _realName.setClzName("java.lang.String");
-    _realName.setName("real_name");
-    _realName.setFieldName("realName");
-    _realName.setTag(3);
-    _realName.setProtoLine(212);
-    _realName.setProtoColumn(3);
-    _realName.setSchema(new Supplier<JSONSchema>() {
-      @Override
-      public JSONSchema get() {
-        JSONSchema res  = new JSONSchema();
-        res.setDescription("真实姓名");
-        res.setExample("张三");
-        res.setEmpty(false);
-        res.setMock(new Supplier<Mock>() {
-          @Override
-          public Mock get() {
-            Mock res = new Mock();
-            res.setNature(Nature.NAME);
-            return res;
-          }
-        }.get());
-        return res;
-      }
-    }.get());
-    res.addItem(_realName);
-    ComponentItem _email = new ComponentItem();
-    _email.setClzName("java.lang.String");
-    _email.setName("email");
-    _email.setFieldName("email");
-    _email.setTag(4);
-    _email.setProtoLine(219);
-    _email.setProtoColumn(3);
-    _email.setSchema(new Supplier<JSONSchema>() {
-      @Override
-      public JSONSchema get() {
-        JSONSchema res  = new JSONSchema();
-        res.setDescription("邮箱");
-        res.setExample("zhangsan@example.com");
-        res.setMock(new Supplier<Mock>() {
-          @Override
-          public Mock get() {
-            Mock res = new Mock();
-            res.setNature(Nature.EMAIL);
-            return res;
-          }
-        }.get());
-        return res;
-      }
-    }.get());
-    res.addItem(_email);
-    ComponentItem _position = new ComponentItem();
-    _position.setClzName("java.lang.String");
-    _position.setName("position");
-    _position.setFieldName("position");
-    _position.setTag(5);
-    _position.setProtoLine(225);
-    _position.setProtoColumn(3);
-    _position.setSchema(new Supplier<JSONSchema>() {
-      @Override
-      public JSONSchema get() {
-        JSONSchema res  = new JSONSchema();
-        res.setDescription("职位");
-        res.setExample("高级工程师");
-        res.setMock(new Supplier<Mock>() {
-          @Override
-          public Mock get() {
-            Mock res = new Mock();
-            res.setNature(Nature.NAME);
-            return res;
-          }
-        }.get());
-        return res;
-      }
-    }.get());
-    res.addItem(_position);
-    ComponentItem _joinedAt = new ComponentItem();
-    _joinedAt.setClzName("java.time.LocalDateTime");
-    _joinedAt.setName("joined_at");
-    _joinedAt.setFieldName("joinedAt");
-    _joinedAt.setTag(6);
-    _joinedAt.setProtoLine(231);
-    _joinedAt.setProtoColumn(3);
-    _joinedAt.setSchema(new Supplier<JSONSchema>() {
-      @Override
-      public JSONSchema get() {
-        JSONSchema res  = new JSONSchema();
-        res.setDescription("加入部门时间");
-        res.setExample("2024-01-15T10:30:00");
-        res.setDateFormat(DateFormat.ISO_LOCAL_DATE_TIME);
-        return res;
-      }
-    }.get());
-    res.addItem(_joinedAt);
-    components.put("com.apihug.rad.api.department.EmployeeInfo", res);
-  }
-
-  void initComponentapi_departmentRemoveEmployeeRequest() {
-    Component res = new Component();
-    res.setClzName("com.apihug.rad.api.department.RemoveEmployeeRequest");
-    res.setName("RemoveEmployeeRequest");
-    res.setProtoFrom("com/apihug/rad/api/department/employee.proto");
-    res.setProtoLine(120);
-    res.setProtoColumn(1);
-    res.setProtoEntity("RemoveEmployeeRequest");
-    res.setDescription("移除员工请求");
-    res.setSchema(new Supplier<Schema>() {
-      @Override
-      public Schema get() {
-        Schema res  = new Schema();
-        res.setJsonSchema(new Supplier<JSONSchema>() {
-          @Override
-          public JSONSchema get() {
-            JSONSchema res  = new JSONSchema();
-            res.setTitle("RemoveEmployeeRequest");
-            res.setDescription("移除员工请求");
-            return res;
-          }
-        }.get());
-        return res;
-      }
-    }.get());
-    ComponentItem _employeeId = new ComponentItem();
-    _employeeId.setClzName("java.lang.Long");
-    _employeeId.setName("employee_id");
-    _employeeId.setFieldName("employeeId");
-    _employeeId.setTag(1);
-    _employeeId.setProtoLine(128);
-    _employeeId.setProtoColumn(3);
-    _employeeId.setSchema(new Supplier<JSONSchema>() {
-      @Override
-      public JSONSchema get() {
-        JSONSchema res  = new JSONSchema();
-        res.setDescription("员工 ID");
-        res.setExample("1");
-        res.setMinimum(1.0D);
-        res.setEmpty(false);
-        return res;
-      }
-    }.get());
-    res.addItem(_employeeId);
-    components.put("com.apihug.rad.api.department.RemoveEmployeeRequest", res);
-  }
-
-  void initComponentapi_departmentTransferEmployeeRequest() {
-    Component res = new Component();
-    res.setClzName("com.apihug.rad.api.department.TransferEmployeeRequest");
-    res.setName("TransferEmployeeRequest");
-    res.setProtoFrom("com/apihug/rad/api/department/employee.proto");
-    res.setProtoLine(136);
-    res.setProtoColumn(1);
-    res.setProtoEntity("TransferEmployeeRequest");
-    res.setDescription("员工调岗请求");
-    res.setSchema(new Supplier<Schema>() {
-      @Override
-      public Schema get() {
-        Schema res  = new Schema();
-        res.setJsonSchema(new Supplier<JSONSchema>() {
-          @Override
-          public JSONSchema get() {
-            JSONSchema res  = new JSONSchema();
-            res.setTitle("TransferEmployeeRequest");
-            res.setDescription("员工调岗请求");
-            return res;
-          }
-        }.get());
-        return res;
-      }
-    }.get());
-    ComponentItem _employeeId = new ComponentItem();
-    _employeeId.setClzName("java.lang.Long");
-    _employeeId.setName("employee_id");
-    _employeeId.setFieldName("employeeId");
-    _employeeId.setTag(1);
-    _employeeId.setProtoLine(144);
-    _employeeId.setProtoColumn(3);
-    _employeeId.setSchema(new Supplier<JSONSchema>() {
-      @Override
-      public JSONSchema get() {
-        JSONSchema res  = new JSONSchema();
-        res.setDescription("员工 ID");
-        res.setExample("1");
-        res.setMinimum(1.0D);
-        res.setEmpty(false);
-        return res;
-      }
-    }.get());
-    res.addItem(_employeeId);
-    ComponentItem _fromDepartmentId = new ComponentItem();
-    _fromDepartmentId.setClzName("java.lang.Long");
-    _fromDepartmentId.setName("from_department_id");
-    _fromDepartmentId.setFieldName("fromDepartmentId");
-    _fromDepartmentId.setTag(2);
-    _fromDepartmentId.setProtoLine(151);
-    _fromDepartmentId.setProtoColumn(3);
-    _fromDepartmentId.setSchema(new Supplier<JSONSchema>() {
-      @Override
-      public JSONSchema get() {
-        JSONSchema res  = new JSONSchema();
-        res.setDescription("原部门 ID");
-        res.setExample("1");
-        res.setMinimum(1.0D);
-        res.setEmpty(false);
-        return res;
-      }
-    }.get());
-    res.addItem(_fromDepartmentId);
-    ComponentItem _toDepartmentId = new ComponentItem();
-    _toDepartmentId.setClzName("java.lang.Long");
-    _toDepartmentId.setName("to_department_id");
-    _toDepartmentId.setFieldName("toDepartmentId");
-    _toDepartmentId.setTag(3);
-    _toDepartmentId.setProtoLine(158);
-    _toDepartmentId.setProtoColumn(3);
-    _toDepartmentId.setSchema(new Supplier<JSONSchema>() {
-      @Override
-      public JSONSchema get() {
-        JSONSchema res  = new JSONSchema();
-        res.setDescription("目标部门 ID");
-        res.setExample("2");
-        res.setMinimum(1.0D);
-        res.setEmpty(false);
-        return res;
-      }
-    }.get());
-    res.addItem(_toDepartmentId);
-    ComponentItem _position = new ComponentItem();
-    _position.setClzName("java.lang.String");
-    _position.setName("position");
-    _position.setFieldName("position");
-    _position.setTag(4);
-    _position.setProtoLine(165);
-    _position.setProtoColumn(3);
-    _position.setSchema(new Supplier<JSONSchema>() {
-      @Override
-      public JSONSchema get() {
-        JSONSchema res  = new JSONSchema();
-        res.setDescription("新职位");
-        res.setExample("技术经理");
-        res.setMaxLength(100l);
-        return res;
-      }
-    }.get());
-    res.addItem(_position);
-    components.put("com.apihug.rad.api.department.TransferEmployeeRequest", res);
   }
 
   void initComponentapi_menuCreateMenuRequest() {
@@ -7196,1138 +6306,6 @@ public final class RadApiCollector implements Collector {
     components.put("com.apihug.rad.api.menu.UpdateMenuRequest", res);
   }
 
-  void initComponentapi_organizationDepartmentInfo() {
-    Component res = new Component();
-    res.setClzName("com.apihug.rad.api.organization.DepartmentInfo");
-    res.setName("DepartmentInfo");
-    res.setProtoFrom("com/apihug/rad/api/organization/api.proto");
-    res.setProtoLine(225);
-    res.setProtoColumn(1);
-    res.setProtoEntity("DepartmentInfo");
-    res.setDescription("部门信息");
-    res.setSchema(new Supplier<Schema>() {
-      @Override
-      public Schema get() {
-        Schema res  = new Schema();
-        res.setJsonSchema(new Supplier<JSONSchema>() {
-          @Override
-          public JSONSchema get() {
-            JSONSchema res  = new JSONSchema();
-            res.setTitle("DepartmentInfo");
-            res.setDescription("部门信息");
-            return res;
-          }
-        }.get());
-        return res;
-      }
-    }.get());
-    ComponentItem _id = new ComponentItem();
-    _id.setClzName("java.lang.Long");
-    _id.setName("id");
-    _id.setFieldName("id");
-    _id.setTag(1);
-    _id.setProtoLine(233);
-    _id.setProtoColumn(3);
-    _id.setSchema(new Supplier<JSONSchema>() {
-      @Override
-      public JSONSchema get() {
-        JSONSchema res  = new JSONSchema();
-        res.setDescription("部门 ID");
-        res.setExample("1");
-        res.setEmpty(false);
-        return res;
-      }
-    }.get());
-    res.addItem(_id);
-    ComponentItem _deptCode = new ComponentItem();
-    _deptCode.setClzName("java.lang.String");
-    _deptCode.setName("dept_code");
-    _deptCode.setFieldName("deptCode");
-    _deptCode.setTag(2);
-    _deptCode.setProtoLine(239);
-    _deptCode.setProtoColumn(3);
-    _deptCode.setSchema(new Supplier<JSONSchema>() {
-      @Override
-      public JSONSchema get() {
-        JSONSchema res  = new JSONSchema();
-        res.setDescription("部门代码");
-        res.setExample("tech_dev");
-        res.setEmpty(false);
-        res.setMock(new Supplier<Mock>() {
-          @Override
-          public Mock get() {
-            Mock res = new Mock();
-            res.setNature(Nature.NAME);
-            return res;
-          }
-        }.get());
-        return res;
-      }
-    }.get());
-    res.addItem(_deptCode);
-    ComponentItem _deptName = new ComponentItem();
-    _deptName.setClzName("java.lang.String");
-    _deptName.setName("dept_name");
-    _deptName.setFieldName("deptName");
-    _deptName.setTag(3);
-    _deptName.setProtoLine(246);
-    _deptName.setProtoColumn(3);
-    _deptName.setSchema(new Supplier<JSONSchema>() {
-      @Override
-      public JSONSchema get() {
-        JSONSchema res  = new JSONSchema();
-        res.setDescription("部门名称");
-        res.setExample("研发部");
-        res.setEmpty(false);
-        res.setMock(new Supplier<Mock>() {
-          @Override
-          public Mock get() {
-            Mock res = new Mock();
-            res.setNature(Nature.NAME);
-            return res;
-          }
-        }.get());
-        return res;
-      }
-    }.get());
-    res.addItem(_deptName);
-    ComponentItem _isPrimary = new ComponentItem();
-    _isPrimary.setClzName("java.lang.Boolean");
-    _isPrimary.setName("is_primary");
-    _isPrimary.setFieldName("isPrimary");
-    _isPrimary.setTag(4);
-    _isPrimary.setProtoLine(253);
-    _isPrimary.setProtoColumn(3);
-    _isPrimary.setSchema(new Supplier<JSONSchema>() {
-      @Override
-      public JSONSchema get() {
-        JSONSchema res  = new JSONSchema();
-        res.setDescription("是否主部门");
-        res.setExample("true");
-        return res;
-      }
-    }.get());
-    res.addItem(_isPrimary);
-    components.put("com.apihug.rad.api.organization.DepartmentInfo", res);
-  }
-
-  void initComponentapi_organizationDepartmentSummary() {
-    Component res = new Component();
-    res.setClzName("com.apihug.rad.api.organization.DepartmentSummary");
-    res.setName("DepartmentSummary");
-    res.setProtoFrom("com/apihug/rad/api/organization/api.proto");
-    res.setProtoLine(163);
-    res.setProtoColumn(1);
-    res.setProtoEntity("DepartmentSummary");
-    res.setDescription("部门摘要");
-    res.setSchema(new Supplier<Schema>() {
-      @Override
-      public Schema get() {
-        Schema res  = new Schema();
-        res.setJsonSchema(new Supplier<JSONSchema>() {
-          @Override
-          public JSONSchema get() {
-            JSONSchema res  = new JSONSchema();
-            res.setTitle("DepartmentSummary");
-            res.setDescription("部门摘要");
-            return res;
-          }
-        }.get());
-        return res;
-      }
-    }.get());
-    ComponentItem _id = new ComponentItem();
-    _id.setClzName("java.lang.Long");
-    _id.setName("id");
-    _id.setFieldName("id");
-    _id.setTag(1);
-    _id.setProtoLine(171);
-    _id.setProtoColumn(3);
-    _id.setSchema(new Supplier<JSONSchema>() {
-      @Override
-      public JSONSchema get() {
-        JSONSchema res  = new JSONSchema();
-        res.setDescription("部门 ID");
-        res.setExample("1");
-        res.setEmpty(false);
-        return res;
-      }
-    }.get());
-    res.addItem(_id);
-    ComponentItem _deptCode = new ComponentItem();
-    _deptCode.setClzName("java.lang.String");
-    _deptCode.setName("dept_code");
-    _deptCode.setFieldName("deptCode");
-    _deptCode.setTag(2);
-    _deptCode.setProtoLine(177);
-    _deptCode.setProtoColumn(3);
-    _deptCode.setSchema(new Supplier<JSONSchema>() {
-      @Override
-      public JSONSchema get() {
-        JSONSchema res  = new JSONSchema();
-        res.setDescription("部门代码");
-        res.setExample("tech_dev");
-        res.setEmpty(false);
-        res.setMock(new Supplier<Mock>() {
-          @Override
-          public Mock get() {
-            Mock res = new Mock();
-            res.setNature(Nature.NAME);
-            return res;
-          }
-        }.get());
-        return res;
-      }
-    }.get());
-    res.addItem(_deptCode);
-    ComponentItem _deptName = new ComponentItem();
-    _deptName.setClzName("java.lang.String");
-    _deptName.setName("dept_name");
-    _deptName.setFieldName("deptName");
-    _deptName.setTag(3);
-    _deptName.setProtoLine(184);
-    _deptName.setProtoColumn(3);
-    _deptName.setSchema(new Supplier<JSONSchema>() {
-      @Override
-      public JSONSchema get() {
-        JSONSchema res  = new JSONSchema();
-        res.setDescription("部门名称");
-        res.setExample("研发部");
-        res.setEmpty(false);
-        res.setMock(new Supplier<Mock>() {
-          @Override
-          public Mock get() {
-            Mock res = new Mock();
-            res.setNature(Nature.NAME);
-            return res;
-          }
-        }.get());
-        return res;
-      }
-    }.get());
-    res.addItem(_deptName);
-    ComponentItem _parentId = new ComponentItem();
-    _parentId.setClzName("java.lang.Long");
-    _parentId.setName("parent_id");
-    _parentId.setFieldName("parentId");
-    _parentId.setTag(4);
-    _parentId.setProtoLine(191);
-    _parentId.setProtoColumn(3);
-    _parentId.setSchema(new Supplier<JSONSchema>() {
-      @Override
-      public JSONSchema get() {
-        JSONSchema res  = new JSONSchema();
-        res.setDescription("父部门 ID");
-        res.setExample("0");
-        return res;
-      }
-    }.get());
-    res.addItem(_parentId);
-    ComponentItem _sortOrder = new ComponentItem();
-    _sortOrder.setClzName("java.lang.Integer");
-    _sortOrder.setName("sort_order");
-    _sortOrder.setFieldName("sortOrder");
-    _sortOrder.setTag(5);
-    _sortOrder.setProtoLine(196);
-    _sortOrder.setProtoColumn(3);
-    _sortOrder.setSchema(new Supplier<JSONSchema>() {
-      @Override
-      public JSONSchema get() {
-        JSONSchema res  = new JSONSchema();
-        res.setDescription("排序顺序");
-        res.setExample("10");
-        return res;
-      }
-    }.get());
-    res.addItem(_sortOrder);
-    ComponentItem _status = new ComponentItem();
-    _status.setClzName("java.lang.String");
-    _status.setName("status");
-    _status.setFieldName("status");
-    _status.setTag(6);
-    _status.setProtoLine(201);
-    _status.setProtoColumn(3);
-    _status.setSchema(new Supplier<JSONSchema>() {
-      @Override
-      public JSONSchema get() {
-        JSONSchema res  = new JSONSchema();
-        res.setDescription("部门状态");
-        res.setExample("ACTIVE");
-        return res;
-      }
-    }.get());
-    res.addItem(_status);
-    components.put("com.apihug.rad.api.organization.DepartmentSummary", res);
-  }
-
-  void initComponentapi_organizationDepartmentTreeNode() {
-    Component res = new Component();
-    res.setClzName("com.apihug.rad.api.organization.DepartmentTreeNode");
-    res.setName("DepartmentTreeNode");
-    res.setProtoFrom("com/apihug/rad/api/organization/api.proto");
-    res.setProtoLine(146);
-    res.setProtoColumn(1);
-    res.setProtoEntity("DepartmentTreeNode");
-    res.setDescription("部门树节点");
-    res.setSchema(new Supplier<Schema>() {
-      @Override
-      public Schema get() {
-        Schema res  = new Schema();
-        res.setJsonSchema(new Supplier<JSONSchema>() {
-          @Override
-          public JSONSchema get() {
-            JSONSchema res  = new JSONSchema();
-            res.setTitle("DepartmentTreeNode");
-            res.setDescription("部门树节点");
-            return res;
-          }
-        }.get());
-        return res;
-      }
-    }.get());
-    ComponentItem _department = new ComponentItem();
-    _department.setClzName("com.apihug.rad.api.organization.DepartmentSummary");
-    _department.setName("department");
-    _department.setFieldName("department");
-    _department.setTag(1);
-    _department.setProtoLine(154);
-    _department.setProtoColumn(3);
-    _department.setSchema(new Supplier<JSONSchema>() {
-      @Override
-      public JSONSchema get() {
-        JSONSchema res  = new JSONSchema();
-        res.setDescription("部门信息");
-        return res;
-      }
-    }.get());
-    res.addItem(_department);
-    ComponentItem _children = new ComponentItem();
-    _children.setClzName("com.apihug.rad.api.organization.DepartmentTreeNode");
-    _children.setName("children");
-    _children.setFieldName("children");
-    _children.setTag(2);
-    _children.setProtoLine(158);
-    _children.setProtoColumn(3);
-    _children.setSchema(new Supplier<JSONSchema>() {
-      @Override
-      public JSONSchema get() {
-        JSONSchema res  = new JSONSchema();
-        res.setDescription("子部门列表");
-        return res;
-      }
-    }.get());
-    _children.setComplex(ComponentItem.Complex.LIST);
-    res.addItem(_children);
-    components.put("com.apihug.rad.api.organization.DepartmentTreeNode", res);
-  }
-
-  void initComponentapi_organizationOrganizationSummary() {
-    Component res = new Component();
-    res.setClzName("com.apihug.rad.api.organization.OrganizationSummary");
-    res.setName("OrganizationSummary");
-    res.setProtoFrom("com/apihug/rad/api/organization/api.proto");
-    res.setProtoLine(107);
-    res.setProtoColumn(1);
-    res.setProtoEntity("OrganizationSummary");
-    res.setDescription("组织摘要");
-    res.setSchema(new Supplier<Schema>() {
-      @Override
-      public Schema get() {
-        Schema res  = new Schema();
-        res.setJsonSchema(new Supplier<JSONSchema>() {
-          @Override
-          public JSONSchema get() {
-            JSONSchema res  = new JSONSchema();
-            res.setTitle("OrganizationSummary");
-            res.setDescription("组织摘要");
-            return res;
-          }
-        }.get());
-        return res;
-      }
-    }.get());
-    ComponentItem _id = new ComponentItem();
-    _id.setClzName("java.lang.Long");
-    _id.setName("id");
-    _id.setFieldName("id");
-    _id.setTag(1);
-    _id.setProtoLine(115);
-    _id.setProtoColumn(3);
-    _id.setSchema(new Supplier<JSONSchema>() {
-      @Override
-      public JSONSchema get() {
-        JSONSchema res  = new JSONSchema();
-        res.setDescription("组织 ID");
-        res.setExample("1");
-        res.setEmpty(false);
-        return res;
-      }
-    }.get());
-    res.addItem(_id);
-    ComponentItem _organizationCode = new ComponentItem();
-    _organizationCode.setClzName("java.lang.String");
-    _organizationCode.setName("organization_code");
-    _organizationCode.setFieldName("organizationCode");
-    _organizationCode.setTag(2);
-    _organizationCode.setProtoLine(121);
-    _organizationCode.setProtoColumn(3);
-    _organizationCode.setSchema(new Supplier<JSONSchema>() {
-      @Override
-      public JSONSchema get() {
-        JSONSchema res  = new JSONSchema();
-        res.setDescription("组织代码");
-        res.setExample("acme_corp");
-        res.setEmpty(false);
-        res.setMock(new Supplier<Mock>() {
-          @Override
-          public Mock get() {
-            Mock res = new Mock();
-            res.setNature(Nature.NAME);
-            return res;
-          }
-        }.get());
-        return res;
-      }
-    }.get());
-    res.addItem(_organizationCode);
-    ComponentItem _organizationName = new ComponentItem();
-    _organizationName.setClzName("java.lang.String");
-    _organizationName.setName("organization_name");
-    _organizationName.setFieldName("organizationName");
-    _organizationName.setTag(3);
-    _organizationName.setProtoLine(128);
-    _organizationName.setProtoColumn(3);
-    _organizationName.setSchema(new Supplier<JSONSchema>() {
-      @Override
-      public JSONSchema get() {
-        JSONSchema res  = new JSONSchema();
-        res.setDescription("组织名称");
-        res.setExample("Acme 公司");
-        res.setEmpty(false);
-        res.setMock(new Supplier<Mock>() {
-          @Override
-          public Mock get() {
-            Mock res = new Mock();
-            res.setNature(Nature.NAME);
-            return res;
-          }
-        }.get());
-        return res;
-      }
-    }.get());
-    res.addItem(_organizationName);
-    ComponentItem _parentId = new ComponentItem();
-    _parentId.setClzName("java.lang.Long");
-    _parentId.setName("parent_id");
-    _parentId.setFieldName("parentId");
-    _parentId.setTag(4);
-    _parentId.setProtoLine(135);
-    _parentId.setProtoColumn(3);
-    _parentId.setSchema(new Supplier<JSONSchema>() {
-      @Override
-      public JSONSchema get() {
-        JSONSchema res  = new JSONSchema();
-        res.setDescription("父组织 ID");
-        res.setExample("0");
-        return res;
-      }
-    }.get());
-    res.addItem(_parentId);
-    ComponentItem _status = new ComponentItem();
-    _status.setClzName("java.lang.String");
-    _status.setName("status");
-    _status.setFieldName("status");
-    _status.setTag(5);
-    _status.setProtoLine(140);
-    _status.setProtoColumn(3);
-    _status.setSchema(new Supplier<JSONSchema>() {
-      @Override
-      public JSONSchema get() {
-        JSONSchema res  = new JSONSchema();
-        res.setDescription("组织状态");
-        res.setExample("ACTIVE");
-        return res;
-      }
-    }.get());
-    res.addItem(_status);
-    components.put("com.apihug.rad.api.organization.OrganizationSummary", res);
-  }
-
-  void initComponentapi_organizationOrganizationTreeNode() {
-    Component res = new Component();
-    res.setClzName("com.apihug.rad.api.organization.OrganizationTreeNode");
-    res.setName("OrganizationTreeNode");
-    res.setProtoFrom("com/apihug/rad/api/organization/api.proto");
-    res.setProtoLine(90);
-    res.setProtoColumn(1);
-    res.setProtoEntity("OrganizationTreeNode");
-    res.setDescription("组织树节点");
-    res.setSchema(new Supplier<Schema>() {
-      @Override
-      public Schema get() {
-        Schema res  = new Schema();
-        res.setJsonSchema(new Supplier<JSONSchema>() {
-          @Override
-          public JSONSchema get() {
-            JSONSchema res  = new JSONSchema();
-            res.setTitle("OrganizationTreeNode");
-            res.setDescription("组织树节点");
-            return res;
-          }
-        }.get());
-        return res;
-      }
-    }.get());
-    ComponentItem _organization = new ComponentItem();
-    _organization.setClzName("com.apihug.rad.api.organization.OrganizationSummary");
-    _organization.setName("organization");
-    _organization.setFieldName("organization");
-    _organization.setTag(1);
-    _organization.setProtoLine(98);
-    _organization.setProtoColumn(3);
-    _organization.setSchema(new Supplier<JSONSchema>() {
-      @Override
-      public JSONSchema get() {
-        JSONSchema res  = new JSONSchema();
-        res.setDescription("组织信息");
-        return res;
-      }
-    }.get());
-    res.addItem(_organization);
-    ComponentItem _children = new ComponentItem();
-    _children.setClzName("com.apihug.rad.api.organization.OrganizationTreeNode");
-    _children.setName("children");
-    _children.setFieldName("children");
-    _children.setTag(2);
-    _children.setProtoLine(102);
-    _children.setProtoColumn(3);
-    _children.setSchema(new Supplier<JSONSchema>() {
-      @Override
-      public JSONSchema get() {
-        JSONSchema res  = new JSONSchema();
-        res.setDescription("子组织列表");
-        return res;
-      }
-    }.get());
-    _children.setComplex(ComponentItem.Complex.LIST);
-    res.addItem(_children);
-    components.put("com.apihug.rad.api.organization.OrganizationTreeNode", res);
-  }
-
-  void initComponentapi_organizationSetDefaultOrganizationRequest() {
-    Component res = new Component();
-    res.setClzName("com.apihug.rad.api.organization.SetDefaultOrganizationRequest");
-    res.setName("SetDefaultOrganizationRequest");
-    res.setProtoFrom("com/apihug/rad/api/organization/api.proto");
-    res.setProtoLine(260);
-    res.setProtoColumn(1);
-    res.setProtoEntity("SetDefaultOrganizationRequest");
-    res.setDescription("设置默认组织请求\n"
-            + "设置默认组织请求");
-    res.setSchema(new Supplier<Schema>() {
-      @Override
-      public Schema get() {
-        Schema res  = new Schema();
-        res.setJsonSchema(new Supplier<JSONSchema>() {
-          @Override
-          public JSONSchema get() {
-            JSONSchema res  = new JSONSchema();
-            res.setTitle("SetDefaultOrganizationRequest");
-            res.setDescription("设置默认组织请求");
-            return res;
-          }
-        }.get());
-        return res;
-      }
-    }.get());
-    components.put("com.apihug.rad.api.organization.SetDefaultOrganizationRequest", res);
-  }
-
-  void initComponentapi_organizationUserDepartmentList() {
-    Component res = new Component();
-    res.setClzName("com.apihug.rad.api.organization.UserDepartmentList");
-    res.setName("UserDepartmentList");
-    res.setProtoFrom("com/apihug/rad/api/organization/api.proto");
-    res.setProtoLine(207);
-    res.setProtoColumn(1);
-    res.setProtoEntity("UserDepartmentList");
-    res.setDescription("用户部门列表");
-    res.setSchema(new Supplier<Schema>() {
-      @Override
-      public Schema get() {
-        Schema res  = new Schema();
-        res.setJsonSchema(new Supplier<JSONSchema>() {
-          @Override
-          public JSONSchema get() {
-            JSONSchema res  = new JSONSchema();
-            res.setTitle("UserDepartmentList");
-            res.setDescription("用户部门列表");
-            return res;
-          }
-        }.get());
-        return res;
-      }
-    }.get());
-    ComponentItem _departments = new ComponentItem();
-    _departments.setClzName("com.apihug.rad.api.organization.DepartmentInfo");
-    _departments.setName("departments");
-    _departments.setFieldName("departments");
-    _departments.setTag(1);
-    _departments.setProtoLine(215);
-    _departments.setProtoColumn(3);
-    _departments.setSchema(new Supplier<JSONSchema>() {
-      @Override
-      public JSONSchema get() {
-        JSONSchema res  = new JSONSchema();
-        res.setDescription("用户所属部门列表");
-        return res;
-      }
-    }.get());
-    _departments.setComplex(ComponentItem.Complex.LIST);
-    res.addItem(_departments);
-    ComponentItem _primaryDepartmentId = new ComponentItem();
-    _primaryDepartmentId.setClzName("java.lang.Long");
-    _primaryDepartmentId.setName("primary_department_id");
-    _primaryDepartmentId.setFieldName("primaryDepartmentId");
-    _primaryDepartmentId.setTag(2);
-    _primaryDepartmentId.setProtoLine(219);
-    _primaryDepartmentId.setProtoColumn(3);
-    _primaryDepartmentId.setSchema(new Supplier<JSONSchema>() {
-      @Override
-      public JSONSchema get() {
-        JSONSchema res  = new JSONSchema();
-        res.setDescription("主部门 ID");
-        res.setExample("1");
-        return res;
-      }
-    }.get());
-    res.addItem(_primaryDepartmentId);
-    components.put("com.apihug.rad.api.organization.UserDepartmentList", res);
-  }
-
-  void initComponentapi_organizationAddMemberRequest() {
-    Component res = new Component();
-    res.setClzName("com.apihug.rad.api.organization.AddMemberRequest");
-    res.setName("AddMemberRequest");
-    res.setProtoFrom("com/apihug/rad/api/organization/customer_org.proto");
-    res.setProtoLine(217);
-    res.setProtoColumn(1);
-    res.setProtoEntity("AddMemberRequest");
-    res.setDescription("添加员工到组织请求");
-    res.setSchema(new Supplier<Schema>() {
-      @Override
-      public Schema get() {
-        Schema res  = new Schema();
-        res.setJsonSchema(new Supplier<JSONSchema>() {
-          @Override
-          public JSONSchema get() {
-            JSONSchema res  = new JSONSchema();
-            res.setTitle("AddMemberRequest");
-            res.setDescription("添加员工到组织请求");
-            return res;
-          }
-        }.get());
-        return res;
-      }
-    }.get());
-    ComponentItem _customerId = new ComponentItem();
-    _customerId.setClzName("java.lang.Integer");
-    _customerId.setName("customer_id");
-    _customerId.setFieldName("customerId");
-    _customerId.setTag(1);
-    _customerId.setProtoLine(225);
-    _customerId.setProtoColumn(3);
-    _customerId.setSchema(new Supplier<JSONSchema>() {
-      @Override
-      public JSONSchema get() {
-        JSONSchema res  = new JSONSchema();
-        res.setDescription("客户 ID");
-        res.setExample("1");
-        res.setMinimum(1.0D);
-        res.setEmpty(false);
-        return res;
-      }
-    }.get());
-    res.addItem(_customerId);
-    ComponentItem _departmentId = new ComponentItem();
-    _departmentId.setClzName("java.lang.Long");
-    _departmentId.setName("department_id");
-    _departmentId.setFieldName("departmentId");
-    _departmentId.setTag(2);
-    _departmentId.setProtoLine(232);
-    _departmentId.setProtoColumn(3);
-    _departmentId.setSchema(new Supplier<JSONSchema>() {
-      @Override
-      public JSONSchema get() {
-        JSONSchema res  = new JSONSchema();
-        res.setDescription("部门 ID");
-        res.setExample("1");
-        return res;
-      }
-    }.get());
-    res.addItem(_departmentId);
-    ComponentItem _position = new ComponentItem();
-    _position.setClzName("java.lang.String");
-    _position.setName("position");
-    _position.setFieldName("position");
-    _position.setTag(3);
-    _position.setProtoLine(237);
-    _position.setProtoColumn(3);
-    _position.setSchema(new Supplier<JSONSchema>() {
-      @Override
-      public JSONSchema get() {
-        JSONSchema res  = new JSONSchema();
-        res.setDescription("职位");
-        res.setExample("软件工程师");
-        res.setMaxLength(100l);
-        return res;
-      }
-    }.get());
-    res.addItem(_position);
-    ComponentItem _employeeType = new ComponentItem();
-    _employeeType.setClzName("com.apihug.rad.infra.organization.EmployeeTypeEnum");
-    _employeeType.setName("employee_type");
-    _employeeType.setFieldName("employeeType");
-    _employeeType.setTag(4);
-    _employeeType.setProtoLine(243);
-    _employeeType.setProtoColumn(3);
-    _employeeType.setSchema(new Supplier<JSONSchema>() {
-      @Override
-      public JSONSchema get() {
-        JSONSchema res  = new JSONSchema();
-        res.setDescription("员工类型");
-        res.setExample("FULL_TIME");
-        return res;
-      }
-    }.get());
-    res.addItem(_employeeType);
-    ComponentItem _isDefault = new ComponentItem();
-    _isDefault.setClzName("java.lang.Boolean");
-    _isDefault.setName("is_default");
-    _isDefault.setFieldName("isDefault");
-    _isDefault.setTag(5);
-    _isDefault.setProtoLine(248);
-    _isDefault.setProtoColumn(3);
-    _isDefault.setSchema(new Supplier<JSONSchema>() {
-      @Override
-      public JSONSchema get() {
-        JSONSchema res  = new JSONSchema();
-        res.setDescription("是否默认组织");
-        res.setExample("false");
-        return res;
-      }
-    }.get());
-    res.addItem(_isDefault);
-    components.put("com.apihug.rad.api.organization.AddMemberRequest", res);
-  }
-
-  void initComponentapi_organizationAssignMemberMenusRequest() {
-    Component res = new Component();
-    res.setClzName("com.apihug.rad.api.organization.AssignMemberMenusRequest");
-    res.setName("AssignMemberMenusRequest");
-    res.setProtoFrom("com/apihug/rad/api/organization/customer_org.proto");
-    res.setProtoLine(287);
-    res.setProtoColumn(1);
-    res.setProtoEntity("AssignMemberMenusRequest");
-    res.setDescription("分配员工菜单请求");
-    res.setSchema(new Supplier<Schema>() {
-      @Override
-      public Schema get() {
-        Schema res  = new Schema();
-        res.setJsonSchema(new Supplier<JSONSchema>() {
-          @Override
-          public JSONSchema get() {
-            JSONSchema res  = new JSONSchema();
-            res.setTitle("AssignMemberMenusRequest");
-            res.setDescription("分配员工菜单请求");
-            return res;
-          }
-        }.get());
-        return res;
-      }
-    }.get());
-    ComponentItem _menuIds = new ComponentItem();
-    _menuIds.setClzName("java.lang.Integer");
-    _menuIds.setName("menu_ids");
-    _menuIds.setFieldName("menuIds");
-    _menuIds.setTag(1);
-    _menuIds.setProtoLine(295);
-    _menuIds.setProtoColumn(3);
-    _menuIds.setSchema(new Supplier<JSONSchema>() {
-      @Override
-      public JSONSchema get() {
-        JSONSchema res  = new JSONSchema();
-        res.setDescription("菜单 ID 列表");
-        return res;
-      }
-    }.get());
-    _menuIds.setComplex(ComponentItem.Complex.LIST);
-    res.addItem(_menuIds);
-    components.put("com.apihug.rad.api.organization.AssignMemberMenusRequest", res);
-  }
-
-  void initComponentapi_organizationAssignMemberRolesRequest() {
-    Component res = new Component();
-    res.setClzName("com.apihug.rad.api.organization.AssignMemberRolesRequest");
-    res.setName("AssignMemberRolesRequest");
-    res.setProtoFrom("com/apihug/rad/api/organization/customer_org.proto");
-    res.setProtoLine(274);
-    res.setProtoColumn(1);
-    res.setProtoEntity("AssignMemberRolesRequest");
-    res.setDescription("分配员工角色请求");
-    res.setSchema(new Supplier<Schema>() {
-      @Override
-      public Schema get() {
-        Schema res  = new Schema();
-        res.setJsonSchema(new Supplier<JSONSchema>() {
-          @Override
-          public JSONSchema get() {
-            JSONSchema res  = new JSONSchema();
-            res.setTitle("AssignMemberRolesRequest");
-            res.setDescription("分配员工角色请求");
-            return res;
-          }
-        }.get());
-        return res;
-      }
-    }.get());
-    ComponentItem _roleIds = new ComponentItem();
-    _roleIds.setClzName("java.lang.Integer");
-    _roleIds.setName("role_ids");
-    _roleIds.setFieldName("roleIds");
-    _roleIds.setTag(1);
-    _roleIds.setProtoLine(282);
-    _roleIds.setProtoColumn(3);
-    _roleIds.setSchema(new Supplier<JSONSchema>() {
-      @Override
-      public JSONSchema get() {
-        JSONSchema res  = new JSONSchema();
-        res.setDescription("角色 ID 列表");
-        return res;
-      }
-    }.get());
-    _roleIds.setComplex(ComponentItem.Complex.LIST);
-    res.addItem(_roleIds);
-    components.put("com.apihug.rad.api.organization.AssignMemberRolesRequest", res);
-  }
-
-  void initComponentapi_organizationCustomerOrganizationSummary() {
-    Component res = new Component();
-    res.setClzName("com.apihug.rad.api.organization.CustomerOrganizationSummary");
-    res.setName("CustomerOrganizationSummary");
-    res.setProtoFrom("com/apihug/rad/api/organization/customer_org.proto");
-    res.setProtoLine(300);
-    res.setProtoColumn(1);
-    res.setProtoEntity("CustomerOrganizationSummary");
-    res.setDescription("组织员工摘要");
-    res.setSchema(new Supplier<Schema>() {
-      @Override
-      public Schema get() {
-        Schema res  = new Schema();
-        res.setJsonSchema(new Supplier<JSONSchema>() {
-          @Override
-          public JSONSchema get() {
-            JSONSchema res  = new JSONSchema();
-            res.setTitle("CustomerOrganizationSummary");
-            res.setDescription("组织员工摘要");
-            return res;
-          }
-        }.get());
-        return res;
-      }
-    }.get());
-    ComponentItem _id = new ComponentItem();
-    _id.setClzName("java.lang.Long");
-    _id.setName("id");
-    _id.setFieldName("id");
-    _id.setTag(1);
-    _id.setProtoLine(308);
-    _id.setProtoColumn(3);
-    _id.setSchema(new Supplier<JSONSchema>() {
-      @Override
-      public JSONSchema get() {
-        JSONSchema res  = new JSONSchema();
-        res.setDescription("ID");
-        res.setExample("1");
-        return res;
-      }
-    }.get());
-    res.addItem(_id);
-    ComponentItem _customerId = new ComponentItem();
-    _customerId.setClzName("java.lang.Long");
-    _customerId.setName("customer_id");
-    _customerId.setFieldName("customerId");
-    _customerId.setTag(2);
-    _customerId.setProtoLine(313);
-    _customerId.setProtoColumn(3);
-    _customerId.setSchema(new Supplier<JSONSchema>() {
-      @Override
-      public JSONSchema get() {
-        JSONSchema res  = new JSONSchema();
-        res.setDescription("客户 ID");
-        res.setExample("1");
-        return res;
-      }
-    }.get());
-    res.addItem(_customerId);
-    ComponentItem _customerUsername = new ComponentItem();
-    _customerUsername.setClzName("java.lang.String");
-    _customerUsername.setName("customer_username");
-    _customerUsername.setFieldName("customerUsername");
-    _customerUsername.setTag(3);
-    _customerUsername.setProtoLine(318);
-    _customerUsername.setProtoColumn(3);
-    _customerUsername.setSchema(new Supplier<JSONSchema>() {
-      @Override
-      public JSONSchema get() {
-        JSONSchema res  = new JSONSchema();
-        res.setDescription("客户用户名");
-        res.setExample("zhangsan");
-        return res;
-      }
-    }.get());
-    res.addItem(_customerUsername);
-    ComponentItem _customerEmail = new ComponentItem();
-    _customerEmail.setClzName("java.lang.String");
-    _customerEmail.setName("customer_email");
-    _customerEmail.setFieldName("customerEmail");
-    _customerEmail.setTag(4);
-    _customerEmail.setProtoLine(323);
-    _customerEmail.setProtoColumn(3);
-    _customerEmail.setSchema(new Supplier<JSONSchema>() {
-      @Override
-      public JSONSchema get() {
-        JSONSchema res  = new JSONSchema();
-        res.setDescription("客户邮箱");
-        res.setExample("zhangsan@example.com");
-        return res;
-      }
-    }.get());
-    res.addItem(_customerEmail);
-    ComponentItem _organizationId = new ComponentItem();
-    _organizationId.setClzName("java.lang.Long");
-    _organizationId.setName("organization_id");
-    _organizationId.setFieldName("organizationId");
-    _organizationId.setTag(5);
-    _organizationId.setProtoLine(328);
-    _organizationId.setProtoColumn(3);
-    _organizationId.setSchema(new Supplier<JSONSchema>() {
-      @Override
-      public JSONSchema get() {
-        JSONSchema res  = new JSONSchema();
-        res.setDescription("组织 ID");
-        res.setExample("1");
-        return res;
-      }
-    }.get());
-    res.addItem(_organizationId);
-    ComponentItem _organizationName = new ComponentItem();
-    _organizationName.setClzName("java.lang.String");
-    _organizationName.setName("organization_name");
-    _organizationName.setFieldName("organizationName");
-    _organizationName.setTag(6);
-    _organizationName.setProtoLine(333);
-    _organizationName.setProtoColumn(3);
-    _organizationName.setSchema(new Supplier<JSONSchema>() {
-      @Override
-      public JSONSchema get() {
-        JSONSchema res  = new JSONSchema();
-        res.setDescription("组织名称");
-        res.setExample("Acme 公司");
-        return res;
-      }
-    }.get());
-    res.addItem(_organizationName);
-    ComponentItem _departmentId = new ComponentItem();
-    _departmentId.setClzName("java.lang.Long");
-    _departmentId.setName("department_id");
-    _departmentId.setFieldName("departmentId");
-    _departmentId.setTag(7);
-    _departmentId.setProtoLine(338);
-    _departmentId.setProtoColumn(3);
-    _departmentId.setSchema(new Supplier<JSONSchema>() {
-      @Override
-      public JSONSchema get() {
-        JSONSchema res  = new JSONSchema();
-        res.setDescription("部门 ID");
-        res.setExample("1");
-        return res;
-      }
-    }.get());
-    res.addItem(_departmentId);
-    ComponentItem _position = new ComponentItem();
-    _position.setClzName("java.lang.String");
-    _position.setName("position");
-    _position.setFieldName("position");
-    _position.setTag(8);
-    _position.setProtoLine(343);
-    _position.setProtoColumn(3);
-    _position.setSchema(new Supplier<JSONSchema>() {
-      @Override
-      public JSONSchema get() {
-        JSONSchema res  = new JSONSchema();
-        res.setDescription("职位");
-        res.setExample("软件工程师");
-        return res;
-      }
-    }.get());
-    res.addItem(_position);
-    ComponentItem _employeeType = new ComponentItem();
-    _employeeType.setClzName("com.apihug.rad.infra.organization.EmployeeTypeEnum");
-    _employeeType.setName("employee_type");
-    _employeeType.setFieldName("employeeType");
-    _employeeType.setTag(9);
-    _employeeType.setProtoLine(348);
-    _employeeType.setProtoColumn(3);
-    _employeeType.setSchema(new Supplier<JSONSchema>() {
-      @Override
-      public JSONSchema get() {
-        JSONSchema res  = new JSONSchema();
-        res.setDescription("员工类型");
-        res.setExample("FULL_TIME");
-        return res;
-      }
-    }.get());
-    res.addItem(_employeeType);
-    ComponentItem _status = new ComponentItem();
-    _status.setClzName("com.apihug.rad.infra.organization.CustomerOrgStatusEnum");
-    _status.setName("status");
-    _status.setFieldName("status");
-    _status.setTag(10);
-    _status.setProtoLine(353);
-    _status.setProtoColumn(3);
-    _status.setSchema(new Supplier<JSONSchema>() {
-      @Override
-      public JSONSchema get() {
-        JSONSchema res  = new JSONSchema();
-        res.setDescription("状态");
-        res.setExample("ACTIVE");
-        return res;
-      }
-    }.get());
-    res.addItem(_status);
-    ComponentItem _isDefault = new ComponentItem();
-    _isDefault.setClzName("java.lang.Boolean");
-    _isDefault.setName("is_default");
-    _isDefault.setFieldName("isDefault");
-    _isDefault.setTag(11);
-    _isDefault.setProtoLine(358);
-    _isDefault.setProtoColumn(3);
-    _isDefault.setSchema(new Supplier<JSONSchema>() {
-      @Override
-      public JSONSchema get() {
-        JSONSchema res  = new JSONSchema();
-        res.setDescription("是否默认组织");
-        res.setExample("false");
-        return res;
-      }
-    }.get());
-    res.addItem(_isDefault);
-    components.put("com.apihug.rad.api.organization.CustomerOrganizationSummary", res);
-  }
-
-  void initComponentapi_organizationGetOrganizationMembersRequest() {
-    Component res = new Component();
-    res.setClzName("com.apihug.rad.api.organization.GetOrganizationMembersRequest");
-    res.setName("GetOrganizationMembersRequest");
-    res.setProtoFrom("com/apihug/rad/api/organization/customer_org.proto");
-    res.setProtoLine(203);
-    res.setProtoColumn(1);
-    res.setProtoEntity("GetOrganizationMembersRequest");
-    res.setDescription("============ 消息类型定义 ============\n"
-            + "获取组织员工列表请求");
-    res.setSchema(new Supplier<Schema>() {
-      @Override
-      public Schema get() {
-        Schema res  = new Schema();
-        res.setJsonSchema(new Supplier<JSONSchema>() {
-          @Override
-          public JSONSchema get() {
-            JSONSchema res  = new JSONSchema();
-            res.setTitle("GetOrganizationMembersRequest");
-            res.setDescription("获取组织员工列表请求");
-            return res;
-          }
-        }.get());
-        return res;
-      }
-    }.get());
-    ComponentItem _status = new ComponentItem();
-    _status.setClzName("com.apihug.rad.infra.organization.CustomerOrgStatusEnum");
-    _status.setName("status");
-    _status.setFieldName("status");
-    _status.setTag(1);
-    _status.setProtoLine(211);
-    _status.setProtoColumn(3);
-    _status.setSchema(new Supplier<JSONSchema>() {
-      @Override
-      public JSONSchema get() {
-        JSONSchema res  = new JSONSchema();
-        res.setDescription("员工状态筛选");
-        res.setExample("ACTIVE");
-        return res;
-      }
-    }.get());
-    res.addItem(_status);
-    components.put("com.apihug.rad.api.organization.GetOrganizationMembersRequest", res);
-  }
-
-  void initComponentapi_organizationRemoveMemberRequest() {
-    Component res = new Component();
-    res.setClzName("com.apihug.rad.api.organization.RemoveMemberRequest");
-    res.setName("RemoveMemberRequest");
-    res.setProtoFrom("com/apihug/rad/api/organization/customer_org.proto");
-    res.setProtoLine(254);
-    res.setProtoColumn(1);
-    res.setProtoEntity("RemoveMemberRequest");
-    res.setDescription("从组织移除员工请求");
-    res.setSchema(new Supplier<Schema>() {
-      @Override
-      public Schema get() {
-        Schema res  = new Schema();
-        res.setJsonSchema(new Supplier<JSONSchema>() {
-          @Override
-          public JSONSchema get() {
-            JSONSchema res  = new JSONSchema();
-            res.setTitle("RemoveMemberRequest");
-            res.setDescription("从组织移除员工请求");
-            return res;
-          }
-        }.get());
-        return res;
-      }
-    }.get());
-    components.put("com.apihug.rad.api.organization.RemoveMemberRequest", res);
-  }
-
-  void initComponentapi_organizationToggleMemberLockRequest() {
-    Component res = new Component();
-    res.setClzName("com.apihug.rad.api.organization.ToggleMemberLockRequest");
-    res.setName("ToggleMemberLockRequest");
-    res.setProtoFrom("com/apihug/rad/api/organization/customer_org.proto");
-    res.setProtoLine(264);
-    res.setProtoColumn(1);
-    res.setProtoEntity("ToggleMemberLockRequest");
-    res.setDescription("锁定/解锁员工请求");
-    res.setSchema(new Supplier<Schema>() {
-      @Override
-      public Schema get() {
-        Schema res  = new Schema();
-        res.setJsonSchema(new Supplier<JSONSchema>() {
-          @Override
-          public JSONSchema get() {
-            JSONSchema res  = new JSONSchema();
-            res.setTitle("ToggleMemberLockRequest");
-            res.setDescription("锁定/解锁员工请求");
-            return res;
-          }
-        }.get());
-        return res;
-      }
-    }.get());
-    components.put("com.apihug.rad.api.organization.ToggleMemberLockRequest", res);
-  }
-
   void initComponentapi_permissionPermissionInfo() {
     Component res = new Component();
     res.setClzName("com.apihug.rad.api.permission.PermissionInfo");
@@ -8366,7 +6344,7 @@ public final class RadApiCollector implements Collector {
       public JSONSchema get() {
         JSONSchema res  = new JSONSchema();
         res.setDescription("权限代码");
-        res.setExample("user:create");
+        res.setExample("customer:create");
         return res;
       }
     }.get());
@@ -8383,7 +6361,7 @@ public final class RadApiCollector implements Collector {
       public JSONSchema get() {
         JSONSchema res  = new JSONSchema();
         res.setDescription("权限名称");
-        res.setExample("创建用户");
+        res.setExample("创建客户");
         return res;
       }
     }.get());
@@ -8391,15 +6369,15 @@ public final class RadApiCollector implements Collector {
     components.put("com.apihug.rad.api.permission.PermissionInfo", res);
   }
 
-  void initComponentapi_roleAssignPermissionsRequest() {
+  void initComponentapi_roleAssignMenusRequest() {
     Component res = new Component();
-    res.setClzName("com.apihug.rad.api.role.AssignPermissionsRequest");
-    res.setName("AssignPermissionsRequest");
+    res.setClzName("com.apihug.rad.api.role.AssignMenusRequest");
+    res.setName("AssignMenusRequest");
     res.setProtoFrom("com/apihug/rad/api/role/api.proto");
-    res.setProtoLine(406);
+    res.setProtoLine(401);
     res.setProtoColumn(1);
-    res.setProtoEntity("AssignPermissionsRequest");
-    res.setDescription("分配权限请求");
+    res.setProtoEntity("AssignMenusRequest");
+    res.setDescription("分配菜单请求（全量覆盖）");
     res.setSchema(new Supplier<Schema>() {
       @Override
       public Schema get() {
@@ -8408,34 +6386,34 @@ public final class RadApiCollector implements Collector {
           @Override
           public JSONSchema get() {
             JSONSchema res  = new JSONSchema();
-            res.setTitle("AssignPermissionsRequest");
-            res.setDescription("分配权限请求");
+            res.setTitle("AssignMenusRequest");
+            res.setDescription("分配菜单请求（全量覆盖）");
             return res;
           }
         }.get());
         return res;
       }
     }.get());
-    ComponentItem _permissionIds = new ComponentItem();
-    _permissionIds.setClzName("java.lang.Long");
-    _permissionIds.setName("permission_ids");
-    _permissionIds.setFieldName("permissionIds");
-    _permissionIds.setTag(1);
-    _permissionIds.setProtoLine(414);
-    _permissionIds.setProtoColumn(3);
-    _permissionIds.setSchema(new Supplier<JSONSchema>() {
+    ComponentItem _menuIds = new ComponentItem();
+    _menuIds.setClzName("java.lang.Long");
+    _menuIds.setName("menu_ids");
+    _menuIds.setFieldName("menuIds");
+    _menuIds.setTag(1);
+    _menuIds.setProtoLine(409);
+    _menuIds.setProtoColumn(3);
+    _menuIds.setSchema(new Supplier<JSONSchema>() {
       @Override
       public JSONSchema get() {
         JSONSchema res  = new JSONSchema();
-        res.setDescription("权限 ID 列表");
+        res.setDescription("菜单 ID 列表");
         res.setExample("[1, 2, 3]");
         res.setEmpty(false);
         return res;
       }
     }.get());
-    _permissionIds.setComplex(ComponentItem.Complex.LIST);
-    res.addItem(_permissionIds);
-    components.put("com.apihug.rad.api.role.AssignPermissionsRequest", res);
+    _menuIds.setComplex(ComponentItem.Complex.LIST);
+    res.addItem(_menuIds);
+    components.put("com.apihug.rad.api.role.AssignMenusRequest", res);
   }
 
   void initComponentapi_roleCreateRoleRequest() {
@@ -8443,7 +6421,7 @@ public final class RadApiCollector implements Collector {
     res.setClzName("com.apihug.rad.api.role.CreateRoleRequest");
     res.setName("CreateRoleRequest");
     res.setProtoFrom("com/apihug/rad/api/role/api.proto");
-    res.setProtoLine(229);
+    res.setProtoLine(224);
     res.setProtoColumn(1);
     res.setProtoEntity("CreateRoleRequest");
     res.setDescription("创建角色请求");
@@ -8468,7 +6446,7 @@ public final class RadApiCollector implements Collector {
     _roleCode.setName("role_code");
     _roleCode.setFieldName("roleCode");
     _roleCode.setTag(1);
-    _roleCode.setProtoLine(237);
+    _roleCode.setProtoLine(232);
     _roleCode.setProtoColumn(3);
     _roleCode.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -8495,7 +6473,7 @@ public final class RadApiCollector implements Collector {
     _roleName.setName("role_name");
     _roleName.setFieldName("roleName");
     _roleName.setTag(2);
-    _roleName.setProtoLine(245);
+    _roleName.setProtoLine(240);
     _roleName.setProtoColumn(3);
     _roleName.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -8522,7 +6500,7 @@ public final class RadApiCollector implements Collector {
     _description.setName("description");
     _description.setFieldName("description");
     _description.setTag(3);
-    _description.setProtoLine(253);
+    _description.setProtoLine(248);
     _description.setProtoColumn(3);
     _description.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -8548,7 +6526,7 @@ public final class RadApiCollector implements Collector {
     _status.setName("status");
     _status.setFieldName("status");
     _status.setTag(4);
-    _status.setProtoLine(260);
+    _status.setProtoLine(255);
     _status.setProtoColumn(3);
     _status.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -8564,176 +6542,12 @@ public final class RadApiCollector implements Collector {
     components.put("com.apihug.rad.api.role.CreateRoleRequest", res);
   }
 
-  void initComponentapi_rolePermissionInfo() {
-    Component res = new Component();
-    res.setClzName("com.apihug.rad.api.role.PermissionInfo");
-    res.setName("PermissionInfo");
-    res.setProtoFrom("com/apihug/rad/api/role/api.proto");
-    res.setProtoLine(463);
-    res.setProtoColumn(1);
-    res.setProtoEntity("PermissionInfo");
-    res.setDescription("权限信息");
-    res.setSchema(new Supplier<Schema>() {
-      @Override
-      public Schema get() {
-        Schema res  = new Schema();
-        res.setJsonSchema(new Supplier<JSONSchema>() {
-          @Override
-          public JSONSchema get() {
-            JSONSchema res  = new JSONSchema();
-            res.setTitle("PermissionInfo");
-            res.setDescription("权限信息");
-            return res;
-          }
-        }.get());
-        return res;
-      }
-    }.get());
-    ComponentItem _id = new ComponentItem();
-    _id.setClzName("java.lang.Long");
-    _id.setName("id");
-    _id.setFieldName("id");
-    _id.setTag(1);
-    _id.setProtoLine(471);
-    _id.setProtoColumn(3);
-    _id.setSchema(new Supplier<JSONSchema>() {
-      @Override
-      public JSONSchema get() {
-        JSONSchema res  = new JSONSchema();
-        res.setDescription("权限 ID");
-        res.setExample("1");
-        res.setEmpty(false);
-        return res;
-      }
-    }.get());
-    res.addItem(_id);
-    ComponentItem _permissionCode = new ComponentItem();
-    _permissionCode.setClzName("java.lang.String");
-    _permissionCode.setName("permission_code");
-    _permissionCode.setFieldName("permissionCode");
-    _permissionCode.setTag(2);
-    _permissionCode.setProtoLine(477);
-    _permissionCode.setProtoColumn(3);
-    _permissionCode.setSchema(new Supplier<JSONSchema>() {
-      @Override
-      public JSONSchema get() {
-        JSONSchema res  = new JSONSchema();
-        res.setDescription("权限代码");
-        res.setExample("user:create");
-        res.setEmpty(false);
-        res.setMock(new Supplier<Mock>() {
-          @Override
-          public Mock get() {
-            Mock res = new Mock();
-            res.setNature(Nature.NAME);
-            return res;
-          }
-        }.get());
-        return res;
-      }
-    }.get());
-    res.addItem(_permissionCode);
-    ComponentItem _permissionName = new ComponentItem();
-    _permissionName.setClzName("java.lang.String");
-    _permissionName.setName("permission_name");
-    _permissionName.setFieldName("permissionName");
-    _permissionName.setTag(3);
-    _permissionName.setProtoLine(484);
-    _permissionName.setProtoColumn(3);
-    _permissionName.setSchema(new Supplier<JSONSchema>() {
-      @Override
-      public JSONSchema get() {
-        JSONSchema res  = new JSONSchema();
-        res.setDescription("权限名称");
-        res.setExample("创建用户");
-        res.setEmpty(false);
-        res.setMock(new Supplier<Mock>() {
-          @Override
-          public Mock get() {
-            Mock res = new Mock();
-            res.setNature(Nature.NAME);
-            return res;
-          }
-        }.get());
-        return res;
-      }
-    }.get());
-    res.addItem(_permissionName);
-    components.put("com.apihug.rad.api.role.PermissionInfo", res);
-  }
-
-  void initComponentapi_roleRemovePermissionRequest() {
-    Component res = new Component();
-    res.setClzName("com.apihug.rad.api.role.RemovePermissionRequest");
-    res.setName("RemovePermissionRequest");
-    res.setProtoFrom("com/apihug/rad/api/role/api.proto");
-    res.setProtoLine(421);
-    res.setProtoColumn(1);
-    res.setProtoEntity("RemovePermissionRequest");
-    res.setDescription("移除权限请求");
-    res.setSchema(new Supplier<Schema>() {
-      @Override
-      public Schema get() {
-        Schema res  = new Schema();
-        res.setJsonSchema(new Supplier<JSONSchema>() {
-          @Override
-          public JSONSchema get() {
-            JSONSchema res  = new JSONSchema();
-            res.setTitle("RemovePermissionRequest");
-            res.setDescription("移除权限请求");
-            return res;
-          }
-        }.get());
-        return res;
-      }
-    }.get());
-    ComponentItem _roleId = new ComponentItem();
-    _roleId.setClzName("java.lang.Long");
-    _roleId.setName("role_id");
-    _roleId.setFieldName("roleId");
-    _roleId.setTag(1);
-    _roleId.setProtoLine(429);
-    _roleId.setProtoColumn(3);
-    _roleId.setSchema(new Supplier<JSONSchema>() {
-      @Override
-      public JSONSchema get() {
-        JSONSchema res  = new JSONSchema();
-        res.setDescription("角色 ID");
-        res.setExample("1");
-        res.setMinimum(1.0D);
-        res.setEmpty(false);
-        return res;
-      }
-    }.get());
-    res.addItem(_roleId);
-    ComponentItem _permissionId = new ComponentItem();
-    _permissionId.setClzName("java.lang.Long");
-    _permissionId.setName("permission_id");
-    _permissionId.setFieldName("permissionId");
-    _permissionId.setTag(2);
-    _permissionId.setProtoLine(436);
-    _permissionId.setProtoColumn(3);
-    _permissionId.setSchema(new Supplier<JSONSchema>() {
-      @Override
-      public JSONSchema get() {
-        JSONSchema res  = new JSONSchema();
-        res.setDescription("权限 ID");
-        res.setExample("1");
-        res.setMinimum(1.0D);
-        res.setEmpty(false);
-        return res;
-      }
-    }.get());
-    res.addItem(_permissionId);
-    components.put("com.apihug.rad.api.role.RemovePermissionRequest", res);
-  }
-
   void initComponentapi_roleRoleDetail() {
     Component res = new Component();
     res.setClzName("com.apihug.rad.api.role.RoleDetail");
     res.setName("RoleDetail");
     res.setProtoFrom("com/apihug/rad/api/role/api.proto");
-    res.setProtoLine(333);
+    res.setProtoLine(328);
     res.setProtoColumn(1);
     res.setProtoEntity("RoleDetail");
     res.setDescription("角色详情信息");
@@ -8758,7 +6572,7 @@ public final class RadApiCollector implements Collector {
     _id.setName("id");
     _id.setFieldName("id");
     _id.setTag(1);
-    _id.setProtoLine(341);
+    _id.setProtoLine(336);
     _id.setProtoColumn(3);
     _id.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -8777,7 +6591,7 @@ public final class RadApiCollector implements Collector {
     _roleCode.setName("role_code");
     _roleCode.setFieldName("roleCode");
     _roleCode.setTag(2);
-    _roleCode.setProtoLine(348);
+    _roleCode.setProtoLine(343);
     _roleCode.setProtoColumn(3);
     _roleCode.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -8803,7 +6617,7 @@ public final class RadApiCollector implements Collector {
     _roleName.setName("role_name");
     _roleName.setFieldName("roleName");
     _roleName.setTag(3);
-    _roleName.setProtoLine(355);
+    _roleName.setProtoLine(350);
     _roleName.setProtoColumn(3);
     _roleName.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -8829,7 +6643,7 @@ public final class RadApiCollector implements Collector {
     _description.setName("description");
     _description.setFieldName("description");
     _description.setTag(4);
-    _description.setProtoLine(362);
+    _description.setProtoLine(357);
     _description.setProtoColumn(3);
     _description.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -8854,7 +6668,7 @@ public final class RadApiCollector implements Collector {
     _status.setName("status");
     _status.setFieldName("status");
     _status.setTag(5);
-    _status.setProtoLine(368);
+    _status.setProtoLine(363);
     _status.setProtoColumn(3);
     _status.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -8872,7 +6686,7 @@ public final class RadApiCollector implements Collector {
     _createdAt.setName("created_at");
     _createdAt.setFieldName("createdAt");
     _createdAt.setTag(6);
-    _createdAt.setProtoLine(374);
+    _createdAt.setProtoLine(369);
     _createdAt.setProtoColumn(3);
     _createdAt.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -8890,7 +6704,7 @@ public final class RadApiCollector implements Collector {
     _updatedAt.setName("updated_at");
     _updatedAt.setFieldName("updatedAt");
     _updatedAt.setTag(7);
-    _updatedAt.setProtoLine(380);
+    _updatedAt.setProtoLine(375);
     _updatedAt.setProtoColumn(3);
     _updatedAt.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -8906,15 +6720,15 @@ public final class RadApiCollector implements Collector {
     components.put("com.apihug.rad.api.role.RoleDetail", res);
   }
 
-  void initComponentapi_roleRolePermissionSummary() {
+  void initComponentapi_roleRoleMenuItem() {
     Component res = new Component();
-    res.setClzName("com.apihug.rad.api.role.RolePermissionSummary");
-    res.setName("RolePermissionSummary");
+    res.setClzName("com.apihug.rad.api.role.RoleMenuItem");
+    res.setName("RoleMenuItem");
     res.setProtoFrom("com/apihug/rad/api/role/api.proto");
-    res.setProtoLine(444);
+    res.setProtoLine(435);
     res.setProtoColumn(1);
-    res.setProtoEntity("RolePermissionSummary");
-    res.setDescription("角色权限摘要");
+    res.setProtoEntity("RoleMenuItem");
+    res.setDescription("角色关联的菜单项");
     res.setSchema(new Supplier<Schema>() {
       @Override
       public Schema get() {
@@ -8923,8 +6737,124 @@ public final class RadApiCollector implements Collector {
           @Override
           public JSONSchema get() {
             JSONSchema res  = new JSONSchema();
-            res.setTitle("RolePermissionSummary");
-            res.setDescription("角色权限摘要");
+            res.setTitle("RoleMenuItem");
+            res.setDescription("角色关联的菜单项");
+            return res;
+          }
+        }.get());
+        return res;
+      }
+    }.get());
+    ComponentItem _id = new ComponentItem();
+    _id.setClzName("java.lang.Long");
+    _id.setName("id");
+    _id.setFieldName("id");
+    _id.setTag(1);
+    _id.setProtoLine(443);
+    _id.setProtoColumn(3);
+    _id.setSchema(new Supplier<JSONSchema>() {
+      @Override
+      public JSONSchema get() {
+        JSONSchema res  = new JSONSchema();
+        res.setDescription("菜单 ID");
+        res.setExample("1");
+        res.setEmpty(false);
+        return res;
+      }
+    }.get());
+    res.addItem(_id);
+    ComponentItem _menuCode = new ComponentItem();
+    _menuCode.setClzName("java.lang.String");
+    _menuCode.setName("menu_code");
+    _menuCode.setFieldName("menuCode");
+    _menuCode.setTag(2);
+    _menuCode.setProtoLine(449);
+    _menuCode.setProtoColumn(3);
+    _menuCode.setSchema(new Supplier<JSONSchema>() {
+      @Override
+      public JSONSchema get() {
+        JSONSchema res  = new JSONSchema();
+        res.setDescription("菜单代码");
+        res.setExample("system:user");
+        res.setEmpty(false);
+        return res;
+      }
+    }.get());
+    res.addItem(_menuCode);
+    ComponentItem _menuName = new ComponentItem();
+    _menuName.setClzName("java.lang.String");
+    _menuName.setName("menu_name");
+    _menuName.setFieldName("menuName");
+    _menuName.setTag(3);
+    _menuName.setProtoLine(455);
+    _menuName.setProtoColumn(3);
+    _menuName.setSchema(new Supplier<JSONSchema>() {
+      @Override
+      public JSONSchema get() {
+        JSONSchema res  = new JSONSchema();
+        res.setDescription("菜单名称");
+        res.setExample("用户管理");
+        res.setEmpty(false);
+        return res;
+      }
+    }.get());
+    res.addItem(_menuName);
+    ComponentItem _permissionCode = new ComponentItem();
+    _permissionCode.setClzName("java.lang.String");
+    _permissionCode.setName("permission_code");
+    _permissionCode.setFieldName("permissionCode");
+    _permissionCode.setTag(4);
+    _permissionCode.setProtoLine(461);
+    _permissionCode.setProtoColumn(3);
+    _permissionCode.setSchema(new Supplier<JSONSchema>() {
+      @Override
+      public JSONSchema get() {
+        JSONSchema res  = new JSONSchema();
+        res.setDescription("权限代码（BUTTON 类型菜单的原子权限）");
+        res.setExample("customer:create");
+        return res;
+      }
+    }.get());
+    res.addItem(_permissionCode);
+    ComponentItem _menuType = new ComponentItem();
+    _menuType.setClzName("java.lang.String");
+    _menuType.setName("menu_type");
+    _menuType.setFieldName("menuType");
+    _menuType.setTag(5);
+    _menuType.setProtoLine(466);
+    _menuType.setProtoColumn(3);
+    _menuType.setSchema(new Supplier<JSONSchema>() {
+      @Override
+      public JSONSchema get() {
+        JSONSchema res  = new JSONSchema();
+        res.setDescription("菜单类型（DIRECTORY/MENU/BUTTON）");
+        res.setExample("BUTTON");
+        return res;
+      }
+    }.get());
+    res.addItem(_menuType);
+    components.put("com.apihug.rad.api.role.RoleMenuItem", res);
+  }
+
+  void initComponentapi_roleRoleMenuSummary() {
+    Component res = new Component();
+    res.setClzName("com.apihug.rad.api.role.RoleMenuSummary");
+    res.setName("RoleMenuSummary");
+    res.setProtoFrom("com/apihug/rad/api/role/api.proto");
+    res.setProtoLine(416);
+    res.setProtoColumn(1);
+    res.setProtoEntity("RoleMenuSummary");
+    res.setDescription("角色菜单摘要");
+    res.setSchema(new Supplier<Schema>() {
+      @Override
+      public Schema get() {
+        Schema res  = new Schema();
+        res.setJsonSchema(new Supplier<JSONSchema>() {
+          @Override
+          public JSONSchema get() {
+            JSONSchema res  = new JSONSchema();
+            res.setTitle("RoleMenuSummary");
+            res.setDescription("角色菜单摘要");
             return res;
           }
         }.get());
@@ -8936,7 +6866,7 @@ public final class RadApiCollector implements Collector {
     _roleId.setName("role_id");
     _roleId.setFieldName("roleId");
     _roleId.setTag(1);
-    _roleId.setProtoLine(452);
+    _roleId.setProtoLine(424);
     _roleId.setProtoColumn(3);
     _roleId.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -8949,24 +6879,24 @@ public final class RadApiCollector implements Collector {
       }
     }.get());
     res.addItem(_roleId);
-    ComponentItem _permissions = new ComponentItem();
-    _permissions.setClzName("com.apihug.rad.api.role.PermissionInfo");
-    _permissions.setName("permissions");
-    _permissions.setFieldName("permissions");
-    _permissions.setTag(2);
-    _permissions.setProtoLine(458);
-    _permissions.setProtoColumn(3);
-    _permissions.setSchema(new Supplier<JSONSchema>() {
+    ComponentItem _menus = new ComponentItem();
+    _menus.setClzName("com.apihug.rad.api.role.RoleMenuItem");
+    _menus.setName("menus");
+    _menus.setFieldName("menus");
+    _menus.setTag(2);
+    _menus.setProtoLine(430);
+    _menus.setProtoColumn(3);
+    _menus.setSchema(new Supplier<JSONSchema>() {
       @Override
       public JSONSchema get() {
         JSONSchema res  = new JSONSchema();
-        res.setDescription("权限列表");
+        res.setDescription("关联的菜单列表");
         return res;
       }
     }.get());
-    _permissions.setComplex(ComponentItem.Complex.LIST);
-    res.addItem(_permissions);
-    components.put("com.apihug.rad.api.role.RolePermissionSummary", res);
+    _menus.setComplex(ComponentItem.Complex.LIST);
+    res.addItem(_menus);
+    components.put("com.apihug.rad.api.role.RoleMenuSummary", res);
   }
 
   void initComponentapi_roleRoleSummary() {
@@ -8974,7 +6904,7 @@ public final class RadApiCollector implements Collector {
     res.setClzName("com.apihug.rad.api.role.RoleSummary");
     res.setName("RoleSummary");
     res.setProtoFrom("com/apihug/rad/api/role/api.proto");
-    res.setProtoLine(297);
+    res.setProtoLine(292);
     res.setProtoColumn(1);
     res.setProtoEntity("RoleSummary");
     res.setDescription("角色摘要信息（列表用）");
@@ -8999,7 +6929,7 @@ public final class RadApiCollector implements Collector {
     _id.setName("id");
     _id.setFieldName("id");
     _id.setTag(1);
-    _id.setProtoLine(305);
+    _id.setProtoLine(300);
     _id.setProtoColumn(3);
     _id.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -9018,7 +6948,7 @@ public final class RadApiCollector implements Collector {
     _roleCode.setName("role_code");
     _roleCode.setFieldName("roleCode");
     _roleCode.setTag(2);
-    _roleCode.setProtoLine(312);
+    _roleCode.setProtoLine(307);
     _roleCode.setProtoColumn(3);
     _roleCode.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -9044,7 +6974,7 @@ public final class RadApiCollector implements Collector {
     _roleName.setName("role_name");
     _roleName.setFieldName("roleName");
     _roleName.setTag(3);
-    _roleName.setProtoLine(319);
+    _roleName.setProtoLine(314);
     _roleName.setProtoColumn(3);
     _roleName.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -9070,7 +7000,7 @@ public final class RadApiCollector implements Collector {
     _status.setName("status");
     _status.setFieldName("status");
     _status.setTag(4);
-    _status.setProtoLine(326);
+    _status.setProtoLine(321);
     _status.setProtoColumn(3);
     _status.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -9091,7 +7021,7 @@ public final class RadApiCollector implements Collector {
     res.setClzName("com.apihug.rad.api.role.SearchRolesRequest");
     res.setName("SearchRolesRequest");
     res.setProtoFrom("com/apihug/rad/api/role/api.proto");
-    res.setProtoLine(387);
+    res.setProtoLine(382);
     res.setProtoColumn(1);
     res.setProtoEntity("SearchRolesRequest");
     res.setDescription("搜索角色请求");
@@ -9116,7 +7046,7 @@ public final class RadApiCollector implements Collector {
     _keyword.setName("keyword");
     _keyword.setFieldName("keyword");
     _keyword.setTag(1);
-    _keyword.setProtoLine(395);
+    _keyword.setProtoLine(390);
     _keyword.setProtoColumn(3);
     _keyword.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -9133,7 +7063,7 @@ public final class RadApiCollector implements Collector {
     _status.setName("status");
     _status.setFieldName("status");
     _status.setTag(2);
-    _status.setProtoLine(400);
+    _status.setProtoLine(395);
     _status.setProtoColumn(3);
     _status.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -9153,7 +7083,7 @@ public final class RadApiCollector implements Collector {
     res.setClzName("com.apihug.rad.api.role.UpdateRoleRequest");
     res.setName("UpdateRoleRequest");
     res.setProtoFrom("com/apihug/rad/api/role/api.proto");
-    res.setProtoLine(267);
+    res.setProtoLine(262);
     res.setProtoColumn(1);
     res.setProtoEntity("UpdateRoleRequest");
     res.setDescription("更新角色请求");
@@ -9178,7 +7108,7 @@ public final class RadApiCollector implements Collector {
     _roleName.setName("role_name");
     _roleName.setFieldName("roleName");
     _roleName.setTag(1);
-    _roleName.setProtoLine(275);
+    _roleName.setProtoLine(270);
     _roleName.setProtoColumn(3);
     _roleName.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -9205,7 +7135,7 @@ public final class RadApiCollector implements Collector {
     _description.setName("description");
     _description.setFieldName("description");
     _description.setTag(2);
-    _description.setProtoLine(283);
+    _description.setProtoLine(278);
     _description.setProtoColumn(3);
     _description.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -9231,7 +7161,7 @@ public final class RadApiCollector implements Collector {
     _status.setName("status");
     _status.setFieldName("status");
     _status.setTag(3);
-    _status.setProtoLine(290);
+    _status.setProtoLine(285);
     _status.setProtoColumn(3);
     _status.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -9252,7 +7182,7 @@ public final class RadApiCollector implements Collector {
     res.setClzName("com.apihug.rad.api.tenant.ConfigureTenantRequest");
     res.setName("ConfigureTenantRequest");
     res.setProtoFrom("com/apihug/rad/api/tenant/api.proto");
-    res.setProtoLine(210);
+    res.setProtoLine(237);
     res.setProtoColumn(1);
     res.setProtoEntity("ConfigureTenantRequest");
     res.setDescription("配置租户请求");
@@ -9272,30 +7202,30 @@ public final class RadApiCollector implements Collector {
         return res;
       }
     }.get());
-    ComponentItem _maxUsers = new ComponentItem();
-    _maxUsers.setClzName("java.lang.Integer");
-    _maxUsers.setName("max_users");
-    _maxUsers.setFieldName("maxUsers");
-    _maxUsers.setTag(1);
-    _maxUsers.setProtoLine(218);
-    _maxUsers.setProtoColumn(3);
-    _maxUsers.setSchema(new Supplier<JSONSchema>() {
+    ComponentItem _maxMembers = new ComponentItem();
+    _maxMembers.setClzName("java.lang.Integer");
+    _maxMembers.setName("max_members");
+    _maxMembers.setFieldName("maxMembers");
+    _maxMembers.setTag(1);
+    _maxMembers.setProtoLine(245);
+    _maxMembers.setProtoColumn(3);
+    _maxMembers.setSchema(new Supplier<JSONSchema>() {
       @Override
       public JSONSchema get() {
         JSONSchema res  = new JSONSchema();
-        res.setDescription("最大用户数");
+        res.setDescription("最大成员数");
         res.setExample("100");
         res.setMinimum(1.0D);
         return res;
       }
     }.get());
-    res.addItem(_maxUsers);
+    res.addItem(_maxMembers);
     ComponentItem _maxStorageMb = new ComponentItem();
     _maxStorageMb.setClzName("java.lang.Long");
     _maxStorageMb.setName("max_storage_mb");
     _maxStorageMb.setFieldName("maxStorageMb");
     _maxStorageMb.setTag(2);
-    _maxStorageMb.setProtoLine(224);
+    _maxStorageMb.setProtoLine(251);
     _maxStorageMb.setProtoColumn(3);
     _maxStorageMb.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -9313,7 +7243,7 @@ public final class RadApiCollector implements Collector {
     _enabledModules.setName("enabled_modules");
     _enabledModules.setFieldName("enabledModules");
     _enabledModules.setTag(3);
-    _enabledModules.setProtoLine(230);
+    _enabledModules.setProtoLine(257);
     _enabledModules.setProtoColumn(3);
     _enabledModules.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -9331,7 +7261,7 @@ public final class RadApiCollector implements Collector {
     _expiryDate.setName("expiry_date");
     _expiryDate.setFieldName("expiryDate");
     _expiryDate.setTag(4);
-    _expiryDate.setProtoLine(235);
+    _expiryDate.setProtoLine(262);
     _expiryDate.setProtoColumn(3);
     _expiryDate.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -9352,7 +7282,7 @@ public final class RadApiCollector implements Collector {
     res.setClzName("com.apihug.rad.api.tenant.CreateTenantRequest");
     res.setName("CreateTenantRequest");
     res.setProtoFrom("com/apihug/rad/api/tenant/api.proto");
-    res.setProtoLine(126);
+    res.setProtoLine(142);
     res.setProtoColumn(1);
     res.setProtoEntity("CreateTenantRequest");
     res.setDescription("创建租户请求");
@@ -9377,7 +7307,7 @@ public final class RadApiCollector implements Collector {
     _tenantCode.setName("tenant_code");
     _tenantCode.setFieldName("tenantCode");
     _tenantCode.setTag(1);
-    _tenantCode.setProtoLine(134);
+    _tenantCode.setProtoLine(150);
     _tenantCode.setProtoColumn(3);
     _tenantCode.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -9404,7 +7334,7 @@ public final class RadApiCollector implements Collector {
     _tenantName.setName("tenant_name");
     _tenantName.setFieldName("tenantName");
     _tenantName.setTag(2);
-    _tenantName.setProtoLine(142);
+    _tenantName.setProtoLine(158);
     _tenantName.setProtoColumn(3);
     _tenantName.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -9431,7 +7361,7 @@ public final class RadApiCollector implements Collector {
     _contactEmail.setName("contact_email");
     _contactEmail.setFieldName("contactEmail");
     _contactEmail.setTag(3);
-    _contactEmail.setProtoLine(150);
+    _contactEmail.setProtoLine(166);
     _contactEmail.setProtoColumn(3);
     _contactEmail.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -9458,7 +7388,7 @@ public final class RadApiCollector implements Collector {
     _contactPhone.setName("contact_phone");
     _contactPhone.setFieldName("contactPhone");
     _contactPhone.setTag(4);
-    _contactPhone.setProtoLine(158);
+    _contactPhone.setProtoLine(174);
     _contactPhone.setProtoColumn(3);
     _contactPhone.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -9484,7 +7414,7 @@ public final class RadApiCollector implements Collector {
     _status.setName("status");
     _status.setFieldName("status");
     _status.setTag(5);
-    _status.setProtoLine(165);
+    _status.setProtoLine(181);
     _status.setProtoColumn(3);
     _status.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -9497,7 +7427,104 @@ public final class RadApiCollector implements Collector {
       }
     }.get());
     res.addItem(_status);
+    ComponentItem _isPlatform = new ComponentItem();
+    _isPlatform.setClzName("java.lang.Boolean");
+    _isPlatform.setName("is_platform");
+    _isPlatform.setFieldName("isPlatform");
+    _isPlatform.setTag(6);
+    _isPlatform.setProtoLine(187);
+    _isPlatform.setProtoColumn(3);
+    _isPlatform.setSchema(new Supplier<JSONSchema>() {
+      @Override
+      public JSONSchema get() {
+        JSONSchema res  = new JSONSchema();
+        res.setDescription("是否为平台租户");
+        res.setExample("false");
+        return res;
+      }
+    }.get());
+    res.addItem(_isPlatform);
+    ComponentItem _description = new ComponentItem();
+    _description.setClzName("java.lang.String");
+    _description.setName("description");
+    _description.setFieldName("description");
+    _description.setTag(7);
+    _description.setProtoLine(192);
+    _description.setProtoColumn(3);
+    _description.setSchema(new Supplier<JSONSchema>() {
+      @Override
+      public JSONSchema get() {
+        JSONSchema res  = new JSONSchema();
+        res.setDescription("租户描述");
+        res.setExample("企业管理平台");
+        res.setMaxLength(500l);
+        return res;
+      }
+    }.get());
+    res.addItem(_description);
     components.put("com.apihug.rad.api.tenant.CreateTenantRequest", res);
+  }
+
+  void initComponentapi_tenantSearchTenantsRequest() {
+    Component res = new Component();
+    res.setClzName("com.apihug.rad.api.tenant.SearchTenantsRequest");
+    res.setName("SearchTenantsRequest");
+    res.setProtoFrom("com/apihug/rad/api/tenant/api.proto");
+    res.setProtoLine(379);
+    res.setProtoColumn(1);
+    res.setProtoEntity("SearchTenantsRequest");
+    res.setDescription("搜索租户请求");
+    res.setSchema(new Supplier<Schema>() {
+      @Override
+      public Schema get() {
+        Schema res  = new Schema();
+        res.setJsonSchema(new Supplier<JSONSchema>() {
+          @Override
+          public JSONSchema get() {
+            JSONSchema res  = new JSONSchema();
+            res.setTitle("SearchTenantsRequest");
+            res.setDescription("搜索租户请求");
+            return res;
+          }
+        }.get());
+        return res;
+      }
+    }.get());
+    ComponentItem _keyword = new ComponentItem();
+    _keyword.setClzName("java.lang.String");
+    _keyword.setName("keyword");
+    _keyword.setFieldName("keyword");
+    _keyword.setTag(1);
+    _keyword.setProtoLine(387);
+    _keyword.setProtoColumn(3);
+    _keyword.setSchema(new Supplier<JSONSchema>() {
+      @Override
+      public JSONSchema get() {
+        JSONSchema res  = new JSONSchema();
+        res.setDescription("搜索关键词（租户名称或代码）");
+        res.setExample("acme");
+        return res;
+      }
+    }.get());
+    res.addItem(_keyword);
+    ComponentItem _status = new ComponentItem();
+    _status.setClzName("com.apihug.rad.infra.tenant.TenantStatusEnum");
+    _status.setName("status");
+    _status.setFieldName("status");
+    _status.setTag(2);
+    _status.setProtoLine(392);
+    _status.setProtoColumn(3);
+    _status.setSchema(new Supplier<JSONSchema>() {
+      @Override
+      public JSONSchema get() {
+        JSONSchema res  = new JSONSchema();
+        res.setDescription("租户状态筛选");
+        res.setExample("ACTIVE");
+        return res;
+      }
+    }.get());
+    res.addItem(_status);
+    components.put("com.apihug.rad.api.tenant.SearchTenantsRequest", res);
   }
 
   void initComponentapi_tenantTenantDetail() {
@@ -9505,7 +7532,7 @@ public final class RadApiCollector implements Collector {
     res.setClzName("com.apihug.rad.api.tenant.TenantDetail");
     res.setName("TenantDetail");
     res.setProtoFrom("com/apihug/rad/api/tenant/api.proto");
-    res.setProtoLine(278);
+    res.setProtoLine(305);
     res.setProtoColumn(1);
     res.setProtoEntity("TenantDetail");
     res.setDescription("租户详情信息");
@@ -9530,7 +7557,7 @@ public final class RadApiCollector implements Collector {
     _id.setName("id");
     _id.setFieldName("id");
     _id.setTag(1);
-    _id.setProtoLine(286);
+    _id.setProtoLine(313);
     _id.setProtoColumn(3);
     _id.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -9549,7 +7576,7 @@ public final class RadApiCollector implements Collector {
     _tenantCode.setName("tenant_code");
     _tenantCode.setFieldName("tenantCode");
     _tenantCode.setTag(2);
-    _tenantCode.setProtoLine(293);
+    _tenantCode.setProtoLine(320);
     _tenantCode.setProtoColumn(3);
     _tenantCode.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -9575,7 +7602,7 @@ public final class RadApiCollector implements Collector {
     _tenantName.setName("tenant_name");
     _tenantName.setFieldName("tenantName");
     _tenantName.setTag(3);
-    _tenantName.setProtoLine(300);
+    _tenantName.setProtoLine(327);
     _tenantName.setProtoColumn(3);
     _tenantName.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -9601,7 +7628,7 @@ public final class RadApiCollector implements Collector {
     _contactEmail.setName("contact_email");
     _contactEmail.setFieldName("contactEmail");
     _contactEmail.setTag(4);
-    _contactEmail.setProtoLine(307);
+    _contactEmail.setProtoLine(334);
     _contactEmail.setProtoColumn(3);
     _contactEmail.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -9626,7 +7653,7 @@ public final class RadApiCollector implements Collector {
     _contactPhone.setName("contact_phone");
     _contactPhone.setFieldName("contactPhone");
     _contactPhone.setTag(5);
-    _contactPhone.setProtoLine(313);
+    _contactPhone.setProtoLine(340);
     _contactPhone.setProtoColumn(3);
     _contactPhone.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -9651,7 +7678,7 @@ public final class RadApiCollector implements Collector {
     _status.setName("status");
     _status.setFieldName("status");
     _status.setTag(6);
-    _status.setProtoLine(319);
+    _status.setProtoLine(346);
     _status.setProtoColumn(3);
     _status.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -9664,29 +7691,29 @@ public final class RadApiCollector implements Collector {
       }
     }.get());
     res.addItem(_status);
-    ComponentItem _maxUsers = new ComponentItem();
-    _maxUsers.setClzName("java.lang.Integer");
-    _maxUsers.setName("max_users");
-    _maxUsers.setFieldName("maxUsers");
-    _maxUsers.setTag(7);
-    _maxUsers.setProtoLine(325);
-    _maxUsers.setProtoColumn(3);
-    _maxUsers.setSchema(new Supplier<JSONSchema>() {
+    ComponentItem _maxMembers = new ComponentItem();
+    _maxMembers.setClzName("java.lang.Integer");
+    _maxMembers.setName("max_members");
+    _maxMembers.setFieldName("maxMembers");
+    _maxMembers.setTag(7);
+    _maxMembers.setProtoLine(352);
+    _maxMembers.setProtoColumn(3);
+    _maxMembers.setSchema(new Supplier<JSONSchema>() {
       @Override
       public JSONSchema get() {
         JSONSchema res  = new JSONSchema();
-        res.setDescription("最大用户数");
+        res.setDescription("最大成员数");
         res.setExample("100");
         return res;
       }
     }.get());
-    res.addItem(_maxUsers);
+    res.addItem(_maxMembers);
     ComponentItem _maxStorageMb = new ComponentItem();
     _maxStorageMb.setClzName("java.lang.Long");
     _maxStorageMb.setName("max_storage_mb");
     _maxStorageMb.setFieldName("maxStorageMb");
     _maxStorageMb.setTag(8);
-    _maxStorageMb.setProtoLine(330);
+    _maxStorageMb.setProtoLine(357);
     _maxStorageMb.setProtoColumn(3);
     _maxStorageMb.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -9698,12 +7725,46 @@ public final class RadApiCollector implements Collector {
       }
     }.get());
     res.addItem(_maxStorageMb);
+    ComponentItem _isPlatform = new ComponentItem();
+    _isPlatform.setClzName("java.lang.Boolean");
+    _isPlatform.setName("is_platform");
+    _isPlatform.setFieldName("isPlatform");
+    _isPlatform.setTag(9);
+    _isPlatform.setProtoLine(362);
+    _isPlatform.setProtoColumn(3);
+    _isPlatform.setSchema(new Supplier<JSONSchema>() {
+      @Override
+      public JSONSchema get() {
+        JSONSchema res  = new JSONSchema();
+        res.setDescription("是否为平台租户");
+        res.setExample("false");
+        return res;
+      }
+    }.get());
+    res.addItem(_isPlatform);
+    ComponentItem _description = new ComponentItem();
+    _description.setClzName("java.lang.String");
+    _description.setName("description");
+    _description.setFieldName("description");
+    _description.setTag(10);
+    _description.setProtoLine(367);
+    _description.setProtoColumn(3);
+    _description.setSchema(new Supplier<JSONSchema>() {
+      @Override
+      public JSONSchema get() {
+        JSONSchema res  = new JSONSchema();
+        res.setDescription("租户描述");
+        res.setExample("企业管理平台");
+        return res;
+      }
+    }.get());
+    res.addItem(_description);
     ComponentItem _createdAt = new ComponentItem();
     _createdAt.setClzName("java.time.LocalDateTime");
     _createdAt.setName("created_at");
     _createdAt.setFieldName("createdAt");
-    _createdAt.setTag(9);
-    _createdAt.setProtoLine(335);
+    _createdAt.setTag(11);
+    _createdAt.setProtoLine(372);
     _createdAt.setProtoColumn(3);
     _createdAt.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -9724,7 +7785,7 @@ public final class RadApiCollector implements Collector {
     res.setClzName("com.apihug.rad.api.tenant.TenantSummary");
     res.setName("TenantSummary");
     res.setProtoFrom("com/apihug/rad/api/tenant/api.proto");
-    res.setProtoLine(242);
+    res.setProtoLine(269);
     res.setProtoColumn(1);
     res.setProtoEntity("TenantSummary");
     res.setDescription("租户摘要信息");
@@ -9749,7 +7810,7 @@ public final class RadApiCollector implements Collector {
     _id.setName("id");
     _id.setFieldName("id");
     _id.setTag(1);
-    _id.setProtoLine(250);
+    _id.setProtoLine(277);
     _id.setProtoColumn(3);
     _id.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -9768,7 +7829,7 @@ public final class RadApiCollector implements Collector {
     _tenantCode.setName("tenant_code");
     _tenantCode.setFieldName("tenantCode");
     _tenantCode.setTag(2);
-    _tenantCode.setProtoLine(257);
+    _tenantCode.setProtoLine(284);
     _tenantCode.setProtoColumn(3);
     _tenantCode.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -9794,7 +7855,7 @@ public final class RadApiCollector implements Collector {
     _tenantName.setName("tenant_name");
     _tenantName.setFieldName("tenantName");
     _tenantName.setTag(3);
-    _tenantName.setProtoLine(264);
+    _tenantName.setProtoLine(291);
     _tenantName.setProtoColumn(3);
     _tenantName.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -9820,7 +7881,7 @@ public final class RadApiCollector implements Collector {
     _status.setName("status");
     _status.setFieldName("status");
     _status.setTag(4);
-    _status.setProtoLine(271);
+    _status.setProtoLine(298);
     _status.setProtoColumn(3);
     _status.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -9841,7 +7902,7 @@ public final class RadApiCollector implements Collector {
     res.setClzName("com.apihug.rad.api.tenant.UpdateTenantRequest");
     res.setName("UpdateTenantRequest");
     res.setProtoFrom("com/apihug/rad/api/tenant/api.proto");
-    res.setProtoLine(172);
+    res.setProtoLine(199);
     res.setProtoColumn(1);
     res.setProtoEntity("UpdateTenantRequest");
     res.setDescription("更新租户请求");
@@ -9866,7 +7927,7 @@ public final class RadApiCollector implements Collector {
     _tenantName.setName("tenant_name");
     _tenantName.setFieldName("tenantName");
     _tenantName.setTag(1);
-    _tenantName.setProtoLine(180);
+    _tenantName.setProtoLine(207);
     _tenantName.setProtoColumn(3);
     _tenantName.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -9893,7 +7954,7 @@ public final class RadApiCollector implements Collector {
     _contactEmail.setName("contact_email");
     _contactEmail.setFieldName("contactEmail");
     _contactEmail.setTag(2);
-    _contactEmail.setProtoLine(188);
+    _contactEmail.setProtoLine(215);
     _contactEmail.setProtoColumn(3);
     _contactEmail.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -9920,7 +7981,7 @@ public final class RadApiCollector implements Collector {
     _contactPhone.setName("contact_phone");
     _contactPhone.setFieldName("contactPhone");
     _contactPhone.setTag(3);
-    _contactPhone.setProtoLine(196);
+    _contactPhone.setProtoLine(223);
     _contactPhone.setProtoColumn(3);
     _contactPhone.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -9946,7 +8007,7 @@ public final class RadApiCollector implements Collector {
     _status.setName("status");
     _status.setFieldName("status");
     _status.setTag(4);
-    _status.setProtoLine(203);
+    _status.setProtoLine(230);
     _status.setProtoColumn(3);
     _status.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -9962,12 +8023,1047 @@ public final class RadApiCollector implements Collector {
     components.put("com.apihug.rad.api.tenant.UpdateTenantRequest", res);
   }
 
+  void initComponentapi_tenantAddTenantMemberRequest() {
+    Component res = new Component();
+    res.setClzName("com.apihug.rad.api.tenant.AddTenantMemberRequest");
+    res.setName("AddTenantMemberRequest");
+    res.setProtoFrom("com/apihug/rad/api/tenant/member.proto");
+    res.setProtoLine(395);
+    res.setProtoColumn(1);
+    res.setProtoEntity("AddTenantMemberRequest");
+    res.setDescription("添加租户成员请求");
+    res.setSchema(new Supplier<Schema>() {
+      @Override
+      public Schema get() {
+        Schema res  = new Schema();
+        res.setJsonSchema(new Supplier<JSONSchema>() {
+          @Override
+          public JSONSchema get() {
+            JSONSchema res  = new JSONSchema();
+            res.setTitle("AddTenantMemberRequest");
+            res.setDescription("添加租户成员请求");
+            return res;
+          }
+        }.get());
+        return res;
+      }
+    }.get());
+    ComponentItem _customerId = new ComponentItem();
+    _customerId.setClzName("java.lang.Long");
+    _customerId.setName("customer_id");
+    _customerId.setFieldName("customerId");
+    _customerId.setTag(1);
+    _customerId.setProtoLine(403);
+    _customerId.setProtoColumn(3);
+    _customerId.setSchema(new Supplier<JSONSchema>() {
+      @Override
+      public JSONSchema get() {
+        JSONSchema res  = new JSONSchema();
+        res.setDescription("客户 ID");
+        res.setExample("1");
+        res.setMinimum(1.0D);
+        res.setEmpty(false);
+        return res;
+      }
+    }.get());
+    res.addItem(_customerId);
+    ComponentItem _departmentId = new ComponentItem();
+    _departmentId.setClzName("java.lang.Long");
+    _departmentId.setName("department_id");
+    _departmentId.setFieldName("departmentId");
+    _departmentId.setTag(2);
+    _departmentId.setProtoLine(410);
+    _departmentId.setProtoColumn(3);
+    _departmentId.setSchema(new Supplier<JSONSchema>() {
+      @Override
+      public JSONSchema get() {
+        JSONSchema res  = new JSONSchema();
+        res.setDescription("部门 ID");
+        res.setExample("1");
+        return res;
+      }
+    }.get());
+    res.addItem(_departmentId);
+    ComponentItem _position = new ComponentItem();
+    _position.setClzName("java.lang.String");
+    _position.setName("position");
+    _position.setFieldName("position");
+    _position.setTag(3);
+    _position.setProtoLine(415);
+    _position.setProtoColumn(3);
+    _position.setSchema(new Supplier<JSONSchema>() {
+      @Override
+      public JSONSchema get() {
+        JSONSchema res  = new JSONSchema();
+        res.setDescription("职位");
+        res.setExample("软件工程师");
+        res.setMaxLength(100l);
+        return res;
+      }
+    }.get());
+    res.addItem(_position);
+    ComponentItem _memberType = new ComponentItem();
+    _memberType.setClzName("com.apihug.rad.infra.tenant.MemberTypeEnum");
+    _memberType.setName("member_type");
+    _memberType.setFieldName("memberType");
+    _memberType.setTag(4);
+    _memberType.setProtoLine(421);
+    _memberType.setProtoColumn(3);
+    _memberType.setSchema(new Supplier<JSONSchema>() {
+      @Override
+      public JSONSchema get() {
+        JSONSchema res  = new JSONSchema();
+        res.setDescription("成员类型");
+        res.setExample("FULL_TIME");
+        return res;
+      }
+    }.get());
+    res.addItem(_memberType);
+    ComponentItem _memberRole = new ComponentItem();
+    _memberRole.setClzName("com.apihug.rad.infra.tenant.MemberRoleEnum");
+    _memberRole.setName("member_role");
+    _memberRole.setFieldName("memberRole");
+    _memberRole.setTag(5);
+    _memberRole.setProtoLine(426);
+    _memberRole.setProtoColumn(3);
+    _memberRole.setSchema(new Supplier<JSONSchema>() {
+      @Override
+      public JSONSchema get() {
+        JSONSchema res  = new JSONSchema();
+        res.setDescription("成员角色");
+        res.setExample("MEMBER");
+        return res;
+      }
+    }.get());
+    res.addItem(_memberRole);
+    ComponentItem _isDefault = new ComponentItem();
+    _isDefault.setClzName("java.lang.Boolean");
+    _isDefault.setName("is_default");
+    _isDefault.setFieldName("isDefault");
+    _isDefault.setTag(6);
+    _isDefault.setProtoLine(431);
+    _isDefault.setProtoColumn(3);
+    _isDefault.setSchema(new Supplier<JSONSchema>() {
+      @Override
+      public JSONSchema get() {
+        JSONSchema res  = new JSONSchema();
+        res.setDescription("是否设为默认租户");
+        res.setExample("false");
+        return res;
+      }
+    }.get());
+    res.addItem(_isDefault);
+    components.put("com.apihug.rad.api.tenant.AddTenantMemberRequest", res);
+  }
+
+  void initComponentapi_tenantAssignMemberDepartmentRequest() {
+    Component res = new Component();
+    res.setClzName("com.apihug.rad.api.tenant.AssignMemberDepartmentRequest");
+    res.setName("AssignMemberDepartmentRequest");
+    res.setProtoFrom("com/apihug/rad/api/tenant/member.proto");
+    res.setProtoLine(452);
+    res.setProtoColumn(1);
+    res.setProtoEntity("AssignMemberDepartmentRequest");
+    res.setDescription("分配成员部门请求");
+    res.setSchema(new Supplier<Schema>() {
+      @Override
+      public Schema get() {
+        Schema res  = new Schema();
+        res.setJsonSchema(new Supplier<JSONSchema>() {
+          @Override
+          public JSONSchema get() {
+            JSONSchema res  = new JSONSchema();
+            res.setTitle("AssignMemberDepartmentRequest");
+            res.setDescription("分配成员部门请求");
+            return res;
+          }
+        }.get());
+        return res;
+      }
+    }.get());
+    ComponentItem _departmentId = new ComponentItem();
+    _departmentId.setClzName("java.lang.Long");
+    _departmentId.setName("department_id");
+    _departmentId.setFieldName("departmentId");
+    _departmentId.setTag(1);
+    _departmentId.setProtoLine(460);
+    _departmentId.setProtoColumn(3);
+    _departmentId.setSchema(new Supplier<JSONSchema>() {
+      @Override
+      public JSONSchema get() {
+        JSONSchema res  = new JSONSchema();
+        res.setDescription("部门 ID");
+        res.setExample("1");
+        res.setMinimum(1.0D);
+        res.setEmpty(false);
+        return res;
+      }
+    }.get());
+    res.addItem(_departmentId);
+    ComponentItem _position = new ComponentItem();
+    _position.setClzName("java.lang.String");
+    _position.setName("position");
+    _position.setFieldName("position");
+    _position.setTag(2);
+    _position.setProtoLine(467);
+    _position.setProtoColumn(3);
+    _position.setSchema(new Supplier<JSONSchema>() {
+      @Override
+      public JSONSchema get() {
+        JSONSchema res  = new JSONSchema();
+        res.setDescription("新职位");
+        res.setExample("技术经理");
+        res.setMaxLength(100l);
+        return res;
+      }
+    }.get());
+    res.addItem(_position);
+    components.put("com.apihug.rad.api.tenant.AssignMemberDepartmentRequest", res);
+  }
+
+  void initComponentapi_tenantAssignRolesRequest() {
+    Component res = new Component();
+    res.setClzName("com.apihug.rad.api.tenant.AssignRolesRequest");
+    res.setName("AssignRolesRequest");
+    res.setProtoFrom("com/apihug/rad/api/tenant/member.proto");
+    res.setProtoLine(634);
+    res.setProtoColumn(1);
+    res.setProtoEntity("AssignRolesRequest");
+    res.setDescription("分配角色请求\r\n"
+            + "分配 RBAC 角色请求（全量覆盖）");
+    res.setSchema(new Supplier<Schema>() {
+      @Override
+      public Schema get() {
+        Schema res  = new Schema();
+        res.setJsonSchema(new Supplier<JSONSchema>() {
+          @Override
+          public JSONSchema get() {
+            JSONSchema res  = new JSONSchema();
+            res.setTitle("AssignRolesRequest");
+            res.setDescription("分配 RBAC 角色请求（全量覆盖）");
+            return res;
+          }
+        }.get());
+        return res;
+      }
+    }.get());
+    ComponentItem _roleIds = new ComponentItem();
+    _roleIds.setClzName("java.lang.Long");
+    _roleIds.setName("role_ids");
+    _roleIds.setFieldName("roleIds");
+    _roleIds.setTag(1);
+    _roleIds.setProtoLine(642);
+    _roleIds.setProtoColumn(3);
+    _roleIds.setSchema(new Supplier<JSONSchema>() {
+      @Override
+      public JSONSchema get() {
+        JSONSchema res  = new JSONSchema();
+        res.setDescription("RBAC 角色 ID 列表");
+        res.setExample("[1, 2, 3]");
+        res.setEmpty(false);
+        return res;
+      }
+    }.get());
+    _roleIds.setComplex(ComponentItem.Complex.LIST);
+    res.addItem(_roleIds);
+    components.put("com.apihug.rad.api.tenant.AssignRolesRequest", res);
+  }
+
+  void initComponentapi_tenantGetTenantMembersRequest() {
+    Component res = new Component();
+    res.setClzName("com.apihug.rad.api.tenant.GetTenantMembersRequest");
+    res.setName("GetTenantMembersRequest");
+    res.setProtoFrom("com/apihug/rad/api/tenant/member.proto");
+    res.setProtoLine(372);
+    res.setProtoColumn(1);
+    res.setProtoEntity("GetTenantMembersRequest");
+    res.setDescription("============ 消息类型定义 ============\r\n"
+            + "获取租户成员列表请求");
+    res.setSchema(new Supplier<Schema>() {
+      @Override
+      public Schema get() {
+        Schema res  = new Schema();
+        res.setJsonSchema(new Supplier<JSONSchema>() {
+          @Override
+          public JSONSchema get() {
+            JSONSchema res  = new JSONSchema();
+            res.setTitle("GetTenantMembersRequest");
+            res.setDescription("获取租户成员列表请求");
+            return res;
+          }
+        }.get());
+        return res;
+      }
+    }.get());
+    ComponentItem _status = new ComponentItem();
+    _status.setClzName("com.apihug.rad.infra.tenant.TenantMemberStatusEnum");
+    _status.setName("status");
+    _status.setFieldName("status");
+    _status.setTag(1);
+    _status.setProtoLine(380);
+    _status.setProtoColumn(3);
+    _status.setSchema(new Supplier<JSONSchema>() {
+      @Override
+      public JSONSchema get() {
+        JSONSchema res  = new JSONSchema();
+        res.setDescription("成员状态筛选");
+        res.setExample("ACTIVE");
+        return res;
+      }
+    }.get());
+    res.addItem(_status);
+    ComponentItem _memberRole = new ComponentItem();
+    _memberRole.setClzName("com.apihug.rad.infra.tenant.MemberRoleEnum");
+    _memberRole.setName("member_role");
+    _memberRole.setFieldName("memberRole");
+    _memberRole.setTag(2);
+    _memberRole.setProtoLine(385);
+    _memberRole.setProtoColumn(3);
+    _memberRole.setSchema(new Supplier<JSONSchema>() {
+      @Override
+      public JSONSchema get() {
+        JSONSchema res  = new JSONSchema();
+        res.setDescription("成员角色筛选");
+        return res;
+      }
+    }.get());
+    res.addItem(_memberRole);
+    ComponentItem _keyword = new ComponentItem();
+    _keyword.setClzName("java.lang.String");
+    _keyword.setName("keyword");
+    _keyword.setFieldName("keyword");
+    _keyword.setTag(3);
+    _keyword.setProtoLine(389);
+    _keyword.setProtoColumn(3);
+    _keyword.setSchema(new Supplier<JSONSchema>() {
+      @Override
+      public JSONSchema get() {
+        JSONSchema res  = new JSONSchema();
+        res.setDescription("搜索关键词（用户名或邮箱）");
+        res.setExample("zhangsan");
+        return res;
+      }
+    }.get());
+    res.addItem(_keyword);
+    components.put("com.apihug.rad.api.tenant.GetTenantMembersRequest", res);
+  }
+
+  void initComponentapi_tenantMemberRoleItem() {
+    Component res = new Component();
+    res.setClzName("com.apihug.rad.api.tenant.MemberRoleItem");
+    res.setName("MemberRoleItem");
+    res.setProtoFrom("com/apihug/rad/api/tenant/member.proto");
+    res.setProtoLine(670);
+    res.setProtoColumn(1);
+    res.setProtoEntity("MemberRoleItem");
+    res.setDescription("成员角色项\r\n"
+            + "成员的 RBAC 角色信息");
+    res.setSchema(new Supplier<Schema>() {
+      @Override
+      public Schema get() {
+        Schema res  = new Schema();
+        res.setJsonSchema(new Supplier<JSONSchema>() {
+          @Override
+          public JSONSchema get() {
+            JSONSchema res  = new JSONSchema();
+            res.setTitle("MemberRoleItem");
+            res.setDescription("成员的 RBAC 角色信息");
+            return res;
+          }
+        }.get());
+        return res;
+      }
+    }.get());
+    ComponentItem _id = new ComponentItem();
+    _id.setClzName("java.lang.Long");
+    _id.setName("id");
+    _id.setFieldName("id");
+    _id.setTag(1);
+    _id.setProtoLine(678);
+    _id.setProtoColumn(3);
+    _id.setSchema(new Supplier<JSONSchema>() {
+      @Override
+      public JSONSchema get() {
+        JSONSchema res  = new JSONSchema();
+        res.setDescription("角色 ID");
+        res.setExample("1");
+        res.setEmpty(false);
+        return res;
+      }
+    }.get());
+    res.addItem(_id);
+    ComponentItem _roleCode = new ComponentItem();
+    _roleCode.setClzName("java.lang.String");
+    _roleCode.setName("role_code");
+    _roleCode.setFieldName("roleCode");
+    _roleCode.setTag(2);
+    _roleCode.setProtoLine(684);
+    _roleCode.setProtoColumn(3);
+    _roleCode.setSchema(new Supplier<JSONSchema>() {
+      @Override
+      public JSONSchema get() {
+        JSONSchema res  = new JSONSchema();
+        res.setDescription("角色代码");
+        res.setExample("finance_manager");
+        res.setEmpty(false);
+        return res;
+      }
+    }.get());
+    res.addItem(_roleCode);
+    ComponentItem _roleName = new ComponentItem();
+    _roleName.setClzName("java.lang.String");
+    _roleName.setName("role_name");
+    _roleName.setFieldName("roleName");
+    _roleName.setTag(3);
+    _roleName.setProtoLine(690);
+    _roleName.setProtoColumn(3);
+    _roleName.setSchema(new Supplier<JSONSchema>() {
+      @Override
+      public JSONSchema get() {
+        JSONSchema res  = new JSONSchema();
+        res.setDescription("角色名称");
+        res.setExample("财务经理");
+        res.setEmpty(false);
+        return res;
+      }
+    }.get());
+    res.addItem(_roleName);
+    components.put("com.apihug.rad.api.tenant.MemberRoleItem", res);
+  }
+
+  void initComponentapi_tenantMemberRoleSummary() {
+    Component res = new Component();
+    res.setClzName("com.apihug.rad.api.tenant.MemberRoleSummary");
+    res.setName("MemberRoleSummary");
+    res.setProtoFrom("com/apihug/rad/api/tenant/member.proto");
+    res.setProtoLine(650);
+    res.setProtoColumn(1);
+    res.setProtoEntity("MemberRoleSummary");
+    res.setDescription("成员角色摘要\r\n"
+            + "成员角色摘要");
+    res.setSchema(new Supplier<Schema>() {
+      @Override
+      public Schema get() {
+        Schema res  = new Schema();
+        res.setJsonSchema(new Supplier<JSONSchema>() {
+          @Override
+          public JSONSchema get() {
+            JSONSchema res  = new JSONSchema();
+            res.setTitle("MemberRoleSummary");
+            res.setDescription("成员角色摘要");
+            return res;
+          }
+        }.get());
+        return res;
+      }
+    }.get());
+    ComponentItem _memberId = new ComponentItem();
+    _memberId.setClzName("java.lang.Long");
+    _memberId.setName("member_id");
+    _memberId.setFieldName("memberId");
+    _memberId.setTag(1);
+    _memberId.setProtoLine(658);
+    _memberId.setProtoColumn(3);
+    _memberId.setSchema(new Supplier<JSONSchema>() {
+      @Override
+      public JSONSchema get() {
+        JSONSchema res  = new JSONSchema();
+        res.setDescription("成员 ID");
+        res.setExample("1");
+        res.setEmpty(false);
+        return res;
+      }
+    }.get());
+    res.addItem(_memberId);
+    ComponentItem _roles = new ComponentItem();
+    _roles.setClzName("com.apihug.rad.api.tenant.MemberRoleItem");
+    _roles.setName("roles");
+    _roles.setFieldName("roles");
+    _roles.setTag(2);
+    _roles.setProtoLine(664);
+    _roles.setProtoColumn(3);
+    _roles.setSchema(new Supplier<JSONSchema>() {
+      @Override
+      public JSONSchema get() {
+        JSONSchema res  = new JSONSchema();
+        res.setDescription("RBAC 角色列表");
+        return res;
+      }
+    }.get());
+    _roles.setComplex(ComponentItem.Complex.LIST);
+    res.addItem(_roles);
+    components.put("com.apihug.rad.api.tenant.MemberRoleSummary", res);
+  }
+
+  void initComponentapi_tenantTenantMemberDetail() {
+    Component res = new Component();
+    res.setClzName("com.apihug.rad.api.tenant.TenantMemberDetail");
+    res.setName("TenantMemberDetail");
+    res.setProtoFrom("com/apihug/rad/api/tenant/member.proto");
+    res.setProtoLine(544);
+    res.setProtoColumn(1);
+    res.setProtoEntity("TenantMemberDetail");
+    res.setDescription("成员详情（含客户账号信息 + 成员身份信息）\r\n"
+            + "租户成员详情信息");
+    res.setSchema(new Supplier<Schema>() {
+      @Override
+      public Schema get() {
+        Schema res  = new Schema();
+        res.setJsonSchema(new Supplier<JSONSchema>() {
+          @Override
+          public JSONSchema get() {
+            JSONSchema res  = new JSONSchema();
+            res.setTitle("TenantMemberDetail");
+            res.setDescription("租户成员详情信息");
+            return res;
+          }
+        }.get());
+        return res;
+      }
+    }.get());
+    ComponentItem _id = new ComponentItem();
+    _id.setClzName("java.lang.Long");
+    _id.setName("id");
+    _id.setFieldName("id");
+    _id.setTag(1);
+    _id.setProtoLine(553);
+    _id.setProtoColumn(3);
+    _id.setSchema(new Supplier<JSONSchema>() {
+      @Override
+      public JSONSchema get() {
+        JSONSchema res  = new JSONSchema();
+        res.setDescription("成员关系 ID");
+        res.setExample("1");
+        return res;
+      }
+    }.get());
+    res.addItem(_id);
+    ComponentItem _customerId = new ComponentItem();
+    _customerId.setClzName("java.lang.Long");
+    _customerId.setName("customer_id");
+    _customerId.setFieldName("customerId");
+    _customerId.setTag(2);
+    _customerId.setProtoLine(558);
+    _customerId.setProtoColumn(3);
+    _customerId.setSchema(new Supplier<JSONSchema>() {
+      @Override
+      public JSONSchema get() {
+        JSONSchema res  = new JSONSchema();
+        res.setDescription("客户 ID");
+        res.setExample("1");
+        return res;
+      }
+    }.get());
+    res.addItem(_customerId);
+    ComponentItem _tenantId = new ComponentItem();
+    _tenantId.setClzName("java.lang.Long");
+    _tenantId.setName("tenant_id");
+    _tenantId.setFieldName("tenantId");
+    _tenantId.setTag(3);
+    _tenantId.setProtoLine(563);
+    _tenantId.setProtoColumn(3);
+    _tenantId.setSchema(new Supplier<JSONSchema>() {
+      @Override
+      public JSONSchema get() {
+        JSONSchema res  = new JSONSchema();
+        res.setDescription("租户 ID");
+        res.setExample("1");
+        return res;
+      }
+    }.get());
+    res.addItem(_tenantId);
+    ComponentItem _customerUsername = new ComponentItem();
+    _customerUsername.setClzName("java.lang.String");
+    _customerUsername.setName("customer_username");
+    _customerUsername.setFieldName("customerUsername");
+    _customerUsername.setTag(4);
+    _customerUsername.setProtoLine(569);
+    _customerUsername.setProtoColumn(3);
+    _customerUsername.setSchema(new Supplier<JSONSchema>() {
+      @Override
+      public JSONSchema get() {
+        JSONSchema res  = new JSONSchema();
+        res.setDescription("客户用户名");
+        res.setExample("zhangsan");
+        return res;
+      }
+    }.get());
+    res.addItem(_customerUsername);
+    ComponentItem _customerEmail = new ComponentItem();
+    _customerEmail.setClzName("java.lang.String");
+    _customerEmail.setName("customer_email");
+    _customerEmail.setFieldName("customerEmail");
+    _customerEmail.setTag(5);
+    _customerEmail.setProtoLine(574);
+    _customerEmail.setProtoColumn(3);
+    _customerEmail.setSchema(new Supplier<JSONSchema>() {
+      @Override
+      public JSONSchema get() {
+        JSONSchema res  = new JSONSchema();
+        res.setDescription("客户邮箱");
+        res.setExample("zhangsan@example.com");
+        return res;
+      }
+    }.get());
+    res.addItem(_customerEmail);
+    ComponentItem _customerStatus = new ComponentItem();
+    _customerStatus.setClzName("com.apihug.rad.infra.customer.CustomerStatusEnum");
+    _customerStatus.setName("customer_status");
+    _customerStatus.setFieldName("customerStatus");
+    _customerStatus.setTag(6);
+    _customerStatus.setProtoLine(579);
+    _customerStatus.setProtoColumn(3);
+    _customerStatus.setSchema(new Supplier<JSONSchema>() {
+      @Override
+      public JSONSchema get() {
+        JSONSchema res  = new JSONSchema();
+        res.setDescription("客户账号状态");
+        res.setExample("ACTIVE");
+        return res;
+      }
+    }.get());
+    res.addItem(_customerStatus);
+    ComponentItem _tenantName = new ComponentItem();
+    _tenantName.setClzName("java.lang.String");
+    _tenantName.setName("tenant_name");
+    _tenantName.setFieldName("tenantName");
+    _tenantName.setTag(7);
+    _tenantName.setProtoLine(585);
+    _tenantName.setProtoColumn(3);
+    _tenantName.setSchema(new Supplier<JSONSchema>() {
+      @Override
+      public JSONSchema get() {
+        JSONSchema res  = new JSONSchema();
+        res.setDescription("租户名称");
+        res.setExample("Acme 公司");
+        return res;
+      }
+    }.get());
+    res.addItem(_tenantName);
+    ComponentItem _tenantCode = new ComponentItem();
+    _tenantCode.setClzName("java.lang.String");
+    _tenantCode.setName("tenant_code");
+    _tenantCode.setFieldName("tenantCode");
+    _tenantCode.setTag(8);
+    _tenantCode.setProtoLine(590);
+    _tenantCode.setProtoColumn(3);
+    _tenantCode.setSchema(new Supplier<JSONSchema>() {
+      @Override
+      public JSONSchema get() {
+        JSONSchema res  = new JSONSchema();
+        res.setDescription("租户代码");
+        res.setExample("acme_corp");
+        return res;
+      }
+    }.get());
+    res.addItem(_tenantCode);
+    ComponentItem _memberType = new ComponentItem();
+    _memberType.setClzName("com.apihug.rad.infra.tenant.MemberTypeEnum");
+    _memberType.setName("member_type");
+    _memberType.setFieldName("memberType");
+    _memberType.setTag(9);
+    _memberType.setProtoLine(596);
+    _memberType.setProtoColumn(3);
+    _memberType.setSchema(new Supplier<JSONSchema>() {
+      @Override
+      public JSONSchema get() {
+        JSONSchema res  = new JSONSchema();
+        res.setDescription("成员类型");
+        res.setExample("FULL_TIME");
+        return res;
+      }
+    }.get());
+    res.addItem(_memberType);
+    ComponentItem _memberRole = new ComponentItem();
+    _memberRole.setClzName("com.apihug.rad.infra.tenant.MemberRoleEnum");
+    _memberRole.setName("member_role");
+    _memberRole.setFieldName("memberRole");
+    _memberRole.setTag(10);
+    _memberRole.setProtoLine(601);
+    _memberRole.setProtoColumn(3);
+    _memberRole.setSchema(new Supplier<JSONSchema>() {
+      @Override
+      public JSONSchema get() {
+        JSONSchema res  = new JSONSchema();
+        res.setDescription("成员角色");
+        res.setExample("MEMBER");
+        return res;
+      }
+    }.get());
+    res.addItem(_memberRole);
+    ComponentItem _status = new ComponentItem();
+    _status.setClzName("com.apihug.rad.infra.tenant.TenantMemberStatusEnum");
+    _status.setName("status");
+    _status.setFieldName("status");
+    _status.setTag(11);
+    _status.setProtoLine(606);
+    _status.setProtoColumn(3);
+    _status.setSchema(new Supplier<JSONSchema>() {
+      @Override
+      public JSONSchema get() {
+        JSONSchema res  = new JSONSchema();
+        res.setDescription("成员状态");
+        res.setExample("ACTIVE");
+        return res;
+      }
+    }.get());
+    res.addItem(_status);
+    ComponentItem _departmentId = new ComponentItem();
+    _departmentId.setClzName("java.lang.Long");
+    _departmentId.setName("department_id");
+    _departmentId.setFieldName("departmentId");
+    _departmentId.setTag(12);
+    _departmentId.setProtoLine(611);
+    _departmentId.setProtoColumn(3);
+    _departmentId.setSchema(new Supplier<JSONSchema>() {
+      @Override
+      public JSONSchema get() {
+        JSONSchema res  = new JSONSchema();
+        res.setDescription("部门 ID");
+        res.setExample("1");
+        return res;
+      }
+    }.get());
+    res.addItem(_departmentId);
+    ComponentItem _position = new ComponentItem();
+    _position.setClzName("java.lang.String");
+    _position.setName("position");
+    _position.setFieldName("position");
+    _position.setTag(13);
+    _position.setProtoLine(616);
+    _position.setProtoColumn(3);
+    _position.setSchema(new Supplier<JSONSchema>() {
+      @Override
+      public JSONSchema get() {
+        JSONSchema res  = new JSONSchema();
+        res.setDescription("职位");
+        res.setExample("软件工程师");
+        return res;
+      }
+    }.get());
+    res.addItem(_position);
+    ComponentItem _isDefault = new ComponentItem();
+    _isDefault.setClzName("java.lang.Boolean");
+    _isDefault.setName("is_default");
+    _isDefault.setFieldName("isDefault");
+    _isDefault.setTag(14);
+    _isDefault.setProtoLine(621);
+    _isDefault.setProtoColumn(3);
+    _isDefault.setSchema(new Supplier<JSONSchema>() {
+      @Override
+      public JSONSchema get() {
+        JSONSchema res  = new JSONSchema();
+        res.setDescription("是否默认租户");
+        res.setExample("false");
+        return res;
+      }
+    }.get());
+    res.addItem(_isDefault);
+    ComponentItem _createdAt = new ComponentItem();
+    _createdAt.setClzName("java.time.LocalDateTime");
+    _createdAt.setName("created_at");
+    _createdAt.setFieldName("createdAt");
+    _createdAt.setTag(15);
+    _createdAt.setProtoLine(626);
+    _createdAt.setProtoColumn(3);
+    _createdAt.setSchema(new Supplier<JSONSchema>() {
+      @Override
+      public JSONSchema get() {
+        JSONSchema res  = new JSONSchema();
+        res.setDescription("加入时间");
+        res.setExample("2024-01-15T10:30:00");
+        res.setDateFormat(DateFormat.ISO_LOCAL_DATE_TIME);
+        return res;
+      }
+    }.get());
+    res.addItem(_createdAt);
+    components.put("com.apihug.rad.api.tenant.TenantMemberDetail", res);
+  }
+
+  void initComponentapi_tenantTenantMemberSummary() {
+    Component res = new Component();
+    res.setClzName("com.apihug.rad.api.tenant.TenantMemberSummary");
+    res.setName("TenantMemberSummary");
+    res.setProtoFrom("com/apihug/rad/api/tenant/member.proto");
+    res.setProtoLine(474);
+    res.setProtoColumn(1);
+    res.setProtoEntity("TenantMemberSummary");
+    res.setDescription("租户成员摘要");
+    res.setSchema(new Supplier<Schema>() {
+      @Override
+      public Schema get() {
+        Schema res  = new Schema();
+        res.setJsonSchema(new Supplier<JSONSchema>() {
+          @Override
+          public JSONSchema get() {
+            JSONSchema res  = new JSONSchema();
+            res.setTitle("TenantMemberSummary");
+            res.setDescription("租户成员摘要");
+            return res;
+          }
+        }.get());
+        return res;
+      }
+    }.get());
+    ComponentItem _id = new ComponentItem();
+    _id.setClzName("java.lang.Long");
+    _id.setName("id");
+    _id.setFieldName("id");
+    _id.setTag(1);
+    _id.setProtoLine(482);
+    _id.setProtoColumn(3);
+    _id.setSchema(new Supplier<JSONSchema>() {
+      @Override
+      public JSONSchema get() {
+        JSONSchema res  = new JSONSchema();
+        res.setDescription("成员关系 ID");
+        res.setExample("1");
+        return res;
+      }
+    }.get());
+    res.addItem(_id);
+    ComponentItem _customerId = new ComponentItem();
+    _customerId.setClzName("java.lang.Long");
+    _customerId.setName("customer_id");
+    _customerId.setFieldName("customerId");
+    _customerId.setTag(2);
+    _customerId.setProtoLine(487);
+    _customerId.setProtoColumn(3);
+    _customerId.setSchema(new Supplier<JSONSchema>() {
+      @Override
+      public JSONSchema get() {
+        JSONSchema res  = new JSONSchema();
+        res.setDescription("客户 ID");
+        res.setExample("1");
+        return res;
+      }
+    }.get());
+    res.addItem(_customerId);
+    ComponentItem _customerUsername = new ComponentItem();
+    _customerUsername.setClzName("java.lang.String");
+    _customerUsername.setName("customer_username");
+    _customerUsername.setFieldName("customerUsername");
+    _customerUsername.setTag(3);
+    _customerUsername.setProtoLine(492);
+    _customerUsername.setProtoColumn(3);
+    _customerUsername.setSchema(new Supplier<JSONSchema>() {
+      @Override
+      public JSONSchema get() {
+        JSONSchema res  = new JSONSchema();
+        res.setDescription("客户用户名");
+        res.setExample("zhangsan");
+        return res;
+      }
+    }.get());
+    res.addItem(_customerUsername);
+    ComponentItem _customerEmail = new ComponentItem();
+    _customerEmail.setClzName("java.lang.String");
+    _customerEmail.setName("customer_email");
+    _customerEmail.setFieldName("customerEmail");
+    _customerEmail.setTag(4);
+    _customerEmail.setProtoLine(497);
+    _customerEmail.setProtoColumn(3);
+    _customerEmail.setSchema(new Supplier<JSONSchema>() {
+      @Override
+      public JSONSchema get() {
+        JSONSchema res  = new JSONSchema();
+        res.setDescription("客户邮箱");
+        res.setExample("zhangsan@example.com");
+        return res;
+      }
+    }.get());
+    res.addItem(_customerEmail);
+    ComponentItem _tenantId = new ComponentItem();
+    _tenantId.setClzName("java.lang.Long");
+    _tenantId.setName("tenant_id");
+    _tenantId.setFieldName("tenantId");
+    _tenantId.setTag(5);
+    _tenantId.setProtoLine(502);
+    _tenantId.setProtoColumn(3);
+    _tenantId.setSchema(new Supplier<JSONSchema>() {
+      @Override
+      public JSONSchema get() {
+        JSONSchema res  = new JSONSchema();
+        res.setDescription("租户 ID");
+        res.setExample("1");
+        return res;
+      }
+    }.get());
+    res.addItem(_tenantId);
+    ComponentItem _tenantName = new ComponentItem();
+    _tenantName.setClzName("java.lang.String");
+    _tenantName.setName("tenant_name");
+    _tenantName.setFieldName("tenantName");
+    _tenantName.setTag(6);
+    _tenantName.setProtoLine(507);
+    _tenantName.setProtoColumn(3);
+    _tenantName.setSchema(new Supplier<JSONSchema>() {
+      @Override
+      public JSONSchema get() {
+        JSONSchema res  = new JSONSchema();
+        res.setDescription("租户名称");
+        res.setExample("Acme 公司");
+        return res;
+      }
+    }.get());
+    res.addItem(_tenantName);
+    ComponentItem _departmentId = new ComponentItem();
+    _departmentId.setClzName("java.lang.Long");
+    _departmentId.setName("department_id");
+    _departmentId.setFieldName("departmentId");
+    _departmentId.setTag(7);
+    _departmentId.setProtoLine(512);
+    _departmentId.setProtoColumn(3);
+    _departmentId.setSchema(new Supplier<JSONSchema>() {
+      @Override
+      public JSONSchema get() {
+        JSONSchema res  = new JSONSchema();
+        res.setDescription("部门 ID");
+        res.setExample("1");
+        return res;
+      }
+    }.get());
+    res.addItem(_departmentId);
+    ComponentItem _position = new ComponentItem();
+    _position.setClzName("java.lang.String");
+    _position.setName("position");
+    _position.setFieldName("position");
+    _position.setTag(8);
+    _position.setProtoLine(517);
+    _position.setProtoColumn(3);
+    _position.setSchema(new Supplier<JSONSchema>() {
+      @Override
+      public JSONSchema get() {
+        JSONSchema res  = new JSONSchema();
+        res.setDescription("职位");
+        res.setExample("软件工程师");
+        return res;
+      }
+    }.get());
+    res.addItem(_position);
+    ComponentItem _memberType = new ComponentItem();
+    _memberType.setClzName("com.apihug.rad.infra.tenant.MemberTypeEnum");
+    _memberType.setName("member_type");
+    _memberType.setFieldName("memberType");
+    _memberType.setTag(9);
+    _memberType.setProtoLine(522);
+    _memberType.setProtoColumn(3);
+    _memberType.setSchema(new Supplier<JSONSchema>() {
+      @Override
+      public JSONSchema get() {
+        JSONSchema res  = new JSONSchema();
+        res.setDescription("成员类型");
+        res.setExample("FULL_TIME");
+        return res;
+      }
+    }.get());
+    res.addItem(_memberType);
+    ComponentItem _memberRole = new ComponentItem();
+    _memberRole.setClzName("com.apihug.rad.infra.tenant.MemberRoleEnum");
+    _memberRole.setName("member_role");
+    _memberRole.setFieldName("memberRole");
+    _memberRole.setTag(10);
+    _memberRole.setProtoLine(527);
+    _memberRole.setProtoColumn(3);
+    _memberRole.setSchema(new Supplier<JSONSchema>() {
+      @Override
+      public JSONSchema get() {
+        JSONSchema res  = new JSONSchema();
+        res.setDescription("成员角色");
+        res.setExample("MEMBER");
+        return res;
+      }
+    }.get());
+    res.addItem(_memberRole);
+    ComponentItem _status = new ComponentItem();
+    _status.setClzName("com.apihug.rad.infra.tenant.TenantMemberStatusEnum");
+    _status.setName("status");
+    _status.setFieldName("status");
+    _status.setTag(11);
+    _status.setProtoLine(532);
+    _status.setProtoColumn(3);
+    _status.setSchema(new Supplier<JSONSchema>() {
+      @Override
+      public JSONSchema get() {
+        JSONSchema res  = new JSONSchema();
+        res.setDescription("成员状态");
+        res.setExample("ACTIVE");
+        return res;
+      }
+    }.get());
+    res.addItem(_status);
+    ComponentItem _isDefault = new ComponentItem();
+    _isDefault.setClzName("java.lang.Boolean");
+    _isDefault.setName("is_default");
+    _isDefault.setFieldName("isDefault");
+    _isDefault.setTag(12);
+    _isDefault.setProtoLine(537);
+    _isDefault.setProtoColumn(3);
+    _isDefault.setSchema(new Supplier<JSONSchema>() {
+      @Override
+      public JSONSchema get() {
+        JSONSchema res  = new JSONSchema();
+        res.setDescription("是否默认租户");
+        res.setExample("false");
+        return res;
+      }
+    }.get());
+    res.addItem(_isDefault);
+    components.put("com.apihug.rad.api.tenant.TenantMemberSummary", res);
+  }
+
+  void initComponentapi_tenantUpdateMemberRoleRequest() {
+    Component res = new Component();
+    res.setClzName("com.apihug.rad.api.tenant.UpdateMemberRoleRequest");
+    res.setName("UpdateMemberRoleRequest");
+    res.setProtoFrom("com/apihug/rad/api/tenant/member.proto");
+    res.setProtoLine(437);
+    res.setProtoColumn(1);
+    res.setProtoEntity("UpdateMemberRoleRequest");
+    res.setDescription("更新成员角色请求");
+    res.setSchema(new Supplier<Schema>() {
+      @Override
+      public Schema get() {
+        Schema res  = new Schema();
+        res.setJsonSchema(new Supplier<JSONSchema>() {
+          @Override
+          public JSONSchema get() {
+            JSONSchema res  = new JSONSchema();
+            res.setTitle("UpdateMemberRoleRequest");
+            res.setDescription("更新成员角色请求");
+            return res;
+          }
+        }.get());
+        return res;
+      }
+    }.get());
+    ComponentItem _memberRole = new ComponentItem();
+    _memberRole.setClzName("com.apihug.rad.infra.tenant.MemberRoleEnum");
+    _memberRole.setName("member_role");
+    _memberRole.setFieldName("memberRole");
+    _memberRole.setTag(1);
+    _memberRole.setProtoLine(445);
+    _memberRole.setProtoColumn(3);
+    _memberRole.setSchema(new Supplier<JSONSchema>() {
+      @Override
+      public JSONSchema get() {
+        JSONSchema res  = new JSONSchema();
+        res.setDescription("新角色");
+        res.setExample("ADMIN");
+        res.setEmpty(false);
+        return res;
+      }
+    }.get());
+    res.addItem(_memberRole);
+    components.put("com.apihug.rad.api.tenant.UpdateMemberRoleRequest", res);
+  }
+
   void initComponentinfra_authAuthErrorEnum() {
     Component res = new Component();
     res.setClzName("com.apihug.rad.infra.auth.AuthErrorEnum");
     res.setName("AuthErrorEnum");
     res.setProtoFrom("com/apihug/rad/infra/auth/constant.proto");
-    res.setProtoLine(38);
+    res.setProtoLine(10);
     res.setProtoColumn(1);
     res.setProtoEntity("AuthErrorEnum");
     res.setEnumClz(true);
@@ -10007,14 +9103,14 @@ public final class RadApiCollector implements Collector {
       @Override
       public Meta get() {
         Meta res  = new Meta();
-        res.setTitle("ORGANIZATION_NOT_FOUND");
+        res.setTitle("TENANT_NOT_FOUND");
         res.setCode(10006003);
-        res.setMessage("Organization not found");
-        res.setMessage2("组织不存在");
+        res.setMessage("Tenant not found");
+        res.setMessage2("租户不存在");
         var error  = new Error();
         error.setSeverity(Error.Severity.FATAL);
         error.setPhase(Error.Phase.SERVICE);
-        error.setTips("Check if the organization ID is correct");
+        error.setTips("Check if the tenant ID is correct");
         res.setError(error);
         return res;
       }
@@ -10023,10 +9119,10 @@ public final class RadApiCollector implements Collector {
       @Override
       public Meta get() {
         Meta res  = new Meta();
-        res.setTitle("NO_ORGANIZATION_ACCESS");
+        res.setTitle("NO_TENANT_ACCESS");
         res.setCode(10006004);
-        res.setMessage("No access to this organization");
-        res.setMessage2("无权访问该组织");
+        res.setMessage("No access to this tenant");
+        res.setMessage2("无权访问该租户");
         var error  = new Error();
         error.setSeverity(Error.Severity.WARN);
         error.setPhase(Error.Phase.SERVICE);
@@ -10071,62 +9167,6 @@ public final class RadApiCollector implements Collector {
     components.put("com.apihug.rad.infra.auth.AuthErrorEnum", res);
   }
 
-  void initComponentinfra_authUserStatusEnum() {
-    Component res = new Component();
-    res.setClzName("com.apihug.rad.infra.auth.UserStatusEnum");
-    res.setName("UserStatusEnum");
-    res.setProtoFrom("com/apihug/rad/infra/auth/constant.proto");
-    res.setProtoLine(8);
-    res.setProtoColumn(1);
-    res.setProtoEntity("UserStatusEnum");
-    res.setEnumClz(true);
-    res.addMeta(new Supplier<Meta>() {
-      @Override
-      public Meta get() {
-        Meta res  = new Meta();
-        res.setTitle("ACTIVE");
-        res.setCode(1);
-        res.setMessage("active");
-        res.setMessage2("活跃");
-        return res;
-      }
-    }.get());
-    res.addMeta(new Supplier<Meta>() {
-      @Override
-      public Meta get() {
-        Meta res  = new Meta();
-        res.setTitle("INACTIVE");
-        res.setCode(2);
-        res.setMessage("inactive");
-        res.setMessage2("未激活");
-        return res;
-      }
-    }.get());
-    res.addMeta(new Supplier<Meta>() {
-      @Override
-      public Meta get() {
-        Meta res  = new Meta();
-        res.setTitle("LOCKED");
-        res.setCode(3);
-        res.setMessage("locked");
-        res.setMessage2("锁定");
-        return res;
-      }
-    }.get());
-    res.addMeta(new Supplier<Meta>() {
-      @Override
-      public Meta get() {
-        Meta res  = new Meta();
-        res.setTitle("DISABLED");
-        res.setCode(4);
-        res.setMessage("disabled");
-        res.setMessage2("禁用");
-        return res;
-      }
-    }.get());
-    components.put("com.apihug.rad.infra.auth.UserStatusEnum", res);
-  }
-
   void initComponentinfra_customerCustomerStatusEnum() {
     Component res = new Component();
     res.setClzName("com.apihug.rad.infra.customer.CustomerStatusEnum");
@@ -10169,6 +9209,17 @@ public final class RadApiCollector implements Collector {
         return res;
       }
     }.get());
+    res.addMeta(new Supplier<Meta>() {
+      @Override
+      public Meta get() {
+        Meta res  = new Meta();
+        res.setTitle("DISABLED");
+        res.setCode(4);
+        res.setMessage("disabled");
+        res.setMessage2("禁用");
+        return res;
+      }
+    }.get());
     components.put("com.apihug.rad.infra.customer.CustomerStatusEnum", res);
   }
 
@@ -10192,7 +9243,7 @@ public final class RadApiCollector implements Collector {
         var error  = new Error();
         error.setSeverity(Error.Severity.FATAL);
         error.setPhase(Error.Phase.DOMAIN);
-        error.setTips("Contract your admin or create a new customer");
+        error.setTips("Contact your admin or create a new customer");
         res.setError(error);
         return res;
       }
@@ -10201,42 +9252,10 @@ public final class RadApiCollector implements Collector {
       @Override
       public Meta get() {
         Meta res  = new Meta();
-        res.setTitle("CUSTOMER_LOCK");
-        res.setCode(10001024);
-        res.setMessage("Customer not active");
-        res.setMessage2("账户锁定");
-        var error  = new Error();
-        error.setSeverity(Error.Severity.WARN);
-        error.setPhase(Error.Phase.DOMAIN);
-        error.setTips("Contract your admin");
-        res.setError(error);
-        return res;
-      }
-    }.get());
-    res.addMeta(new Supplier<Meta>() {
-      @Override
-      public Meta get() {
-        Meta res  = new Meta();
-        res.setTitle("CUSTOMER_LOGIN_FAIL");
-        res.setCode(10001025);
-        res.setMessage("Login fail");
-        res.setMessage2("登录失败");
-        var error  = new Error();
-        error.setSeverity(Error.Severity.WARN);
-        error.setPhase(Error.Phase.DOMAIN);
-        error.setTips("Contract your admin, check your username and password");
-        res.setError(error);
-        return res;
-      }
-    }.get());
-    res.addMeta(new Supplier<Meta>() {
-      @Override
-      public Meta get() {
-        Meta res  = new Meta();
-        res.setTitle("USER_ALREADY_EXISTS");
+        res.setTitle("CUSTOMER_ALREADY_EXISTS");
         res.setCode(10001026);
-        res.setMessage("User already exists");
-        res.setMessage2("用户已存在");
+        res.setMessage("Customer already exists");
+        res.setMessage2("客户已存在");
         var error  = new Error();
         error.setSeverity(Error.Severity.WARN);
         error.setPhase(Error.Phase.DOMAIN);
@@ -10562,152 +9581,6 @@ public final class RadApiCollector implements Collector {
     }.get());
     res.setEnumErrorClz(true);
     components.put("com.apihug.rad.infra.menu.MenuErrorEnum", res);
-  }
-
-  void initComponentinfra_organizationCustomerOrgStatusEnum() {
-    Component res = new Component();
-    res.setClzName("com.apihug.rad.infra.organization.CustomerOrgStatusEnum");
-    res.setName("CustomerOrgStatusEnum");
-    res.setProtoFrom("com/apihug/rad/infra/organization/constant.proto");
-    res.setProtoLine(62);
-    res.setProtoColumn(1);
-    res.setProtoEntity("CustomerOrgStatusEnum");
-    res.setEnumClz(true);
-    res.addMeta(new Supplier<Meta>() {
-      @Override
-      public Meta get() {
-        Meta res  = new Meta();
-        res.setTitle("ACTIVE");
-        res.setCode(1);
-        res.setMessage("active");
-        res.setMessage2("正常");
-        return res;
-      }
-    }.get());
-    res.addMeta(new Supplier<Meta>() {
-      @Override
-      public Meta get() {
-        Meta res  = new Meta();
-        res.setTitle("INACTIVE");
-        res.setCode(2);
-        res.setMessage("inactive");
-        res.setMessage2("已退出");
-        return res;
-      }
-    }.get());
-    res.addMeta(new Supplier<Meta>() {
-      @Override
-      public Meta get() {
-        Meta res  = new Meta();
-        res.setTitle("LOCKED");
-        res.setCode(3);
-        res.setMessage("locked");
-        res.setMessage2("已锁定");
-        return res;
-      }
-    }.get());
-    components.put("com.apihug.rad.infra.organization.CustomerOrgStatusEnum", res);
-  }
-
-  void initComponentinfra_organizationEmployeeTypeEnum() {
-    Component res = new Component();
-    res.setClzName("com.apihug.rad.infra.organization.EmployeeTypeEnum");
-    res.setName("EmployeeTypeEnum");
-    res.setProtoFrom("com/apihug/rad/infra/organization/constant.proto");
-    res.setProtoLine(32);
-    res.setProtoColumn(1);
-    res.setProtoEntity("EmployeeTypeEnum");
-    res.setEnumClz(true);
-    res.addMeta(new Supplier<Meta>() {
-      @Override
-      public Meta get() {
-        Meta res  = new Meta();
-        res.setTitle("FULL_TIME");
-        res.setCode(1);
-        res.setMessage("full_time");
-        res.setMessage2("正式员工");
-        return res;
-      }
-    }.get());
-    res.addMeta(new Supplier<Meta>() {
-      @Override
-      public Meta get() {
-        Meta res  = new Meta();
-        res.setTitle("PART_TIME");
-        res.setCode(2);
-        res.setMessage("part_time");
-        res.setMessage2("兼职员工");
-        return res;
-      }
-    }.get());
-    res.addMeta(new Supplier<Meta>() {
-      @Override
-      public Meta get() {
-        Meta res  = new Meta();
-        res.setTitle("CONTRACTOR");
-        res.setCode(3);
-        res.setMessage("contractor");
-        res.setMessage2("外包员工");
-        return res;
-      }
-    }.get());
-    res.addMeta(new Supplier<Meta>() {
-      @Override
-      public Meta get() {
-        Meta res  = new Meta();
-        res.setTitle("INTERN");
-        res.setCode(4);
-        res.setMessage("intern");
-        res.setMessage2("实习生");
-        return res;
-      }
-    }.get());
-    components.put("com.apihug.rad.infra.organization.EmployeeTypeEnum", res);
-  }
-
-  void initComponentinfra_organizationOrganizationStatusEnum() {
-    Component res = new Component();
-    res.setClzName("com.apihug.rad.infra.organization.OrganizationStatusEnum");
-    res.setName("OrganizationStatusEnum");
-    res.setProtoFrom("com/apihug/rad/infra/organization/constant.proto");
-    res.setProtoLine(8);
-    res.setProtoColumn(1);
-    res.setProtoEntity("OrganizationStatusEnum");
-    res.setEnumClz(true);
-    res.addMeta(new Supplier<Meta>() {
-      @Override
-      public Meta get() {
-        Meta res  = new Meta();
-        res.setTitle("ORG_ACTIVE");
-        res.setCode(1);
-        res.setMessage("active");
-        res.setMessage2("活跃");
-        return res;
-      }
-    }.get());
-    res.addMeta(new Supplier<Meta>() {
-      @Override
-      public Meta get() {
-        Meta res  = new Meta();
-        res.setTitle("ORG_INACTIVE");
-        res.setCode(2);
-        res.setMessage("inactive");
-        res.setMessage2("未激活");
-        return res;
-      }
-    }.get());
-    res.addMeta(new Supplier<Meta>() {
-      @Override
-      public Meta get() {
-        Meta res  = new Meta();
-        res.setTitle("ORG_DISABLED");
-        res.setCode(3);
-        res.setMessage("disabled");
-        res.setMessage2("禁用");
-        return res;
-      }
-    }.get());
-    components.put("com.apihug.rad.infra.organization.OrganizationStatusEnum", res);
   }
 
   void initComponentinfra_roleRoleStatusEnum() {
@@ -11092,10 +9965,10 @@ public final class RadApiCollector implements Collector {
       @Override
       public Meta get() {
         Meta res  = new Meta();
-        res.setTitle("ORGANIZATION_MEMBER_VIEW");
+        res.setTitle("TENANT_MEMBER_VIEW");
         res.setCode(22);
-        res.setMessage("organization:member:view");
-        res.setMessage2("查看组织员工");
+        res.setMessage("tenant:member:view");
+        res.setMessage2("查看租户成员");
         return res;
       }
     }.get());
@@ -11103,10 +9976,10 @@ public final class RadApiCollector implements Collector {
       @Override
       public Meta get() {
         Meta res  = new Meta();
-        res.setTitle("ORGANIZATION_MEMBER_ADD");
+        res.setTitle("TENANT_MEMBER_ADD");
         res.setCode(23);
-        res.setMessage("organization:member:add");
-        res.setMessage2("添加组织员工");
+        res.setMessage("tenant:member:add");
+        res.setMessage2("添加租户成员");
         return res;
       }
     }.get());
@@ -11114,10 +9987,10 @@ public final class RadApiCollector implements Collector {
       @Override
       public Meta get() {
         Meta res  = new Meta();
-        res.setTitle("ORGANIZATION_MEMBER_REMOVE");
+        res.setTitle("TENANT_MEMBER_REMOVE");
         res.setCode(24);
-        res.setMessage("organization:member:remove");
-        res.setMessage2("移除组织员工");
+        res.setMessage("tenant:member:remove");
+        res.setMessage2("移除租户成员");
         return res;
       }
     }.get());
@@ -11125,10 +9998,10 @@ public final class RadApiCollector implements Collector {
       @Override
       public Meta get() {
         Meta res  = new Meta();
-        res.setTitle("ORGANIZATION_MEMBER_LOCK");
+        res.setTitle("TENANT_MEMBER_LOCK");
         res.setCode(25);
-        res.setMessage("organization:member:lock");
-        res.setMessage2("锁定组织员工");
+        res.setMessage("tenant:member:lock");
+        res.setMessage2("锁定租户成员");
         return res;
       }
     }.get());
@@ -11136,10 +10009,10 @@ public final class RadApiCollector implements Collector {
       @Override
       public Meta get() {
         Meta res  = new Meta();
-        res.setTitle("ORGANIZATION_MEMBER_ASSIGN_ROLE");
+        res.setTitle("TENANT_MEMBER_ASSIGN_ROLE");
         res.setCode(26);
-        res.setMessage("organization:member:assign_role");
-        res.setMessage2("分配员工角色");
+        res.setMessage("tenant:member:assign_role");
+        res.setMessage2("分配成员角色");
         return res;
       }
     }.get());
@@ -11147,10 +10020,10 @@ public final class RadApiCollector implements Collector {
       @Override
       public Meta get() {
         Meta res  = new Meta();
-        res.setTitle("ORGANIZATION_MEMBER_ASSIGN_MENU");
+        res.setTitle("TENANT_MEMBER_ASSIGN_DEPARTMENT");
         res.setCode(27);
-        res.setMessage("organization:member:assign_menu");
-        res.setMessage2("分配员工菜单");
+        res.setMessage("tenant:member:assign_department");
+        res.setMessage2("分配成员部门");
         return res;
       }
     }.get());
@@ -11203,14 +10076,14 @@ public final class RadApiCollector implements Collector {
       @Override
       public Meta get() {
         Meta res  = new Meta();
-        res.setTitle("TENANT_HAS_USERS");
+        res.setTitle("TENANT_HAS_MEMBERS");
         res.setCode(10004003);
-        res.setMessage("Tenant has users");
-        res.setMessage2("租户下有用户，无法删除");
+        res.setMessage("Tenant has members");
+        res.setMessage2("租户下有成员，无法删除");
         var error  = new Error();
         error.setSeverity(Error.Severity.WARN);
         error.setPhase(Error.Phase.DOMAIN);
-        error.setTips("Remove all users from this tenant first");
+        error.setTips("Remove all members from this tenant first");
         res.setError(error);
         return res;
       }
@@ -11264,6 +10137,213 @@ public final class RadApiCollector implements Collector {
     components.put("com.apihug.rad.infra.tenant.TenantStatusEnum", res);
   }
 
+  void initComponentinfra_tenantMemberRoleEnum() {
+    Component res = new Component();
+    res.setClzName("com.apihug.rad.infra.tenant.MemberRoleEnum");
+    res.setName("MemberRoleEnum");
+    res.setProtoFrom("com/apihug/rad/infra/tenant/member_constant.proto");
+    res.setProtoLine(40);
+    res.setProtoColumn(1);
+    res.setProtoEntity("MemberRoleEnum");
+    res.setEnumClz(true);
+    res.addMeta(new Supplier<Meta>() {
+      @Override
+      public Meta get() {
+        Meta res  = new Meta();
+        res.setTitle("MEMBER");
+        res.setCode(1);
+        res.setMessage("member");
+        res.setMessage2("普通成员");
+        return res;
+      }
+    }.get());
+    res.addMeta(new Supplier<Meta>() {
+      @Override
+      public Meta get() {
+        Meta res  = new Meta();
+        res.setTitle("ADMIN");
+        res.setCode(2);
+        res.setMessage("admin");
+        res.setMessage2("管理员");
+        return res;
+      }
+    }.get());
+    res.addMeta(new Supplier<Meta>() {
+      @Override
+      public Meta get() {
+        Meta res  = new Meta();
+        res.setTitle("OWNER");
+        res.setCode(3);
+        res.setMessage("owner");
+        res.setMessage2("拥有者");
+        return res;
+      }
+    }.get());
+    components.put("com.apihug.rad.infra.tenant.MemberRoleEnum", res);
+  }
+
+  void initComponentinfra_tenantMemberTypeEnum() {
+    Component res = new Component();
+    res.setClzName("com.apihug.rad.infra.tenant.MemberTypeEnum");
+    res.setName("MemberTypeEnum");
+    res.setProtoFrom("com/apihug/rad/infra/tenant/member_constant.proto");
+    res.setProtoLine(9);
+    res.setProtoColumn(1);
+    res.setProtoEntity("MemberTypeEnum");
+    res.setEnumClz(true);
+    res.addMeta(new Supplier<Meta>() {
+      @Override
+      public Meta get() {
+        Meta res  = new Meta();
+        res.setTitle("FULL_TIME");
+        res.setCode(1);
+        res.setMessage("full_time");
+        res.setMessage2("正式员工");
+        return res;
+      }
+    }.get());
+    res.addMeta(new Supplier<Meta>() {
+      @Override
+      public Meta get() {
+        Meta res  = new Meta();
+        res.setTitle("PART_TIME");
+        res.setCode(2);
+        res.setMessage("part_time");
+        res.setMessage2("兼职员工");
+        return res;
+      }
+    }.get());
+    res.addMeta(new Supplier<Meta>() {
+      @Override
+      public Meta get() {
+        Meta res  = new Meta();
+        res.setTitle("CONTRACTOR");
+        res.setCode(3);
+        res.setMessage("contractor");
+        res.setMessage2("外包员工");
+        return res;
+      }
+    }.get());
+    res.addMeta(new Supplier<Meta>() {
+      @Override
+      public Meta get() {
+        Meta res  = new Meta();
+        res.setTitle("INTERN");
+        res.setCode(4);
+        res.setMessage("intern");
+        res.setMessage2("实习生");
+        return res;
+      }
+    }.get());
+    components.put("com.apihug.rad.infra.tenant.MemberTypeEnum", res);
+  }
+
+  void initComponentinfra_tenantTenantMemberErrorEnum() {
+    Component res = new Component();
+    res.setClzName("com.apihug.rad.infra.tenant.TenantMemberErrorEnum");
+    res.setName("TenantMemberErrorEnum");
+    res.setProtoFrom("com/apihug/rad/infra/tenant/member_constant.proto");
+    res.setProtoLine(91);
+    res.setProtoColumn(1);
+    res.setProtoEntity("TenantMemberErrorEnum");
+    res.setEnumClz(true);
+    res.addMeta(new Supplier<Meta>() {
+      @Override
+      public Meta get() {
+        Meta res  = new Meta();
+        res.setTitle("MEMBER_NOT_FOUND");
+        res.setCode(10007001);
+        res.setMessage("Tenant member not found");
+        res.setMessage2("租户成员不存在");
+        var error  = new Error();
+        error.setSeverity(Error.Severity.FATAL);
+        error.setPhase(Error.Phase.DOMAIN);
+        error.setTips("Check if the member ID is correct");
+        res.setError(error);
+        return res;
+      }
+    }.get());
+    res.addMeta(new Supplier<Meta>() {
+      @Override
+      public Meta get() {
+        Meta res  = new Meta();
+        res.setTitle("MEMBER_ALREADY_EXISTS");
+        res.setCode(10007002);
+        res.setMessage("Member already exists in this tenant");
+        res.setMessage2("该成员已在此租户中");
+        var error  = new Error();
+        error.setSeverity(Error.Severity.WARN);
+        error.setPhase(Error.Phase.DOMAIN);
+        error.setTips("The customer is already a member of this tenant");
+        res.setError(error);
+        return res;
+      }
+    }.get());
+    res.addMeta(new Supplier<Meta>() {
+      @Override
+      public Meta get() {
+        Meta res  = new Meta();
+        res.setTitle("MEMBER_LOCKED");
+        res.setCode(10007003);
+        res.setMessage("Member is locked");
+        res.setMessage2("成员已被锁定");
+        var error  = new Error();
+        error.setSeverity(Error.Severity.WARN);
+        error.setPhase(Error.Phase.DOMAIN);
+        error.setTips("Contact your tenant administrator");
+        res.setError(error);
+        return res;
+      }
+    }.get());
+    res.setEnumErrorClz(true);
+    components.put("com.apihug.rad.infra.tenant.TenantMemberErrorEnum", res);
+  }
+
+  void initComponentinfra_tenantTenantMemberStatusEnum() {
+    Component res = new Component();
+    res.setClzName("com.apihug.rad.infra.tenant.TenantMemberStatusEnum");
+    res.setName("TenantMemberStatusEnum");
+    res.setProtoFrom("com/apihug/rad/infra/tenant/member_constant.proto");
+    res.setProtoLine(66);
+    res.setProtoColumn(1);
+    res.setProtoEntity("TenantMemberStatusEnum");
+    res.setEnumClz(true);
+    res.addMeta(new Supplier<Meta>() {
+      @Override
+      public Meta get() {
+        Meta res  = new Meta();
+        res.setTitle("TM_ACTIVE");
+        res.setCode(1);
+        res.setMessage("active");
+        res.setMessage2("正常");
+        return res;
+      }
+    }.get());
+    res.addMeta(new Supplier<Meta>() {
+      @Override
+      public Meta get() {
+        Meta res  = new Meta();
+        res.setTitle("TM_INACTIVE");
+        res.setCode(2);
+        res.setMessage("inactive");
+        res.setMessage2("已退出");
+        return res;
+      }
+    }.get());
+    res.addMeta(new Supplier<Meta>() {
+      @Override
+      public Meta get() {
+        Meta res  = new Meta();
+        res.setTitle("TM_LOCKED");
+        res.setCode(3);
+        res.setMessage("locked");
+        res.setMessage2("已锁定");
+        return res;
+      }
+    }.get());
+    components.put("com.apihug.rad.infra.tenant.TenantMemberStatusEnum", res);
+  }
+
   private void initComponents() {
     initComponentapi_auditAccessLogInfo();
     initComponentapi_auditAccessLogStatsResponse();
@@ -11271,68 +10351,54 @@ public final class RadApiCollector implements Collector {
     initComponentapi_auditPathStats();
     initComponentapi_auditSearchAccessLogsRequest();
     initComponentapi_customerCreateCustomerRequest();
-    initComponentapi_customerCurrentUserInfo();
-    initComponentapi_customerCustomerDetail();
+    initComponentapi_customerCurrentCustomerInfo();
     initComponentapi_customerCustomerInfo();
     initComponentapi_customerCustomerSummary();
     initComponentapi_customerDepartmentInfo();
     initComponentapi_customerForgotPasswordRequest();
     initComponentapi_customerLoginRequest();
     initComponentapi_customerLoginResponse();
-    initComponentapi_customerOrganizationInfo();
-    initComponentapi_customerOrganizationList();
     initComponentapi_customerResetPasswordRequest();
     initComponentapi_customerRoleInfo();
-    initComponentapi_customerSearchCustomersRequest();
-    initComponentapi_customerSwitchOrganizationRequest();
-    initComponentapi_customerUpdateCustomerRequest();
+    initComponentapi_customerSwitchTenantRequest();
+    initComponentapi_customerTenantInfo();
+    initComponentapi_customerTenantList();
     initComponentapi_departmentCreateDepartmentRequest();
     initComponentapi_departmentDepartmentDetail();
     initComponentapi_departmentDepartmentSummary();
     initComponentapi_departmentDepartmentTreeNode();
     initComponentapi_departmentUpdateDepartmentRequest();
-    initComponentapi_departmentAddEmployeeRequest();
-    initComponentapi_departmentDepartmentEmployeeList();
-    initComponentapi_departmentEmployeeInfo();
-    initComponentapi_departmentRemoveEmployeeRequest();
-    initComponentapi_departmentTransferEmployeeRequest();
     initComponentapi_menuCreateMenuRequest();
     initComponentapi_menuMenuDetail();
     initComponentapi_menuMenuSummary();
     initComponentapi_menuMenuTreeNode();
     initComponentapi_menuSearchMenusRequest();
     initComponentapi_menuUpdateMenuRequest();
-    initComponentapi_organizationDepartmentInfo();
-    initComponentapi_organizationDepartmentSummary();
-    initComponentapi_organizationDepartmentTreeNode();
-    initComponentapi_organizationOrganizationSummary();
-    initComponentapi_organizationOrganizationTreeNode();
-    initComponentapi_organizationSetDefaultOrganizationRequest();
-    initComponentapi_organizationUserDepartmentList();
-    initComponentapi_organizationAddMemberRequest();
-    initComponentapi_organizationAssignMemberMenusRequest();
-    initComponentapi_organizationAssignMemberRolesRequest();
-    initComponentapi_organizationCustomerOrganizationSummary();
-    initComponentapi_organizationGetOrganizationMembersRequest();
-    initComponentapi_organizationRemoveMemberRequest();
-    initComponentapi_organizationToggleMemberLockRequest();
     initComponentapi_permissionPermissionInfo();
-    initComponentapi_roleAssignPermissionsRequest();
+    initComponentapi_roleAssignMenusRequest();
     initComponentapi_roleCreateRoleRequest();
-    initComponentapi_rolePermissionInfo();
-    initComponentapi_roleRemovePermissionRequest();
     initComponentapi_roleRoleDetail();
-    initComponentapi_roleRolePermissionSummary();
+    initComponentapi_roleRoleMenuItem();
+    initComponentapi_roleRoleMenuSummary();
     initComponentapi_roleRoleSummary();
     initComponentapi_roleSearchRolesRequest();
     initComponentapi_roleUpdateRoleRequest();
     initComponentapi_tenantConfigureTenantRequest();
     initComponentapi_tenantCreateTenantRequest();
+    initComponentapi_tenantSearchTenantsRequest();
     initComponentapi_tenantTenantDetail();
     initComponentapi_tenantTenantSummary();
     initComponentapi_tenantUpdateTenantRequest();
+    initComponentapi_tenantAddTenantMemberRequest();
+    initComponentapi_tenantAssignMemberDepartmentRequest();
+    initComponentapi_tenantAssignRolesRequest();
+    initComponentapi_tenantGetTenantMembersRequest();
+    initComponentapi_tenantMemberRoleItem();
+    initComponentapi_tenantMemberRoleSummary();
+    initComponentapi_tenantTenantMemberDetail();
+    initComponentapi_tenantTenantMemberSummary();
+    initComponentapi_tenantUpdateMemberRoleRequest();
     initComponentinfra_authAuthErrorEnum();
-    initComponentinfra_authUserStatusEnum();
     initComponentinfra_customerCustomerStatusEnum();
     initComponentinfra_customerCustomerErrorEnum();
     initComponentinfra_departmentDepartmentErrorEnum();
@@ -11340,13 +10406,14 @@ public final class RadApiCollector implements Collector {
     initComponentinfra_menuMenuStatusEnum();
     initComponentinfra_menuMenuTypeEnum();
     initComponentinfra_menuMenuErrorEnum();
-    initComponentinfra_organizationCustomerOrgStatusEnum();
-    initComponentinfra_organizationEmployeeTypeEnum();
-    initComponentinfra_organizationOrganizationStatusEnum();
     initComponentinfra_roleRoleStatusEnum();
     initComponentinfra_roleRoleErrorEnum();
     initComponentinfra_settingsRadAuthorityEnum();
     initComponentinfra_tenantTenantErrorEnum();
     initComponentinfra_tenantTenantStatusEnum();
+    initComponentinfra_tenantMemberRoleEnum();
+    initComponentinfra_tenantMemberTypeEnum();
+    initComponentinfra_tenantTenantMemberErrorEnum();
+    initComponentinfra_tenantTenantMemberStatusEnum();
   }
 }

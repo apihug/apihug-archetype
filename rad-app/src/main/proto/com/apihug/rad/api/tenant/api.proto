@@ -121,6 +121,22 @@ service TenantService {
       };
     };
   }
+
+  // 搜索租户（分页）
+  rpc SearchTenants (SearchTenantsRequest) returns (TenantSummary) {
+    option (hope.swagger.operation) = {
+      post: "/tenants/search";
+      description: "搜索租户（分页）";
+      summary: "搜索租户";
+      tags: "tenant";
+      authorization: {
+        rbac: {
+          authorities: ["TENANT_CREATE"];
+        }
+      };
+      pageable: true;
+    };
+  }
 }
 
 message CreateTenantRequest {
@@ -166,6 +182,17 @@ message CreateTenantRequest {
     description: "租户状态";
     example: "ACTIVE";
     empty: false;
+  }];
+
+  bool is_platform = 6 [(hope.swagger.field) = {
+    description: "是否为平台租户";
+    example: "false";
+  }];
+
+  string description = 7 [(hope.swagger.field) = {
+    description: "租户描述";
+    example: "企业管理平台";
+    max_length: 500;
   }];
 }
 
@@ -215,8 +242,8 @@ message ConfigureTenantRequest {
     };
   };
 
-  int32 max_users = 1 [(hope.swagger.field) = {
-    description: "最大用户数";
+  int32 max_members = 1 [(hope.swagger.field) = {
+    description: "最大成员数";
     example: "100";
     minimum: 1;
   }];
@@ -322,8 +349,8 @@ message TenantDetail {
     empty: false;
   }];
 
-  int32 max_users = 7 [(hope.swagger.field) = {
-    description: "最大用户数";
+  int32 max_members = 7 [(hope.swagger.field) = {
+    description: "最大成员数";
     example: "100";
   }];
 
@@ -332,9 +359,38 @@ message TenantDetail {
     example: "10240";
   }];
 
-  string created_at = 9 [(hope.swagger.field) = {
+  bool is_platform = 9 [(hope.swagger.field) = {
+    description: "是否为平台租户";
+    example: "false";
+  }];
+
+  string description = 10 [(hope.swagger.field) = {
+    description: "租户描述";
+    example: "企业管理平台";
+  }];
+
+  string created_at = 11 [(hope.swagger.field) = {
     description: "创建时间";
     example: "2024-01-15T10:30:00";
     date_format: ISO_LOCAL_DATE_TIME;
+  }];
+}
+
+message SearchTenantsRequest {
+  option (hope.swagger.schema) = {
+    json_schema: {
+      title: "SearchTenantsRequest";
+      description: "搜索租户请求";
+    };
+  };
+
+  string keyword = 1 [(hope.swagger.field) = {
+    description: "搜索关键词（租户名称或代码）";
+    example: "acme";
+  }];
+
+  com.apihug.rad.infra.tenant.TenantStatusEnum status = 2 [(hope.swagger.field) = {
+    description: "租户状态筛选";
+    example: "ACTIVE";
   }];
 }

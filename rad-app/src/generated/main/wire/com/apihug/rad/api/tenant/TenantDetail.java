@@ -7,6 +7,7 @@ import hope.common.meta.annotation.Kind;
 import hope.common.meta.annotation.ProtoFrom;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
+import java.lang.Boolean;
 import java.lang.Integer;
 import java.lang.Long;
 import java.lang.Override;
@@ -42,9 +43,13 @@ public class TenantDetail {
 
   protected TenantStatusEnum status;
 
-  protected Integer maxUsers;
+  protected Integer maxMembers;
 
   protected Long maxStorageMb;
+
+  protected Boolean isPlatform;
+
+  protected String description;
 
   @JsonFormat(
       pattern = "yyyy-MM-dd'T'HH:mm:ss"
@@ -105,12 +110,12 @@ public class TenantDetail {
     return this;
   }
 
-  public Integer getMaxUsers() {
-    return maxUsers;
+  public Integer getMaxMembers() {
+    return maxMembers;
   }
 
-  public TenantDetail setMaxUsers(Integer maxUsers) {
-    this.maxUsers = maxUsers;
+  public TenantDetail setMaxMembers(Integer maxMembers) {
+    this.maxMembers = maxMembers;
     return this;
   }
 
@@ -120,6 +125,24 @@ public class TenantDetail {
 
   public TenantDetail setMaxStorageMb(Long maxStorageMb) {
     this.maxStorageMb = maxStorageMb;
+    return this;
+  }
+
+  public Boolean getIsPlatform() {
+    return isPlatform;
+  }
+
+  public TenantDetail setIsPlatform(Boolean isPlatform) {
+    this.isPlatform = isPlatform;
+    return this;
+  }
+
+  public String getDescription() {
+    return description;
+  }
+
+  public TenantDetail setDescription(String description) {
+    this.description = description;
     return this;
   }
 
@@ -141,8 +164,10 @@ public class TenantDetail {
     	.add("contactEmail=" + contactEmail)
     	.add("contactPhone=" + contactPhone)
     	.add("status=" + status)
-    	.add("maxUsers=" + maxUsers)
+    	.add("maxMembers=" + maxMembers)
     	.add("maxStorageMb=" + maxStorageMb)
+    	.add("isPlatform=" + isPlatform)
+    	.add("description=" + description)
     	.add("createdAt=" + createdAt)
         .toString();
   }

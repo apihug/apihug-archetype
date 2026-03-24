@@ -30,7 +30,9 @@ message RoleEntity {
     unique: true
   }];
 
-  string role_name = 2 [(hope.persistence.column) = {
+  // tenant_id 由 wires: [ALL] 中的 TENANTABLE 自动提供，无需手动定义
+
+  string role_name = 3 [(hope.persistence.column) = {
     name: "ROLE_NAME",
     description: "角色名称",
     nullable: false,
@@ -38,7 +40,7 @@ message RoleEntity {
     type: VARCHAR
   }];
 
-  string description = 3 [(hope.persistence.column) = {
+  string description = 4 [(hope.persistence.column) = {
     name: "DESCRIPTION",
     description: "角色描述",
     nullable: true,
@@ -46,7 +48,7 @@ message RoleEntity {
     type: VARCHAR
   }];
 
-  com.apihug.rad.infra.role.RoleStatusEnum status = 4 [(hope.persistence.column) = {
+  com.apihug.rad.infra.role.RoleStatusEnum status = 5 [(hope.persistence.column) = {
     name: "STATUS_CODE",
     description: "角色状态",
     nullable: false,

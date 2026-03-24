@@ -1,0 +1,39 @@
+syntax = "proto3";
+
+package com.apihug.rad.domain.tenant;
+
+import "apihug/protobuf/domain/annotations.proto";
+
+// 租户成员-角色关联实体 — 实现成员与 RBAC 角色的多对多关系
+// 参考 RuoYi 的 sys_user_role 设计
+message MemberRoleEntity {
+  option (hope.persistence.table) = {
+    name: "SYS_MEMBER_ROLE",
+    description: "租户成员角色关联表（成员与角色的多对多关系）",
+    wires: [IDENTIFIABLE],
+    indexes: {
+      name: "IDX_SYS_MR_MEMBER_ID",
+      column_list: ["member_id"]
+    },
+    indexes: {
+      name: "IDX_SYS_MR_ROLE_ID",
+      column_list: ["role_id"]
+    },
+    unique_constraints: {
+      name: "UK_SYS_MR_MEMBER_ROLE",
+      column_list: ["member_id", "role_id"]
+    }
+  };
+
+  int64 member_id = 1 [(hope.persistence.column) = {
+    name: "MEMBER_ID",
+    description: "租户成员 ID (SYS_TENANT_MEMBER.id)",
+    nullable: false
+  }];
+
+  int64 role_id = 2 [(hope.persistence.column) = {
+    name: "ROLE_ID",
+    description: "角色 ID (SYS_ROLE.id)",
+    nullable: false
+  }];
+}

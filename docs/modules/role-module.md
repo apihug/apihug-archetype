@@ -16,6 +16,7 @@
 - ✅ 分配权限给角色
 - ✅ 移除角色权限
 - ✅ 获取角色权限列表
+- ✅ 租户隔离（每个租户独立的角色体系）
 
 ---
 
@@ -158,6 +159,7 @@ interface _RoleEntityRepository extends RoleEntityRepository {
 | 字段 | 类型 | 约束 | 说明 |
 |------|------|------|------|
 | ID | BIGINT | PRIMARY KEY | 主键 |
+| TENANT_ID | BIGINT | NOT NULL | 租户 ID |
 | ROLE_CODE | VARCHAR(50) | UNIQUE, NOT NULL | 角色代码 |
 | ROLE_NAME | VARCHAR(100) | NOT NULL | 角色名称 |
 | DESCRIPTION | VARCHAR(500) | | 角色描述 |
@@ -251,4 +253,4 @@ void testAssignPermissions_Success() {
 
 ---
 
-**文档更新日期：** 2026-03-20
+**文档更新日期：** 2026-03-24

@@ -3,13 +3,13 @@
 **项目名称：** RAD (Rapid Application Development)  
 **框架：** ApiHug 2.4.8-RELEASE  
 **技术栈：** Java 18+, Spring Boot 3.5+, Vue 3 + Vben Admin  
-**文档更新日期：** 2026-03-20  
+**文档更新日期：** 2026-03-24  
 
 ---
 
 ## 📋 项目概述
 
-RAD 是一个基于 ApiHug 框架的企业级快速应用开发模板，提供完整的用户管理、权限控制、多租户支持等功能。
+RAD 是一个基于 ApiHug 框架的企业级快速应用开发模板，提供完整的客户管理、权限控制、多租户支持等功能。
 
 **核心价值：**
 - ⚡ 5 分钟启动新项目
@@ -46,11 +46,11 @@ rad/
 ## 📚 详细文档
 
 ### 模块文档
-- [认证模块](modules/auth-module.md) - 用户认证、Token 管理、组织切换
-- [用户管理模块](modules/user-module.md) - 用户 CRUD、搜索、密码管理
-- [角色管理模块](modules/role-module.md) - 角色 CRUD、权限分配
-- [部门管理模块](modules/department-module.md) - 部门 CRUD、树形结构、员工管理
-- [组织管理模块](modules/organization-module.md) - 组织树、部门树查询
+- [认证模块](modules/auth-module.md) - 客户认证、Token 管理、租户切换
+- [客户管理模块](modules/customer-module.md) - 客户 CRUD、搜索、密码管理
+- [角色管理模块](modules/role-module.md) - 角色 CRUD、权限分配（租户隔离）
+- [部门管理模块](modules/department-module.md) - 部门 CRUD、树形结构（租户隔离）
+- [租户成员管理模块](modules/tenant-member-module.md) - 成员管理、角色分配、部门分配
 
 ### API 文档
 - [API 参考文档](api-reference.md) - 完整的 API 端点、请求/响应示例
@@ -62,10 +62,10 @@ rad/
 ### 1. 认证与授权模块 (`auth/`, `customer/`)
 
 **功能：**
-- ✅ 用户登录/登出
+- ✅ 客户登录/登出
 - ✅ JWT Token 认证
-- ✅ 获取当前用户信息
-- ✅ 组织切换
+- ✅ 获取当前客户信息
+- ✅ 租户切换
 - ✅ 权限加载
 
 **关键文件：**
@@ -74,33 +74,33 @@ rad/
 - Service: `api/customer/CustomerServiceImpl.java`
 
 **API 端点：**
-- `POST /api/auth/login` - 用户登录
+- `POST /api/auth/login` - 客户登录
 - `POST /api/auth/logout` - 退出登录
-- `GET /api/auth/current-user-info` - 获取当前用户信息
-- `GET /api/auth/user-organizations` - 获取用户组织列表
-- `POST /api/auth/switch-organization` - 切换组织
+- `GET /api/customer/current-info` - 获取当前客户信息
+- `GET /api/customer/tenants` - 获取客户租户列表
+- `POST /api/customer/switch-tenant` - 切换租户
 
 ---
 
-### 2. 用户管理模块 (`customer/`)
+### 2. 客户管理模块 (`customer/`)
 
 **功能：**
-- ✅ 用户 CRUD
-- ✅ 用户搜索（分页）
+- ✅ 客户 CRUD
+- ✅ 客户搜索（分页）
 - ✅ 找回密码
 - ✅ 重置密码
 
 **关键文件：**
 - Proto: `api/customer/api.proto`
 - Domain: `domain/customer/domain.proto`
-- Service: `api/customer/UserServiceImpl.java`
+- Service: `api/customer/CustomerManagementServiceImpl.java`
 
 **API 端点：**
-- `POST /api/users` - 创建用户
-- `GET /api/users/{userId}` - 获取用户详情
-- `PUT /api/users/{userId}` - 更新用户
-- `DELETE /api/users/{userId}` - 删除用户
-- `POST /api/users/search` - 搜索用户
+- `POST /api/customers/customers` - 创建客户
+- `GET /api/customers/customers/{customerId}` - 获取客户详情
+- `PUT /api/customers/customers/{customerId}` - 更新客户
+- `DELETE /api/customers/customers/{customerId}` - 删除客户
+- `POST /api/customers/customers/search` - 搜索客户
 
 ---
 
@@ -157,6 +157,8 @@ rad/
 - ✅ 租户 CRUD
 - ✅ 租户配置
 - ✅ 租户停用
+- ✅ 租户搜索
+- ✅ 平台租户支持（is_platform）
 
 **关键文件：**
 - Proto: `api/tenant/api.proto`
@@ -169,6 +171,7 @@ rad/
 - `PUT /api/tenants/{tenantId}` - 更新租户
 - `DELETE /api/tenants/{tenantId}/disable` - 停用租户
 - `POST /api/tenants/{tenantId}/configure` - 配置租户
+- `POST /api/tenants/search` - 搜索租户
 
 ---
 
@@ -178,6 +181,7 @@ rad/
 - ✅ 部门 CRUD
 - ✅ 部门树查询
 - ✅ 部门搜索（分页）
+- ✅ 租户隔离（tenant_id）
 
 **关键文件：**
 - Proto: `api/department/api.proto`
@@ -194,46 +198,34 @@ rad/
 
 ---
 
-### 7. 部门员工管理模块 (`department/employee`)
+### 7. 租户成员管理模块 (`tenant/member`)
 
 **功能：**
-- ✅ 添加员工到部门
-- ✅ 从部门移除员工
-- ✅ 员工调岗
-- ✅ 获取部门员工列表
+- ✅ 获取租户成员列表（分页）
+- ✅ 添加成员到租户
+- ✅ 从租户移除成员
+- ✅ 切换成员锁定状态
+- ✅ 更新成员角色（OWNER/ADMIN/MEMBER）
+- ✅ 分配成员部门
+- ✅ 设置默认租户
 
 **关键文件：**
-- Proto: `api/department/employee.proto`
-- Domain: `domain/department/employee.proto`
-- Service: `api/department/DepartmentEmployeeServiceImpl.java`
+- Proto: `api/tenant/member.proto`
+- Domain: `domain/tenant/member.proto`
+- Service: `api/tenant/TenantMemberServiceImpl.java`
 
 **API 端点：**
-- `POST /api/department-employees` - 添加员工到部门
-- `DELETE /api/department-employees/{employeeId}` - 从部门移除员工
-- `POST /api/department-employees/transfer` - 员工调岗
-- `GET /api/departments/{departmentId}/employees` - 获取部门员工列表
+- `GET /api/tenants/{tenantId}/members` - 获取成员列表
+- `POST /api/tenants/{tenantId}/members` - 添加成员
+- `DELETE /api/tenants/{tenantId}/members/{memberId}` - 移除成员
+- `POST /api/tenants/{tenantId}/members/{memberId}/toggle-lock` - 切换锁定
+- `PUT /api/tenants/{tenantId}/members/{memberId}/role` - 更新角色
+- `PUT /api/tenants/{tenantId}/members/{memberId}/department` - 分配部门
+- `POST /api/tenants/{tenantId}/set-default` - 设置默认租户
 
 ---
 
-### 8. 组织管理模块 (`organization/`)
-
-**功能：**
-- ✅ 组织树查询
-- ✅ 部门树查询
-- ✅ 获取用户部门列表
-
-**关键文件：**
-- Proto: `api/organization/api.proto`
-- Service: `api/organization/OrganizationServiceImpl.java`
-
-**API 端点：**
-- `GET /api/organizations/tree` - 获取组织树
-- `GET /api/organizations/department-tree` - 获取部门树
-- `GET /api/organizations/user-departments` - 获取用户部门
-
----
-
-### 9. 审计日志模块 (`audit/`)
+### 8. 审计日志模块 (`audit/`)
 
 **功能：**
 - ✅ 访问日志记录
@@ -255,15 +247,14 @@ rad/
 
 | 模块 | 单元测试数 | 通过率 |
 |------|-----------|--------|
-| 用户管理 | 11 | 100% |
+| 客户管理 | 11 | 100% |
 | 角色管理 | 11 | 100% |
 | 租户管理 | 11 | 100% |
 | 部门管理 | 11 | 100% |
 | 菜单管理 | 11 | 100% |
-| 部门员工 | 7 | 100% |
+| 租户成员 | 7 | 100% |
 | 高级认证 | 3 | 100% |
-| 组织管理 | 4 | 100% |
-| **总计** | **69** | **100%** |
+| **总计** | **65** | **100%** |
 
 ---
 
@@ -314,12 +305,16 @@ rad/
 
 ## 📝 更新日志
 
+### 2026-03-24
+- ✅ 完成账户和租户体系重构（Customer + Tenant + TenantMember）
+- ✅ 消除所有 User/Organization 概念混淆
+- ✅ 添加租户成员管理模块
+- ✅ Role/Menu/Department 添加 tenant_id 租户隔离
+
 ### 2026-03-20
 - ✅ 完成高级认证与组织管理功能
-- ✅ 完成所有 69 个单元测试
+- ✅ 完成所有 65 个单元测试
 - ✅ 构建验证通过
-
----
 
 ## 🔗 相关链接
 

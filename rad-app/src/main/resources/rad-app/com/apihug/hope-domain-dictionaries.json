@@ -1,35 +1,11 @@
 {
   "domain" : "rad",
   "version" : "0.1.1-SNAPSHOT",
-  "lastBuildTime" : "2026-03-24 10:57:15",
+  "lastBuildTime" : "2026-03-24 15:36:57",
   "dictionaries" : [ {
-    "name" : "CustomerOrgStatusEnum",
-    "javaClass" : "com.apihug.rad.infra.organization.CustomerOrgStatusEnum",
-    "description" : "客户在组织内的状态枚举",
-    "deprecated" : false,
-    "items" : [ {
-      "code" : 1,
-      "title" : "ACTIVE",
-      "description" : "active",
-      "description2" : "正常",
-      "deprecated" : false
-    }, {
-      "code" : 2,
-      "title" : "INACTIVE",
-      "description" : "inactive",
-      "description2" : "已退出",
-      "deprecated" : false
-    }, {
-      "code" : 3,
-      "title" : "LOCKED",
-      "description" : "locked",
-      "description2" : "已锁定",
-      "deprecated" : false
-    } ]
-  }, {
     "name" : "CustomerStatusEnum",
     "javaClass" : "com.apihug.rad.infra.customer.CustomerStatusEnum",
-    "description" : "用户状态枚举定义",
+    "description" : "客户状态枚举",
     "deprecated" : false,
     "items" : [ {
       "code" : 1,
@@ -48,6 +24,12 @@
       "title" : "LOCKED",
       "description" : "locked",
       "description2" : "锁定",
+      "deprecated" : false
+    }, {
+      "code" : 4,
+      "title" : "DISABLED",
+      "description" : "disabled",
+      "description2" : "禁用",
       "deprecated" : false
     } ]
   }, {
@@ -69,9 +51,35 @@
       "deprecated" : false
     } ]
   }, {
-    "name" : "EmployeeTypeEnum",
-    "javaClass" : "com.apihug.rad.infra.organization.EmployeeTypeEnum",
-    "description" : "员工类型枚举",
+    "name" : "MemberRoleEnum",
+    "javaClass" : "com.apihug.rad.infra.tenant.MemberRoleEnum",
+    "description" : "租户成员角色枚举",
+    "documentation" : "成员角色枚举（成员在租户中的管理角色）\r",
+    "deprecated" : false,
+    "items" : [ {
+      "code" : 1,
+      "title" : "MEMBER",
+      "description" : "member",
+      "description2" : "普通成员",
+      "deprecated" : false
+    }, {
+      "code" : 2,
+      "title" : "ADMIN",
+      "description" : "admin",
+      "description2" : "管理员",
+      "deprecated" : false
+    }, {
+      "code" : 3,
+      "title" : "OWNER",
+      "description" : "owner",
+      "description2" : "拥有者",
+      "deprecated" : false
+    } ]
+  }, {
+    "name" : "MemberTypeEnum",
+    "javaClass" : "com.apihug.rad.infra.tenant.MemberTypeEnum",
+    "description" : "租户成员类型枚举",
+    "documentation" : "成员类型枚举（原 EmployeeTypeEnum，从 organization 迁移至 tenant）\r",
     "deprecated" : false,
     "items" : [ {
       "code" : 1,
@@ -138,30 +146,6 @@
       "title" : "BUTTON",
       "description" : "button",
       "description2" : "按钮",
-      "deprecated" : false
-    } ]
-  }, {
-    "name" : "OrganizationStatusEnum",
-    "javaClass" : "com.apihug.rad.infra.organization.OrganizationStatusEnum",
-    "description" : "组织状态枚举",
-    "deprecated" : false,
-    "items" : [ {
-      "code" : 1,
-      "title" : "ORG_ACTIVE",
-      "description" : "active",
-      "description2" : "活跃",
-      "deprecated" : false
-    }, {
-      "code" : 2,
-      "title" : "ORG_INACTIVE",
-      "description" : "inactive",
-      "description2" : "未激活",
-      "deprecated" : false
-    }, {
-      "code" : 3,
-      "title" : "ORG_DISABLED",
-      "description" : "disabled",
-      "description2" : "禁用",
       "deprecated" : false
     } ]
   }, {
@@ -302,40 +286,40 @@
       "deprecated" : false
     }, {
       "code" : 22,
-      "title" : "ORGANIZATION_MEMBER_VIEW",
-      "description" : "organization:member:view",
-      "description2" : "查看组织员工",
+      "title" : "TENANT_MEMBER_VIEW",
+      "description" : "tenant:member:view",
+      "description2" : "查看租户成员",
       "deprecated" : false,
-      "documentation" : "组织员工管理权限"
+      "documentation" : "租户成员管理权限"
     }, {
       "code" : 23,
-      "title" : "ORGANIZATION_MEMBER_ADD",
-      "description" : "organization:member:add",
-      "description2" : "添加组织员工",
+      "title" : "TENANT_MEMBER_ADD",
+      "description" : "tenant:member:add",
+      "description2" : "添加租户成员",
       "deprecated" : false
     }, {
       "code" : 24,
-      "title" : "ORGANIZATION_MEMBER_REMOVE",
-      "description" : "organization:member:remove",
-      "description2" : "移除组织员工",
+      "title" : "TENANT_MEMBER_REMOVE",
+      "description" : "tenant:member:remove",
+      "description2" : "移除租户成员",
       "deprecated" : false
     }, {
       "code" : 25,
-      "title" : "ORGANIZATION_MEMBER_LOCK",
-      "description" : "organization:member:lock",
-      "description2" : "锁定组织员工",
+      "title" : "TENANT_MEMBER_LOCK",
+      "description" : "tenant:member:lock",
+      "description2" : "锁定租户成员",
       "deprecated" : false
     }, {
       "code" : 26,
-      "title" : "ORGANIZATION_MEMBER_ASSIGN_ROLE",
-      "description" : "organization:member:assign_role",
-      "description2" : "分配员工角色",
+      "title" : "TENANT_MEMBER_ASSIGN_ROLE",
+      "description" : "tenant:member:assign_role",
+      "description2" : "分配成员角色",
       "deprecated" : false
     }, {
       "code" : 27,
-      "title" : "ORGANIZATION_MEMBER_ASSIGN_MENU",
-      "description" : "organization:member:assign_menu",
-      "description2" : "分配员工菜单",
+      "title" : "TENANT_MEMBER_ASSIGN_DEPARTMENT",
+      "description" : "tenant:member:assign_department",
+      "description2" : "分配成员部门",
       "deprecated" : false
     } ]
   }, {
@@ -363,6 +347,31 @@
       "deprecated" : false
     } ]
   }, {
+    "name" : "TenantMemberStatusEnum",
+    "javaClass" : "com.apihug.rad.infra.tenant.TenantMemberStatusEnum",
+    "description" : "租户成员状态枚举",
+    "documentation" : "成员状态枚举（成员在租户内的状态）\r\n注意：值名使用 TM_ 前缀避免与同 package 的 TenantStatusEnum 冲突\r",
+    "deprecated" : false,
+    "items" : [ {
+      "code" : 1,
+      "title" : "TM_ACTIVE",
+      "description" : "active",
+      "description2" : "正常",
+      "deprecated" : false
+    }, {
+      "code" : 2,
+      "title" : "TM_INACTIVE",
+      "description" : "inactive",
+      "description2" : "已退出",
+      "deprecated" : false
+    }, {
+      "code" : 3,
+      "title" : "TM_LOCKED",
+      "description" : "locked",
+      "description2" : "已锁定",
+      "deprecated" : false
+    } ]
+  }, {
     "name" : "TenantStatusEnum",
     "javaClass" : "com.apihug.rad.infra.tenant.TenantStatusEnum",
     "description" : "租户状态枚举",
@@ -384,36 +393,6 @@
       "title" : "EXPIRED",
       "description" : "expired",
       "description2" : "过期",
-      "deprecated" : false
-    } ]
-  }, {
-    "name" : "UserStatusEnum",
-    "javaClass" : "com.apihug.rad.infra.auth.UserStatusEnum",
-    "description" : "用户状态枚举",
-    "deprecated" : false,
-    "items" : [ {
-      "code" : 1,
-      "title" : "ACTIVE",
-      "description" : "active",
-      "description2" : "活跃",
-      "deprecated" : false
-    }, {
-      "code" : 2,
-      "title" : "INACTIVE",
-      "description" : "inactive",
-      "description2" : "未激活",
-      "deprecated" : false
-    }, {
-      "code" : 3,
-      "title" : "LOCKED",
-      "description" : "locked",
-      "description2" : "锁定",
-      "deprecated" : false
-    }, {
-      "code" : 4,
-      "title" : "DISABLED",
-      "description" : "disabled",
-      "description2" : "禁用",
       "deprecated" : false
     } ]
   } ]

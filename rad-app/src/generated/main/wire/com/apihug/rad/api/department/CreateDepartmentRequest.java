@@ -26,6 +26,9 @@ import javax.annotation.Generated;
 public class CreateDepartmentRequest {
   private static final long serialVersionUID = 0L;
 
+  @Min(1)
+  protected Long tenantId;
+
   @Min(0)
   protected Long parentId;
 
@@ -49,6 +52,15 @@ public class CreateDepartmentRequest {
   protected String managerId;
 
   protected DeptStatusEnum status;
+
+  public Long getTenantId() {
+    return tenantId;
+  }
+
+  public CreateDepartmentRequest setTenantId(Long tenantId) {
+    this.tenantId = tenantId;
+    return this;
+  }
 
   public Long getParentId() {
     return parentId;
@@ -107,6 +119,7 @@ public class CreateDepartmentRequest {
   @Override
   public String toString() {
     return new StringJoiner(", ", "CreateDepartmentRequest[" , "]")
+    	.add("tenantId=" + tenantId)
     	.add("parentId=" + parentId)
     	.add("deptCode=" + deptCode)
     	.add("deptName=" + deptName)

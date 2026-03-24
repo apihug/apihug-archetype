@@ -16,7 +16,8 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 认证相关错误
+ * UserStatusEnum 已删除 — 统一使用 CustomerStatusEnum (infra/customer/constant.proto)
+ * 认证流程相关错误
  */
 @ProtoFrom(
     value = "com/apihug/rad/infra/auth/constant.proto",
@@ -36,9 +37,9 @@ public enum AuthErrorEnum implements Errors {
 
   public static final Error ACCOUNT_LOCKED = new Error();
 
-  public static final Error ORGANIZATION_NOT_FOUND = new Error();
+  public static final Error TENANT_NOT_FOUND = new Error();
 
-  public static final Error NO_ORGANIZATION_ACCESS = new Error();
+  public static final Error NO_TENANT_ACCESS = new Error();
 
   public static final Error TOKEN_EXPIRED = new Error();
 
@@ -64,24 +65,24 @@ public enum AuthErrorEnum implements Errors {
     ACCOUNT_LOCKED.setSeverity(Severity.WARN);
     _ERRORS_MAP.put("ACCOUNT_LOCKED", ACCOUNT_LOCKED);
     ERRORS.add(ACCOUNT_LOCKED);
-    ORGANIZATION_NOT_FOUND.setDomain("rad");
-    ORGANIZATION_NOT_FOUND.setCode(10006003);
-    ORGANIZATION_NOT_FOUND.setDescription("Organization not found");
-    ORGANIZATION_NOT_FOUND.setDescription2("组织不存在");
-    ORGANIZATION_NOT_FOUND.setTips("Check if the organization ID is correct");
-    ORGANIZATION_NOT_FOUND.setPhase(Phase.SERVICE);
-    ORGANIZATION_NOT_FOUND.setSeverity(Severity.FATAL);
-    _ERRORS_MAP.put("ORGANIZATION_NOT_FOUND", ORGANIZATION_NOT_FOUND);
-    ERRORS.add(ORGANIZATION_NOT_FOUND);
-    NO_ORGANIZATION_ACCESS.setDomain("rad");
-    NO_ORGANIZATION_ACCESS.setCode(10006004);
-    NO_ORGANIZATION_ACCESS.setDescription("No access to this organization");
-    NO_ORGANIZATION_ACCESS.setDescription2("无权访问该组织");
-    NO_ORGANIZATION_ACCESS.setTips("Contact your administrator");
-    NO_ORGANIZATION_ACCESS.setPhase(Phase.SERVICE);
-    NO_ORGANIZATION_ACCESS.setSeverity(Severity.WARN);
-    _ERRORS_MAP.put("NO_ORGANIZATION_ACCESS", NO_ORGANIZATION_ACCESS);
-    ERRORS.add(NO_ORGANIZATION_ACCESS);
+    TENANT_NOT_FOUND.setDomain("rad");
+    TENANT_NOT_FOUND.setCode(10006003);
+    TENANT_NOT_FOUND.setDescription("Tenant not found");
+    TENANT_NOT_FOUND.setDescription2("租户不存在");
+    TENANT_NOT_FOUND.setTips("Check if the tenant ID is correct");
+    TENANT_NOT_FOUND.setPhase(Phase.SERVICE);
+    TENANT_NOT_FOUND.setSeverity(Severity.FATAL);
+    _ERRORS_MAP.put("TENANT_NOT_FOUND", TENANT_NOT_FOUND);
+    ERRORS.add(TENANT_NOT_FOUND);
+    NO_TENANT_ACCESS.setDomain("rad");
+    NO_TENANT_ACCESS.setCode(10006004);
+    NO_TENANT_ACCESS.setDescription("No access to this tenant");
+    NO_TENANT_ACCESS.setDescription2("无权访问该租户");
+    NO_TENANT_ACCESS.setTips("Contact your administrator");
+    NO_TENANT_ACCESS.setPhase(Phase.SERVICE);
+    NO_TENANT_ACCESS.setSeverity(Severity.WARN);
+    _ERRORS_MAP.put("NO_TENANT_ACCESS", NO_TENANT_ACCESS);
+    ERRORS.add(NO_TENANT_ACCESS);
     TOKEN_EXPIRED.setDomain("rad");
     TOKEN_EXPIRED.setCode(10006005);
     TOKEN_EXPIRED.setDescription("Token has expired");

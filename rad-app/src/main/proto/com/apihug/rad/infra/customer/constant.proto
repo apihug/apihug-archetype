@@ -7,7 +7,7 @@ import "apihug/protobuf/swagger/annotations.proto";
 
 enum CustomerStatusEnum {
   option (hope.swagger.enm) = {
-    description: "用户状态枚举定义"
+    description: "客户状态枚举"
   };
 
   ACTIVE = 0 [(hope.constant.field) = {
@@ -26,5 +26,11 @@ enum CustomerStatusEnum {
     code: 3,
     message: "locked",
     message2: "锁定"
+  }];
+
+  DISABLED = 3 [(hope.constant.field) = {
+    code: 4,
+    message: "disabled",
+    message2: "禁用"
   }];
 }

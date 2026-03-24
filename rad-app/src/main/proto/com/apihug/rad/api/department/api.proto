@@ -119,13 +119,19 @@ message CreateDepartmentRequest {
     };
   };
 
-  int64 parent_id = 1 [(hope.swagger.field) = {
+  int64 tenant_id = 1 [(hope.swagger.field) = {
+    description: "租户 ID（从当前上下文获取）";
+    example: "1";
+    minimum: 1;
+  }];
+
+  int64 parent_id = 2 [(hope.swagger.field) = {
     description: "父部门 ID（0 表示根部门）";
     example: "0";
     minimum: 0;
   }];
 
-  string dept_code = 2 [(hope.swagger.field) = {
+  string dept_code = 3 [(hope.swagger.field) = {
     description: "部门代码";
     example: "tech_dev";
     empty: false;
@@ -133,7 +139,7 @@ message CreateDepartmentRequest {
     mock: {nature: NAME};
   }];
 
-  string dept_name = 3 [(hope.swagger.field) = {
+  string dept_name = 4 [(hope.swagger.field) = {
     description: "部门名称";
     example: "研发部";
     empty: false;
@@ -141,18 +147,18 @@ message CreateDepartmentRequest {
     mock: {nature: NAME};
   }];
 
-  int32 sort_order = 4 [(hope.swagger.field) = {
+  int32 sort_order = 5 [(hope.swagger.field) = {
     description: "排序顺序";
     example: "10";
   }];
 
-  string manager_id = 5 [(hope.swagger.field) = {
+  string manager_id = 6 [(hope.swagger.field) = {
     description: "部门负责人 ID";
     example: "1";
     max_length: 50;
   }];
 
-  com.apihug.rad.infra.department.DeptStatusEnum status = 6 [(hope.swagger.field) = {
+  com.apihug.rad.infra.department.DeptStatusEnum status = 7 [(hope.swagger.field) = {
     description: "部门状态";
     example: "ACTIVE";
     empty: false;

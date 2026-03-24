@@ -1,8 +1,10 @@
 // @formatter:off
 package com.apihug.rad.api.tenant;
 
+import hope.common.api.PageRequest;
 import hope.common.meta.annotation.Kind;
 import hope.common.meta.annotation.ProtoFrom;
+import hope.common.spring.PageableResultBuilder;
 import hope.common.spring.SimpleResultBuilder;
 import java.lang.Integer;
 import java.lang.String;
@@ -86,6 +88,22 @@ public interface TenantService {
    */
   default void configureTenant(SimpleResultBuilder<String> builder, Integer tenantId,
       ConfigureTenantRequest configureTenantRequest) {
+    builder.notImplemented();
+  }
+
+  /**
+   *
+   * Authorization:
+   *
+   * <ul>
+   * 	<li>Authorities: [TENANT_CREATE]</li>
+   * </ul>
+   * @apiNote
+   * 	<p>{@code /api/tenants/tenants/search}
+   * 	<p>{@code 搜索租户（分页）}
+   */
+  default void searchTenants(PageableResultBuilder<TenantSummary> builder,
+      SearchTenantsRequest searchTenantsRequest, PageRequest pageParameter) {
     builder.notImplemented();
   }
 }

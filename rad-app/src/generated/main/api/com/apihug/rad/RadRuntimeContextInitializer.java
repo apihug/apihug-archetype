@@ -28,6 +28,6 @@ public class RadRuntimeContextInitializer extends RuntimeContextInitializer {
         return res;
       }
     }.get());
-    runTimeCtx.setStubBuildTime("2026-03-24 10:57:16");
+    runTimeCtx.setStubBuildTime("2026-03-24 15:36:58");
   }
 }

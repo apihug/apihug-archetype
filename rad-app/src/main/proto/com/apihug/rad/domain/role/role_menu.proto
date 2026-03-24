@@ -1,0 +1,39 @@
+syntax = "proto3";
+
+package com.apihug.rad.domain.role;
+
+import "apihug/protobuf/domain/annotations.proto";
+
+// 角色-菜单关联实体 — 实现角色与菜单的多对多关系
+// 参考 RuoYi 的 sys_role_menu 设计
+message RoleMenuEntity {
+  option (hope.persistence.table) = {
+    name: "SYS_ROLE_MENU",
+    description: "角色菜单关联表（角色与菜单的多对多关系）",
+    wires: [IDENTIFIABLE],
+    indexes: {
+      name: "IDX_SYS_RM_ROLE_ID",
+      column_list: ["role_id"]
+    },
+    indexes: {
+      name: "IDX_SYS_RM_MENU_ID",
+      column_list: ["menu_id"]
+    },
+    unique_constraints: {
+      name: "UK_SYS_RM_ROLE_MENU",
+      column_list: ["role_id", "menu_id"]
+    }
+  };
+
+  int64 role_id = 1 [(hope.persistence.column) = {
+    name: "ROLE_ID",
+    description: "角色 ID",
+    nullable: false
+  }];
+
+  int64 menu_id = 2 [(hope.persistence.column) = {
+    name: "MENU_ID",
+    description: "菜单 ID",
+    nullable: false
+  }];
+}

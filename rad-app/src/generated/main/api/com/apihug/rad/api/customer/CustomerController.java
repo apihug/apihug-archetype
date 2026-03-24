@@ -68,68 +68,68 @@ public class CustomerController {
 
   /**
    * @apiNote
-   * 	<p>{@code /api/customer/current-user-info}
-   * 	<p>{@code 获取当前客户完整信息（包含权限、角色、部门）}
+   * 	<p>{@code /api/customer/current-info}
+   * 	<p>{@code 获取当前客户完整信息（包含权限、角色、部门、当前租户）}
    */
-  @GetMapping("/api/customer/current-user-info")
-  public ResponseEntity<Result<CurrentUserInfo>> getCurrentUserInfo() {
-    final SimpleResultBuilder<CurrentUserInfo> builder = new SimpleResultBuilder<CurrentUserInfo>();
+  @GetMapping("/api/customer/current-info")
+  public ResponseEntity<Result<CurrentCustomerInfo>> getCurrentCustomerInfo() {
+    final SimpleResultBuilder<CurrentCustomerInfo> builder = new SimpleResultBuilder<CurrentCustomerInfo>();
     final Map<String, Object> _ctx = Map.of(Aspect.START_TIME, System.currentTimeMillis(), Aspect.CHANNEL, "API");
     try {
-      aspect().before(Apis.GetCurrentUserInfo, _ctx);
-      _service.getCurrentUserInfo(builder);
-      ResponseEntity<Result<CurrentUserInfo>> res = builder.done();
-      aspect().after(Apis.GetCurrentUserInfo, _ctx, res);
+      aspect().before(Apis.GetCurrentCustomerInfo, _ctx);
+      _service.getCurrentCustomerInfo(builder);
+      ResponseEntity<Result<CurrentCustomerInfo>> res = builder.done();
+      aspect().after(Apis.GetCurrentCustomerInfo, _ctx, res);
       return res;
     } catch (Throwable exception) {
-      logger.error("FAIL_ACTION" + Apis.GetCurrentUserInfo, exception);
-      aspect().exception(Apis.GetCurrentUserInfo, _ctx, exception);
+      logger.error("FAIL_ACTION" + Apis.GetCurrentCustomerInfo, exception);
+      aspect().exception(Apis.GetCurrentCustomerInfo, _ctx, exception);
       throw exception;
     }
   }
 
   /**
    * @apiNote
-   * 	<p>{@code /api/customer/user-organizations}
-   * 	<p>{@code 获取客户的所有组织列表}
+   * 	<p>{@code /api/customer/tenants}
+   * 	<p>{@code 获取客户加入的所有租户列表}
    */
-  @GetMapping("/api/customer/user-organizations")
-  public ResponseEntity<Result<OrganizationList>> getUserOrganizations() {
-    final SimpleResultBuilder<OrganizationList> builder = new SimpleResultBuilder<OrganizationList>();
+  @GetMapping("/api/customer/tenants")
+  public ResponseEntity<Result<TenantList>> getCustomerTenants() {
+    final SimpleResultBuilder<TenantList> builder = new SimpleResultBuilder<TenantList>();
     final Map<String, Object> _ctx = Map.of(Aspect.START_TIME, System.currentTimeMillis(), Aspect.CHANNEL, "API");
     try {
-      aspect().before(Apis.GetUserOrganizations, _ctx);
-      _service.getUserOrganizations(builder);
-      ResponseEntity<Result<OrganizationList>> res = builder.done();
-      aspect().after(Apis.GetUserOrganizations, _ctx, res);
+      aspect().before(Apis.GetCustomerTenants, _ctx);
+      _service.getCustomerTenants(builder);
+      ResponseEntity<Result<TenantList>> res = builder.done();
+      aspect().after(Apis.GetCustomerTenants, _ctx, res);
       return res;
     } catch (Throwable exception) {
-      logger.error("FAIL_ACTION" + Apis.GetUserOrganizations, exception);
-      aspect().exception(Apis.GetUserOrganizations, _ctx, exception);
+      logger.error("FAIL_ACTION" + Apis.GetCustomerTenants, exception);
+      aspect().exception(Apis.GetCustomerTenants, _ctx, exception);
       throw exception;
     }
   }
 
   /**
    * @apiNote
-   * 	<p>{@code /api/customer/switch-organization}
-   * 	<p>{@code 切换到指定组织}
+   * 	<p>{@code /api/customer/switch-tenant}
+   * 	<p>{@code 切换到指定租户，重新签发 Token}
    */
-  @PostMapping("/api/customer/switch-organization")
-  public ResponseEntity<Result<LoginResponse>> switchOrganization(
-      @RequestBody @Valid SwitchOrganizationRequest switchOrganizationRequest) {
+  @PostMapping("/api/customer/switch-tenant")
+  public ResponseEntity<Result<LoginResponse>> switchTenant(
+      @RequestBody @Valid SwitchTenantRequest switchTenantRequest) {
     final SimpleResultBuilder<LoginResponse> builder = new SimpleResultBuilder<LoginResponse>();
-    switchOrganizationRequest = switchOrganizationRequest == null ? new SwitchOrganizationRequest(): switchOrganizationRequest;
-    final Map<String, Object> _ctx = Map.of(Aspect.START_TIME, System.currentTimeMillis(), Aspect.CHANNEL, "API", "switchOrganizationRequest", switchOrganizationRequest);
+    switchTenantRequest = switchTenantRequest == null ? new SwitchTenantRequest(): switchTenantRequest;
+    final Map<String, Object> _ctx = Map.of(Aspect.START_TIME, System.currentTimeMillis(), Aspect.CHANNEL, "API", "switchTenantRequest", switchTenantRequest);
     try {
-      aspect().before(Apis.SwitchOrganization, _ctx);
-      _service.switchOrganization(builder, switchOrganizationRequest);
+      aspect().before(Apis.SwitchTenant, _ctx);
+      _service.switchTenant(builder, switchTenantRequest);
       ResponseEntity<Result<LoginResponse>> res = builder.done();
-      aspect().after(Apis.SwitchOrganization, _ctx, res);
+      aspect().after(Apis.SwitchTenant, _ctx, res);
       return res;
     } catch (Throwable exception) {
-      logger.error("FAIL_ACTION" + Apis.SwitchOrganization, exception);
-      aspect().exception(Apis.SwitchOrganization, _ctx, exception);
+      logger.error("FAIL_ACTION" + Apis.SwitchTenant, exception);
+      aspect().exception(Apis.SwitchTenant, _ctx, exception);
       throw exception;
     }
   }
@@ -141,10 +141,10 @@ public class CustomerController {
   public interface Apis {
     ServiceMethodContext Info = new ServiceMethodContext("com.apihug.rad.api.customer.CustomerService", "Info", "/api/customer/info", Priority.LOW, ServiceMethod.HttpMethod.GET);
 
-    ServiceMethodContext GetCurrentUserInfo = new ServiceMethodContext("com.apihug.rad.api.customer.CustomerService", "GetCurrentUserInfo", "/api/customer/current-user-info", Priority.LOW, ServiceMethod.HttpMethod.GET);
+    ServiceMethodContext GetCurrentCustomerInfo = new ServiceMethodContext("com.apihug.rad.api.customer.CustomerService", "GetCurrentCustomerInfo", "/api/customer/current-info", Priority.LOW, ServiceMethod.HttpMethod.GET);
 
-    ServiceMethodContext GetUserOrganizations = new ServiceMethodContext("com.apihug.rad.api.customer.CustomerService", "GetUserOrganizations", "/api/customer/user-organizations", Priority.LOW, ServiceMethod.HttpMethod.GET);
+    ServiceMethodContext GetCustomerTenants = new ServiceMethodContext("com.apihug.rad.api.customer.CustomerService", "GetCustomerTenants", "/api/customer/tenants", Priority.LOW, ServiceMethod.HttpMethod.GET);
 
-    ServiceMethodContext SwitchOrganization = new ServiceMethodContext("com.apihug.rad.api.customer.CustomerService", "SwitchOrganization", "/api/customer/switch-organization", Priority.LOW, ServiceMethod.HttpMethod.POST);
+    ServiceMethodContext SwitchTenant = new ServiceMethodContext("com.apihug.rad.api.customer.CustomerService", "SwitchTenant", "/api/customer/switch-tenant", Priority.LOW, ServiceMethod.HttpMethod.POST);
   }
 }

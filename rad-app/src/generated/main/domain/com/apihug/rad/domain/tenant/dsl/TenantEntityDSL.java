@@ -85,6 +85,8 @@ public interface TenantEntityDSL extends DSL<TenantEntity> {
     carrier[beginIndex + 6] = entity.getMaxStorageMb();
     LocalDateTime _7 = entity.getExpiryDate();
     carrier[beginIndex + 7] = _7 == null ? null : Timestamp.valueOf(_7);
+    carrier[beginIndex + 8] = entity.getIsPlatform();
+    carrier[beginIndex + 9] = entity.getDescription();
     return carrier;
   }
 
@@ -188,6 +190,8 @@ public interface TenantEntityDSL extends DSL<TenantEntity> {
     	Map.entry("MAXUSERS", Domain.MaxUsers),
     	Map.entry("MAXSTORAGEMB", Domain.MaxStorageMb),
     	Map.entry("EXPIRYDATE", Domain.ExpiryDate),
+    	Map.entry("ISPLATFORM", Domain.IsPlatform),
+    	Map.entry("DESCRIPTION", Domain.Description),
     	// Auditable,
     	Map.entry("CREATED_AT", _Auditable_.CREATED_AT),
     	Map.entry("CREATED_BY", _Auditable_.CREATED_BY),
@@ -289,7 +293,29 @@ public interface TenantEntityDSL extends DSL<TenantEntity> {
     		.setInsertable(true)
     		.setLength(255));
 
-    List<ColumnMix> ALL = List.of(TenantCode, TenantName, ContactEmail, ContactPhone, Status, MaxUsers, MaxStorageMb, ExpiryDate);
+    ColumnMix IsPlatform = ColumnMix.of(table, 
+    	new Column().setFieldName("isPlatform")
+    		.setName("IS_PLATFORM")
+    		.setClz("java.lang.Boolean")
+    		.setType(Types.TINYINT)
+    		.setDescription("是否为平台租户（平台拥有全局管理权限）")
+    		.setUpdatable(true)
+    		.setInsertable(true)
+    		.setLength(255)
+    		.setDefaultValue("IS_PLATFORM"));
+
+    ColumnMix Description = ColumnMix.of(table, 
+    	new Column().setFieldName("description")
+    		.setName("DESCRIPTION")
+    		.setClz("java.lang.String")
+    		.setType(Types.VARCHAR)
+    		.setDescription("租户描述")
+    		.setUpdatable(true)
+    		.setNullable(true)
+    		.setInsertable(true)
+    		.setLength(500));
+
+    List<ColumnMix> ALL = List.of(TenantCode, TenantName, ContactEmail, ContactPhone, Status, MaxUsers, MaxStorageMb, ExpiryDate, IsPlatform, Description);
 
     ColumnMix Id = _Identifiable_.ID;
 
@@ -313,6 +339,8 @@ public interface TenantEntityDSL extends DSL<TenantEntity> {
     ps.setInt(6, entity.getMaxUsers());
     ps.setLong(7, entity.getMaxStorageMb());
     ps.setTimestamp(8, Timestamp.valueOf(entity.getExpiryDate()));
+    ps.setBoolean(9, entity.getIsPlatform());
+    ps.setString(10, entity.getDescription());
     };
 
     RowMapper<TenantEntity> MAPPER = new RowMapper() {
@@ -331,16 +359,18 @@ public interface TenantEntityDSL extends DSL<TenantEntity> {
         if (_9 != null) {
           entity.setExpiryDate(_9.toLocalDateTime());
         }
-        Timestamp _10 = rs.getTimestamp(10);
-        if (_10 != null) {
-          entity.setCreatedAt(_10.toLocalDateTime());
-        }
-        entity.setCreatedBy(rs.getLong(11));
+        entity.setIsPlatform(rs.getBoolean(10));
+        entity.setDescription(rs.getString(11));
         Timestamp _12 = rs.getTimestamp(12);
         if (_12 != null) {
-          entity.setUpdatedAt(_12.toLocalDateTime());
+          entity.setCreatedAt(_12.toLocalDateTime());
         }
-        entity.setUpdatedBy(rs.getLong(13));
+        entity.setCreatedBy(rs.getLong(13));
+        Timestamp _14 = rs.getTimestamp(14);
+        if (_14 != null) {
+          entity.setUpdatedAt(_14.toLocalDateTime());
+        }
+        entity.setUpdatedBy(rs.getLong(15));
         return entity;
       }
     };

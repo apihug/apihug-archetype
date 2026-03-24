@@ -11,6 +11,8 @@ import hope.common.meta.annotation.Template;import hope.common.spring.SimpleResu
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 
 @Template(type = Template.Type.SERVICE, usage = "Department management", percentage = 90)
@@ -112,7 +114,6 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     departmentRepository.save(entity);
-    builder.done();
   }
 
   /**
@@ -135,7 +136,6 @@ public class DepartmentServiceImpl implements DepartmentService {
         .setDeletedBy(((Long) hope.common.spring.security.context.HopeContextHolder.customer().getId()));
 
     departmentRepository.save(entity);
-    builder.done();
   }
 
   /**
@@ -143,15 +143,17 @@ public class DepartmentServiceImpl implements DepartmentService {
    */
   @Override
   public void getDepartmentTree(SimpleResultBuilder<DepartmentTreeNode> builder) {
-    // 获取所有根部门（parent_id = 0）
-    List<DepartmentEntity> rootDepts = departmentRepository.findByParentId(0L);
+    // 一次性加载所有部门，避免递归 N+1，过滤软删除记录
+    List<DepartmentEntity> allDepts = departmentRepository.findAll().stream()
+        .filter(d -> !Boolean.TRUE.equals(d.isDeleted()))
+        .collect(Collectors.toList());
 
-    // 构建树形结构
-    List<DepartmentTreeNode> children = new ArrayList<>();
-    for (DepartmentEntity rootDept : rootDepts) {
-      DepartmentTreeNode node = buildDepartmentTreeNode(rootDept);
-      children.add(node);
-    }
+    // 按 parentId 分组
+    Map<Long, List<DepartmentEntity>> childrenMap = allDepts.stream()
+        .collect(Collectors.groupingBy(DepartmentEntity::getParentId));
+
+    // 构建树形结构（根部门 parentId = 0）
+    List<DepartmentTreeNode> children = buildDepartmentChildren(childrenMap, 0L);
 
     DepartmentTreeNode root = new DepartmentTreeNode();
     root.setChildren(children);
@@ -159,25 +161,23 @@ public class DepartmentServiceImpl implements DepartmentService {
   }
 
   /**
-   * Build department tree node recursively
+   * Build department tree children from pre-loaded map
    */
-  private DepartmentTreeNode buildDepartmentTreeNode(DepartmentEntity entity) {
-    DepartmentTreeNode node = new DepartmentTreeNode();
-    node.setDepartment(new DepartmentSummary()
-        .setId(entity.getId())
-        .setParentId(entity.getParentId())
-        .setDeptCode(entity.getDeptCode())
-        .setDeptName(entity.getDeptName())
-        .setStatus(entity.getStatus()));
-
-    // 递归构建子部门
-    List<DepartmentEntity> children = departmentRepository.findByParentId(entity.getId());
-    List<DepartmentTreeNode> childNodes = new ArrayList<>();
-    for (DepartmentEntity child : children) {
-      childNodes.add(buildDepartmentTreeNode(child));
+  private List<DepartmentTreeNode> buildDepartmentChildren(
+      Map<Long, List<DepartmentEntity>> childrenMap, Long parentId) {
+    List<DepartmentEntity> children = childrenMap.getOrDefault(parentId, List.of());
+    List<DepartmentTreeNode> nodes = new ArrayList<>();
+    for (DepartmentEntity entity : children) {
+      DepartmentTreeNode node = new DepartmentTreeNode();
+      node.setDepartment(new DepartmentSummary()
+          .setId(entity.getId())
+          .setParentId(entity.getParentId())
+          .setDeptCode(entity.getDeptCode())
+          .setDeptName(entity.getDeptName())
+          .setStatus(entity.getStatus()));
+      node.setChildren(buildDepartmentChildren(childrenMap, entity.getId()));
+      nodes.add(node);
     }
-    node.setChildren(childNodes);
-
-    return node;
+    return nodes;
   }
 }

@@ -66,18 +66,6 @@ public class RadApiContext extends ApiContext<RadApiContext> {
   }
 
   /**
-   * DepartmentEmployeeService : ============ 部门员工管理 API ============
-   * 部门员工管理服务，提供员工部门关联功能
-   */
-  public final RadApiContext departmentEmployeeService(
-      final Consumer<DepartmentEmployeeService> consumer) {
-    final DepartmentEmployeeService svc = new DepartmentEmployeeService();
-    consumer.accept(svc);
-    svc.done();
-    return RadApiContext.this;
-  }
-
-  /**
    * MenuService : ============ 菜单管理 API ============
    * 菜单管理服务，提供菜单 CRUD 和树形查询功能
    */
@@ -93,29 +81,6 @@ public class RadApiContext extends ApiContext<RadApiContext> {
    */
   public final RadApiContext apihugService(final Consumer<ApihugService> consumer) {
     final ApihugService svc = new ApihugService();
-    consumer.accept(svc);
-    svc.done();
-    return RadApiContext.this;
-  }
-
-  /**
-   * OrganizationService : ============ 组织管理 API ============
-   * 组织管理服务，提供组织树、部门树查询等功能
-   */
-  public final RadApiContext organizationService(final Consumer<OrganizationService> consumer) {
-    final OrganizationService svc = new OrganizationService();
-    consumer.accept(svc);
-    svc.done();
-    return RadApiContext.this;
-  }
-
-  /**
-   * CustomerOrganizationService : ============ 组织员工管理 API ============
-   * 组织员工管理服务，提供员工 - 组织关系管理功能
-   */
-  public final RadApiContext customerOrganizationService(
-      final Consumer<CustomerOrganizationService> consumer) {
-    final CustomerOrganizationService svc = new CustomerOrganizationService();
     consumer.accept(svc);
     svc.done();
     return RadApiContext.this;
@@ -149,6 +114,18 @@ public class RadApiContext extends ApiContext<RadApiContext> {
    */
   public final RadApiContext tenantService(final Consumer<TenantService> consumer) {
     final TenantService svc = new TenantService();
+    consumer.accept(svc);
+    svc.done();
+    return RadApiContext.this;
+  }
+
+  /**
+   * TenantMemberService : ============ 租户成员管理 API ============
+   * 替代原 CustomerOrganizationService — 管理 Customer 在 Tenant 中的身份
+   * 租户成员管理服务，提供成员与租户关系管理功能
+   */
+  public final RadApiContext tenantMemberService(final Consumer<TenantMemberService> consumer) {
+    final TenantMemberService svc = new TenantMemberService();
     consumer.accept(svc);
     svc.done();
     return RadApiContext.this;
@@ -281,9 +258,9 @@ public class RadApiContext extends ApiContext<RadApiContext> {
     public CustomerService() {
       super(RadApiContext.this);
       all.add("Info");
-      all.add("GetCurrentUserInfo");
-      all.add("GetUserOrganizations");
-      all.add("SwitchOrganization");
+      all.add("GetCurrentCustomerInfo");
+      all.add("GetCustomerTenants");
+      all.add("SwitchTenant");
     }
 
     public CustomerService methods(Consumer<Methods> consumer) {
@@ -315,50 +292,50 @@ public class RadApiContext extends ApiContext<RadApiContext> {
       }
 
       /**
-       * Include GetCurrentUserInfo
+       * Include GetCurrentCustomerInfo
        */
-      public final CustomerService GetCurrentUserInfo() {
-        CustomerService.this.include("GetCurrentUserInfo");
+      public final CustomerService GetCurrentCustomerInfo() {
+        CustomerService.this.include("GetCurrentCustomerInfo");
         return CustomerService.this;
       }
 
       /**
-       * Exclude GetCurrentUserInfo
+       * Exclude GetCurrentCustomerInfo
        */
-      public final CustomerService _GetCurrentUserInfo() {
-        CustomerService.this.exclude("GetCurrentUserInfo");
+      public final CustomerService _GetCurrentCustomerInfo() {
+        CustomerService.this.exclude("GetCurrentCustomerInfo");
         return CustomerService.this;
       }
 
       /**
-       * Include GetUserOrganizations
+       * Include GetCustomerTenants
        */
-      public final CustomerService GetUserOrganizations() {
-        CustomerService.this.include("GetUserOrganizations");
+      public final CustomerService GetCustomerTenants() {
+        CustomerService.this.include("GetCustomerTenants");
         return CustomerService.this;
       }
 
       /**
-       * Exclude GetUserOrganizations
+       * Exclude GetCustomerTenants
        */
-      public final CustomerService _GetUserOrganizations() {
-        CustomerService.this.exclude("GetUserOrganizations");
+      public final CustomerService _GetCustomerTenants() {
+        CustomerService.this.exclude("GetCustomerTenants");
         return CustomerService.this;
       }
 
       /**
-       * Include SwitchOrganization
+       * Include SwitchTenant
        */
-      public final CustomerService SwitchOrganization() {
-        CustomerService.this.include("SwitchOrganization");
+      public final CustomerService SwitchTenant() {
+        CustomerService.this.include("SwitchTenant");
         return CustomerService.this;
       }
 
       /**
-       * Exclude SwitchOrganization
+       * Exclude SwitchTenant
        */
-      public final CustomerService _SwitchOrganization() {
-        CustomerService.this.exclude("SwitchOrganization");
+      public final CustomerService _SwitchTenant() {
+        CustomerService.this.exclude("SwitchTenant");
         return CustomerService.this;
       }
     }
@@ -372,10 +349,6 @@ public class RadApiContext extends ApiContext<RadApiContext> {
     public CustomerManagementService() {
       super(RadApiContext.this);
       all.add("CreateCustomer");
-      all.add("GetCustomer");
-      all.add("UpdateCustomer");
-      all.add("DeleteCustomer");
-      all.add("SearchCustomers");
       all.add("ForgotPassword");
       all.add("ResetPassword");
     }
@@ -409,71 +382,8 @@ public class RadApiContext extends ApiContext<RadApiContext> {
       }
 
       /**
-       * Include GetCustomer
-       */
-      public final CustomerManagementService GetCustomer() {
-        CustomerManagementService.this.include("GetCustomer");
-        return CustomerManagementService.this;
-      }
-
-      /**
-       * Exclude GetCustomer
-       */
-      public final CustomerManagementService _GetCustomer() {
-        CustomerManagementService.this.exclude("GetCustomer");
-        return CustomerManagementService.this;
-      }
-
-      /**
-       * Include UpdateCustomer
-       */
-      public final CustomerManagementService UpdateCustomer() {
-        CustomerManagementService.this.include("UpdateCustomer");
-        return CustomerManagementService.this;
-      }
-
-      /**
-       * Exclude UpdateCustomer
-       */
-      public final CustomerManagementService _UpdateCustomer() {
-        CustomerManagementService.this.exclude("UpdateCustomer");
-        return CustomerManagementService.this;
-      }
-
-      /**
-       * Include DeleteCustomer
-       */
-      public final CustomerManagementService DeleteCustomer() {
-        CustomerManagementService.this.include("DeleteCustomer");
-        return CustomerManagementService.this;
-      }
-
-      /**
-       * Exclude DeleteCustomer
-       */
-      public final CustomerManagementService _DeleteCustomer() {
-        CustomerManagementService.this.exclude("DeleteCustomer");
-        return CustomerManagementService.this;
-      }
-
-      /**
-       * Include SearchCustomers
-       */
-      public final CustomerManagementService SearchCustomers() {
-        CustomerManagementService.this.include("SearchCustomers");
-        return CustomerManagementService.this;
-      }
-
-      /**
-       * Exclude SearchCustomers
-       */
-      public final CustomerManagementService _SearchCustomers() {
-        CustomerManagementService.this.exclude("SearchCustomers");
-        return CustomerManagementService.this;
-      }
-
-      /**
-       * Include ForgotPassword
+       * Include ForgotPassword : GetCustomer/UpdateCustomer/DeleteCustomer/SearchCustomers 已迁移至 TenantMemberService
+       * 租户管理员应通过 /api/tenant-members/tenants/{tenantId}/members 管理租户内成员
        */
       public final CustomerManagementService ForgotPassword() {
         CustomerManagementService.this.include("ForgotPassword");
@@ -481,7 +391,8 @@ public class RadApiContext extends ApiContext<RadApiContext> {
       }
 
       /**
-       * Exclude ForgotPassword
+       * Exclude ForgotPassword : GetCustomer/UpdateCustomer/DeleteCustomer/SearchCustomers 已迁移至 TenantMemberService
+       * 租户管理员应通过 /api/tenant-members/tenants/{tenantId}/members 管理租户内成员
        */
       public final CustomerManagementService _ForgotPassword() {
         CustomerManagementService.this.exclude("ForgotPassword");
@@ -610,97 +521,6 @@ public class RadApiContext extends ApiContext<RadApiContext> {
       public final DepartmentService _GetDepartmentTree() {
         DepartmentService.this.exclude("GetDepartmentTree");
         return DepartmentService.this;
-      }
-    }
-  }
-
-  /**
-   * ============ 部门员工管理 API ============
-   * 部门员工管理服务，提供员工部门关联功能
-   */
-  public final class DepartmentEmployeeService extends ApiServiceContextBuilder<DepartmentEmployeeService, RadApiContext> {
-    public DepartmentEmployeeService() {
-      super(RadApiContext.this);
-      all.add("AddEmployeeToDepartment");
-      all.add("RemoveEmployeeFromDepartment");
-      all.add("TransferEmployee");
-      all.add("GetDepartmentEmployees");
-    }
-
-    public DepartmentEmployeeService methods(Consumer<Methods> consumer) {
-      final Methods methods = new Methods();
-      consumer.accept(methods);
-      return DepartmentEmployeeService.this;
-    }
-
-    @Override
-    public String clz() {
-      return "com.apihug.rad.api.department.DepartmentEmployeeService";
-    }
-
-    public class Methods {
-      /**
-       * Include AddEmployeeToDepartment
-       */
-      public final DepartmentEmployeeService AddEmployeeToDepartment() {
-        DepartmentEmployeeService.this.include("AddEmployeeToDepartment");
-        return DepartmentEmployeeService.this;
-      }
-
-      /**
-       * Exclude AddEmployeeToDepartment
-       */
-      public final DepartmentEmployeeService _AddEmployeeToDepartment() {
-        DepartmentEmployeeService.this.exclude("AddEmployeeToDepartment");
-        return DepartmentEmployeeService.this;
-      }
-
-      /**
-       * Include RemoveEmployeeFromDepartment
-       */
-      public final DepartmentEmployeeService RemoveEmployeeFromDepartment() {
-        DepartmentEmployeeService.this.include("RemoveEmployeeFromDepartment");
-        return DepartmentEmployeeService.this;
-      }
-
-      /**
-       * Exclude RemoveEmployeeFromDepartment
-       */
-      public final DepartmentEmployeeService _RemoveEmployeeFromDepartment() {
-        DepartmentEmployeeService.this.exclude("RemoveEmployeeFromDepartment");
-        return DepartmentEmployeeService.this;
-      }
-
-      /**
-       * Include TransferEmployee
-       */
-      public final DepartmentEmployeeService TransferEmployee() {
-        DepartmentEmployeeService.this.include("TransferEmployee");
-        return DepartmentEmployeeService.this;
-      }
-
-      /**
-       * Exclude TransferEmployee
-       */
-      public final DepartmentEmployeeService _TransferEmployee() {
-        DepartmentEmployeeService.this.exclude("TransferEmployee");
-        return DepartmentEmployeeService.this;
-      }
-
-      /**
-       * Include GetDepartmentEmployees
-       */
-      public final DepartmentEmployeeService GetDepartmentEmployees() {
-        DepartmentEmployeeService.this.include("GetDepartmentEmployees");
-        return DepartmentEmployeeService.this;
-      }
-
-      /**
-       * Exclude GetDepartmentEmployees
-       */
-      public final DepartmentEmployeeService _GetDepartmentEmployees() {
-        DepartmentEmployeeService.this.exclude("GetDepartmentEmployees");
-        return DepartmentEmployeeService.this;
       }
     }
   }
@@ -938,239 +758,6 @@ public class RadApiContext extends ApiContext<RadApiContext> {
   }
 
   /**
-   * ============ 组织管理 API ============
-   * 组织管理服务，提供组织树、部门树查询等功能
-   */
-  public final class OrganizationService extends ApiServiceContextBuilder<OrganizationService, RadApiContext> {
-    public OrganizationService() {
-      super(RadApiContext.this);
-      all.add("GetOrganizationTree");
-      all.add("GetDepartmentTree");
-      all.add("GetUserDepartments");
-      all.add("GetUserOrganizations");
-      all.add("SetDefaultOrganization");
-    }
-
-    public OrganizationService methods(Consumer<Methods> consumer) {
-      final Methods methods = new Methods();
-      consumer.accept(methods);
-      return OrganizationService.this;
-    }
-
-    @Override
-    public String clz() {
-      return "com.apihug.rad.api.organization.OrganizationService";
-    }
-
-    public class Methods {
-      /**
-       * Include GetOrganizationTree
-       */
-      public final OrganizationService GetOrganizationTree() {
-        OrganizationService.this.include("GetOrganizationTree");
-        return OrganizationService.this;
-      }
-
-      /**
-       * Exclude GetOrganizationTree
-       */
-      public final OrganizationService _GetOrganizationTree() {
-        OrganizationService.this.exclude("GetOrganizationTree");
-        return OrganizationService.this;
-      }
-
-      /**
-       * Include GetDepartmentTree
-       */
-      public final OrganizationService GetDepartmentTree() {
-        OrganizationService.this.include("GetDepartmentTree");
-        return OrganizationService.this;
-      }
-
-      /**
-       * Exclude GetDepartmentTree
-       */
-      public final OrganizationService _GetDepartmentTree() {
-        OrganizationService.this.exclude("GetDepartmentTree");
-        return OrganizationService.this;
-      }
-
-      /**
-       * Include GetUserDepartments
-       */
-      public final OrganizationService GetUserDepartments() {
-        OrganizationService.this.include("GetUserDepartments");
-        return OrganizationService.this;
-      }
-
-      /**
-       * Exclude GetUserDepartments
-       */
-      public final OrganizationService _GetUserDepartments() {
-        OrganizationService.this.exclude("GetUserDepartments");
-        return OrganizationService.this;
-      }
-
-      /**
-       * Include GetUserOrganizations : 获取当前用户的组织列表
-       */
-      public final OrganizationService GetUserOrganizations() {
-        OrganizationService.this.include("GetUserOrganizations");
-        return OrganizationService.this;
-      }
-
-      /**
-       * Exclude GetUserOrganizations : 获取当前用户的组织列表
-       */
-      public final OrganizationService _GetUserOrganizations() {
-        OrganizationService.this.exclude("GetUserOrganizations");
-        return OrganizationService.this;
-      }
-
-      /**
-       * Include SetDefaultOrganization : 设置默认组织
-       */
-      public final OrganizationService SetDefaultOrganization() {
-        OrganizationService.this.include("SetDefaultOrganization");
-        return OrganizationService.this;
-      }
-
-      /**
-       * Exclude SetDefaultOrganization : 设置默认组织
-       */
-      public final OrganizationService _SetDefaultOrganization() {
-        OrganizationService.this.exclude("SetDefaultOrganization");
-        return OrganizationService.this;
-      }
-    }
-  }
-
-  /**
-   * ============ 组织员工管理 API ============
-   * 组织员工管理服务，提供员工 - 组织关系管理功能
-   */
-  public final class CustomerOrganizationService extends ApiServiceContextBuilder<CustomerOrganizationService, RadApiContext> {
-    public CustomerOrganizationService() {
-      super(RadApiContext.this);
-      all.add("GetOrganizationMembers");
-      all.add("AddMemberToOrganization");
-      all.add("RemoveMemberFromOrganization");
-      all.add("ToggleMemberLock");
-      all.add("AssignMemberRoles");
-      all.add("AssignMemberMenus");
-    }
-
-    public CustomerOrganizationService methods(Consumer<Methods> consumer) {
-      final Methods methods = new Methods();
-      consumer.accept(methods);
-      return CustomerOrganizationService.this;
-    }
-
-    @Override
-    public String clz() {
-      return "com.apihug.rad.api.organization.CustomerOrganizationService";
-    }
-
-    public class Methods {
-      /**
-       * Include GetOrganizationMembers : 获取组织员工列表 - 使用 pageable: true，返回单个对象，框架自动包装成 Page
-       */
-      public final CustomerOrganizationService GetOrganizationMembers() {
-        CustomerOrganizationService.this.include("GetOrganizationMembers");
-        return CustomerOrganizationService.this;
-      }
-
-      /**
-       * Exclude GetOrganizationMembers : 获取组织员工列表 - 使用 pageable: true，返回单个对象，框架自动包装成 Page
-       */
-      public final CustomerOrganizationService _GetOrganizationMembers() {
-        CustomerOrganizationService.this.exclude("GetOrganizationMembers");
-        return CustomerOrganizationService.this;
-      }
-
-      /**
-       * Include AddMemberToOrganization : 添加员工到组织
-       */
-      public final CustomerOrganizationService AddMemberToOrganization() {
-        CustomerOrganizationService.this.include("AddMemberToOrganization");
-        return CustomerOrganizationService.this;
-      }
-
-      /**
-       * Exclude AddMemberToOrganization : 添加员工到组织
-       */
-      public final CustomerOrganizationService _AddMemberToOrganization() {
-        CustomerOrganizationService.this.exclude("AddMemberToOrganization");
-        return CustomerOrganizationService.this;
-      }
-
-      /**
-       * Include RemoveMemberFromOrganization : 从组织移除员工
-       */
-      public final CustomerOrganizationService RemoveMemberFromOrganization() {
-        CustomerOrganizationService.this.include("RemoveMemberFromOrganization");
-        return CustomerOrganizationService.this;
-      }
-
-      /**
-       * Exclude RemoveMemberFromOrganization : 从组织移除员工
-       */
-      public final CustomerOrganizationService _RemoveMemberFromOrganization() {
-        CustomerOrganizationService.this.exclude("RemoveMemberFromOrganization");
-        return CustomerOrganizationService.this;
-      }
-
-      /**
-       * Include ToggleMemberLock : 锁定/解锁员工
-       */
-      public final CustomerOrganizationService ToggleMemberLock() {
-        CustomerOrganizationService.this.include("ToggleMemberLock");
-        return CustomerOrganizationService.this;
-      }
-
-      /**
-       * Exclude ToggleMemberLock : 锁定/解锁员工
-       */
-      public final CustomerOrganizationService _ToggleMemberLock() {
-        CustomerOrganizationService.this.exclude("ToggleMemberLock");
-        return CustomerOrganizationService.this;
-      }
-
-      /**
-       * Include AssignMemberRoles : 配置员工角色
-       */
-      public final CustomerOrganizationService AssignMemberRoles() {
-        CustomerOrganizationService.this.include("AssignMemberRoles");
-        return CustomerOrganizationService.this;
-      }
-
-      /**
-       * Exclude AssignMemberRoles : 配置员工角色
-       */
-      public final CustomerOrganizationService _AssignMemberRoles() {
-        CustomerOrganizationService.this.exclude("AssignMemberRoles");
-        return CustomerOrganizationService.this;
-      }
-
-      /**
-       * Include AssignMemberMenus : 配置员工菜单权限
-       */
-      public final CustomerOrganizationService AssignMemberMenus() {
-        CustomerOrganizationService.this.include("AssignMemberMenus");
-        return CustomerOrganizationService.this;
-      }
-
-      /**
-       * Exclude AssignMemberMenus : 配置员工菜单权限
-       */
-      public final CustomerOrganizationService _AssignMemberMenus() {
-        CustomerOrganizationService.this.exclude("AssignMemberMenus");
-        return CustomerOrganizationService.this;
-      }
-    }
-  }
-
-  /**
    * ============ 权限管理 API ============
    * 权限管理服务，提供权限查询和聚合功能
    */
@@ -1195,7 +782,7 @@ public class RadApiContext extends ApiContext<RadApiContext> {
 
     public class Methods {
       /**
-       * Include GetRolePermissions : 获取用户的角色权限集合
+       * Include GetRolePermissions : 获取当前客户的角色权限集合
        */
       public final PermissionService GetRolePermissions() {
         PermissionService.this.include("GetRolePermissions");
@@ -1203,7 +790,7 @@ public class RadApiContext extends ApiContext<RadApiContext> {
       }
 
       /**
-       * Exclude GetRolePermissions : 获取用户的角色权限集合
+       * Exclude GetRolePermissions : 获取当前客户的角色权限集合
        */
       public final PermissionService _GetRolePermissions() {
         PermissionService.this.exclude("GetRolePermissions");
@@ -1211,7 +798,7 @@ public class RadApiContext extends ApiContext<RadApiContext> {
       }
 
       /**
-       * Include GetMenuPermissions : 获取用户的菜单权限集合
+       * Include GetMenuPermissions : 获取当前客户的菜单权限集合
        */
       public final PermissionService GetMenuPermissions() {
         PermissionService.this.include("GetMenuPermissions");
@@ -1219,7 +806,7 @@ public class RadApiContext extends ApiContext<RadApiContext> {
       }
 
       /**
-       * Exclude GetMenuPermissions : 获取用户的菜单权限集合
+       * Exclude GetMenuPermissions : 获取当前客户的菜单权限集合
        */
       public final PermissionService _GetMenuPermissions() {
         PermissionService.this.exclude("GetMenuPermissions");
@@ -1227,7 +814,7 @@ public class RadApiContext extends ApiContext<RadApiContext> {
       }
 
       /**
-       * Include GetAllPermissions : 获取用户的所有权限（角色权限 ∪ 菜单权限）
+       * Include GetAllPermissions : 获取当前客户的所有权限（角色权限 ∪ 菜单权限）
        */
       public final PermissionService GetAllPermissions() {
         PermissionService.this.include("GetAllPermissions");
@@ -1235,7 +822,7 @@ public class RadApiContext extends ApiContext<RadApiContext> {
       }
 
       /**
-       * Exclude GetAllPermissions : 获取用户的所有权限（角色权限 ∪ 菜单权限）
+       * Exclude GetAllPermissions : 获取当前客户的所有权限（角色权限 ∪ 菜单权限）
        */
       public final PermissionService _GetAllPermissions() {
         PermissionService.this.exclude("GetAllPermissions");
@@ -1256,9 +843,9 @@ public class RadApiContext extends ApiContext<RadApiContext> {
       all.add("UpdateRole");
       all.add("DeleteRole");
       all.add("SearchRoles");
-      all.add("AssignPermissions");
-      all.add("RemovePermission");
-      all.add("GetRolePermissions");
+      all.add("AssignMenusToRole");
+      all.add("RemoveMenuFromRole");
+      all.add("GetRoleMenus");
     }
 
     public RoleService methods(Consumer<Methods> consumer) {
@@ -1354,50 +941,50 @@ public class RadApiContext extends ApiContext<RadApiContext> {
       }
 
       /**
-       * Include AssignPermissions
+       * Include AssignMenusToRole : 为角色分配菜单（全量覆盖），参考 RuoYi insertRoleMenu
        */
-      public final RoleService AssignPermissions() {
-        RoleService.this.include("AssignPermissions");
+      public final RoleService AssignMenusToRole() {
+        RoleService.this.include("AssignMenusToRole");
         return RoleService.this;
       }
 
       /**
-       * Exclude AssignPermissions
+       * Exclude AssignMenusToRole : 为角色分配菜单（全量覆盖），参考 RuoYi insertRoleMenu
        */
-      public final RoleService _AssignPermissions() {
-        RoleService.this.exclude("AssignPermissions");
+      public final RoleService _AssignMenusToRole() {
+        RoleService.this.exclude("AssignMenusToRole");
         return RoleService.this;
       }
 
       /**
-       * Include RemovePermission
+       * Include RemoveMenuFromRole : 移除角色的某个菜单关联
        */
-      public final RoleService RemovePermission() {
-        RoleService.this.include("RemovePermission");
+      public final RoleService RemoveMenuFromRole() {
+        RoleService.this.include("RemoveMenuFromRole");
         return RoleService.this;
       }
 
       /**
-       * Exclude RemovePermission
+       * Exclude RemoveMenuFromRole : 移除角色的某个菜单关联
        */
-      public final RoleService _RemovePermission() {
-        RoleService.this.exclude("RemovePermission");
+      public final RoleService _RemoveMenuFromRole() {
+        RoleService.this.exclude("RemoveMenuFromRole");
         return RoleService.this;
       }
 
       /**
-       * Include GetRolePermissions
+       * Include GetRoleMenus : 获取角色关联的菜单列表
        */
-      public final RoleService GetRolePermissions() {
-        RoleService.this.include("GetRolePermissions");
+      public final RoleService GetRoleMenus() {
+        RoleService.this.include("GetRoleMenus");
         return RoleService.this;
       }
 
       /**
-       * Exclude GetRolePermissions
+       * Exclude GetRoleMenus : 获取角色关联的菜单列表
        */
-      public final RoleService _GetRolePermissions() {
-        RoleService.this.exclude("GetRolePermissions");
+      public final RoleService _GetRoleMenus() {
+        RoleService.this.exclude("GetRoleMenus");
         return RoleService.this;
       }
     }
@@ -1415,6 +1002,7 @@ public class RadApiContext extends ApiContext<RadApiContext> {
       all.add("UpdateTenant");
       all.add("DisableTenant");
       all.add("ConfigureTenant");
+      all.add("SearchTenants");
     }
 
     public TenantService methods(Consumer<Methods> consumer) {
@@ -1507,6 +1095,255 @@ public class RadApiContext extends ApiContext<RadApiContext> {
       public final TenantService _ConfigureTenant() {
         TenantService.this.exclude("ConfigureTenant");
         return TenantService.this;
+      }
+
+      /**
+       * Include SearchTenants : 搜索租户（分页）
+       */
+      public final TenantService SearchTenants() {
+        TenantService.this.include("SearchTenants");
+        return TenantService.this;
+      }
+
+      /**
+       * Exclude SearchTenants : 搜索租户（分页）
+       */
+      public final TenantService _SearchTenants() {
+        TenantService.this.exclude("SearchTenants");
+        return TenantService.this;
+      }
+    }
+  }
+
+  /**
+   * ============ 租户成员管理 API ============
+   * 替代原 CustomerOrganizationService — 管理 Customer 在 Tenant 中的身份
+   * 租户成员管理服务，提供成员与租户关系管理功能
+   */
+  public final class TenantMemberService extends ApiServiceContextBuilder<TenantMemberService, RadApiContext> {
+    public TenantMemberService() {
+      super(RadApiContext.this);
+      all.add("GetTenantMembers");
+      all.add("AddMemberToTenant");
+      all.add("RemoveMemberFromTenant");
+      all.add("ToggleMemberLock");
+      all.add("UpdateMemberRole");
+      all.add("AssignMemberDepartment");
+      all.add("GetMemberDetail");
+      all.add("SetDefaultTenant");
+      all.add("AssignRolesToMember");
+      all.add("GetMemberRoles");
+      all.add("RemoveRoleFromMember");
+    }
+
+    public TenantMemberService methods(Consumer<Methods> consumer) {
+      final Methods methods = new Methods();
+      consumer.accept(methods);
+      return TenantMemberService.this;
+    }
+
+    @Override
+    public String clz() {
+      return "com.apihug.rad.api.tenant.TenantMemberService";
+    }
+
+    public class Methods {
+      /**
+       * Include GetTenantMembers : 获取租户成员列表（分页）
+       *
+       */
+      public final TenantMemberService GetTenantMembers() {
+        TenantMemberService.this.include("GetTenantMembers");
+        return TenantMemberService.this;
+      }
+
+      /**
+       * Exclude GetTenantMembers : 获取租户成员列表（分页）
+       *
+       */
+      public final TenantMemberService _GetTenantMembers() {
+        TenantMemberService.this.exclude("GetTenantMembers");
+        return TenantMemberService.this;
+      }
+
+      /**
+       * Include AddMemberToTenant : 添加成员到租户
+       *
+       */
+      public final TenantMemberService AddMemberToTenant() {
+        TenantMemberService.this.include("AddMemberToTenant");
+        return TenantMemberService.this;
+      }
+
+      /**
+       * Exclude AddMemberToTenant : 添加成员到租户
+       *
+       */
+      public final TenantMemberService _AddMemberToTenant() {
+        TenantMemberService.this.exclude("AddMemberToTenant");
+        return TenantMemberService.this;
+      }
+
+      /**
+       * Include RemoveMemberFromTenant : 从租户移除成员
+       *
+       */
+      public final TenantMemberService RemoveMemberFromTenant() {
+        TenantMemberService.this.include("RemoveMemberFromTenant");
+        return TenantMemberService.this;
+      }
+
+      /**
+       * Exclude RemoveMemberFromTenant : 从租户移除成员
+       *
+       */
+      public final TenantMemberService _RemoveMemberFromTenant() {
+        TenantMemberService.this.exclude("RemoveMemberFromTenant");
+        return TenantMemberService.this;
+      }
+
+      /**
+       * Include ToggleMemberLock : 锁定/解锁成员
+       *
+       */
+      public final TenantMemberService ToggleMemberLock() {
+        TenantMemberService.this.include("ToggleMemberLock");
+        return TenantMemberService.this;
+      }
+
+      /**
+       * Exclude ToggleMemberLock : 锁定/解锁成员
+       *
+       */
+      public final TenantMemberService _ToggleMemberLock() {
+        TenantMemberService.this.exclude("ToggleMemberLock");
+        return TenantMemberService.this;
+      }
+
+      /**
+       * Include UpdateMemberRole : 更新成员角色（OWNER/ADMIN/MEMBER）
+       *
+       */
+      public final TenantMemberService UpdateMemberRole() {
+        TenantMemberService.this.include("UpdateMemberRole");
+        return TenantMemberService.this;
+      }
+
+      /**
+       * Exclude UpdateMemberRole : 更新成员角色（OWNER/ADMIN/MEMBER）
+       *
+       */
+      public final TenantMemberService _UpdateMemberRole() {
+        TenantMemberService.this.exclude("UpdateMemberRole");
+        return TenantMemberService.this;
+      }
+
+      /**
+       * Include AssignMemberDepartment : 分配成员到部门
+       *
+       */
+      public final TenantMemberService AssignMemberDepartment() {
+        TenantMemberService.this.include("AssignMemberDepartment");
+        return TenantMemberService.this;
+      }
+
+      /**
+       * Exclude AssignMemberDepartment : 分配成员到部门
+       *
+       */
+      public final TenantMemberService _AssignMemberDepartment() {
+        TenantMemberService.this.exclude("AssignMemberDepartment");
+        return TenantMemberService.this;
+      }
+
+      /**
+       * Include GetMemberDetail : 获取成员详情（含客户信息 + 成员身份信息）
+       *
+       */
+      public final TenantMemberService GetMemberDetail() {
+        TenantMemberService.this.include("GetMemberDetail");
+        return TenantMemberService.this;
+      }
+
+      /**
+       * Exclude GetMemberDetail : 获取成员详情（含客户信息 + 成员身份信息）
+       *
+       */
+      public final TenantMemberService _GetMemberDetail() {
+        TenantMemberService.this.exclude("GetMemberDetail");
+        return TenantMemberService.this;
+      }
+
+      /**
+       * Include SetDefaultTenant : 设置默认租户
+       *
+       */
+      public final TenantMemberService SetDefaultTenant() {
+        TenantMemberService.this.include("SetDefaultTenant");
+        return TenantMemberService.this;
+      }
+
+      /**
+       * Exclude SetDefaultTenant : 设置默认租户
+       *
+       */
+      public final TenantMemberService _SetDefaultTenant() {
+        TenantMemberService.this.exclude("SetDefaultTenant");
+        return TenantMemberService.this;
+      }
+
+      /**
+       * Include AssignRolesToMember : 为成员分配 RBAC 角色（全量覆盖）
+       *
+       */
+      public final TenantMemberService AssignRolesToMember() {
+        TenantMemberService.this.include("AssignRolesToMember");
+        return TenantMemberService.this;
+      }
+
+      /**
+       * Exclude AssignRolesToMember : 为成员分配 RBAC 角色（全量覆盖）
+       *
+       */
+      public final TenantMemberService _AssignRolesToMember() {
+        TenantMemberService.this.exclude("AssignRolesToMember");
+        return TenantMemberService.this;
+      }
+
+      /**
+       * Include GetMemberRoles : 获取成员的 RBAC 角色列表
+       *
+       */
+      public final TenantMemberService GetMemberRoles() {
+        TenantMemberService.this.include("GetMemberRoles");
+        return TenantMemberService.this;
+      }
+
+      /**
+       * Exclude GetMemberRoles : 获取成员的 RBAC 角色列表
+       *
+       */
+      public final TenantMemberService _GetMemberRoles() {
+        TenantMemberService.this.exclude("GetMemberRoles");
+        return TenantMemberService.this;
+      }
+
+      /**
+       * Include RemoveRoleFromMember : 移除成员的某个 RBAC 角色
+       *
+       */
+      public final TenantMemberService RemoveRoleFromMember() {
+        TenantMemberService.this.include("RemoveRoleFromMember");
+        return TenantMemberService.this;
+      }
+
+      /**
+       * Exclude RemoveRoleFromMember : 移除成员的某个 RBAC 角色
+       *
+       */
+      public final TenantMemberService _RemoveRoleFromMember() {
+        TenantMemberService.this.exclude("RemoveRoleFromMember");
+        return TenantMemberService.this;
       }
     }
   }

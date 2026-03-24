@@ -1,7 +1,11 @@
 package com.apihug.rad.api.role;
 
+import com.apihug.rad.domain.menu.MenuEntity;
+import com.apihug.rad.domain.menu.repository.MenuEntityRepository;
 import com.apihug.rad.domain.role.RoleEntity;
+import com.apihug.rad.domain.role.RoleMenuEntity;
 import com.apihug.rad.domain.role.repository.RoleEntityRepository;
+import com.apihug.rad.domain.role.repository.RoleMenuEntityRepository;
 import com.apihug.rad.infra.role.RoleErrorEnum;
 import com.apihug.rad.infra.role.RoleStatusEnum;
 import hope.common.api.exceptions.HopeErrorDetailException;
@@ -22,6 +26,12 @@ class RoleServiceImplTest {
     private RoleEntityRepository roleRepository;
 
     @Mock
+    private RoleMenuEntityRepository roleMenuRepository;
+
+    @Mock
+    private MenuEntityRepository menuRepository;
+
+    @Mock
     private hope.common.spring.SimpleResultBuilder<RoleSummary> summaryBuilder;
 
     @Mock
@@ -30,11 +40,14 @@ class RoleServiceImplTest {
     @Mock
     private hope.common.spring.SimpleResultBuilder<String> stringBuilder;
 
+    @Mock
+    private hope.common.spring.SimpleResultBuilder<RoleMenuSummary> menuSummaryBuilder;
+
     private RoleServiceImpl roleService;
 
     @BeforeEach
     void setUp() {
-        roleService = new RoleServiceImpl(roleRepository);
+        roleService = new RoleServiceImpl(roleRepository, roleMenuRepository, menuRepository);
     }
 
     @Test
@@ -129,7 +142,6 @@ class RoleServiceImplTest {
         roleService.updateRole(stringBuilder, roleId, request);
 
         // Assert
-        verify(stringBuilder).done();
         verify(roleRepository).save(any(RoleEntity.class));
     }
 
@@ -162,7 +174,6 @@ class RoleServiceImplTest {
         roleService.deleteRole(stringBuilder, roleId);
 
         // Assert
-        verify(stringBuilder).done();
         verify(roleRepository).save(any(RoleEntity.class));
         assertTrue(entity.isDeleted());
     }
@@ -180,41 +191,57 @@ class RoleServiceImplTest {
     }
 
     @Test
-    void testAssignPermissions_Success() {
+    void testAssignMenusToRole_Success() {
         // Arrange
         Integer roleId = 1;
-        AssignPermissionsRequest request = new AssignPermissionsRequest()
-            .setPermissionIds(java.util.Arrays.asList(1L, 2L));
+        AssignMenusRequest request = new AssignMenusRequest()
+            .setMenuIds(java.util.Arrays.asList(1L, 2L));
+
+        RoleEntity role = new RoleEntity().setId(1L).setRoleCode("admin");
+        when(roleRepository.findById(1L)).thenReturn(java.util.Optional.of(role));
 
         // Act
-        roleService.assignPermissions(stringBuilder, roleId, request);
+        roleService.assignMenusToRole(stringBuilder, roleId, request);
 
         // Assert
-        verify(stringBuilder).done();
+        verify(roleMenuRepository).deleteByRoleId(1L);
+        verify(roleMenuRepository).saveAll(any());
     }
 
     @Test
-    void testRemovePermission_Success() {
+    void testRemoveMenuFromRole_Success() {
         // Arrange
         Integer roleId = 1;
-        Integer permissionId = 1;
-        RemovePermissionRequest request = new RemovePermissionRequest();
+        Integer menuId = 1;
+
+        RoleEntity role = new RoleEntity().setId(1L).setRoleCode("admin");
+        when(roleRepository.findById(1L)).thenReturn(java.util.Optional.of(role));
 
         // Act
-        roleService.removePermission(stringBuilder, roleId, permissionId, request);
+        roleService.removeMenuFromRole(stringBuilder, roleId, menuId);
 
         // Assert
-        verify(stringBuilder).done();
+        verify(roleMenuRepository).deleteByRoleIdAndMenuId(1L, 1L);
     }
 
     @Test
-    void testGetRolePermissions_Success() {
+    void testGetRoleMenus_Success() {
         // Arrange
         Integer roleId = 1;
 
-        // Act
-        roleService.getRolePermissions(new hope.common.spring.SimpleResultBuilder<RolePermissionSummary>(), roleId);
+        RoleEntity role = new RoleEntity().setId(1L).setRoleCode("admin");
+        when(roleRepository.findById(1L)).thenReturn(java.util.Optional.of(role));
 
-        // Assert - TODO: 需要完善测试
+        RoleMenuEntity rm = new RoleMenuEntity().setRoleId(1L).setMenuId(10L);
+        when(roleMenuRepository.findByRoleId(1L)).thenReturn(java.util.Arrays.asList(rm));
+
+        MenuEntity menu = new MenuEntity().setId(10L).setMenuCode("sys:user").setMenuName("用户管理").setPermissionCode("user:view");
+        when(menuRepository.findAllById(java.util.Arrays.asList(10L))).thenReturn(java.util.Arrays.asList(menu));
+
+        // Act
+        roleService.getRoleMenus(menuSummaryBuilder, roleId);
+
+        // Assert
+        verify(menuSummaryBuilder).payload(any(RoleMenuSummary.class));
     }
 }

@@ -92,8 +92,8 @@ public interface TenantEntityRepository extends HopeJdbc<TenantEntity>,
 
     if (keyword != null && !keyword.isBlank()) {
       criteria = criteria.and(
-          EasyCriteria.like(Domain.TenantCode, "%" + keyword + "%")
-              .or(EasyCriteria.like(Domain.TenantName, "%" + keyword + "%")));
+          EasyCriteria.like(Domain.TenantCode, keyword)
+              .or(EasyCriteria.like(Domain.TenantName, keyword)));
     }
 
     if (status != null) {
@@ -172,6 +172,8 @@ public interface TenantEntityRepository extends HopeJdbc<TenantEntity>,
     args.put("maxUsers", CollapseHelper.collapse(TenantEntity::getMaxUsers, updated, exist));
     args.put("maxStorageMb", CollapseHelper.collapse(TenantEntity::getMaxStorageMb, updated, exist));
     args.put("expiryDate", CollapseHelper.collapse(TenantEntity::getExpiryDate, updated, exist));
+    args.put("isPlatform", CollapseHelper.collapse(TenantEntity::getIsPlatform, updated, exist));
+    args.put("description", CollapseHelper.collapse(TenantEntity::getDescription, updated, exist));
     args.put("when", now);
     args.put("who", ctx.getIdentifier());
     return namedJdbcTemplate().update(_SQL._UPDATE, args);
@@ -181,6 +183,6 @@ public interface TenantEntityRepository extends HopeJdbc<TenantEntity>,
    * Those are H.O.P.E. generated SQL, do not modify manually, it will be overwritten every time !
    */
   interface _SQL {
-    String _UPDATE = "UPDATE SYS_TENANT SET `TENANT_CODE` = :tenantCode, `TENANT_NAME` = :tenantName, `CONTACT_EMAIL` = :contactEmail, `CONTACT_PHONE` = :contactPhone, `STATUS_CODE` = :status, `MAX_USERS` = :maxUsers, `MAX_STORAGE_MB` = :maxStorageMb, `EXPIRY_DATE` = :expiryDate, UPDATED_AT = :when, UPDATED_BY = :who WHERE `ID` = :id";
+    String _UPDATE = "UPDATE SYS_TENANT SET `TENANT_CODE` = :tenantCode, `TENANT_NAME` = :tenantName, `CONTACT_EMAIL` = :contactEmail, `CONTACT_PHONE` = :contactPhone, `STATUS_CODE` = :status, `MAX_USERS` = :maxUsers, `MAX_STORAGE_MB` = :maxStorageMb, `EXPIRY_DATE` = :expiryDate, `IS_PLATFORM` = :isPlatform, `DESCRIPTION` = :description, UPDATED_AT = :when, UPDATED_BY = :who WHERE `ID` = :id";
   }
 }

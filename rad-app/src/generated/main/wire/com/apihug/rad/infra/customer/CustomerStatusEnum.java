@@ -16,7 +16,7 @@ import java.util.Map;
 import javax.annotation.Generated;
 
 /**
- * 用户状态枚举定义
+ * 客户状态枚举
  */
 @Generated("H.O.P.E. Infra Team")
 @ProtoFrom(
@@ -30,10 +30,11 @@ import javax.annotation.Generated;
     allowableValues = {
         "ACTIVE",
         "INACTIVE",
-        "LOCKED"
+        "LOCKED",
+        "DISABLED"
     },
     example = "ACTIVE",
-    description = "用户状态枚举定义"
+    description = "客户状态枚举"
 )
 public enum CustomerStatusEnum implements Enumeration<CustomerStatusEnum> {
   NA(-1, "Default Placeholder Should NEVER be used", "默认占位枚举请勿使用"),
@@ -42,7 +43,9 @@ public enum CustomerStatusEnum implements Enumeration<CustomerStatusEnum> {
 
   INACTIVE(2, "inactive", "非活跃"),
 
-  LOCKED(3, "locked", "锁定");
+  LOCKED(3, "locked", "锁定"),
+
+  DISABLED(4, "disabled", "禁用");
 
   public static final List<String> VALUES;
 

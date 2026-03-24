@@ -72,12 +72,4 @@ message CustomerEntity {
     length: 12
     default_value: "ACTIVE"
   }];
-
-  // 新增：默认组织 ID（可选）
-  int64 default_organization_id = 7 [(hope.persistence.column) = {
-    name: "DEFAULT_ORGANIZATION_ID",
-    description: "默认组织 ID",
-    nullable: true,
-    default_value: "0"
-  }];
 }

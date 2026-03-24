@@ -7,6 +7,7 @@ import com.apihug.rad.infra.auth.AuthErrorEnum;
 import com.apihug.rad.infra.beans.PasswordEncoder;
 import com.apihug.rad.infra.customer.CustomerStatusEnum;
 import com.apihug.rad.infra.security.RadCustomer;
+import com.apihug.rad.infra.security.RadPermissionResolver;
 import hope.common.api.exceptions.HopeErrorDetailException;
 import hope.common.meta.annotation.Kind;
 import hope.common.meta.annotation.ProtoFrom;
@@ -15,6 +16,7 @@ import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
 import hope.common.spring.security.JwtCustomizer;
+import java.util.Set;
 import org.slf4j.Logger;import org.slf4j.LoggerFactory;import org.springframework.stereotype.Service;
 
 
@@ -34,14 +36,17 @@ public class CustomerAuthServiceImpl implements CustomerAuthService {
   private final CustomerEntityRepository customerRepository;
   private final JwtCustomizer jwtCustomizer;
   private final PasswordEncoder passwordEncoder;
+  private final RadPermissionResolver permissionResolver;
 
   public CustomerAuthServiceImpl(
       CustomerEntityRepository customerRepository,
       @org.springframework.context.annotation.Lazy JwtCustomizer jwtCustomizer,
-      PasswordEncoder passwordEncoder) {
+      PasswordEncoder passwordEncoder,
+      RadPermissionResolver permissionResolver) {
     this.customerRepository = customerRepository;
     this.jwtCustomizer = jwtCustomizer;
     this.passwordEncoder = passwordEncoder;
+    this.permissionResolver = permissionResolver;
   }
 
   @Override
@@ -59,11 +64,16 @@ public class CustomerAuthServiceImpl implements CustomerAuthService {
     }
 
     // 3. 检查用户状态
-    if (customer.getStatus() != CustomerStatusEnum.ACTIVE) {
+    if (CustomerStatusEnum.ACTIVE != customer.getStatus()) {
       throw HopeErrorDetailException.errorBuilder(AuthErrorEnum.ACCOUNT_LOCKED).build();
     }
 
-    // 4. 生成 JWT Token
+    // TODO no need pick here
+    // 4. 解析权限（新增）
+    Set<String> roles = permissionResolver.resolveRoles(customer.getId(), customer.getDefaultTenantId());
+    Set<String> authorities = permissionResolver.resolveAuthorities(customer.getId(), customer.getDefaultTenantId());
+
+    // 5. 生成 JWT Token
     // 创建 RadCustomer 对象，包含用户核心信息
     RadCustomer radCustomer = new RadCustomer()
         .setId(customer.getId())
@@ -71,6 +81,8 @@ public class CustomerAuthServiceImpl implements CustomerAuthService {
         .setAccount(customer.getUsername())
         .setName(customer.getUsername())
         .setActive(true);
+    radCustomer.setRoles(roles);
+    radCustomer.setAuthorities(authorities);
 
     // 使用 JwtCustomizer 生成 JWT Token
     String accessToken = jwtCustomizer.encode(radCustomer);
@@ -87,6 +99,7 @@ public class CustomerAuthServiceImpl implements CustomerAuthService {
 
   @Override
   public void logout(SimpleResultBuilder<String> builder) {
-    builder.done();
+    // controller handles response automatically
+      // TODO remove this session?
   }
 }

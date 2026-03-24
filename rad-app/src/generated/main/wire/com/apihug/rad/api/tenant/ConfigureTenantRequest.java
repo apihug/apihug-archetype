@@ -27,7 +27,7 @@ public class ConfigureTenantRequest {
   private static final long serialVersionUID = 0L;
 
   @Min(1)
-  protected Integer maxUsers;
+  protected Integer maxMembers;
 
   @Min(1)
   protected Long maxStorageMb;
@@ -39,12 +39,12 @@ public class ConfigureTenantRequest {
   )
   protected LocalDateTime expiryDate;
 
-  public Integer getMaxUsers() {
-    return maxUsers;
+  public Integer getMaxMembers() {
+    return maxMembers;
   }
 
-  public ConfigureTenantRequest setMaxUsers(Integer maxUsers) {
-    this.maxUsers = maxUsers;
+  public ConfigureTenantRequest setMaxMembers(Integer maxMembers) {
+    this.maxMembers = maxMembers;
     return this;
   }
 
@@ -78,7 +78,7 @@ public class ConfigureTenantRequest {
   @Override
   public String toString() {
     return new StringJoiner(", ", "ConfigureTenantRequest[" , "]")
-    	.add("maxUsers=" + maxUsers)
+    	.add("maxMembers=" + maxMembers)
     	.add("maxStorageMb=" + maxStorageMb)
     	.add("enabledModules=" + enabledModules)
     	.add("expiryDate=" + expiryDate)

@@ -93,8 +93,6 @@ interface _CustomerEntityRepository extends CustomerEntityRepository {
     Criteria criteria = EasyCriteria.eq(_Deletable_.DELETED, false);
 
     if (keyword != null && !keyword.isBlank()) {
-      // EasyCriteria.like() auto-escapes % and _, but still accepts pattern
-      // We need to add % for fuzzy match
       criteria = criteria.and(
           EasyCriteria.like(Domain.Username, keyword)
               .or(EasyCriteria.like(Domain.Email, keyword)));

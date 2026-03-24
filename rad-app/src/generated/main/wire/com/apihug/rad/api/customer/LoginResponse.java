@@ -34,11 +34,11 @@ public class LoginResponse {
   @NotEmpty
   protected String username;
 
-  protected Boolean needsOrganizationSelection;
+  protected Boolean needsTenantSelection;
 
-  protected List<OrganizationInfo> organizations;
+  protected List<TenantInfo> tenants;
 
-  protected OrganizationInfo defaultOrganization;
+  protected TenantInfo defaultTenant;
 
   public String getAccessToken() {
     return accessToken;
@@ -67,30 +67,30 @@ public class LoginResponse {
     return this;
   }
 
-  public Boolean getNeedsOrganizationSelection() {
-    return needsOrganizationSelection;
+  public Boolean getNeedsTenantSelection() {
+    return needsTenantSelection;
   }
 
-  public LoginResponse setNeedsOrganizationSelection(Boolean needsOrganizationSelection) {
-    this.needsOrganizationSelection = needsOrganizationSelection;
+  public LoginResponse setNeedsTenantSelection(Boolean needsTenantSelection) {
+    this.needsTenantSelection = needsTenantSelection;
     return this;
   }
 
-  public List<OrganizationInfo> getOrganizations() {
-    return organizations;
+  public List<TenantInfo> getTenants() {
+    return tenants;
   }
 
-  public LoginResponse setOrganizations(List<OrganizationInfo> organizations) {
-    this.organizations = organizations;
+  public LoginResponse setTenants(List<TenantInfo> tenants) {
+    this.tenants = tenants;
     return this;
   }
 
-  public OrganizationInfo getDefaultOrganization() {
-    return defaultOrganization;
+  public TenantInfo getDefaultTenant() {
+    return defaultTenant;
   }
 
-  public LoginResponse setDefaultOrganization(OrganizationInfo defaultOrganization) {
-    this.defaultOrganization = defaultOrganization;
+  public LoginResponse setDefaultTenant(TenantInfo defaultTenant) {
+    this.defaultTenant = defaultTenant;
     return this;
   }
 
@@ -100,9 +100,9 @@ public class LoginResponse {
     	.add("accessToken=" + accessToken)
     	.add("customerId=" + customerId)
     	.add("username=" + username)
-    	.add("needsOrganizationSelection=" + needsOrganizationSelection)
-    	.add("organizations=" + organizations)
-    	.add("defaultOrganization=" + defaultOrganization)
+    	.add("needsTenantSelection=" + needsTenantSelection)
+    	.add("tenants=" + tenants)
+    	.add("defaultTenant=" + defaultTenant)
         .toString();
   }
 }

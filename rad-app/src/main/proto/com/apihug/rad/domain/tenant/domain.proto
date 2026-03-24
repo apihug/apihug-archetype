@@ -82,4 +82,19 @@ message TenantEntity {
     nullable: true,
     type: TIMESTAMP
   }];
+
+  bool is_platform = 9 [(hope.persistence.column) = {
+    name: "IS_PLATFORM",
+    description: "是否为平台租户（平台拥有全局管理权限）",
+    nullable: false,
+    default_value: "false"
+  }];
+
+  string description = 10 [(hope.persistence.column) = {
+    name: "DESCRIPTION",
+    description: "租户描述",
+    nullable: true,
+    length: 500,
+    type: VARCHAR
+  }];
 }

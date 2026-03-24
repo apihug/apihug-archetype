@@ -94,12 +94,12 @@ public interface DepartmentEntityRepository extends HopeJdbc<DepartmentEntity>,
   default Page<DepartmentEntity> searchDepartments(
       String keyword, DeptStatusEnum status, hope.common.api.PageRequest pageParameter) {
     var pageable = page(pageParameter);
-    Criteria criteria = Criteria.empty();
+    Criteria criteria = EasyCriteria.eq(_Deletable_.DELETED, false);
 
     if (keyword != null && !keyword.isBlank()) {
       criteria = criteria.and(
-          EasyCriteria.like(Domain.DeptCode, "%" + keyword + "%")
-              .or(EasyCriteria.like(Domain.DeptName, "%" + keyword + "%")));
+          EasyCriteria.like(Domain.DeptCode, keyword)
+              .or(EasyCriteria.like(Domain.DeptName, keyword)));
     }
 
     if (status != null) {
