@@ -1,0 +1,83 @@
+syntax = "proto3";
+
+package com.apihug.rad.api.meta;
+
+import "google/protobuf/empty.proto";
+import "apihug/protobuf/swagger/annotations.proto";
+
+service ApihugService {
+  option (hope.swagger.svc) = {
+    path: "/apihug/meta";
+    description: "apihug meta information";
+  };
+
+  rpc Apis (google.protobuf.Empty) returns (google.protobuf.Empty) {
+    option (hope.swagger.operation) = {
+      get: "/apis";
+      description: "api information of this platform";
+      tags: "apihug";
+      priority: LOW;
+      authorization:{
+        rbac{
+          predefined_role_checker: PLATFORM
+        }
+      }
+    };
+  };
+
+  rpc Errors (google.protobuf.Empty) returns (google.protobuf.Empty) {
+    option (hope.swagger.operation) = {
+      get: "/errors";
+      description: "api errors information of this platform";
+      tags: "apihug";
+      priority: LOW;
+      authorization:{
+        rbac{
+          predefined_role_checker: PLATFORM
+        }
+      }
+    };
+  };
+
+  rpc Authorities (google.protobuf.Empty) returns (google.protobuf.Empty) {
+    option (hope.swagger.operation) = {
+      get: "/authorities";
+      description: "api errors information of this platform";
+      tags: "apihug";
+      priority: LOW;
+      authorization:{
+        rbac{
+          predefined_role_checker: PLATFORM
+        }
+      }
+    };
+  };
+
+  rpc Dictionaries (google.protobuf.Empty) returns (google.protobuf.Empty) {
+    option (hope.swagger.operation) = {
+      get: "/dictionaries";
+      description: "api errors information of this platform";
+      tags: "apihug";
+      priority: LOW;
+      authorization:{
+        rbac{
+          predefined_role_checker: PLATFORM
+        }
+      }
+    };
+  };
+
+  rpc Entities (google.protobuf.Empty) returns (google.protobuf.Empty) {
+    option (hope.swagger.operation) = {
+      get: "/entities";
+      description: "api errors information of this platform";
+      tags: "apihug";
+      priority: LOW;
+      authorization:{
+        rbac{
+          predefined_role_checker: PLATFORM
+        }
+      }
+    };
+  };
+}

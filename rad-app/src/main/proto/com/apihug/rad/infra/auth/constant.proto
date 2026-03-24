@@ -1,0 +1,108 @@
+syntax = "proto3";
+
+package com.apihug.rad.infra.auth;
+
+import "apihug/protobuf/extend/constant.proto";
+import "apihug/protobuf/swagger/annotations.proto";
+
+enum UserStatusEnum {
+  option (hope.swagger.enm) = {
+    description: "用户状态枚举"
+  };
+
+  ACTIVE = 0 [(hope.constant.field) = {
+    code: 1,
+    message: "active",
+    message2: "活跃"
+  }];
+
+  INACTIVE = 1 [(hope.constant.field) = {
+    code: 2,
+    message: "inactive",
+    message2: "未激活"
+  }];
+
+  LOCKED = 2 [(hope.constant.field) = {
+    code: 3,
+    message: "locked",
+    message2: "锁定"
+  }];
+
+  DISABLED = 3 [(hope.constant.field) = {
+    code: 4,
+    message: "disabled",
+    message2: "禁用"
+  }];
+}
+
+enum AuthErrorEnum {
+  option (hope.swagger.enm) = {
+    description: "认证相关错误"
+  };
+
+  LOGIN_FAIL = 0 [(hope.constant.field) = {
+    code: 10006001,
+    message: "Login failed",
+    message2: "登录失败",
+    error: {
+      tips: "Check your username and password",
+      phase: SERVICE,
+      severity: WARN
+    }
+  }];
+
+  ACCOUNT_LOCKED = 1 [(hope.constant.field) = {
+    code: 10006002,
+    message: "Account is locked",
+    message2: "账户已锁定",
+    error: {
+      tips: "Try again later or contact admin",
+      phase: SERVICE,
+      severity: WARN
+    }
+  }];
+
+  ORGANIZATION_NOT_FOUND = 2 [(hope.constant.field) = {
+    code: 10006003,
+    message: "Organization not found",
+    message2: "组织不存在",
+    error: {
+      tips: "Check if the organization ID is correct",
+      phase: SERVICE,
+      severity: FATAL
+    }
+  }];
+
+  NO_ORGANIZATION_ACCESS = 3 [(hope.constant.field) = {
+    code: 10006004,
+    message: "No access to this organization",
+    message2: "无权访问该组织",
+    error: {
+      tips: "Contact your administrator",
+      phase: SERVICE,
+      severity: WARN
+    }
+  }];
+
+  TOKEN_EXPIRED = 4 [(hope.constant.field) = {
+    code: 10006005,
+    message: "Token has expired",
+    message2: "Token 已过期",
+    error: {
+      tips: "Please login again",
+      phase: SERVICE,
+      severity: WARN
+    }
+  }];
+
+  INVALID_TOKEN = 5 [(hope.constant.field) = {
+    code: 10006006,
+    message: "Invalid token",
+    message2: "无效的 Token",
+    error: {
+      tips: "Please login again",
+      phase: SERVICE,
+      severity: WARN
+    }
+  }];
+}

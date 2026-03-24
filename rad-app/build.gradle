@@ -39,7 +39,7 @@ hope {
     //appSecret = "just";
 }
 
-description("apihug rapid application deveopment tempalte")
+description("apihug rapid application development template")
 
 configurations {
     compileOnly {
@@ -101,7 +101,13 @@ dependencies {
 
     //Spring starter END
 
+
+    //Spring security utils
+    // JOSE (JWT) support for OAuth 2.0 clients and resource servers (signing, validation, encryption)
+    implementation 'org.springframework.security:spring-security-oauth2-jose'
+    // Password encoding (BCrypt, Argon2) and secure key generation utilities
     implementation 'org.springframework.security:spring-security-crypto'
+
     implementation(libs.bundles.jwt)
 
     //Extra Test Helper Libs

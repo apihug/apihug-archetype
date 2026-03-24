@@ -1,0 +1,55 @@
+---
+date: '2026-03-24 10:44:10'
+---
+# Gradle project modules configuration.
+#
+# Fields:
+# - domain: List of all apihug standard modules (type API_HUG).
+# - uis: List of all UI modules (type UI).
+# - details: Per-module metadata.
+#   For API_HUG modules:
+#     - type: "API_HUG"
+#     - gradleModuleName: Module path for gradlew commands (e.g., ":apihug-app")
+#     - hasFront: true if this backend has an associated UI module.
+#     - ui_module: Name of the associated UI module (if hasFront=true).
+#     - frontend_app: (Optional) Specific frontend app directory within the UI module's appDirs to use.
+#   For UI modules:
+#     - type: "UI"
+#     - appDirs: List of frontend app directories (relative to UI module root).
+#   For NORMAL modules (generic libs): type "NORMAL".
+#
+# Example:
+#   details:
+#     apihug-app:
+#       name: "apihug-app"
+#       type: "API_HUG"
+#       gradleModuleName: ":apihug-app"
+#       hasFront: true
+#       ui_module: "apihug-app-ui"
+#       frontend_app: "apps/user-app"
+#     apihug-app-ui:
+#       type: "UI"
+#       gradleModuleName: ":apihug-app-ui"
+#       appDirs:
+#         - "apps/admin-app"
+#         - "apps/user-app"
+#
+# Also includes global fields: updatedTime, projectName, gradleVersion.
+---
+domains:
+- "rad-app"
+uis: []
+others: []
+details:
+  rad-app:
+    gradleModuleName: ":rad-app"
+    name: "rad-app"
+    type: "API_HUG"
+    path: "rad-app"
+    wireJsonPath: "src/main/resources/hope-wire.json"
+    stubYamlPath: "src/main/resources/hope-stub.yaml"
+    hasStubYaml: "true"
+    hasWireJson: "true"
+updatedTime: "2026-03-24 10:44:10"
+projectName: "rad"
+gradleVersion: "8.14.4"

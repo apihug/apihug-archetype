@@ -1,0 +1,83 @@
+syntax = "proto3";
+
+package com.apihug.rad.domain.customer;
+
+
+import "apihug/protobuf/domain/annotations.proto";
+import "apihug/protobuf/extend/constant.proto";
+import "com/apihug/rad/infra/customer/constant.proto";
+
+message CustomerEntity {
+  option (hope.persistence.table) = {
+    name: "SYS_CUSTOMER",
+    description: "客户表",
+    wires: [ALL],
+    indexes: {
+      name: "IDX_SYS_CUSTOMER_USERNAME",
+      column_list: ["username"]
+    },
+    indexes: {
+      name: "IDX_SYS_CUSTOMER_EMAIL",
+      column_list: ["email"]
+    },
+    unique_constraints: {
+      name: "UK_SYS_CUSTOMER_USERNAME",
+      column_list: ["username"]
+    },
+    unique_constraints: {
+      name: "UK_SYS_CUSTOMER_EMAIL",
+      column_list: ["email"]
+    }
+  };
+
+  int64 default_tenant_id = 1 [(hope.persistence.column) = {
+    name: "DEFAULT_TENANT_ID",
+    description: "所属租户ID, If this is null,this is solo customer",
+    nullable: false,
+    default_value: "0"
+  }];
+
+  string username = 2 [(hope.persistence.column) = {
+    name: "USERNAME",
+    description: "用户名",
+    nullable: false,
+    length: 50,
+    type: VARCHAR,
+    unique: true
+  }];
+
+  string password_hash = 3 [(hope.persistence.column) = {
+    name: "PASSWORD_HASH",
+    description: "密码哈希值",
+    nullable: false,
+    length: 255,
+    type: VARCHAR,
+    updatable: false
+  }];
+
+  string email = 5 [(hope.persistence.column) = {
+    name: "EMAIL",
+    description: "邮箱",
+    nullable: true,
+    length: 100,
+    type: VARCHAR,
+    unique: true
+  }];
+
+  com.apihug.rad.infra.customer.CustomerStatusEnum status = 6 [(hope.persistence.column) = {
+    name: "STATUS",
+    description: "状态",
+    nullable: false,
+    enum_type: STRING,
+    length: 12
+    default_value: "ACTIVE"
+  }];
+
+  // 新增：默认组织 ID（可选）
+  int64 default_organization_id = 7 [(hope.persistence.column) = {
+    name: "DEFAULT_ORGANIZATION_ID",
+    description: "默认组织 ID",
+    nullable: true,
+    default_value: "0"
+  }];
+}

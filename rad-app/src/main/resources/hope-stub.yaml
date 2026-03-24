@@ -1,2 +1,95 @@
----
-module: "com.apihug.rad.wire.api.RadApiModule"
+# This configuration defines the module and its associated services.
+# Each service lists its methods; methods ending with '+' are exposed as MCP endpoints.
+# For example: `- "PlaceOrder+"` means the `PlaceOrder` method will be exposed as an MCP endpoint.
+project:
+  name: "rad"
+  application: "rad-app"
+  packageName: "com.apihug.rad"
+  domain: "rad"
+  module: "rad"
+  apiRoot: "/api"
+  artifact:
+    groupId: "com.apihug"
+    artifactId: "rad-app"
+    version: "0.1.1-SNAPSHOT"
+  status:
+    deprecated: false
+    createdTimestamp: "2026-03-20"
+    updatedTimestamp: "2026-03-24 10:39:49"
+module: com.apihug.rad.wire.api.RadApiModule
+services:
+  "com.apihug.rad.api.meta.ApihugService":
+  - "Apis"
+  - "Errors"
+  - "Authorities"
+  - "Dictionaries"
+  - "Entities"
+  "com.apihug.rad.api.permission.PermissionService":
+  - "GetRolePermissions"
+  - "GetMenuPermissions"
+  - "GetAllPermissions"
+  "com.apihug.rad.api.organization.OrganizationService":
+  - "GetOrganizationTree"
+  - "GetDepartmentTree"
+  - "GetUserDepartments"
+  - "GetUserOrganizations"
+  - "SetDefaultOrganization"
+  "com.apihug.rad.api.customer.CustomerService":
+  - "Info"
+  - "GetCurrentUserInfo"
+  - "GetUserOrganizations"
+  - "SwitchOrganization"
+  "com.apihug.rad.api.tenant.TenantService":
+  - "CreateTenant"
+  - "GetTenant"
+  - "UpdateTenant"
+  - "DisableTenant"
+  - "ConfigureTenant"
+  "com.apihug.rad.api.audit.AccessLogService":
+  - "QueryAccessLogs"
+  - "GetAccessLogStats"
+  "com.apihug.rad.api.menu.MenuService":
+  - "CreateMenu"
+  - "GetMenu"
+  - "UpdateMenu"
+  - "DeleteMenu"
+  - "GetMenuTree"
+  - "SearchMenus"
+  "com.apihug.rad.api.role.RoleService":
+  - "CreateRole"
+  - "GetRole"
+  - "UpdateRole"
+  - "DeleteRole"
+  - "SearchRoles"
+  - "AssignPermissions"
+  - "RemovePermission"
+  - "GetRolePermissions"
+  "com.apihug.rad.api.department.DepartmentService":
+  - "CreateDepartment"
+  - "GetDepartment"
+  - "UpdateDepartment"
+  - "DeleteDepartment"
+  - "GetDepartmentTree"
+  "com.apihug.rad.api.department.DepartmentEmployeeService":
+  - "AddEmployeeToDepartment"
+  - "RemoveEmployeeFromDepartment"
+  - "TransferEmployee"
+  - "GetDepartmentEmployees"
+  "com.apihug.rad.api.organization.CustomerOrganizationService":
+  - "GetOrganizationMembers"
+  - "AddMemberToOrganization"
+  - "RemoveMemberFromOrganization"
+  - "ToggleMemberLock"
+  - "AssignMemberRoles"
+  - "AssignMemberMenus"
+  "com.apihug.rad.api.customer.CustomerAuthService":
+  - "Login"
+  - "Logout"
+  "com.apihug.rad.api.customer.CustomerManagementService":
+  - "CreateCustomer"
+  - "GetCustomer"
+  - "UpdateCustomer"
+  - "DeleteCustomer"
+  - "SearchCustomers"
+  - "ForgotPassword"
+  - "ResetPassword"

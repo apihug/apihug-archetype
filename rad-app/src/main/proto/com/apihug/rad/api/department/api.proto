@@ -1,0 +1,312 @@
+syntax = "proto3";
+
+package com.apihug.rad.api.department;
+
+import "apihug/protobuf/swagger/annotations.proto";
+import "google/protobuf/empty.proto";
+import "com/apihug/rad/infra/department/constant.proto";
+
+// ============ 部门管理 API ============
+
+service DepartmentService {
+  option (hope.swagger.svc) = {
+    path: "/departments",
+    description: "部门管理服务，提供部门 CRUD 和树形查询功能"
+  };
+
+  rpc CreateDepartment (CreateDepartmentRequest) returns (DepartmentSummary) {
+    option (hope.swagger.operation) = {
+      post: "/departments";
+      description: "创建新部门";
+      summary: "创建部门";
+      tags: "department";
+      authorization: {
+        rbac: {
+          authorities: ["DEPARTMENT_CREATE"];
+        }
+      };
+    };
+  }
+
+  rpc GetDepartment (google.protobuf.Empty) returns (DepartmentDetail) {
+    option (hope.swagger.operation) = {
+      get: "/departments/{departmentId}";
+      description: "获取部门详情";
+      summary: "获取部门详情";
+      tags: "department";
+      authorization: {
+        low_limit_risky_mode: LOGIN
+      };
+      parameters: {
+        parameter: {
+          name: "departmentId";
+          in: PATH;
+          schema: {
+            format: INTEGER;
+            empty: false;
+          };
+        };
+      };
+    };
+  }
+
+  rpc UpdateDepartment (UpdateDepartmentRequest) returns (google.protobuf.Empty) {
+    option (hope.swagger.operation) = {
+      put: "/departments/{departmentId}";
+      description: "更新部门信息";
+      summary: "更新部门";
+      tags: "department";
+      authorization: {
+        rbac: {
+          authorities: ["DEPARTMENT_UPDATE"];
+        }
+      };
+      parameters: {
+        parameter: {
+          name: "departmentId";
+          in: PATH;
+          schema: {
+            format: INTEGER;
+            empty: false;
+          };
+        };
+      };
+    };
+  }
+
+  rpc DeleteDepartment (google.protobuf.Empty) returns (google.protobuf.Empty) {
+    option (hope.swagger.operation) = {
+      delete: "/departments/{departmentId}";
+      description: "删除部门（软删除）";
+      summary: "删除部门";
+      tags: "department";
+      authorization: {
+        rbac: {
+          authorities: ["DEPARTMENT_DELETE"];
+        }
+      };
+      parameters: {
+        parameter: {
+          name: "departmentId";
+          in: PATH;
+          schema: {
+            format: INTEGER;
+            empty: false;
+          };
+        };
+      };
+    };
+  }
+
+  rpc GetDepartmentTree (google.protobuf.Empty) returns (DepartmentTreeNode) {
+    option (hope.swagger.operation) = {
+      get: "/departments/tree";
+      description: "获取部门树形结构";
+      summary: "获取部门树";
+      tags: "department";
+      authorization: {
+        low_limit_risky_mode: LOGIN
+      };
+    };
+  }
+}
+
+message CreateDepartmentRequest {
+  option (hope.swagger.schema) = {
+    json_schema: {
+      title: "CreateDepartmentRequest";
+      description: "创建部门请求";
+    };
+  };
+
+  int64 parent_id = 1 [(hope.swagger.field) = {
+    description: "父部门 ID（0 表示根部门）";
+    example: "0";
+    minimum: 0;
+  }];
+
+  string dept_code = 2 [(hope.swagger.field) = {
+    description: "部门代码";
+    example: "tech_dev";
+    empty: false;
+    max_length: 50;
+    mock: {nature: NAME};
+  }];
+
+  string dept_name = 3 [(hope.swagger.field) = {
+    description: "部门名称";
+    example: "研发部";
+    empty: false;
+    max_length: 100;
+    mock: {nature: NAME};
+  }];
+
+  int32 sort_order = 4 [(hope.swagger.field) = {
+    description: "排序顺序";
+    example: "10";
+  }];
+
+  string manager_id = 5 [(hope.swagger.field) = {
+    description: "部门负责人 ID";
+    example: "1";
+    max_length: 50;
+  }];
+
+  com.apihug.rad.infra.department.DeptStatusEnum status = 6 [(hope.swagger.field) = {
+    description: "部门状态";
+    example: "ACTIVE";
+    empty: false;
+  }];
+}
+
+message UpdateDepartmentRequest {
+  option (hope.swagger.schema) = {
+    json_schema: {
+      title: "UpdateDepartmentRequest";
+      description: "更新部门请求";
+    };
+  };
+
+  string dept_name = 1 [(hope.swagger.field) = {
+    description: "部门名称";
+    example: "研发部";
+    empty: false;
+    max_length: 100;
+    mock: {nature: NAME};
+  }];
+
+  int32 sort_order = 2 [(hope.swagger.field) = {
+    description: "排序顺序";
+    example: "10";
+  }];
+
+  string manager_id = 3 [(hope.swagger.field) = {
+    description: "部门负责人 ID";
+    example: "1";
+    max_length: 50;
+  }];
+
+  com.apihug.rad.infra.department.DeptStatusEnum status = 4 [(hope.swagger.field) = {
+    description: "部门状态";
+    example: "ACTIVE";
+    empty: false;
+  }];
+}
+
+message DepartmentSummary {
+  option (hope.swagger.schema) = {
+    json_schema: {
+      title: "DepartmentSummary";
+      description: "部门摘要信息";
+    };
+  };
+
+  int64 id = 1 [(hope.swagger.field) = {
+    description: "部门 ID";
+    example: "1";
+    empty: false;
+    minimum: 1;
+  }];
+
+  int64 parent_id = 2 [(hope.swagger.field) = {
+    description: "父部门 ID";
+    example: "0";
+    empty: false;
+  }];
+
+  string dept_code = 3 [(hope.swagger.field) = {
+    description: "部门代码";
+    example: "tech_dev";
+    empty: false;
+    mock: {nature: NAME};
+  }];
+
+  string dept_name = 4 [(hope.swagger.field) = {
+    description: "部门名称";
+    example: "研发部";
+    empty: false;
+    mock: {nature: NAME};
+  }];
+
+  com.apihug.rad.infra.department.DeptStatusEnum status = 5 [(hope.swagger.field) = {
+    description: "部门状态";
+    example: "ACTIVE";
+    empty: false;
+  }];
+}
+
+message DepartmentDetail {
+  option (hope.swagger.schema) = {
+    json_schema: {
+      title: "DepartmentDetail";
+      description: "部门详情信息";
+    };
+  };
+
+  int64 id = 1 [(hope.swagger.field) = {
+    description: "部门 ID";
+    example: "1";
+    empty: false;
+    minimum: 1;
+  }];
+
+  int64 parent_id = 2 [(hope.swagger.field) = {
+    description: "父部门 ID";
+    example: "0";
+    empty: false;
+  }];
+
+  string dept_code = 3 [(hope.swagger.field) = {
+    description: "部门代码";
+    example: "tech_dev";
+    empty: false;
+    mock: {nature: NAME};
+  }];
+
+  string dept_name = 4 [(hope.swagger.field) = {
+    description: "部门名称";
+    example: "研发部";
+    empty: false;
+    mock: {nature: NAME};
+  }];
+
+  int32 sort_order = 5 [(hope.swagger.field) = {
+    description: "排序顺序";
+    example: "10";
+  }];
+
+  string manager_id = 6 [(hope.swagger.field) = {
+    description: "部门负责人 ID";
+    example: "1";
+    mock: {nature: NAME};
+  }];
+
+  com.apihug.rad.infra.department.DeptStatusEnum status = 7 [(hope.swagger.field) = {
+    description: "部门状态";
+    example: "ACTIVE";
+    empty: false;
+  }];
+
+  string created_at = 8 [(hope.swagger.field) = {
+    description: "创建时间";
+    example: "2024-01-15T10:30:00";
+    date_format: ISO_LOCAL_DATE_TIME;
+  }];
+}
+
+message DepartmentTreeNode {
+  option (hope.swagger.schema) = {
+    json_schema: {
+      title: "DepartmentTreeNode";
+      description: "部门树节点";
+    };
+  };
+
+  DepartmentSummary department = 1 [(hope.swagger.field) = {
+    description: "部门信息";
+  }];
+
+  repeated DepartmentTreeNode children = 2 [(hope.swagger.field) = {
+    description: "子部门列表";
+  }];
+}

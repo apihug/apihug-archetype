@@ -1,0 +1,309 @@
+{
+  "domain" : "rad",
+  "version" : "0.1.1-SNAPSHOT",
+  "lastBuildTime" : "2026-03-24 10:39:49",
+  "errors" : [ {
+    "name" : "AuthErrorEnum",
+    "javaClass" : "com.apihug.rad.infra.auth.AuthErrorEnum",
+    "description" : "认证相关错误",
+    "deprecated" : false,
+    "domain" : "rad",
+    "items" : [ {
+      "code" : 10006001,
+      "title" : "LOGIN_FAIL",
+      "description" : "Login failed",
+      "description2" : "登录失败",
+      "deprecated" : false,
+      "tips" : "Check your username and password",
+      "phase" : "SERVICE",
+      "severity" : "WARN"
+    }, {
+      "code" : 10006002,
+      "title" : "ACCOUNT_LOCKED",
+      "description" : "Account is locked",
+      "description2" : "账户已锁定",
+      "deprecated" : false,
+      "tips" : "Try again later or contact admin",
+      "phase" : "SERVICE",
+      "severity" : "WARN"
+    }, {
+      "code" : 10006003,
+      "title" : "ORGANIZATION_NOT_FOUND",
+      "description" : "Organization not found",
+      "description2" : "组织不存在",
+      "deprecated" : false,
+      "tips" : "Check if the organization ID is correct",
+      "phase" : "SERVICE",
+      "severity" : "FATAL"
+    }, {
+      "code" : 10006004,
+      "title" : "NO_ORGANIZATION_ACCESS",
+      "description" : "No access to this organization",
+      "description2" : "无权访问该组织",
+      "deprecated" : false,
+      "tips" : "Contact your administrator",
+      "phase" : "SERVICE",
+      "severity" : "WARN"
+    }, {
+      "code" : 10006005,
+      "title" : "TOKEN_EXPIRED",
+      "description" : "Token has expired",
+      "description2" : "Token 已过期",
+      "deprecated" : false,
+      "tips" : "Please login again",
+      "phase" : "SERVICE",
+      "severity" : "WARN"
+    }, {
+      "code" : 10006006,
+      "title" : "INVALID_TOKEN",
+      "description" : "Invalid token",
+      "description2" : "无效的 Token",
+      "deprecated" : false,
+      "tips" : "Please login again",
+      "phase" : "SERVICE",
+      "severity" : "WARN"
+    } ]
+  }, {
+    "name" : "CustomerErrorEnum",
+    "javaClass" : "com.apihug.rad.infra.customer.CustomerErrorEnum",
+    "description" : "Error happen during customer domain",
+    "deprecated" : false,
+    "domain" : "rad",
+    "items" : [ {
+      "code" : 10001023,
+      "title" : "CUSTOMER_NOT_FOUND",
+      "description" : "Customer not found",
+      "description2" : "客户不存在",
+      "deprecated" : false,
+      "tips" : "Contract your admin or create a new customer",
+      "phase" : "DOMAIN",
+      "severity" : "FATAL"
+    }, {
+      "code" : 10001024,
+      "title" : "CUSTOMER_LOCK",
+      "description" : "Customer not active",
+      "description2" : "账户锁定",
+      "deprecated" : false,
+      "tips" : "Contract your admin",
+      "phase" : "DOMAIN",
+      "severity" : "WARN"
+    }, {
+      "code" : 10001025,
+      "title" : "CUSTOMER_LOGIN_FAIL",
+      "description" : "Login fail",
+      "description2" : "登录失败",
+      "deprecated" : false,
+      "tips" : "Contract your admin, check your username and password",
+      "phase" : "DOMAIN",
+      "severity" : "WARN"
+    }, {
+      "code" : 10001026,
+      "title" : "USER_ALREADY_EXISTS",
+      "description" : "User already exists",
+      "description2" : "用户已存在",
+      "deprecated" : false,
+      "tips" : "Use a different username or email",
+      "phase" : "DOMAIN",
+      "severity" : "WARN"
+    }, {
+      "code" : 10001027,
+      "title" : "INVALID_RESET_TOKEN",
+      "description" : "Invalid reset token",
+      "description2" : "重置 token 无效",
+      "deprecated" : false,
+      "tips" : "Request a new password reset",
+      "phase" : "DOMAIN",
+      "severity" : "WARN"
+    }, {
+      "code" : 10001028,
+      "title" : "RESET_TOKEN_EXPIRED",
+      "description" : "Reset token expired",
+      "description2" : "重置 token 已过期",
+      "deprecated" : false,
+      "tips" : "Request a new password reset",
+      "phase" : "DOMAIN",
+      "severity" : "WARN"
+    }, {
+      "code" : 10001029,
+      "title" : "WEAK_PASSWORD",
+      "description" : "Weak password",
+      "description2" : "密码强度不足",
+      "deprecated" : false,
+      "tips" : "Password must be at least 6 characters",
+      "phase" : "DOMAIN",
+      "severity" : "WARN"
+    } ]
+  }, {
+    "name" : "DepartmentErrorEnum",
+    "javaClass" : "com.apihug.rad.infra.department.DepartmentErrorEnum",
+    "description" : "部门相关错误",
+    "deprecated" : false,
+    "domain" : "rad",
+    "items" : [ {
+      "code" : 10005001,
+      "title" : "DEPARTMENT_NOT_FOUND",
+      "description" : "Department not found",
+      "description2" : "部门不存在",
+      "deprecated" : false,
+      "tips" : "Check if the department ID is correct",
+      "phase" : "DOMAIN",
+      "severity" : "FATAL"
+    }, {
+      "code" : 10005002,
+      "title" : "DEPT_CODE_EXISTS",
+      "description" : "Department code already exists",
+      "description2" : "部门代码已存在",
+      "deprecated" : false,
+      "tips" : "Use a different department code",
+      "phase" : "DOMAIN",
+      "severity" : "WARN"
+    }, {
+      "code" : 10005003,
+      "title" : "DEPARTMENT_HAS_CHILDREN",
+      "description" : "Department has child departments",
+      "description2" : "部门有子部门，无法删除",
+      "deprecated" : false,
+      "tips" : "Remove all child departments first",
+      "phase" : "DOMAIN",
+      "severity" : "WARN"
+    }, {
+      "code" : 10005004,
+      "title" : "DEPARTMENT_HAS_EMPLOYEES",
+      "description" : "Department has employees",
+      "description2" : "部门有员工，无法删除",
+      "deprecated" : false,
+      "tips" : "Remove all employees from this department first",
+      "phase" : "DOMAIN",
+      "severity" : "WARN"
+    } ]
+  }, {
+    "name" : "MenuErrorEnum",
+    "javaClass" : "com.apihug.rad.infra.menu.MenuErrorEnum",
+    "description" : "Error happen during menu domain",
+    "deprecated" : false,
+    "domain" : "rad",
+    "items" : [ {
+      "code" : 10003001,
+      "title" : "MENU_NOT_FOUND",
+      "description" : "Menu not found",
+      "description2" : "菜单不存在",
+      "deprecated" : false,
+      "tips" : "Check if the menu ID is correct",
+      "phase" : "DOMAIN",
+      "severity" : "FATAL"
+    }, {
+      "code" : 10003002,
+      "title" : "MENU_CODE_EXISTS",
+      "description" : "Menu code already exists",
+      "description2" : "菜单代码已存在",
+      "deprecated" : false,
+      "tips" : "Use a different menu code",
+      "phase" : "DOMAIN",
+      "severity" : "WARN"
+    }, {
+      "code" : 10003003,
+      "title" : "MENU_HAS_CHILDREN",
+      "description" : "Menu has child menus",
+      "description2" : "菜单有子菜单，无法删除",
+      "deprecated" : false,
+      "tips" : "Remove all child menus first",
+      "phase" : "DOMAIN",
+      "severity" : "WARN"
+    }, {
+      "code" : 10003004,
+      "title" : "INVALID_PARENT_MENU",
+      "description" : "Invalid parent menu",
+      "description2" : "无效的父菜单",
+      "deprecated" : false,
+      "tips" : "Check if the parent menu ID is correct",
+      "phase" : "DOMAIN",
+      "severity" : "WARN"
+    } ]
+  }, {
+    "name" : "RoleErrorEnum",
+    "javaClass" : "com.apihug.rad.infra.role.RoleErrorEnum",
+    "description" : "Error happen during role domain",
+    "deprecated" : false,
+    "domain" : "rad",
+    "items" : [ {
+      "code" : 10002001,
+      "title" : "ROLE_NOT_FOUND",
+      "description" : "Role not found",
+      "description2" : "角色不存在",
+      "deprecated" : false,
+      "tips" : "Check if the role ID is correct",
+      "phase" : "DOMAIN",
+      "severity" : "FATAL"
+    }, {
+      "code" : 10002002,
+      "title" : "ROLE_CODE_EXISTS",
+      "description" : "Role code already exists",
+      "description2" : "角色代码已存在",
+      "deprecated" : false,
+      "tips" : "Use a different role code",
+      "phase" : "DOMAIN",
+      "severity" : "WARN"
+    }, {
+      "code" : 10002003,
+      "title" : "ROLE_HAS_USERS",
+      "description" : "Role has assigned users",
+      "description2" : "角色已分配给用户，无法删除",
+      "deprecated" : false,
+      "tips" : "Remove all users from this role first",
+      "phase" : "DOMAIN",
+      "severity" : "WARN"
+    }, {
+      "code" : 10002004,
+      "title" : "PERMISSION_NOT_FOUND",
+      "description" : "Permission not found",
+      "description2" : "权限不存在",
+      "deprecated" : false,
+      "tips" : "Check if the permission ID is correct",
+      "phase" : "DOMAIN",
+      "severity" : "FATAL"
+    }, {
+      "code" : 10002005,
+      "title" : "PERMISSION_ALREADY_ASSIGNED",
+      "description" : "Permission already assigned",
+      "description2" : "权限已分配",
+      "deprecated" : false,
+      "tips" : "This permission is already assigned to the role",
+      "phase" : "DOMAIN",
+      "severity" : "WARN"
+    } ]
+  }, {
+    "name" : "TenantErrorEnum",
+    "javaClass" : "com.apihug.rad.infra.tenant.TenantErrorEnum",
+    "description" : "租户相关错误",
+    "deprecated" : false,
+    "domain" : "rad",
+    "items" : [ {
+      "code" : 10004001,
+      "title" : "TENANT_NOT_FOUND",
+      "description" : "Tenant not found",
+      "description2" : "租户不存在",
+      "deprecated" : false,
+      "tips" : "Check if the tenant ID is correct",
+      "phase" : "DOMAIN",
+      "severity" : "FATAL"
+    }, {
+      "code" : 10004002,
+      "title" : "TENANT_CODE_EXISTS",
+      "description" : "Tenant code already exists",
+      "description2" : "租户代码已存在",
+      "deprecated" : false,
+      "tips" : "Use a different tenant code",
+      "phase" : "DOMAIN",
+      "severity" : "WARN"
+    }, {
+      "code" : 10004003,
+      "title" : "TENANT_HAS_USERS",
+      "description" : "Tenant has users",
+      "description2" : "租户下有用户，无法删除",
+      "deprecated" : false,
+      "tips" : "Remove all users from this tenant first",
+      "phase" : "DOMAIN",
+      "severity" : "WARN"
+    } ]
+  } ]
+}

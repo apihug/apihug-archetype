@@ -1,0 +1,76 @@
+syntax = "proto3";
+
+package com.apihug.rad.infra.customer;
+
+import "apihug/protobuf/extend/constant.proto";
+import "apihug/protobuf/swagger/annotations.proto";
+
+enum CustomerErrorEnum {
+
+  option (hope.swagger.enm) = {
+    description: "Error happen during customer domain";
+  };
+
+  CUSTOMER_NOT_FOUND = 0  [
+    (hope.constant.field) = {
+      code: 10001023, message: "Customer not found", message2: "客户不存在",
+      error: {
+        tips: "Contract your admin or create a new customer",
+        phase: DOMAIN,
+        severity: FATAL,
+      }}];
+
+  CUSTOMER_LOCK = 1  [
+    (hope.constant.field) = {
+      code: 10001024, message: "Customer not active", message2: "账户锁定",
+      error: {
+        tips: "Contract your admin",
+        phase: DOMAIN,
+        severity: WARN,
+      }}];
+
+  CUSTOMER_LOGIN_FAIL = 2  [
+    (hope.constant.field) = {
+      code: 10001025, message: "Login fail", message2: "登录失败",
+      error: {
+        tips: "Contract your admin, check your username and password",
+        phase: DOMAIN,
+        severity: WARN,
+      }}];
+
+  USER_ALREADY_EXISTS = 3  [
+    (hope.constant.field) = {
+      code: 10001026, message: "User already exists", message2: "用户已存在",
+      error: {
+        tips: "Use a different username or email",
+        phase: DOMAIN,
+        severity: WARN,
+      }}];
+
+  INVALID_RESET_TOKEN = 4  [
+    (hope.constant.field) = {
+      code: 10001027, message: "Invalid reset token", message2: "重置 token 无效",
+      error: {
+        tips: "Request a new password reset",
+        phase: DOMAIN,
+        severity: WARN,
+      }}];
+
+  RESET_TOKEN_EXPIRED = 5  [
+    (hope.constant.field) = {
+      code: 10001028, message: "Reset token expired", message2: "重置 token 已过期",
+      error: {
+        tips: "Request a new password reset",
+        phase: DOMAIN,
+        severity: WARN,
+      }}];
+
+  WEAK_PASSWORD = 6  [
+    (hope.constant.field) = {
+      code: 10001029, message: "Weak password", message2: "密码强度不足",
+      error: {
+        tips: "Password must be at least 6 characters",
+        phase: DOMAIN,
+        severity: WARN,
+      }}];
+}

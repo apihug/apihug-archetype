@@ -1,0 +1,100 @@
+syntax = "proto3";
+
+package com.apihug.rad.domain.menu;
+
+import "apihug/protobuf/domain/annotations.proto";
+import "apihug/protobuf/extend/constant.proto";
+import "com/apihug/rad/infra/menu/constant.proto";
+
+message MenuEntity {
+  option (hope.persistence.table) = {
+    name: "SYS_MENU",
+    description: "菜单表",
+    wires: [ALL],
+    indexes: {
+      name: "IDX_SYS_MENU_PARENT_ID",
+      column_list: ["parent_id"]
+    },
+    indexes: {
+      name: "IDX_SYS_MENU_CODE",
+      column_list: ["menu_code"]
+    },
+    unique_constraints: {
+      name: "UK_SYS_MENU_CODE",
+      column_list: ["menu_code"]
+    }
+  };
+
+  int64 parent_id = 1 [(hope.persistence.column) = {
+    name: "PARENT_ID",
+    description: "父菜单 ID",
+    nullable: false,
+    default_value: "0"
+  }];
+
+  string menu_code = 2 [(hope.persistence.column) = {
+    name: "MENU_CODE",
+    description: "菜单代码",
+    nullable: false,
+    length: 50,
+    type: VARCHAR,
+    unique: true
+  }];
+
+  string menu_name = 3 [(hope.persistence.column) = {
+    name: "MENU_NAME",
+    description: "菜单名称",
+    nullable: false,
+    length: 100,
+    type: VARCHAR
+  }];
+
+  string path = 4 [(hope.persistence.column) = {
+    name: "PATH",
+    description: "菜单路径",
+    nullable: true,
+    length: 255,
+    type: VARCHAR
+  }];
+
+  string icon = 5 [(hope.persistence.column) = {
+    name: "ICON",
+    description: "菜单图标",
+    nullable: true,
+    length: 100,
+    type: VARCHAR
+  }];
+
+  int32 sort_order = 6 [(hope.persistence.column) = {
+    name: "SORT_ORDER",
+    description: "排序顺序",
+    nullable: false,
+    default_value: "0"
+  }];
+
+  com.apihug.rad.infra.menu.MenuTypeEnum menu_type = 7 [(hope.persistence.column) = {
+    name: "MENU_TYPE",
+    description: "菜单类型",
+    nullable: false,
+    enum_type: STRING,
+    length: 20,
+    default_value: "MENU"
+  }];
+
+  string permission_code = 8 [(hope.persistence.column) = {
+    name: "PERMISSION_CODE",
+    description: "关联的权限代码",
+    nullable: true,
+    length: 100,
+    type: VARCHAR
+  }];
+
+  com.apihug.rad.infra.menu.MenuStatusEnum status = 9 [(hope.persistence.column) = {
+    name: "STATUS_CODE",
+    description: "菜单状态",
+    nullable: false,
+    enum_type: STRING,
+    length: 20,
+    default_value: "ACTIVE"
+  }];
+}

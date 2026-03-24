@@ -1,0 +1,48 @@
+syntax = "proto3";
+
+package com.apihug.rad.infra.menu;
+
+import "apihug/protobuf/extend/constant.proto";
+import "apihug/protobuf/swagger/annotations.proto";
+
+enum MenuErrorEnum {
+  option (hope.swagger.enm) = {
+    description: "Error happen during menu domain";
+  };
+
+  MENU_NOT_FOUND = 0  [
+    (hope.constant.field) = {
+      code: 10003001, message: "Menu not found", message2: "菜单不存在",
+      error: {
+        tips: "Check if the menu ID is correct",
+        phase: DOMAIN,
+        severity: FATAL,
+      }}];
+
+  MENU_CODE_EXISTS = 1  [
+    (hope.constant.field) = {
+      code: 10003002, message: "Menu code already exists", message2: "菜单代码已存在",
+      error: {
+        tips: "Use a different menu code",
+        phase: DOMAIN,
+        severity: WARN,
+      }}];
+
+  MENU_HAS_CHILDREN = 2  [
+    (hope.constant.field) = {
+      code: 10003003, message: "Menu has child menus", message2: "菜单有子菜单，无法删除",
+      error: {
+        tips: "Remove all child menus first",
+        phase: DOMAIN,
+        severity: WARN,
+      }}];
+
+  INVALID_PARENT_MENU = 3  [
+    (hope.constant.field) = {
+      code: 10003004, message: "Invalid parent menu", message2: "无效的父菜单",
+      error: {
+        tips: "Check if the parent menu ID is correct",
+        phase: DOMAIN,
+        severity: WARN,
+      }}];
+}

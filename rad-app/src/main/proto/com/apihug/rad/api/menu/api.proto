@@ -1,0 +1,451 @@
+syntax = "proto3";
+
+package com.apihug.rad.api.menu;
+
+import "apihug/protobuf/swagger/annotations.proto";
+import "google/protobuf/empty.proto";
+import "com/apihug/rad/infra/menu/constant.proto";
+
+// ============ 菜单管理 API ============
+
+service MenuService {
+  option (hope.swagger.svc) = {
+    path: "/menus",
+    description: "菜单管理服务，提供菜单 CRUD 和树形查询功能"
+  };
+
+  rpc CreateMenu (CreateMenuRequest) returns (MenuSummary) {
+    option (hope.swagger.operation) = {
+      post: "/menus";
+      description: "创建新菜单";
+      summary: "创建菜单";
+      tags: "menu";
+      authorization: {
+        rbac: {
+          authorities: ["MENU_CREATE"];
+        }
+      };
+      questions: [
+        "如何创建新菜单？",
+        "创建菜单需要哪些信息？",
+        "菜单代码是否需要唯一？"
+      ];
+    };
+  }
+
+  rpc GetMenu (google.protobuf.Empty) returns (MenuDetail) {
+    option (hope.swagger.operation) = {
+      get: "/menus/{menuId}";
+      description: "获取菜单详情";
+      summary: "获取菜单详情";
+      tags: "menu";
+      authorization: {
+        low_limit_risky_mode: LOGIN
+      };
+      parameters: {
+        parameter: {
+          name: "menuId";
+          in: PATH;
+          schema: {
+            format: INTEGER;
+            empty: false;
+          };
+        };
+      };
+      questions: [
+        "如何获取菜单详情？",
+        "菜单详情包含哪些信息？"
+      ];
+    };
+  }
+
+  rpc UpdateMenu (UpdateMenuRequest) returns (google.protobuf.Empty) {
+    option (hope.swagger.operation) = {
+      put: "/menus/{menuId}";
+      description: "更新菜单信息";
+      summary: "更新菜单";
+      tags: "menu";
+      authorization: {
+        rbac: {
+          authorities: ["MENU_UPDATE"];
+        }
+      };
+      parameters: {
+        parameter: {
+          name: "menuId";
+          in: PATH;
+          schema: {
+            format: INTEGER;
+            empty: false;
+          };
+        };
+      };
+      questions: [
+        "如何更新菜单信息？",
+        "哪些字段可以更新？"
+      ];
+    };
+  }
+
+  rpc DeleteMenu (google.protobuf.Empty) returns (google.protobuf.Empty) {
+    option (hope.swagger.operation) = {
+      delete: "/menus/{menuId}";
+      description: "删除菜单（软删除）";
+      summary: "删除菜单";
+      tags: "menu";
+      authorization: {
+        rbac: {
+          authorities: ["MENU_DELETE"];
+        }
+      };
+      parameters: {
+        parameter: {
+          name: "menuId";
+          in: PATH;
+          schema: {
+            format: INTEGER;
+            empty: false;
+          };
+        };
+      };
+      questions: [
+        "如何删除菜单？",
+        "是物理删除还是软删除？"
+      ];
+    };
+  }
+
+  rpc GetMenuTree (google.protobuf.Empty) returns (MenuTreeNode) {
+    option (hope.swagger.operation) = {
+      get: "/menus/tree";
+      description: "获取菜单树形结构";
+      summary: "获取菜单树";
+      tags: "menu";
+      authorization: {
+        low_limit_risky_mode: LOGIN
+      };
+      questions: [
+        "如何获取菜单树？",
+        "返回什么格式的树形结构？"
+      ];
+    };
+  }
+
+  rpc SearchMenus (SearchMenusRequest) returns (MenuSummary) {
+    option (hope.swagger.operation) = {
+      post: "/menus/search";
+      description: "搜索菜单（分页）";
+      summary: "搜索菜单";
+      tags: "menu";
+      authorization: {
+        rbac: {
+          authorities: ["MENU_VIEW"];
+        }
+      };
+      pageable: true;
+      questions: [
+        "如何搜索菜单？",
+        "支持哪些筛选条件？",
+        "如何分页？"
+      ];
+    };
+  }
+}
+
+message CreateMenuRequest {
+  option (hope.swagger.schema) = {
+    json_schema: {
+      title: "CreateMenuRequest";
+      description: "创建菜单请求";
+    };
+  };
+
+  int64 parent_id = 1 [(hope.swagger.field) = {
+    description: "父菜单 ID（0 表示根菜单）";
+    example: "0";
+    minimum: 0;
+  }];
+
+  string menu_code = 2 [(hope.swagger.field) = {
+    description: "菜单代码";
+    example: "system_user";
+    empty: false;
+    max_length: 50;
+    mock: {nature: NAME};
+  }];
+
+  string menu_name = 3 [(hope.swagger.field) = {
+    description: "菜单名称";
+    example: "用户管理";
+    empty: false;
+    max_length: 100;
+    mock: {nature: NAME};
+  }];
+
+  string path = 4 [(hope.swagger.field) = {
+    description: "菜单路径";
+    example: "/system/user";
+    max_length: 255;
+    mock: {nature: URL};
+  }];
+
+  string icon = 5 [(hope.swagger.field) = {
+    description: "菜单图标";
+    example: "lucide:users";
+    max_length: 100;
+  }];
+
+  int32 sort_order = 6 [(hope.swagger.field) = {
+    description: "排序顺序（数字越小越靠前）";
+    example: "10";
+  }];
+
+  com.apihug.rad.infra.menu.MenuTypeEnum menu_type = 7 [(hope.swagger.field) = {
+    description: "菜单类型";
+    example: "MENU";
+    empty: false;
+  }];
+
+  string permission_code = 8 [(hope.swagger.field) = {
+    description: "关联的权限代码";
+    example: "user:view";
+    max_length: 100;
+  }];
+
+  com.apihug.rad.infra.menu.MenuStatusEnum status = 9 [(hope.swagger.field) = {
+    description: "菜单状态";
+    example: "ACTIVE";
+    empty: false;
+  }];
+}
+
+message UpdateMenuRequest {
+  option (hope.swagger.schema) = {
+    json_schema: {
+      title: "UpdateMenuRequest";
+      description: "更新菜单请求";
+    };
+  };
+
+  string menu_name = 1 [(hope.swagger.field) = {
+    description: "菜单名称";
+    example: "用户管理";
+    empty: false;
+    max_length: 100;
+    mock: {nature: NAME};
+  }];
+
+  string path = 2 [(hope.swagger.field) = {
+    description: "菜单路径";
+    example: "/system/user";
+    max_length: 255;
+    mock: {nature: URL};
+  }];
+
+  string icon = 3 [(hope.swagger.field) = {
+    description: "菜单图标";
+    example: "lucide:users";
+    max_length: 100;
+  }];
+
+  int32 sort_order = 4 [(hope.swagger.field) = {
+    description: "排序顺序";
+    example: "10";
+  }];
+
+  com.apihug.rad.infra.menu.MenuTypeEnum menu_type = 5 [(hope.swagger.field) = {
+    description: "菜单类型";
+    example: "MENU";
+    empty: false;
+  }];
+
+  string permission_code = 6 [(hope.swagger.field) = {
+    description: "关联的权限代码";
+    example: "user:view";
+    max_length: 100;
+  }];
+
+  com.apihug.rad.infra.menu.MenuStatusEnum status = 7 [(hope.swagger.field) = {
+    description: "菜单状态";
+    example: "ACTIVE";
+    empty: false;
+  }];
+}
+
+message MenuSummary {
+  option (hope.swagger.schema) = {
+    json_schema: {
+      title: "MenuSummary";
+      description: "菜单摘要信息（列表用）";
+    };
+  };
+
+  int64 id = 1 [(hope.swagger.field) = {
+    description: "菜单 ID";
+    example: "1";
+    empty: false;
+    minimum: 1;
+  }];
+
+  int64 parent_id = 2 [(hope.swagger.field) = {
+    description: "父菜单 ID";
+    example: "0";
+    empty: false;
+  }];
+
+  string menu_code = 3 [(hope.swagger.field) = {
+    description: "菜单代码";
+    example: "system_user";
+    empty: false;
+    mock: {nature: NAME};
+  }];
+
+  string menu_name = 4 [(hope.swagger.field) = {
+    description: "菜单名称";
+    example: "用户管理";
+    empty: false;
+    mock: {nature: NAME};
+  }];
+
+  string path = 5 [(hope.swagger.field) = {
+    description: "菜单路径";
+    example: "/system/user";
+    mock: {nature: URL};
+  }];
+
+  com.apihug.rad.infra.menu.MenuTypeEnum menu_type = 6 [(hope.swagger.field) = {
+    description: "菜单类型";
+    example: "MENU";
+    empty: false;
+  }];
+
+  com.apihug.rad.infra.menu.MenuStatusEnum status = 7 [(hope.swagger.field) = {
+    description: "菜单状态";
+    example: "ACTIVE";
+    empty: false;
+  }];
+}
+
+message MenuDetail {
+  option (hope.swagger.schema) = {
+    json_schema: {
+      title: "MenuDetail";
+      description: "菜单详情信息";
+    };
+  };
+
+  int64 id = 1 [(hope.swagger.field) = {
+    description: "菜单 ID";
+    example: "1";
+    empty: false;
+    minimum: 1;
+  }];
+
+  int64 parent_id = 2 [(hope.swagger.field) = {
+    description: "父菜单 ID";
+    example: "0";
+    empty: false;
+  }];
+
+  string menu_code = 3 [(hope.swagger.field) = {
+    description: "菜单代码";
+    example: "system_user";
+    empty: false;
+    mock: {nature: NAME};
+  }];
+
+  string menu_name = 4 [(hope.swagger.field) = {
+    description: "菜单名称";
+    example: "用户管理";
+    empty: false;
+    mock: {nature: NAME};
+  }];
+
+  string path = 5 [(hope.swagger.field) = {
+    description: "菜单路径";
+    example: "/system/user";
+    mock: {nature: URL};
+  }];
+
+  string icon = 6 [(hope.swagger.field) = {
+    description: "菜单图标";
+    example: "lucide:users";
+    mock: {nature: NAME};
+  }];
+
+  int32 sort_order = 7 [(hope.swagger.field) = {
+    description: "排序顺序";
+    example: "10";
+  }];
+
+  com.apihug.rad.infra.menu.MenuTypeEnum menu_type = 8 [(hope.swagger.field) = {
+    description: "菜单类型";
+    example: "MENU";
+    empty: false;
+  }];
+
+  string permission_code = 9 [(hope.swagger.field) = {
+    description: "关联的权限代码";
+    example: "user:view";
+    mock: {nature: NAME};
+  }];
+
+  com.apihug.rad.infra.menu.MenuStatusEnum status = 10 [(hope.swagger.field) = {
+    description: "菜单状态";
+    example: "ACTIVE";
+    empty: false;
+  }];
+
+  string created_at = 11 [(hope.swagger.field) = {
+    description: "创建时间";
+    example: "2024-01-15T10:30:00";
+    date_format: ISO_LOCAL_DATE_TIME;
+  }];
+
+  string updated_at = 12 [(hope.swagger.field) = {
+    description: "更新时间";
+    example: "2024-01-16T10:30:00";
+    date_format: ISO_LOCAL_DATE_TIME;
+  }];
+}
+
+message MenuTreeNode {
+  option (hope.swagger.schema) = {
+    json_schema: {
+      title: "MenuTreeNode";
+      description: "菜单树节点";
+    };
+  };
+
+  MenuSummary menu = 1 [(hope.swagger.field) = {
+    description: "菜单信息";
+  }];
+
+  repeated MenuTreeNode children = 2 [(hope.swagger.field) = {
+    description: "子菜单列表";
+  }];
+}
+
+message SearchMenusRequest {
+  option (hope.swagger.schema) = {
+    json_schema: {
+      title: "SearchMenusRequest";
+      description: "搜索菜单请求";
+    };
+  };
+
+  string keyword = 1 [(hope.swagger.field) = {
+    description: "搜索关键词（菜单代码或名称）";
+    example: "user";
+  }];
+
+  com.apihug.rad.infra.menu.MenuTypeEnum menu_type = 2 [(hope.swagger.field) = {
+    description: "菜单类型筛选";
+    example: "MENU";
+  }];
+
+  com.apihug.rad.infra.menu.MenuStatusEnum status = 3 [(hope.swagger.field) = {
+    description: "菜单状态筛选";
+    example: "ACTIVE";
+  }];
+}

@@ -1,0 +1,33 @@
+{
+  "apiRoot" : "/api",
+  "artifact" : {
+    "groupId" : "com.apihug",
+    "artifactId" : "rad-app",
+    "version" : "0.1.1-SNAPSHOT"
+  },
+  "name" : "rad",
+  "description" : "apihug rapid application development template",
+  "application" : "rad-app",
+  "packageName" : "com.apihug.rad",
+  "type" : "PROTO",
+  "domain" : "rad",
+  "identifier" : "rad",
+  "module" : "rad",
+  "status" : {
+    "deprecated" : false,
+    "createdTimestamp" : "2026-03-20",
+    "updatedTimestamp" : "2026-03-24 10:39:49",
+    "lastBuildTimestamp" : "2026-03-24 10:39:49",
+    "createdBy" : "admin"
+  },
+  "persistence" : {
+    "identifyType" : "LONG",
+    "tenantType" : "LONG",
+    "format" : "DEFAULT",
+    "upper" : "DEFAULT"
+  },
+  "authority" : {
+    "enumClass" : "com.apihug.rad.infra.settings.RadAuthorityEnum",
+    "codePrefix" : 10240000
+  }
+}

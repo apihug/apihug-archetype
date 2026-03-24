@@ -1,0 +1,164 @@
+syntax = "proto3";
+
+package com.apihug.rad.domain.audit;
+
+
+import "apihug/protobuf/domain/annotations.proto";
+
+message AccessLogEntity {
+
+  option (hope.persistence.table) = {
+    name: "SYS_ACCESS_LOG",
+    description: "HTTP访问审计日志表",
+    wires: [IDENTIFIABLE, TENANTABLE],
+    indexes: {
+      name: "IDX_SYS_ACCESS_LOG_CUSTOMER_ID",
+      column_list: ["customer_id"]
+    },
+    indexes: {
+      name: "IDX_SYS_ACCESS_LOG_PATH",
+      column_list: ["request_path"]
+    },
+    indexes: {
+      name: "IDX_SYS_ACCESS_LOG_CREATED_AT",
+      column_list: ["created_at"]
+    },
+    indexes: {
+      name: "IDX_SYS_ACCESS_LOG_TENANT_TIME",
+      column_list: ["tenant_id", "created_at"]
+    }
+  };
+
+  string http_method = 1 [(hope.persistence.column) = {
+    name: "HTTP_METHOD",
+    description: "HTTP请求方法",
+    nullable: false,
+    length: 10,
+    type: VARCHAR
+  }];
+
+  string request_path = 2 [(hope.persistence.column) = {
+    name: "REQUEST_PATH",
+    description: "请求路径",
+    nullable: false,
+    length: 500,
+    type: VARCHAR
+  }];
+
+  string request_params = 3 [(hope.persistence.column) = {
+    name: "REQUEST_PARAMS",
+    description: "脱敏后的请求参数JSON",
+    nullable: true,
+    type: CLOB
+  }];
+
+  int32 response_status = 4 [(hope.persistence.column) = {
+    name: "RESPONSE_STATUS",
+    description: "HTTP响应状态码",
+    nullable: true,
+    type: INTEGER
+  }];
+
+  int64 start_epoch_ts = 5 [(hope.persistence.column) = {
+    name: "START_EPOCH_TS",
+    description: "start epoch timestamp",
+    nullable: false
+    default_value: "0"
+  }];
+
+
+  int64 duration_ms = 15 [(hope.persistence.column) = {
+    name: "DURATION_MS",
+    description: "请求耗时毫秒",
+    nullable: true
+    default_value: "0"
+  }];
+
+  // 客户维度
+  int64 customer_id = 16 [(hope.persistence.column) = {
+    name: "CUSTOMER_ID",
+    description: "客户ID",
+    nullable: true,
+  }];
+
+  string ip_address = 17 [(hope.persistence.column) = {
+    name: "IP_ADDRESS",
+    description: "IP地址",
+    nullable: true,
+    length: 45,
+    type: VARCHAR
+  }];
+
+  string user_agent = 18 [(hope.persistence.column) = {
+    name: "USER_AGENT",
+    description: "用户代理",
+    nullable: true,
+    length: 500,
+    type: VARCHAR
+  }];
+
+  // 服务方法维度
+  string service_name = 19 [(hope.persistence.column) = {
+    name: "SERVICE_NAME",
+    description: "服务名称",
+    nullable: true,
+    length: 255,
+    type: VARCHAR
+  }];
+
+  string method_name = 20 [(hope.persistence.column) = {
+    name: "METHOD_NAME",
+    description: "方法名称",
+    nullable: true,
+    length: 125,
+    type: VARCHAR
+  }];
+
+  // 错误维度
+  string error_code = 21 [(hope.persistence.column) = {
+    name: "ERROR_CODE",
+    description: "错误码",
+    nullable: true,
+    length: 50,
+    type: VARCHAR
+  }];
+
+  string error_message = 22 [(hope.persistence.column) = {
+    name: "ERROR_MESSAGE",
+    description: "错误信息",
+    nullable: true,
+    length: 500,
+    type: VARCHAR
+  }];
+
+  string channel = 23 [(hope.persistence.column) = {
+    name: "CHANNEL",
+    description: "渠道",
+    nullable: false,
+    length: 16,
+    type: VARCHAR,
+    default_value: "API"
+  }];
+
+  int64 created_by = 24 [(hope.persistence.column) = {
+    name: "CREATED_BY",
+    description: "created by",
+    nullable: false
+  }];
+
+  string created_at = 25 [(hope.persistence.column) = {
+    name: "CREATED_AT",
+    description: "created at timestamp",
+    nullable: false
+    updatable: false
+    type: TIMESTAMP
+  }];
+
+  string priority = 26  [(hope.persistence.column) = {
+    name: "PRIORITY",
+    description: "priority of this method",
+    nullable: false
+    updatable: false
+    default_value: "LOW"
+  }];
+}

@@ -1,0 +1,57 @@
+syntax = "proto3";
+
+package com.apihug.rad.infra.role;
+
+import "apihug/protobuf/extend/constant.proto";
+import "apihug/protobuf/swagger/annotations.proto";
+
+enum RoleErrorEnum {
+  option (hope.swagger.enm) = {
+    description: "Error happen during role domain";
+  };
+
+  ROLE_NOT_FOUND = 0  [
+    (hope.constant.field) = {
+      code: 10002001, message: "Role not found", message2: "角色不存在",
+      error: {
+        tips: "Check if the role ID is correct",
+        phase: DOMAIN,
+        severity: FATAL,
+      }}];
+
+  ROLE_CODE_EXISTS = 1  [
+    (hope.constant.field) = {
+      code: 10002002, message: "Role code already exists", message2: "角色代码已存在",
+      error: {
+        tips: "Use a different role code",
+        phase: DOMAIN,
+        severity: WARN,
+      }}];
+
+  ROLE_HAS_USERS = 2  [
+    (hope.constant.field) = {
+      code: 10002003, message: "Role has assigned users", message2: "角色已分配给用户，无法删除",
+      error: {
+        tips: "Remove all users from this role first",
+        phase: DOMAIN,
+        severity: WARN,
+      }}];
+
+  PERMISSION_NOT_FOUND = 3  [
+    (hope.constant.field) = {
+      code: 10002004, message: "Permission not found", message2: "权限不存在",
+      error: {
+        tips: "Check if the permission ID is correct",
+        phase: DOMAIN,
+        severity: FATAL,
+      }}];
+
+  PERMISSION_ALREADY_ASSIGNED = 4  [
+    (hope.constant.field) = {
+      code: 10002005, message: "Permission already assigned", message2: "权限已分配",
+      error: {
+        tips: "This permission is already assigned to the role",
+        phase: DOMAIN,
+        severity: WARN,
+      }}];
+}

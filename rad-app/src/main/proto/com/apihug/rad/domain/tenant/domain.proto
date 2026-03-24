@@ -1,0 +1,85 @@
+syntax = "proto3";
+
+package com.apihug.rad.domain.tenant;
+
+import "apihug/protobuf/domain/annotations.proto";
+import "com/apihug/rad/infra/tenant/constant.proto";
+
+message TenantEntity {
+  option (hope.persistence.table) = {
+    name: "SYS_TENANT",
+    description: "租户表",
+    wires: [IDENTIFIABLE, AUDITABLE],
+    indexes: {
+      name: "IDX_SYS_TENANT_CODE",
+      column_list: ["tenant_code"]
+    },
+    unique_constraints: {
+      name: "UK_SYS_TENANT_CODE",
+      column_list: ["tenant_code"]
+    }
+  };
+
+  string tenant_code = 1 [(hope.persistence.column) = {
+    name: "TENANT_CODE",
+    description: "租户代码",
+    nullable: false,
+    length: 50,
+    type: VARCHAR,
+    unique: true
+  }];
+
+  string tenant_name = 2 [(hope.persistence.column) = {
+    name: "TENANT_NAME",
+    description: "租户名称",
+    nullable: false,
+    length: 100,
+    type: VARCHAR
+  }];
+
+  string contact_email = 3 [(hope.persistence.column) = {
+    name: "CONTACT_EMAIL",
+    description: "联系人邮箱",
+    nullable: true,
+    length: 100,
+    type: VARCHAR
+  }];
+
+  string contact_phone = 4 [(hope.persistence.column) = {
+    name: "CONTACT_PHONE",
+    description: "联系人电话",
+    nullable: true,
+    length: 20,
+    type: VARCHAR
+  }];
+
+  com.apihug.rad.infra.tenant.TenantStatusEnum status = 5 [(hope.persistence.column) = {
+    name: "STATUS_CODE",
+    description: "租户状态",
+    nullable: false,
+    enum_type: STRING,
+    length: 20,
+    default_value: "ACTIVE"
+  }];
+
+  int32 max_users = 6 [(hope.persistence.column) = {
+    name: "MAX_USERS",
+    description: "最大用户数",
+    nullable: false,
+    default_value: "100"
+  }];
+
+  int64 max_storage_mb = 7 [(hope.persistence.column) = {
+    name: "MAX_STORAGE_MB",
+    description: "最大存储空间（MB）",
+    nullable: false,
+    default_value: "10240"
+  }];
+
+  string expiry_date = 8 [(hope.persistence.column) = {
+    name: "EXPIRY_DATE",
+    description: "到期时间",
+    nullable: true,
+    type: TIMESTAMP
+  }];
+}

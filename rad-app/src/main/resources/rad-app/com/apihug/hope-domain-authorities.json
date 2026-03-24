@@ -1,0 +1,199 @@
+{
+  "domain" : "rad",
+  "version" : "0.1.1-SNAPSHOT",
+  "lastBuildTime" : "2026-03-24 10:39:49",
+  "codeOffset" : 10240000,
+  "javaClass" : "com.apihug.rad.infra.settings.RadAuthorityEnum",
+  "deprecated" : false,
+  "description" : "RAD 权限枚举",
+  "items" : [ {
+    "code" : 1,
+    "name" : "CUSTOMER_CREATE",
+    "expression" : "customer:create",
+    "description" : "创建客户",
+    "deprecated" : false,
+    "domain" : "rad"
+  }, {
+    "code" : 2,
+    "name" : "CUSTOMER_UPDATE",
+    "expression" : "customer:update",
+    "description" : "更新客户",
+    "deprecated" : false,
+    "domain" : "rad"
+  }, {
+    "code" : 3,
+    "name" : "CUSTOMER_DELETE",
+    "expression" : "customer:delete",
+    "description" : "删除客户",
+    "deprecated" : false,
+    "domain" : "rad"
+  }, {
+    "code" : 4,
+    "name" : "CUSTOMER_VIEW",
+    "expression" : "customer:view",
+    "description" : "查看客户",
+    "deprecated" : false,
+    "domain" : "rad"
+  }, {
+    "code" : 5,
+    "name" : "ROLE_CREATE",
+    "expression" : "role:create",
+    "description" : "创建角色",
+    "deprecated" : false,
+    "domain" : "rad"
+  }, {
+    "code" : 6,
+    "name" : "ROLE_UPDATE",
+    "expression" : "role:update",
+    "description" : "更新角色",
+    "deprecated" : false,
+    "domain" : "rad"
+  }, {
+    "code" : 7,
+    "name" : "ROLE_DELETE",
+    "expression" : "role:delete",
+    "description" : "删除角色",
+    "deprecated" : false,
+    "domain" : "rad"
+  }, {
+    "code" : 8,
+    "name" : "ROLE_VIEW",
+    "expression" : "role:view",
+    "description" : "查看角色",
+    "deprecated" : false,
+    "domain" : "rad"
+  }, {
+    "code" : 9,
+    "name" : "ROLE_ASSIGN_PERMISSION",
+    "expression" : "role:assign_permission",
+    "description" : "分配角色权限",
+    "deprecated" : false,
+    "domain" : "rad"
+  }, {
+    "code" : 10,
+    "name" : "MENU_CREATE",
+    "expression" : "menu:create",
+    "description" : "创建菜单",
+    "deprecated" : false,
+    "domain" : "rad"
+  }, {
+    "code" : 11,
+    "name" : "MENU_UPDATE",
+    "expression" : "menu:update",
+    "description" : "更新菜单",
+    "deprecated" : false,
+    "domain" : "rad"
+  }, {
+    "code" : 12,
+    "name" : "MENU_DELETE",
+    "expression" : "menu:delete",
+    "description" : "删除菜单",
+    "deprecated" : false,
+    "domain" : "rad"
+  }, {
+    "code" : 13,
+    "name" : "MENU_VIEW",
+    "expression" : "menu:view",
+    "description" : "查看菜单",
+    "deprecated" : false,
+    "domain" : "rad"
+  }, {
+    "code" : 14,
+    "name" : "TENANT_CREATE",
+    "expression" : "tenant:create",
+    "description" : "创建租户",
+    "deprecated" : false,
+    "domain" : "rad"
+  }, {
+    "code" : 15,
+    "name" : "TENANT_UPDATE",
+    "expression" : "tenant:update",
+    "description" : "更新租户",
+    "deprecated" : false,
+    "domain" : "rad"
+  }, {
+    "code" : 16,
+    "name" : "TENANT_DISABLE",
+    "expression" : "tenant:disable",
+    "description" : "停用租户",
+    "deprecated" : false,
+    "domain" : "rad"
+  }, {
+    "code" : 17,
+    "name" : "TENANT_CONFIGURE",
+    "expression" : "tenant:configure",
+    "description" : "配置租户",
+    "deprecated" : false,
+    "domain" : "rad"
+  }, {
+    "code" : 18,
+    "name" : "DEPARTMENT_CREATE",
+    "expression" : "department:create",
+    "description" : "创建部门",
+    "deprecated" : false,
+    "domain" : "rad"
+  }, {
+    "code" : 19,
+    "name" : "DEPARTMENT_UPDATE",
+    "expression" : "department:update",
+    "description" : "更新部门",
+    "deprecated" : false,
+    "domain" : "rad"
+  }, {
+    "code" : 20,
+    "name" : "DEPARTMENT_DELETE",
+    "expression" : "department:delete",
+    "description" : "删除部门",
+    "deprecated" : false,
+    "domain" : "rad"
+  }, {
+    "code" : 21,
+    "name" : "DEPARTMENT_ASSIGN_EMPLOYEE",
+    "expression" : "department:assign_employee",
+    "description" : "分配员工到部门",
+    "deprecated" : false,
+    "domain" : "rad"
+  }, {
+    "code" : 22,
+    "name" : "ORGANIZATION_MEMBER_VIEW",
+    "expression" : "organization:member:view",
+    "description" : "查看组织员工",
+    "deprecated" : false,
+    "domain" : "rad"
+  }, {
+    "code" : 23,
+    "name" : "ORGANIZATION_MEMBER_ADD",
+    "expression" : "organization:member:add",
+    "description" : "添加组织员工",
+    "deprecated" : false,
+    "domain" : "rad"
+  }, {
+    "code" : 24,
+    "name" : "ORGANIZATION_MEMBER_REMOVE",
+    "expression" : "organization:member:remove",
+    "description" : "移除组织员工",
+    "deprecated" : false,
+    "domain" : "rad"
+  }, {
+    "code" : 25,
+    "name" : "ORGANIZATION_MEMBER_LOCK",
+    "expression" : "organization:member:lock",
+    "description" : "锁定组织员工",
+    "deprecated" : false,
+    "domain" : "rad"
+  }, {
+    "code" : 26,
+    "name" : "ORGANIZATION_MEMBER_ASSIGN_ROLE",
+    "expression" : "organization:member:assign_role",
+    "description" : "分配员工角色",
+    "deprecated" : false,
+    "domain" : "rad"
+  }, {
+    "code" : 27,
+    "name" : "ORGANIZATION_MEMBER_ASSIGN_MENU",
+    "expression" : "organization:member:assign_menu",
+    "description" : "分配员工菜单",
+    "deprecated" : false,
+    "domain" : "rad"
+  } ]
+}

@@ -1,0 +1,266 @@
+syntax = "proto3";
+
+package com.apihug.rad.api.audit;
+
+//This is sth never happen
+
+import "google/protobuf/empty.proto";
+import "apihug/protobuf/swagger/annotations.proto";
+
+service AccessLogService {
+  option (hope.swagger.svc) = {
+    path: "/access-logs";
+    description: "访问日志服务"
+  };
+
+  rpc QueryAccessLogs (SearchAccessLogsRequest) returns (AccessLogInfo) {
+    option (hope.swagger.operation) = {
+      get: "/query";
+      description: "查询访问日志";
+      summary: "分页查询HTTP访问审计日志";
+      tags: "access-log";
+      authorization: {
+        low_limit_risky_mode: LOGIN
+      };
+      //Switch as you like
+      /*authorization: {
+        rbac: {
+          authorities: ["AUDIT_VIEW"];
+        }
+      };*/
+      pageable: true;
+    };
+  }//Are u sure
+
+  rpc GetAccessLogStats (GetAccessLogStatsRequest) returns (AccessLogStatsResponse) {
+    option (hope.swagger.operation) = {
+      get: "/stats";
+      description: "获取访问统计";
+      summary: "获取访问日志统计概览";
+      tags: "access-log";
+      authorization: {
+        low_limit_risky_mode: LOGIN
+      };
+      /*authorization: {
+        rbac: {
+          authorities: ["AUDIT_VIEW"];
+        }
+      };*/
+    };
+  }
+}//Let it go
+
+message SearchAccessLogsRequest {
+  option (hope.swagger.schema) = {
+    json_schema: {
+      description: "查询访问日志请求";
+    };
+  };
+
+  int64 customer_id = 1 [(hope.swagger.field) = {
+    description: "客户ID（可选）";
+    example: "1";
+  }];
+
+  string http_method = 2 [(hope.swagger.field) = {
+    description: "HTTP方法（可选）";
+    example: "GET";
+  }];
+
+  string request_path = 3 [(hope.swagger.field) = {
+    description: "请求路径（可选，模糊匹配）";
+    example: "/api/auth";
+  }];
+
+  int32 response_status = 4 [(hope.swagger.field) = {
+    description: "响应状态码（可选）";
+    example: "200";
+  }];
+
+  string start_time = 5 [(hope.swagger.field) = {
+    description: "开始时间（可选）";
+    example: "2024-01-01T00:00:00";
+    date_format: ISO_LOCAL_DATE_TIME;
+  }];
+
+  string end_time = 6 [(hope.swagger.field) = {
+    description: "结束时间（可选）";
+    example: "2024-12-31T23:59:59";
+    date_format: ISO_LOCAL_DATE_TIME;
+  }];
+}
+
+message GetAccessLogStatsRequest {
+  option (hope.swagger.schema) = {
+    json_schema: {
+      title: "GetAccessLogStatsRequest";
+      description: "获取访问统计请求";
+    };
+  };
+
+  string start_time = 1 [(hope.swagger.field) = {
+    description: "开始时间（可选）";
+    example: "2024-01-01 00:00:00";
+    date_format: YYYY_MM_DD_HH_MM_SS;
+  }];
+
+  string end_time = 2 [(hope.swagger.field) = {
+    description: "结束时间（可选）";
+    example: "2024-12-31 23:59:59";
+    date_format: YYYY_MM_DD_HH_MM_SS;
+  }];
+}
+
+// ============ Response Messages ============
+
+message AccessLogInfo {
+  option (hope.swagger.schema) = {
+    json_schema: {
+      title: "AccessLogInfo";
+      description: "访问日志信息";
+    };
+  };
+
+  int64 id = 1 [(hope.swagger.field) = {
+    description: "日志ID";
+    example: "1";
+  }];
+
+  string http_method = 2 [(hope.swagger.field) = {
+    description: "HTTP方法";
+    example: "GET";
+  }];
+
+  string request_path = 3 [(hope.swagger.field) = {
+    description: "请求路径";
+    example: "/api/auth/login";
+  }];
+
+  int32 response_status = 4 [(hope.swagger.field) = {
+    description: "响应状态码";
+    example: "200";
+  }];
+
+  int64 duration_ms = 5 [(hope.swagger.field) = {
+    description: "耗时毫秒";
+    example: "42";
+  }];
+
+  int64 customer_id = 6 [(hope.swagger.field) = {
+    description: "客户ID";
+    example: "1";
+  }];
+
+  string ip_address = 7 [(hope.swagger.field) = {
+    description: "IP地址";
+    example: "192.168.1.100";
+  }];
+
+  string user_agent = 8 [(hope.swagger.field) = {
+    description: "用户代理";
+    example: "Mozilla/5.0";
+  }];
+
+  string service_name = 9 [(hope.swagger.field) = {
+    description: "服务名称";
+    example: "AuthService";
+  }];
+
+  string method_name = 10 [(hope.swagger.field) = {
+    description: "方法名称";
+    example: "Login";
+  }];
+
+  string error_code = 11 [(hope.swagger.field) = {
+    description: "错误码";
+    example: "AUTH_FAILED";
+  }];
+
+  string error_message = 12 [(hope.swagger.field) = {
+    description: "错误信息";
+    example: "认证失败";
+  }];
+
+  string request_params = 13 [(hope.swagger.field) = {
+    description: "脱敏后的请求参数";
+    example: "{\"username\":\"admin\",\"password\":\"***\"}";
+  }];
+
+  string created_at = 14 [(hope.swagger.field) = {
+    description: "创建时间";
+    example: "2024-01-15T10:30:00";
+    date_format: ISO_LOCAL_DATE_TIME;
+  }];
+
+  int64 tenant_id = 15 [(hope.swagger.field) = {
+    description: "租户ID";
+    example: "1";
+  }];
+
+  string priority = 16 [(hope.swagger.field) = {
+    description: "priority of this method";
+    example: "LOW";
+  }];
+}
+
+message AccessLogStatsResponse {
+  option (hope.swagger.schema) = {
+    json_schema: {
+      title: "AccessLogStatsResponse";
+      description: "访问统计响应";
+    };
+  };
+
+  int64 total_requests = 1 [(hope.swagger.field) = {
+    description: "总请求数";
+    example: "10000";
+  }];
+
+  int64 success_count = 2 [(hope.swagger.field) = {
+    description: "成功请求数(2xx)";
+    example: "9500";
+  }];
+
+  int64 error_count = 3 [(hope.swagger.field) = {
+    description: "错误请求数(4xx+5xx)";
+    example: "500";
+  }];
+
+  int64 avg_duration_ms = 4 [(hope.swagger.field) = {
+    description: "平均耗时毫秒";
+    example: "120";
+  }];
+
+  repeated PathStats top_paths = 5 [(hope.swagger.field) = {
+    description: "Top访问路径统计";
+  }];
+}
+
+message PathStats {
+  option (hope.swagger.schema) = {
+    json_schema: {
+      title: "PathStats";
+      description: "路径统计";
+    };
+  };
+
+  string path = 1 [(hope.swagger.field) = {
+    description: "请求路径";
+    example: "/api/auth/login";
+  }];
+
+  int64 count = 2 [(hope.swagger.field) = {
+    description: "请求次数";
+    example: "1500";
+  }];
+
+  int64 avg_duration_ms = 3 [(hope.swagger.field) = {
+    description: "平均耗时毫秒";
+    example: "85";
+  }];
+
+  int32 error_rate = 4 [(hope.swagger.field) = {
+    description: "错误率(百分比*100)";
+    example: "5";
+  }];
+}

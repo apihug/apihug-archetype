@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <!-- 包含主 changelog -->
+    <include file="liquibase/rad/master.xml" relativeToChangelogFile="true"/>
+
+    <!-- 测试数据 -->
+    <changeSet id="test-data-001" author="test">
+        <insert tableName="SYS_CUSTOMER">
+            <column name="ID" valueNumeric="1"/>
+            <column name="USERNAME" value="test_admin"/>
+            <column name="PASSWORD_HASH" value="admin123"/>
+            <column name="PASSWORD_SLAT" value="test_salt"/>
+            <column name="EMAIL" value="test@example.com"/>
+            <column name="STATUS" value="ACTIVE"/>
+            <column name="DEFAULT_TENANT_ID" valueNumeric="1"/>
+            <column name="CREATED_AT" valueDate="2024-01-01 00:00:00"/>
+            <column name="CREATED_BY" valueNumeric="1"/>
+        </insert>
+        <insert tableName="SYS_CUSTOMER">
+            <column name="ID" valueNumeric="2"/>
+            <column name="USERNAME" value="test_user"/>
+            <column name="PASSWORD_HASH" value="user123"/>
+            <column name="PASSWORD_SLAT" value="test_salt"/>
+            <column name="EMAIL" value="user@example.com"/>
+            <column name="STATUS" value="ACTIVE"/>
+            <column name="DEFAULT_TENANT_ID" valueNumeric="1"/>
+            <column name="CREATED_AT" valueDate="2024-01-02 00:00:00"/>
+            <column name="CREATED_BY" valueNumeric="1"/>
+        </insert>
+        <insert tableName="SYS_CUSTOMER">
+            <column name="ID" valueNumeric="3"/>
+            <column name="USERNAME" value="locked_user"/>
+            <column name="PASSWORD_HASH" value="user123"/>
+            <column name="PASSWORD_SLAT" value="test_salt"/>
+            <column name="EMAIL" value="locked@example.com"/>
+            <column name="STATUS" value="LOCKED"/>
+            <column name="DEFAULT_TENANT_ID" valueNumeric="1"/>
+            <column name="CREATED_AT" valueDate="2024-01-03 00:00:00"/>
+            <column name="CREATED_BY" valueNumeric="1"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>

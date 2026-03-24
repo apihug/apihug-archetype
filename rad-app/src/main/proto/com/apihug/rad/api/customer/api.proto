@@ -1,0 +1,790 @@
+syntax = "proto3";
+
+package com.apihug.rad.api.customer;
+
+import "apihug/protobuf/swagger/annotations.proto";
+import "google/protobuf/empty.proto";
+import "com/apihug/rad/infra/customer/constant.proto";
+
+// ============ 客户认证 API ============
+
+service CustomerAuthService {
+  option (hope.swagger.svc) = {
+    path: "/auth",
+    description: "客户认证服务，提供登录登出功能"
+  };
+
+  rpc Login (LoginRequest) returns (LoginResponse) {
+    option (hope.swagger.operation) = {
+      post: "/login";
+      description: "客户登录认证接口，验证用户名和密码，成功后返回访问令牌";
+      summary: "客户登录认证";
+      tags: "auth";
+      authorization: {
+        low_limit_risky_mode: ANONYMOUS
+      };
+      questions: [
+        "如何进行客户登录认证？",
+        "登录接口需要哪些参数？",
+        "登录成功后返回什么信息？"
+      ];
+    };
+  }
+
+  rpc Logout (google.protobuf.Empty) returns (google.protobuf.Empty) {
+    option (hope.swagger.operation) = {
+      post: "/logout";
+      description: "客户退出登录接口，清除当前客户的会话信息";
+      summary: "退出登录";
+      tags: "auth";
+      authorization: {
+        low_limit_risky_mode: LOGIN
+      };
+      questions: [
+        "如何退出当前登录？",
+        "登出接口的作用是什么？",
+        "登出后需要重新登录吗？"
+      ];
+    };
+  }
+}
+
+// ============ 客户服务 API ============
+
+service CustomerService {
+  option (hope.swagger.svc) = {
+    path: "/customer",
+    description: "客户服务，提供当前客户信息查询、组织管理等功能"
+  };
+
+  rpc Info (google.protobuf.Empty) returns (CustomerInfo) {
+    option (hope.swagger.operation) = {
+      get: "/info";
+      description: "查询当前客户信息";
+      summary: "当前客户信息查询";
+      tags: "customer";
+      authorization: {
+        low_limit_risky_mode: LOGIN
+      };
+      questions: [
+        "当前登录客户信息？",
+        "客户有哪些角色？",
+        "客户有哪些授权？"
+      ];
+    };
+  }
+
+  rpc GetCurrentUserInfo (google.protobuf.Empty) returns (CurrentUserInfo) {
+    option (hope.swagger.operation) = {
+      get: "/current-user-info";
+      description: "获取当前客户完整信息（包含权限、角色、部门）";
+      summary: "获取当前客户信息";
+      tags: "customer";
+      authorization: {
+        low_limit_risky_mode: LOGIN
+      };
+      questions: [
+        "当前客户有哪些权限？",
+        "当前客户有哪些角色？",
+        "当前客户属于哪些部门？"
+      ];
+    };
+  }
+
+  rpc GetUserOrganizations (google.protobuf.Empty) returns (OrganizationList) {
+    option (hope.swagger.operation) = {
+      get: "/user-organizations";
+      description: "获取客户的所有组织列表";
+      summary: "获取客户组织";
+      tags: "customer";
+      authorization: {
+        low_limit_risky_mode: LOGIN
+      };
+    };
+  }
+
+  rpc SwitchOrganization (SwitchOrganizationRequest) returns (LoginResponse) {
+    option (hope.swagger.operation) = {
+      post: "/switch-organization";
+      description: "切换到指定组织";
+      summary: "切换组织";
+      tags: "customer";
+      authorization: {
+        low_limit_risky_mode: LOGIN
+      };
+      questions: [
+        "切换组织后返回什么？",
+        "切换组织后权限如何变化？"
+      ];
+    };
+  }
+}
+
+// ============ 客户管理 API ============
+
+service CustomerManagementService {
+  option (hope.swagger.svc) = {
+    path: "/customers",
+    description: "客户管理服务，提供客户 CRUD 和搜索功能"
+  };
+
+  rpc CreateCustomer (CreateCustomerRequest) returns (CustomerSummary) {
+    option (hope.swagger.operation) = {
+      post: "/customers";
+      description: "创建新客户";
+      summary: "创建客户";
+      tags: "customer";
+      authorization: {
+        rbac: {
+          authorities: ["CUSTOMER_CREATE"];
+        }
+      };
+      questions: [
+        "如何创建新客户？",
+        "创建客户需要哪些信息？",
+        "客户邮箱是否需要唯一？"
+      ];
+    };
+  }
+
+  rpc GetCustomer (google.protobuf.Empty) returns (CustomerDetail) {
+    option (hope.swagger.operation) = {
+      get: "/customers/{customerId}";
+      description: "获取客户详情";
+      summary: "获取客户详情";
+      tags: "customer";
+      authorization: {
+        rbac:{
+          predefined_role_checker: TENANT
+          combinator: OR
+          authorities: "CUSTOMER_VIEW"
+        }
+      };
+      parameters: {
+        parameter: {
+          name: "customerId";
+          in: PATH;
+          schema: {
+            format: INTEGER;
+            empty: false;
+          };
+        };
+      };
+      questions: [
+        "如何获取客户详情？",
+        "客户详情包含哪些信息？"
+      ];
+    };
+  }
+
+  rpc UpdateCustomer (UpdateCustomerRequest) returns (google.protobuf.Empty) {
+    option (hope.swagger.operation) = {
+      put: "/customers/{customerId}";
+      description: "更新客户信息";
+      summary: "更新客户";
+      tags: "customer";
+      authorization: {
+        rbac: {
+          authorities: ["CUSTOMER_UPDATE"];
+        }
+      };
+      parameters: {
+        parameter: {
+          name: "customerId";
+          in: PATH;
+          schema: {
+            format: INTEGER;
+            empty: false;
+          };
+        };
+      };
+      questions: [
+        "如何更新客户信息？",
+        "哪些字段可以更新？"
+      ];
+    };
+  }
+
+  rpc DeleteCustomer (google.protobuf.Empty) returns (google.protobuf.Empty) {
+    option (hope.swagger.operation) = {
+      delete: "/customers/{customerId}";
+      description: "删除客户（软删除）";
+      summary: "删除客户";
+      tags: "customer";
+      authorization: {
+        rbac: {
+          authorities: ["CUSTOMER_DELETE"];
+        }
+      };
+      parameters: {
+        parameter: {
+          name: "customerId";
+          in: PATH;
+          schema: {
+            format: INTEGER;
+            empty: false;
+          };
+        };
+      };
+      questions: [
+        "如何删除客户？",
+        "是物理删除还是软删除？"
+      ];
+    };
+  }
+
+  rpc SearchCustomers (SearchCustomersRequest) returns (CustomerSummary) {
+    option (hope.swagger.operation) = {
+      post: "/customers/search";
+      description: "搜索客户（分页）";
+      summary: "搜索客户";
+      tags: "customer";
+      authorization: {
+        rbac: {
+          authorities: ["CUSTOMER_VIEW"];
+        }
+      };
+      pageable: true;
+      questions: [
+        "如何搜索客户？",
+        "支持哪些筛选条件？",
+        "如何分页？"
+      ];
+    };
+  }
+
+  rpc ForgotPassword (ForgotPasswordRequest) returns (google.protobuf.Empty) {
+    option (hope.swagger.operation) = {
+      post: "/auth/forgot-password";
+      description: "申请找回密码（发送重置邮件）";
+      summary: "找回密码";
+      tags: "auth";
+      authorization: {
+        low_limit_risky_mode: ANONYMOUS
+      };
+      questions: [
+        "如何申请找回密码？",
+        "重置邮件发送到哪里？"
+      ];
+    };
+  }
+
+  rpc ResetPassword (ResetPasswordRequest) returns (google.protobuf.Empty) {
+    option (hope.swagger.operation) = {
+      post: "/auth/reset-password";
+      description: "重置密码（使用 token）";
+      summary: "重置密码";
+      tags: "auth";
+      authorization: {
+        low_limit_risky_mode: ANONYMOUS
+      };
+      questions: [
+        "如何重置密码？",
+        "token 有效期多久？"
+      ];
+    };
+  }
+}
+
+// ============ 消息类型定义 ============
+
+message LoginRequest {
+  option (hope.swagger.schema) = {
+    json_schema: {
+      title: "LoginRequest";
+      description: "登录请求";
+    };
+  };
+
+  string username = 1 [(hope.swagger.field) = {
+    description: "用户名";
+    example: "admin";
+    empty: false;
+    max_length: 50;
+    mock: {nature: NAME};
+  }];
+
+  string password = 2 [(hope.swagger.field) = {
+    description: "密码";
+    example: "password123";
+    empty: false;
+    min_length: 6;
+    max_length: 100;
+  }];
+
+  bool remember_me = 3 [(hope.swagger.field) = {
+    description: "whether to remember me";
+  }];
+}
+
+message LoginResponse {
+  option (hope.swagger.schema) = {
+    json_schema: {
+      title: "LoginResponse";
+      description: "登录响应";
+    };
+  };
+
+  string access_token = 1 [(hope.swagger.field) = {
+    description: "访问令牌";
+    example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...";
+    empty: false;
+    mock: {nature: GUID};
+  }];
+
+  int64 customer_id = 2 [(hope.swagger.field) = {
+    description: "客户 ID";
+    example: "1";
+    empty: false;
+    minimum: 1;
+    mock: {number_rule: {min: 1036; max: 1000}};
+  }];
+
+  string username = 3 [(hope.swagger.field) = {
+    description: "用户名";
+    example: "admin";
+    empty: false;
+    mock: {nature: NAME};
+  }];
+
+  // 是否需要选择组织（当用户有多个组织且未设置默认组织时）
+  bool needs_organization_selection = 4 [(hope.swagger.field) = {
+    description: "是否需要选择组织";
+    example: "false";
+  }];
+
+  // 用户的组织列表（当 needs_organization_selection=true 时返回）
+  repeated OrganizationInfo organizations = 5 [(hope.swagger.field) = {
+    description: "用户的组织列表";
+  }];
+
+  // 默认组织信息
+  OrganizationInfo default_organization = 6 [(hope.swagger.field) = {
+    description: "默认组织信息";
+  }];
+}
+
+// 组织信息（用于登录响应）
+message OrganizationInfo {
+  option (hope.swagger.schema) = {
+    json_schema: {
+      title: "OrganizationInfo";
+      description: "组织信息";
+    };
+  };
+
+  int64 id = 1 [(hope.swagger.field) = {
+    description: "组织 ID";
+    example: "1";
+    empty: false;
+  }];
+
+  string organization_code = 2 [(hope.swagger.field) = {
+    description: "组织代码";
+    example: "acme_corp";
+    empty: false;
+    mock: {nature: NAME};
+  }];
+
+  string organization_name = 3 [(hope.swagger.field) = {
+    description: "组织名称";
+    example: "Acme 公司";
+    empty: false;
+    mock: {nature: NAME};
+  }];
+
+  bool is_default = 4 [(hope.swagger.field) = {
+    description: "是否默认组织";
+    example: "true";
+  }];
+}
+
+message CustomerInfo {
+  option (hope.swagger.schema) = {
+    json_schema: {
+      description: "客户信息";
+    };
+  };
+
+  int64 customer_id = 1 [(hope.swagger.field) = {
+    description: "客户 ID";
+    example: "1";
+    empty: false;
+    minimum: 1;
+    mock: {number_rule: {min: 1036; max: 1000}};
+  }];
+
+  string username = 3 [(hope.swagger.field) = {
+    description: "用户名";
+    example: "admin";
+    empty: false;
+    mock: {nature: NAME};
+  }];
+
+  int64 tenant_id = 4 [(hope.swagger.field) = {
+    description: "租户 ID";
+    example: "1";
+    empty: false;
+    minimum: 1;
+    mock: {number_rule: {min: 1036; max: 1000}};
+  }];
+
+  repeated string roles = 5 [(hope.swagger.field) = {
+    description: "租户角色列表";
+  }];
+
+  repeated string authorities = 6 [(hope.swagger.field) = {
+    description: "租户权限列表";
+  }];
+}
+
+message CurrentUserInfo {
+  option (hope.swagger.schema) = {
+    json_schema: {
+      title: "CurrentUserInfo";
+      description: "当前客户完整信息";
+    };
+  };
+
+  CustomerInfo user = 1 [(hope.swagger.field) = {
+    description: "客户基本信息";
+  }];
+
+  repeated RoleInfo roles = 2 [(hope.swagger.field) = {
+    description: "客户角色列表";
+  }];
+
+  repeated string authorities = 3 [(hope.swagger.field) = {
+    description: "客户权限列表";
+  }];
+
+  DepartmentInfo department = 4 [(hope.swagger.field) = {
+    description: "客户部门信息";
+  }];
+
+  OrganizationInfo current_organization = 5 [(hope.swagger.field) = {
+    description: "当前组织信息";
+  }];
+}
+
+message OrganizationList {
+  option (hope.swagger.schema) = {
+    json_schema: {
+      title: "OrganizationList";
+      description: "组织列表";
+    };
+  };
+
+  repeated OrganizationInfo organizations = 1 [(hope.swagger.field) = {
+    description: "组织列表";
+  }];
+
+  int64 default_organization_id = 2 [(hope.swagger.field) = {
+    description: "默认组织 ID";
+    example: "1";
+  }];
+}
+
+message SwitchOrganizationRequest {
+  option (hope.swagger.schema) = {
+    json_schema: {
+      title: "SwitchOrganizationRequest";
+      description: "切换组织请求";
+    };
+  };
+
+  int64 organization_id = 1 [(hope.swagger.field) = {
+    description: "目标组织 ID";
+    example: "2";
+    empty: false;
+    minimum: 1;
+  }];
+}
+
+message CreateCustomerRequest {
+  option (hope.swagger.schema) = {
+    json_schema: {
+      title: "CreateCustomerRequest";
+      description: "创建客户请求";
+    };
+  };
+
+  string username = 1 [(hope.swagger.field) = {
+    description: "用户名";
+    example: "zhangsan";
+    empty: false;
+    max_length: 50;
+    mock: {nature: NAME};
+  }];
+
+  string password = 2 [(hope.swagger.field) = {
+    description: "密码";
+    example: "SecureP@ss123";
+    empty: false;
+    min_length: 6;
+    max_length: 100;
+  }];
+
+  string email = 3 [(hope.swagger.field) = {
+    description: "邮箱";
+    example: "zhangsan@example.com";
+    empty: false;
+    max_length: 100;
+    mock: {nature: EMAIL};
+  }];
+
+  com.apihug.rad.infra.customer.CustomerStatusEnum status = 4 [(hope.swagger.field) = {
+    description: "客户状态";
+    example: "ACTIVE";
+    empty: false;
+  }];
+
+  int64 default_tenant_id = 5 [(hope.swagger.field) = {
+    description: "默认租户 ID";
+    example: "1";
+    minimum: 0;
+  }];
+}
+
+message CustomerSummary {
+  option (hope.swagger.schema) = {
+    json_schema: {
+      title: "CustomerSummary";
+      description: "客户摘要信息";
+    };
+  };
+
+  int64 id = 1 [(hope.swagger.field) = {
+    description: "客户 ID";
+    example: "1";
+    empty: false;
+    minimum: 1;
+  }];
+
+  string username = 2 [(hope.swagger.field) = {
+    description: "用户名";
+    example: "zhangsan";
+    empty: false;
+    mock: {nature: NAME};
+  }];
+
+  string email = 3 [(hope.swagger.field) = {
+    description: "邮箱";
+    example: "zhangsan@example.com";
+    empty: false;
+    mock: {nature: EMAIL};
+  }];
+
+  com.apihug.rad.infra.customer.CustomerStatusEnum status = 4 [(hope.swagger.field) = {
+    description: "客户状态";
+    example: "ACTIVE";
+    empty: false;
+  }];
+
+  int64 tenant_id = 5 [(hope.swagger.field) = {
+    description: "租户 ID";
+    example: "1";
+    empty: false;
+  }];
+}
+
+message CustomerDetail {
+  option (hope.swagger.schema) = {
+    json_schema: {
+      title: "CustomerDetail";
+      description: "客户详情信息";
+    };
+  };
+
+  int64 id = 1 [(hope.swagger.field) = {
+    description: "客户 ID";
+    example: "1";
+    empty: false;
+    minimum: 1;
+  }];
+
+  string username = 2 [(hope.swagger.field) = {
+    description: "用户名";
+    example: "zhangsan";
+    empty: false;
+    mock: {nature: NAME};
+  }];
+
+  string email = 3 [(hope.swagger.field) = {
+    description: "邮箱";
+    example: "zhangsan@example.com";
+    empty: false;
+    mock: {nature: EMAIL};
+  }];
+
+  com.apihug.rad.infra.customer.CustomerStatusEnum status = 4 [(hope.swagger.field) = {
+    description: "客户状态";
+    example: "ACTIVE";
+    empty: false;
+  }];
+
+  int64 default_tenant_id = 5 [(hope.swagger.field) = {
+    description: "默认租户 ID";
+    example: "1";
+    empty: false;
+  }];
+
+  string created_at = 6 [(hope.swagger.field) = {
+    description: "创建时间";
+    example: "2024-01-15T10:30:00";
+    date_format: ISO_LOCAL_DATE_TIME;
+  }];
+
+  string updated_at = 7 [(hope.swagger.field) = {
+    description: "更新时间";
+    example: "2024-01-16T10:30:00";
+    date_format: ISO_LOCAL_DATE_TIME;
+  }];
+}
+
+message UpdateCustomerRequest {
+  option (hope.swagger.schema) = {
+    json_schema: {
+      title: "UpdateCustomerRequest";
+      description: "更新客户请求";
+    };
+  };
+
+  string email = 1 [(hope.swagger.field) = {
+    description: "邮箱";
+    example: "zhangsan@example.com";
+    empty: false;
+    max_length: 100;
+    mock: {nature: EMAIL};
+  }];
+
+  com.apihug.rad.infra.customer.CustomerStatusEnum status = 2 [(hope.swagger.field) = {
+    description: "客户状态";
+    example: "ACTIVE";
+    empty: false;
+  }];
+}
+
+message SearchCustomersRequest {
+  option (hope.swagger.schema) = {
+    json_schema: {
+      title: "SearchCustomersRequest";
+      description: "搜索客户请求";
+    };
+  };
+
+  string keyword = 1 [(hope.swagger.field) = {
+    description: "搜索关键词（用户名或邮箱）";
+    example: "zhangsan";
+  }];
+
+  com.apihug.rad.infra.customer.CustomerStatusEnum status = 2 [(hope.swagger.field) = {
+    description: "客户状态筛选";
+    example: "ACTIVE";
+  }];
+}
+
+message ForgotPasswordRequest {
+  option (hope.swagger.schema) = {
+    json_schema: {
+      title: "ForgotPasswordRequest";
+      description: "找回密码请求";
+    };
+  };
+
+  string email = 1 [(hope.swagger.field) = {
+    description: "邮箱";
+    example: "zhangsan@example.com";
+    empty: false;
+    max_length: 100;
+    mock: {nature: EMAIL};
+  }];
+}
+
+message ResetPasswordRequest {
+  option (hope.swagger.schema) = {
+    json_schema: {
+      title: "ResetPasswordRequest";
+      description: "重置密码请求";
+    };
+  };
+
+  string token = 1 [(hope.swagger.field) = {
+    description: "重置 token";
+    example: "abc123xyz";
+    empty: false;
+    max_length: 255;
+    mock: {nature: GUID};
+  }];
+
+  string password = 2 [(hope.swagger.field) = {
+    description: "新密码";
+    example: "NewSecureP@ss123";
+    empty: false;
+    min_length: 6;
+    max_length: 100;
+  }];
+}
+
+message RoleInfo {
+  option (hope.swagger.schema) = {
+    json_schema: {
+      title: "RoleInfo";
+      description: "角色信息";
+    };
+  };
+
+  int64 id = 1 [(hope.swagger.field) = {
+    description: "角色 ID";
+    example: "1";
+    empty: false;
+  }];
+
+  string role_code = 2 [(hope.swagger.field) = {
+    description: "角色代码";
+    example: "admin";
+    empty: false;
+    mock: {nature: NAME};
+  }];
+
+  string role_name = 3 [(hope.swagger.field) = {
+    description: "角色名称";
+    example: "管理员";
+    empty: false;
+    mock: {nature: NAME};
+  }];
+}
+
+message DepartmentInfo {
+  option (hope.swagger.schema) = {
+    json_schema: {
+      title: "DepartmentInfo";
+      description: "部门信息";
+    };
+  };
+
+  int64 id = 1 [(hope.swagger.field) = {
+    description: "部门 ID";
+    example: "1";
+    empty: false;
+  }];
+
+  string dept_code = 2 [(hope.swagger.field) = {
+    description: "部门代码";
+    example: "tech_dev";
+    empty: false;
+    mock: {nature: NAME};
+  }];
+
+  string dept_name = 3 [(hope.swagger.field) = {
+    description: "部门名称";
+    example: "研发部";
+    empty: false;
+    mock: {nature: NAME};
+  }];
+
+  int64 parent_id = 4 [(hope.swagger.field) = {
+    description: "父部门 ID";
+    example: "1";
+  }];
+}

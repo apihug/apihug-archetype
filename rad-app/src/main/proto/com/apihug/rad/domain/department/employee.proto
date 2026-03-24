@@ -1,0 +1,52 @@
+syntax = "proto3";
+
+package com.apihug.rad.domain.department;
+
+import "apihug/protobuf/domain/annotations.proto";
+
+message DepartmentEmployeeEntity {
+  option (hope.persistence.table) = {
+    name: "SYS_DEPARTMENT_EMPLOYEE",
+    description: "部门员工关联表",
+    wires: [IDENTIFIABLE, AUDITABLE],
+    indexes: {
+      name: "IDX_SYS_DEPT_EMP_DEPT_ID",
+      column_list: ["department_id"]
+    },
+    indexes: {
+      name: "IDX_SYS_DEPT_EMP_EMP_ID",
+      column_list: ["employee_id"]
+    },
+    unique_constraints: {
+      name: "UK_SYS_DEPT_EMP",
+      column_list: ["employee_id", "department_id"]
+    }
+  };
+
+  int64 employee_id = 1 [(hope.persistence.column) = {
+    name: "EMPLOYEE_ID",
+    description: "员工 ID",
+    nullable: false
+  }];
+
+  int64 department_id = 2 [(hope.persistence.column) = {
+    name: "DEPARTMENT_ID",
+    description: "部门 ID",
+    nullable: false
+  }];
+
+  string position = 3 [(hope.persistence.column) = {
+    name: "POSITION",
+    description: "职位",
+    nullable: true,
+    length: 100,
+    type: VARCHAR
+  }];
+
+  bool is_primary = 4 [(hope.persistence.column) = {
+    name: "IS_PRIMARY",
+    description: "是否主部门",
+    nullable: false,
+    default_value: "true"
+  }];
+}

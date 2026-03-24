@@ -1,0 +1,490 @@
+syntax = "proto3";
+
+package com.apihug.rad.api.role;
+
+import "apihug/protobuf/swagger/annotations.proto";
+import "google/protobuf/empty.proto";
+import "com/apihug/rad/infra/role/constant.proto";
+
+// ============ 角色管理 API ============
+
+service RoleService {
+  option (hope.swagger.svc) = {
+    path: "/roles",
+    description: "角色管理服务，提供角色 CRUD 和权限分配功能"
+  };
+
+  rpc CreateRole (CreateRoleRequest) returns (RoleSummary) {
+    option (hope.swagger.operation) = {
+      post: "/roles";
+      description: "创建新角色";
+      summary: "创建角色";
+      tags: "role";
+      authorization: {
+        rbac: {
+          authorities: ["ROLE_CREATE"];
+        }
+      };
+      questions: [
+        "如何创建新角色？",
+        "创建角色需要哪些信息？",
+        "角色代码是否需要唯一？"
+      ];
+    };
+  }
+
+  rpc GetRole (google.protobuf.Empty) returns (RoleDetail) {
+    option (hope.swagger.operation) = {
+      get: "/roles/{roleId}";
+      description: "获取角色详情";
+      summary: "获取角色详情";
+      tags: "role";
+      authorization: {
+        low_limit_risky_mode: LOGIN
+      };
+      parameters: {
+        parameter: {
+          name: "roleId";
+          in: PATH;
+          schema: {
+            format: INTEGER;
+            empty: false;
+          };
+        };
+      };
+      questions: [
+        "如何获取角色详情？",
+        "角色详情包含哪些信息？"
+      ];
+    };
+  }
+
+  rpc UpdateRole (UpdateRoleRequest) returns (google.protobuf.Empty) {
+    option (hope.swagger.operation) = {
+      put: "/roles/{roleId}";
+      description: "更新角色信息";
+      summary: "更新角色";
+      tags: "role";
+      authorization: {
+        rbac: {
+          authorities: ["ROLE_UPDATE"];
+        }
+      };
+      parameters: {
+        parameter: {
+          name: "roleId";
+          in: PATH;
+          schema: {
+            format: INTEGER;
+            empty: false;
+          };
+        };
+      };
+      questions: [
+        "如何更新角色信息？",
+        "哪些字段可以更新？"
+      ];
+    };
+  }
+
+  rpc DeleteRole (google.protobuf.Empty) returns (google.protobuf.Empty) {
+    option (hope.swagger.operation) = {
+      delete: "/roles/{roleId}";
+      description: "删除角色（软删除）";
+      summary: "删除角色";
+      tags: "role";
+      authorization: {
+        rbac: {
+          authorities: ["ROLE_DELETE"];
+        }
+      };
+      parameters: {
+        parameter: {
+          name: "roleId";
+          in: PATH;
+          schema: {
+            format: INTEGER;
+            empty: false;
+          };
+        };
+      };
+      questions: [
+        "如何删除角色？",
+        "是物理删除还是软删除？"
+      ];
+    };
+  }
+
+  rpc SearchRoles (SearchRolesRequest) returns (RoleSummary) {
+    option (hope.swagger.operation) = {
+      post: "/roles/search";
+      description: "搜索角色（分页）";
+      summary: "搜索角色";
+      tags: "role";
+      authorization: {
+        rbac: {
+          authorities: ["ROLE_VIEW"];
+        }
+      };
+      pageable: true;
+      questions: [
+        "如何搜索角色？",
+        "支持哪些筛选条件？",
+        "如何分页？"
+      ];
+    };
+  }
+
+  rpc AssignPermissions (AssignPermissionsRequest) returns (google.protobuf.Empty) {
+    option (hope.swagger.operation) = {
+      post: "/roles/{roleId}/permissions";
+      description: "为角色分配权限";
+      summary: "分配权限";
+      tags: "role";
+      authorization: {
+        rbac: {
+          authorities: ["ROLE_ASSIGN_PERMISSION"];
+        }
+      };
+      parameters: {
+        parameter: {
+          name: "roleId";
+          in: PATH;
+          schema: {
+            format: INTEGER;
+            empty: false;
+          };
+        };
+      };
+      questions: [
+        "如何为角色分配权限？",
+        "可以分配多个权限吗？"
+      ];
+    };
+  }
+
+  rpc RemovePermission (RemovePermissionRequest) returns (google.protobuf.Empty) {
+    option (hope.swagger.operation) = {
+      delete: "/roles/{roleId}/permissions/{permissionId}";
+      description: "移除角色权限";
+      summary: "移除权限";
+      tags: "role";
+      authorization: {
+        rbac: {
+          authorities: ["ROLE_ASSIGN_PERMISSION"];
+        }
+      };
+      parameters: {
+        parameter: {
+          name: "roleId";
+          in: PATH;
+          schema: {
+            format: INTEGER;
+            empty: false;
+          };
+        };
+        parameter: {
+          name: "permissionId";
+          in: PATH;
+          schema: {
+            format: INTEGER;
+            empty: false;
+          };
+        };
+      };
+      questions: [
+        "如何移除角色权限？",
+        "移除权限后用户会立即失去该权限吗？"
+      ];
+    };
+  }
+
+  rpc GetRolePermissions (google.protobuf.Empty) returns (RolePermissionSummary) {
+    option (hope.swagger.operation) = {
+      get: "/roles/{roleId}/permissions";
+      description: "获取角色的权限列表";
+      summary: "获取角色权限";
+      tags: "role";
+      authorization: {
+        low_limit_risky_mode: LOGIN
+      };
+      parameters: {
+        parameter: {
+          name: "roleId";
+          in: PATH;
+          schema: {
+            format: INTEGER;
+            empty: false;
+          };
+        };
+      };
+      questions: [
+        "如何获取角色的权限列表？",
+        "返回什么格式的权限信息？"
+      ];
+    };
+  }
+}
+
+message CreateRoleRequest {
+  option (hope.swagger.schema) = {
+    json_schema: {
+      title: "CreateRoleRequest";
+      description: "创建角色请求";
+    };
+  };
+
+  string role_code = 1 [(hope.swagger.field) = {
+    description: "角色代码";
+    example: "admin";
+    empty: false;
+    max_length: 50;
+    mock: {nature: NAME};
+  }];
+
+  string role_name = 2 [(hope.swagger.field) = {
+    description: "角色名称";
+    example: "管理员";
+    empty: false;
+    max_length: 100;
+    mock: {nature: NAME};
+  }];
+
+  string description = 3 [(hope.swagger.field) = {
+    description: "角色描述";
+    example: "系统管理员角色";
+    max_length: 500;
+    mock: {nature: BOOK};
+  }];
+
+  com.apihug.rad.infra.role.RoleStatusEnum status = 4 [(hope.swagger.field) = {
+    description: "角色状态";
+    example: "ACTIVE";
+    empty: false;
+  }];
+}
+
+message UpdateRoleRequest {
+  option (hope.swagger.schema) = {
+    json_schema: {
+      title: "UpdateRoleRequest";
+      description: "更新角色请求";
+    };
+  };
+
+  string role_name = 1 [(hope.swagger.field) = {
+    description: "角色名称";
+    example: "管理员";
+    empty: false;
+    max_length: 100;
+    mock: {nature: NAME};
+  }];
+
+  string description = 2 [(hope.swagger.field) = {
+    description: "角色描述";
+    example: "系统管理员角色";
+    max_length: 500;
+    mock: {nature: BOOK};
+  }];
+
+  com.apihug.rad.infra.role.RoleStatusEnum status = 3 [(hope.swagger.field) = {
+    description: "角色状态";
+    example: "ACTIVE";
+    empty: false;
+  }];
+}
+
+message RoleSummary {
+  option (hope.swagger.schema) = {
+    json_schema: {
+      title: "RoleSummary";
+      description: "角色摘要信息（列表用）";
+    };
+  };
+
+  int64 id = 1 [(hope.swagger.field) = {
+    description: "角色 ID";
+    example: "1";
+    empty: false;
+    minimum: 1;
+  }];
+
+  string role_code = 2 [(hope.swagger.field) = {
+    description: "角色代码";
+    example: "admin";
+    empty: false;
+    mock: {nature: NAME};
+  }];
+
+  string role_name = 3 [(hope.swagger.field) = {
+    description: "角色名称";
+    example: "管理员";
+    empty: false;
+    mock: {nature: NAME};
+  }];
+
+  com.apihug.rad.infra.role.RoleStatusEnum status = 4 [(hope.swagger.field) = {
+    description: "角色状态";
+    example: "ACTIVE";
+    empty: false;
+  }];
+}
+
+message RoleDetail {
+  option (hope.swagger.schema) = {
+    json_schema: {
+      title: "RoleDetail";
+      description: "角色详情信息";
+    };
+  };
+
+  int64 id = 1 [(hope.swagger.field) = {
+    description: "角色 ID";
+    example: "1";
+    empty: false;
+    minimum: 1;
+  }];
+
+  string role_code = 2 [(hope.swagger.field) = {
+    description: "角色代码";
+    example: "admin";
+    empty: false;
+    mock: {nature: NAME};
+  }];
+
+  string role_name = 3 [(hope.swagger.field) = {
+    description: "角色名称";
+    example: "管理员";
+    empty: false;
+    mock: {nature: NAME};
+  }];
+
+  string description = 4 [(hope.swagger.field) = {
+    description: "角色描述";
+    example: "系统管理员角色";
+    mock: {nature: BOOK};
+  }];
+
+  com.apihug.rad.infra.role.RoleStatusEnum status = 5 [(hope.swagger.field) = {
+    description: "角色状态";
+    example: "ACTIVE";
+    empty: false;
+  }];
+
+  string created_at = 6 [(hope.swagger.field) = {
+    description: "创建时间";
+    example: "2024-01-15T10:30:00";
+    date_format: ISO_LOCAL_DATE_TIME;
+  }];
+
+  string updated_at = 7 [(hope.swagger.field) = {
+    description: "更新时间";
+    example: "2024-01-16T10:30:00";
+    date_format: ISO_LOCAL_DATE_TIME;
+  }];
+}
+
+message SearchRolesRequest {
+  option (hope.swagger.schema) = {
+    json_schema: {
+      title: "SearchRolesRequest";
+      description: "搜索角色请求";
+    };
+  };
+
+  string keyword = 1 [(hope.swagger.field) = {
+    description: "搜索关键词（角色代码或名称）";
+    example: "admin";
+  }];
+
+  com.apihug.rad.infra.role.RoleStatusEnum status = 2 [(hope.swagger.field) = {
+    description: "角色状态筛选";
+    example: "ACTIVE";
+  }];
+}
+
+message AssignPermissionsRequest {
+  option (hope.swagger.schema) = {
+    json_schema: {
+      title: "AssignPermissionsRequest";
+      description: "分配权限请求";
+    };
+  };
+
+  repeated int64 permission_ids = 1 [(hope.swagger.field) = {
+    description: "权限 ID 列表";
+    example: "[1, 2, 3]";
+    empty: false;
+  }];
+}
+
+message RemovePermissionRequest {
+  option (hope.swagger.schema) = {
+    json_schema: {
+      title: "RemovePermissionRequest";
+      description: "移除权限请求";
+    };
+  };
+
+  int64 role_id = 1 [(hope.swagger.field) = {
+    description: "角色 ID";
+    example: "1";
+    empty: false;
+    minimum: 1;
+  }];
+
+  int64 permission_id = 2 [(hope.swagger.field) = {
+    description: "权限 ID";
+    example: "1";
+    empty: false;
+    minimum: 1;
+  }];
+}
+
+message RolePermissionSummary {
+  option (hope.swagger.schema) = {
+    json_schema: {
+      title: "RolePermissionSummary";
+      description: "角色权限摘要";
+    };
+  };
+
+  int64 role_id = 1 [(hope.swagger.field) = {
+    description: "角色 ID";
+    example: "1";
+    empty: false;
+  }];
+
+  repeated PermissionInfo permissions = 2 [(hope.swagger.field) = {
+    description: "权限列表";
+  }];
+}
+
+message PermissionInfo {
+  option (hope.swagger.schema) = {
+    json_schema: {
+      title: "PermissionInfo";
+      description: "权限信息";
+    };
+  };
+
+  int64 id = 1 [(hope.swagger.field) = {
+    description: "权限 ID";
+    example: "1";
+    empty: false;
+  }];
+
+  string permission_code = 2 [(hope.swagger.field) = {
+    description: "权限代码";
+    example: "user:create";
+    empty: false;
+    mock: {nature: NAME};
+  }];
+
+  string permission_name = 3 [(hope.swagger.field) = {
+    description: "权限名称";
+    example: "创建用户";
+    empty: false;
+    mock: {nature: NAME};
+  }];
+}

@@ -1,0 +1,362 @@
+syntax = "proto3";
+
+package com.apihug.rad.api.organization;
+
+import "apihug/protobuf/swagger/annotations.proto";
+import "google/protobuf/empty.proto";
+import "com/apihug/rad/infra/organization/constant.proto";
+
+// ============ 组织员工管理 API ============
+
+service CustomerOrganizationService {
+  option (hope.swagger.svc) = {
+    path: "/customer-organizations",
+    description: "组织员工管理服务，提供员工 - 组织关系管理功能"
+  };
+
+  // 获取组织员工列表 - 使用 pageable: true，返回单个对象，框架自动包装成 Page
+  rpc GetOrganizationMembers (GetOrganizationMembersRequest) returns (CustomerOrganizationSummary) {
+    option (hope.swagger.operation) = {
+      get: "/organizations/{organizationId}/members";
+      description: "获取组织员工列表";
+      summary: "获取组织员工";
+      tags: "customer-organization";
+      authorization: {
+        rbac: {
+          authorities: ["ORGANIZATION_MEMBER_VIEW"];
+        }
+      };
+      parameters: {
+        parameter: {
+          name: "organizationId";
+          in: PATH;
+          schema: {
+            format: INTEGER;
+            empty: false;
+          };
+        };
+      };
+      pageable: true;
+    };
+  }
+
+  // 添加员工到组织
+  rpc AddMemberToOrganization (AddMemberRequest) returns (google.protobuf.Empty) {
+    option (hope.swagger.operation) = {
+      post: "/organizations/{organizationId}/members";
+      description: "添加员工到组织";
+      summary: "添加组织员工";
+      tags: "customer-organization";
+      authorization: {
+        rbac: {
+          authorities: ["ORGANIZATION_MEMBER_ADD"];
+        }
+      };
+      parameters: {
+        parameter: {
+          name: "organizationId";
+          in: PATH;
+          schema: {
+            format: INTEGER;
+            empty: false;
+          };
+        };
+      };
+    };
+  }
+
+  // 从组织移除员工
+  rpc RemoveMemberFromOrganization (RemoveMemberRequest) returns (google.protobuf.Empty) {
+    option (hope.swagger.operation) = {
+      delete: "/organizations/{organizationId}/members/{customerId}";
+      description: "从组织移除员工";
+      summary: "移除组织员工";
+      tags: "customer-organization";
+      authorization: {
+        rbac: {
+          authorities: ["ORGANIZATION_MEMBER_REMOVE"];
+        }
+      };
+      parameters: {
+        parameter: {
+          name: "organizationId";
+          in: PATH;
+          schema: {
+            format: INTEGER;
+            empty: false;
+          };
+        };
+        parameter: {
+          name: "customerId";
+          in: PATH;
+          schema: {
+            format: INTEGER;
+            empty: false;
+          };
+        };
+      };
+    };
+  }
+
+  // 锁定/解锁员工
+  rpc ToggleMemberLock (ToggleMemberLockRequest) returns (google.protobuf.Empty) {
+    option (hope.swagger.operation) = {
+      post: "/organizations/{organizationId}/members/{customerId}/toggle-lock";
+      description: "锁定/解锁组织员工";
+      summary: "切换员工锁定状态";
+      tags: "customer-organization";
+      authorization: {
+        rbac: {
+          authorities: ["ORGANIZATION_MEMBER_LOCK"];
+        }
+      };
+      parameters: {
+        parameter: {
+          name: "organizationId";
+          in: PATH;
+          schema: {
+            format: INTEGER;
+            empty: false;
+          };
+        };
+        parameter: {
+          name: "customerId";
+          in: PATH;
+          schema: {
+            format: INTEGER;
+            empty: false;
+          };
+        };
+      };
+    };
+  }
+
+  // 配置员工角色
+  rpc AssignMemberRoles (AssignMemberRolesRequest) returns (google.protobuf.Empty) {
+    option (hope.swagger.operation) = {
+      post: "/organizations/{organizationId}/members/{customerId}/roles";
+      description: "配置员工角色";
+      summary: "分配员工角色";
+      tags: "customer-organization";
+      authorization: {
+        rbac: {
+          authorities: ["ORGANIZATION_MEMBER_ASSIGN_ROLE"];
+        }
+      };
+      parameters: {
+        parameter: {
+          name: "organizationId";
+          in: PATH;
+          schema: {
+            format: INTEGER;
+            empty: false;
+          };
+        };
+        parameter: {
+          name: "customerId";
+          in: PATH;
+          schema: {
+            format: INTEGER;
+            empty: false;
+          };
+        };
+      };
+    };
+  }
+
+  // 配置员工菜单权限
+  rpc AssignMemberMenus (AssignMemberMenusRequest) returns (google.protobuf.Empty) {
+    option (hope.swagger.operation) = {
+      post: "/organizations/{organizationId}/members/{customerId}/menus";
+      description: "配置员工菜单权限";
+      summary: "分配员工菜单";
+      tags: "customer-organization";
+      authorization: {
+        rbac: {
+          authorities: ["ORGANIZATION_MEMBER_ASSIGN_MENU"];
+        }
+      };
+      parameters: {
+        parameter: {
+          name: "organizationId";
+          in: PATH;
+          schema: {
+            format: INTEGER;
+            empty: false;
+          };
+        };
+        parameter: {
+          name: "customerId";
+          in: PATH;
+          schema: {
+            format: INTEGER;
+            empty: false;
+          };
+        };
+      };
+    };
+  }
+}
+
+// ============ 消息类型定义 ============
+
+message GetOrganizationMembersRequest {
+  option (hope.swagger.schema) = {
+    json_schema: {
+      title: "GetOrganizationMembersRequest";
+      description: "获取组织员工列表请求";
+    };
+  };
+
+  com.apihug.rad.infra.organization.CustomerOrgStatusEnum status = 1 [(hope.swagger.field) = {
+    description: "员工状态筛选";
+    example: "ACTIVE";
+  }];
+}
+
+message AddMemberRequest {
+  option (hope.swagger.schema) = {
+    json_schema: {
+      title: "AddMemberRequest";
+      description: "添加员工到组织请求";
+    };
+  };
+
+  int32 customer_id = 1 [(hope.swagger.field) = {
+    description: "客户 ID";
+    example: "1";
+    empty: false;
+    minimum: 1;
+  }];
+
+  int64 department_id = 2 [(hope.swagger.field) = {
+    description: "部门 ID";
+    example: "1";
+  }];
+
+  string position = 3 [(hope.swagger.field) = {
+    description: "职位";
+    example: "软件工程师";
+    max_length: 100;
+  }];
+
+  com.apihug.rad.infra.organization.EmployeeTypeEnum employee_type = 4 [(hope.swagger.field) = {
+    description: "员工类型";
+    example: "FULL_TIME";
+  }];
+
+  bool is_default = 5 [(hope.swagger.field) = {
+    description: "是否默认组织";
+    example: "false";
+  }];
+}
+
+message RemoveMemberRequest {
+  option (hope.swagger.schema) = {
+    json_schema: {
+      title: "RemoveMemberRequest";
+      description: "从组织移除员工请求";
+    };
+  };
+  // 参数通过 path 传递，不需要 message 字段
+}
+
+message ToggleMemberLockRequest {
+  option (hope.swagger.schema) = {
+    json_schema: {
+      title: "ToggleMemberLockRequest";
+      description: "锁定/解锁员工请求";
+    };
+  };
+  // 参数通过 path 传递，不需要 message 字段
+}
+
+message AssignMemberRolesRequest {
+  option (hope.swagger.schema) = {
+    json_schema: {
+      title: "AssignMemberRolesRequest";
+      description: "分配员工角色请求";
+    };
+  };
+
+  repeated int32 role_ids = 1 [(hope.swagger.field) = {
+    description: "角色 ID 列表";
+  }];
+}
+
+message AssignMemberMenusRequest {
+  option (hope.swagger.schema) = {
+    json_schema: {
+      title: "AssignMemberMenusRequest";
+      description: "分配员工菜单请求";
+    };
+  };
+
+  repeated int32 menu_ids = 1 [(hope.swagger.field) = {
+    description: "菜单 ID 列表";
+  }];
+}
+
+message CustomerOrganizationSummary {
+  option (hope.swagger.schema) = {
+    json_schema: {
+      title: "CustomerOrganizationSummary";
+      description: "组织员工摘要";
+    };
+  };
+
+  int64 id = 1 [(hope.swagger.field) = {
+    description: "ID";
+    example: "1";
+  }];
+
+  int64 customer_id = 2 [(hope.swagger.field) = {
+    description: "客户 ID";
+    example: "1";
+  }];
+
+  string customer_username = 3 [(hope.swagger.field) = {
+    description: "客户用户名";
+    example: "zhangsan";
+  }];
+
+  string customer_email = 4 [(hope.swagger.field) = {
+    description: "客户邮箱";
+    example: "zhangsan@example.com";
+  }];
+
+  int64 organization_id = 5 [(hope.swagger.field) = {
+    description: "组织 ID";
+    example: "1";
+  }];
+
+  string organization_name = 6 [(hope.swagger.field) = {
+    description: "组织名称";
+    example: "Acme 公司";
+  }];
+
+  int64 department_id = 7 [(hope.swagger.field) = {
+    description: "部门 ID";
+    example: "1";
+  }];
+
+  string position = 8 [(hope.swagger.field) = {
+    description: "职位";
+    example: "软件工程师";
+  }];
+
+  com.apihug.rad.infra.organization.EmployeeTypeEnum employee_type = 9 [(hope.swagger.field) = {
+    description: "员工类型";
+    example: "FULL_TIME";
+  }];
+
+  com.apihug.rad.infra.organization.CustomerOrgStatusEnum status = 10 [(hope.swagger.field) = {
+    description: "状态";
+    example: "ACTIVE";
+  }];
+
+  bool is_default = 11 [(hope.swagger.field) = {
+    description: "是否默认组织";
+    example: "false";
+  }];
+}

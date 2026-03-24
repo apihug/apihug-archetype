@@ -1,0 +1,48 @@
+syntax = "proto3";
+
+package com.apihug.rad.infra.menu;
+
+import "apihug/protobuf/extend/constant.proto";
+import "apihug/protobuf/swagger/annotations.proto";
+
+enum MenuTypeEnum {
+  option (hope.swagger.enm) = {
+    description: "菜单类型枚举"
+  };
+
+  DIRECTORY = 0 [(hope.constant.field) = {
+    code: 1,
+    message: "directory",
+    message2: "目录"
+  }];
+
+  MENU = 1 [(hope.constant.field) = {
+    code: 2,
+    message: "menu",
+    message2: "菜单"
+  }];
+
+  BUTTON = 2 [(hope.constant.field) = {
+    code: 3,
+    message: "button",
+    message2: "按钮"
+  }];
+}
+
+enum MenuStatusEnum {
+  option (hope.swagger.enm) = {
+    description: "菜单状态枚举"
+  };
+
+  ACTIVE = 0 [(hope.constant.field) = {
+    code: 1,
+    message: "active",
+    message2: "启用"
+  }];
+
+  INACTIVE = 1 [(hope.constant.field) = {
+    code: 2,
+    message: "inactive",
+    message2: "禁用"
+  }];
+}

@@ -1,0 +1,356 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+  <changeSet id="0.1.1-SNAPSHOT-1000000000" author="hope" context="auto" labels="0.1.1-SNAPSHOT">
+    <createTable remarks="HTTP访问审计日志表" tableName="SYS_ACCESS_LOG">
+      <column name="ID" type="BIGINT" autoIncrement="true" remarks="Record ID, Primary Key, Auto Increment">
+        <constraints nullable="false" primaryKey="true" unique="true"></constraints>
+      </column>
+      <column name="HTTP_METHOD" type="VARCHAR(10)" remarks="HTTP请求方法">
+        <constraints nullable="false"></constraints>
+      </column>
+      <column name="REQUEST_PATH" type="VARCHAR(500)" remarks="请求路径">
+        <constraints nullable="false"></constraints>
+      </column>
+      <column name="REQUEST_PARAMS" type="CLOB" remarks="脱敏后的请求参数JSON"></column>
+      <column name="RESPONSE_STATUS" type="INT" remarks="HTTP响应状态码"></column>
+      <column name="START_EPOCH_TS" type="BIGINT" defaultValue="0" remarks="start epoch timestamp">
+        <constraints nullable="false"></constraints>
+      </column>
+      <column name="DURATION_MS" type="BIGINT" defaultValue="0" remarks="请求耗时毫秒"></column>
+      <column name="CUSTOMER_ID" type="BIGINT" remarks="客户ID"></column>
+      <column name="IP_ADDRESS" type="VARCHAR(45)" remarks="IP地址"></column>
+      <column name="USER_AGENT" type="VARCHAR(500)" remarks="用户代理"></column>
+      <column name="SERVICE_NAME" type="VARCHAR(255)" remarks="服务名称"></column>
+      <column name="METHOD_NAME" type="VARCHAR(125)" remarks="方法名称"></column>
+      <column name="ERROR_CODE" type="VARCHAR(50)" remarks="错误码"></column>
+      <column name="ERROR_MESSAGE" type="VARCHAR(500)" remarks="错误信息"></column>
+      <column name="CHANNEL" type="VARCHAR(16)" defaultValue="API" remarks="渠道">
+        <constraints nullable="false"></constraints>
+      </column>
+      <column name="CREATED_BY" type="BIGINT" remarks="created by">
+        <constraints nullable="false"></constraints>
+      </column>
+      <column name="CREATED_AT" type="DATETIME" remarks="created at timestamp">
+        <constraints nullable="false"></constraints>
+      </column>
+      <column name="PRIORITY" type="VARCHAR(255)" defaultValue="LOW" remarks="priority of this method">
+        <constraints nullable="false"></constraints>
+      </column>
+      <column name="TENANT_ID" type="BIGINT" defaultValue="0" remarks="Record tenant ID"></column>
+    </createTable>
+    <createIndex tableName="SYS_ACCESS_LOG" indexName="IDX_SYS_ACCESS_LOG_CUSTOMER_ID">
+      <column name="CUSTOMER_ID"></column>
+    </createIndex>
+    <createIndex tableName="SYS_ACCESS_LOG" indexName="IDX_SYS_ACCESS_LOG_REQUEST_PATH">
+      <column name="REQUEST_PATH"></column>
+    </createIndex>
+    <createIndex tableName="SYS_ACCESS_LOG" indexName="IDX_SYS_ACCESS_LOG_CREATED_AT">
+      <column name="CREATED_AT"></column>
+    </createIndex>
+    <createIndex tableName="SYS_ACCESS_LOG" indexName="IDX_SYS_ACCESS_LOG_TENANT_ID_CREATED_AT">
+      <column name="TENANT_ID"></column>
+      <column name="CREATED_AT"></column>
+    </createIndex>
+  </changeSet>
+  <changeSet id="0.1.1-SNAPSHOT-1000000001" author="hope" context="auto" labels="0.1.1-SNAPSHOT">
+    <createTable remarks="客户表" tableName="SYS_CUSTOMER">
+      <column name="ID" type="BIGINT" autoIncrement="true" remarks="Record ID, Primary Key, Auto Increment">
+        <constraints nullable="false" primaryKey="true" unique="true"></constraints>
+      </column>
+      <column name="DEFAULT_TENANT_ID" type="BIGINT" defaultValue="0" remarks="所属租户ID, If this is null,this is solo customer">
+        <constraints nullable="false"></constraints>
+      </column>
+      <column name="USERNAME" type="VARCHAR(50)" remarks="用户名">
+        <constraints nullable="false" unique="true"></constraints>
+      </column>
+      <column name="PASSWORD_HASH" type="VARCHAR(255)" remarks="密码哈希值">
+        <constraints nullable="false"></constraints>
+      </column>
+      <column name="EMAIL" type="VARCHAR(100)" remarks="邮箱">
+        <constraints unique="true"></constraints>
+      </column>
+      <column name="STATUS" type="VARCHAR(12)" defaultValue="ACTIVE" remarks="状态">
+        <constraints nullable="false"></constraints>
+      </column>
+      <column name="DEFAULT_ORGANIZATION_ID" type="BIGINT" defaultValue="0" remarks="默认组织 ID"></column>
+      <column name="VERSION" type="BIGINT" defaultValueNumeric="0" remarks="Record version, optimistic lock">
+        <constraints nullable="false"></constraints>
+      </column>
+      <column name="CREATED_AT" type="TIMESTAMP" remarks="Record created at timestamp"></column>
+      <column name="CREATED_BY" type="BIGINT" remarks="Record created by user ID"></column>
+      <column name="UPDATED_AT" type="TIMESTAMP" remarks="Record updated at timestamp"></column>
+      <column name="UPDATED_BY" type="BIGINT" remarks="Record updated by user ID"></column>
+      <column name="DELETED" type="BOOLEAN" defaultValueBoolean="false" remarks="Record deleted flag, soft delete"></column>
+      <column name="DELETED_AT" type="TIMESTAMP" remarks="Record deleted at"></column>
+      <column name="DELETED_BY" type="BIGINT" defaultValue="0" remarks="Record deleted by"></column>
+      <column name="TENANT_ID" type="BIGINT" defaultValue="0" remarks="Record tenant ID"></column>
+    </createTable>
+    <addUniqueConstraint columnNames="USERNAME" constraintName="UK_SYS_CUSTOMER_USERNAME" tableName="SYS_CUSTOMER"></addUniqueConstraint>
+    <addUniqueConstraint columnNames="EMAIL" constraintName="UK_SYS_CUSTOMER_EMAIL" tableName="SYS_CUSTOMER"></addUniqueConstraint>
+    <createIndex tableName="SYS_CUSTOMER" indexName="IDX_SYS_CUSTOMER_USERNAME">
+      <column name="USERNAME"></column>
+    </createIndex>
+    <createIndex tableName="SYS_CUSTOMER" indexName="IDX_SYS_CUSTOMER_EMAIL">
+      <column name="EMAIL"></column>
+    </createIndex>
+  </changeSet>
+  <changeSet id="0.1.1-SNAPSHOT-1000000002" author="hope" context="auto" labels="0.1.1-SNAPSHOT">
+    <createTable remarks="部门员工关联表" tableName="SYS_DEPARTMENT_EMPLOYEE">
+      <column name="ID" type="BIGINT" autoIncrement="true" remarks="Record ID, Primary Key, Auto Increment">
+        <constraints nullable="false" primaryKey="true" unique="true"></constraints>
+      </column>
+      <column name="EMPLOYEE_ID" type="BIGINT" remarks="员工 ID">
+        <constraints nullable="false"></constraints>
+      </column>
+      <column name="DEPARTMENT_ID" type="BIGINT" remarks="部门 ID">
+        <constraints nullable="false"></constraints>
+      </column>
+      <column name="POSITION" type="VARCHAR(100)" remarks="职位"></column>
+      <column name="IS_PRIMARY" type="BOOLEAN" defaultValue="true" remarks="是否主部门">
+        <constraints nullable="false"></constraints>
+      </column>
+      <column name="CREATED_AT" type="TIMESTAMP" remarks="Record created at timestamp"></column>
+      <column name="CREATED_BY" type="BIGINT" remarks="Record created by user ID"></column>
+      <column name="UPDATED_AT" type="TIMESTAMP" remarks="Record updated at timestamp"></column>
+      <column name="UPDATED_BY" type="BIGINT" remarks="Record updated by user ID"></column>
+    </createTable>
+    <addUniqueConstraint columnNames="EMPLOYEE_ID,DEPARTMENT_ID" constraintName="UK_SYS_DEPARTMENT_EMPLOYEE_EMPLOYEE_ID_DEPARTMENT_ID" tableName="SYS_DEPARTMENT_EMPLOYEE"></addUniqueConstraint>
+    <createIndex tableName="SYS_DEPARTMENT_EMPLOYEE" indexName="IDX_SYS_DEPARTMENT_EMPLOYEE_DEPARTMENT_ID">
+      <column name="DEPARTMENT_ID"></column>
+    </createIndex>
+    <createIndex tableName="SYS_DEPARTMENT_EMPLOYEE" indexName="IDX_SYS_DEPARTMENT_EMPLOYEE_EMPLOYEE_ID">
+      <column name="EMPLOYEE_ID"></column>
+    </createIndex>
+  </changeSet>
+  <changeSet id="0.1.1-SNAPSHOT-1000000003" author="hope" context="auto" labels="0.1.1-SNAPSHOT">
+    <createTable remarks="部门表" tableName="SYS_DEPARTMENT">
+      <column name="ID" type="BIGINT" autoIncrement="true" remarks="Record ID, Primary Key, Auto Increment">
+        <constraints nullable="false" primaryKey="true" unique="true"></constraints>
+      </column>
+      <column name="PARENT_ID" type="BIGINT" defaultValue="0" remarks="父部门 ID">
+        <constraints nullable="false"></constraints>
+      </column>
+      <column name="DEPT_CODE" type="VARCHAR(50)" remarks="部门代码">
+        <constraints nullable="false" unique="true"></constraints>
+      </column>
+      <column name="DEPT_NAME" type="VARCHAR(100)" remarks="部门名称">
+        <constraints nullable="false"></constraints>
+      </column>
+      <column name="SORT_ORDER" type="INT" defaultValue="0" remarks="排序顺序">
+        <constraints nullable="false"></constraints>
+      </column>
+      <column name="MANAGER_ID" type="VARCHAR(50)" remarks="部门负责人 ID"></column>
+      <column name="STATUS_CODE" type="VARCHAR(20)" defaultValue="ACTIVE" remarks="部门状态">
+        <constraints nullable="false"></constraints>
+      </column>
+      <column name="VERSION" type="BIGINT" defaultValueNumeric="0" remarks="Record version, optimistic lock">
+        <constraints nullable="false"></constraints>
+      </column>
+      <column name="CREATED_AT" type="TIMESTAMP" remarks="Record created at timestamp"></column>
+      <column name="CREATED_BY" type="BIGINT" remarks="Record created by user ID"></column>
+      <column name="UPDATED_AT" type="TIMESTAMP" remarks="Record updated at timestamp"></column>
+      <column name="UPDATED_BY" type="BIGINT" remarks="Record updated by user ID"></column>
+      <column name="DELETED" type="BOOLEAN" defaultValueBoolean="false" remarks="Record deleted flag, soft delete"></column>
+      <column name="DELETED_AT" type="TIMESTAMP" remarks="Record deleted at"></column>
+      <column name="DELETED_BY" type="BIGINT" defaultValue="0" remarks="Record deleted by"></column>
+      <column name="TENANT_ID" type="BIGINT" defaultValue="0" remarks="Record tenant ID"></column>
+    </createTable>
+    <addUniqueConstraint columnNames="DEPT_CODE" constraintName="UK_SYS_DEPARTMENT_DEPT_CODE" tableName="SYS_DEPARTMENT"></addUniqueConstraint>
+    <createIndex tableName="SYS_DEPARTMENT" indexName="IDX_SYS_DEPARTMENT_PARENT_ID">
+      <column name="PARENT_ID"></column>
+    </createIndex>
+    <createIndex tableName="SYS_DEPARTMENT" indexName="IDX_SYS_DEPARTMENT_DEPT_CODE">
+      <column name="DEPT_CODE"></column>
+    </createIndex>
+  </changeSet>
+  <changeSet id="0.1.1-SNAPSHOT-1000000004" author="hope" context="auto" labels="0.1.1-SNAPSHOT">
+    <createTable remarks="菜单表" tableName="SYS_MENU">
+      <column name="ID" type="BIGINT" autoIncrement="true" remarks="Record ID, Primary Key, Auto Increment">
+        <constraints nullable="false" primaryKey="true" unique="true"></constraints>
+      </column>
+      <column name="PARENT_ID" type="BIGINT" defaultValue="0" remarks="父菜单 ID">
+        <constraints nullable="false"></constraints>
+      </column>
+      <column name="MENU_CODE" type="VARCHAR(50)" remarks="菜单代码">
+        <constraints nullable="false" unique="true"></constraints>
+      </column>
+      <column name="MENU_NAME" type="VARCHAR(100)" remarks="菜单名称">
+        <constraints nullable="false"></constraints>
+      </column>
+      <column name="PATH" type="VARCHAR(255)" remarks="菜单路径"></column>
+      <column name="ICON" type="VARCHAR(100)" remarks="菜单图标"></column>
+      <column name="SORT_ORDER" type="INT" defaultValue="0" remarks="排序顺序">
+        <constraints nullable="false"></constraints>
+      </column>
+      <column name="MENU_TYPE" type="VARCHAR(20)" defaultValue="MENU" remarks="菜单类型">
+        <constraints nullable="false"></constraints>
+      </column>
+      <column name="PERMISSION_CODE" type="VARCHAR(100)" remarks="关联的权限代码"></column>
+      <column name="STATUS_CODE" type="VARCHAR(20)" defaultValue="ACTIVE" remarks="菜单状态">
+        <constraints nullable="false"></constraints>
+      </column>
+      <column name="VERSION" type="BIGINT" defaultValueNumeric="0" remarks="Record version, optimistic lock">
+        <constraints nullable="false"></constraints>
+      </column>
+      <column name="CREATED_AT" type="TIMESTAMP" remarks="Record created at timestamp"></column>
+      <column name="CREATED_BY" type="BIGINT" remarks="Record created by user ID"></column>
+      <column name="UPDATED_AT" type="TIMESTAMP" remarks="Record updated at timestamp"></column>
+      <column name="UPDATED_BY" type="BIGINT" remarks="Record updated by user ID"></column>
+      <column name="DELETED" type="BOOLEAN" defaultValueBoolean="false" remarks="Record deleted flag, soft delete"></column>
+      <column name="DELETED_AT" type="TIMESTAMP" remarks="Record deleted at"></column>
+      <column name="DELETED_BY" type="BIGINT" defaultValue="0" remarks="Record deleted by"></column>
+      <column name="TENANT_ID" type="BIGINT" defaultValue="0" remarks="Record tenant ID"></column>
+    </createTable>
+    <addUniqueConstraint columnNames="MENU_CODE" constraintName="UK_SYS_MENU_MENU_CODE" tableName="SYS_MENU"></addUniqueConstraint>
+    <createIndex tableName="SYS_MENU" indexName="IDX_SYS_MENU_PARENT_ID">
+      <column name="PARENT_ID"></column>
+    </createIndex>
+    <createIndex tableName="SYS_MENU" indexName="IDX_SYS_MENU_MENU_CODE">
+      <column name="MENU_CODE"></column>
+    </createIndex>
+  </changeSet>
+  <changeSet id="0.1.1-SNAPSHOT-1000000005" author="hope" context="auto" labels="0.1.1-SNAPSHOT">
+    <createTable remarks="客户组织关联表（员工身份）" tableName="SYS_CUSTOMER_ORGANIZATION">
+      <column name="ID" type="BIGINT" autoIncrement="true" remarks="Record ID, Primary Key, Auto Increment">
+        <constraints nullable="false" primaryKey="true" unique="true"></constraints>
+      </column>
+      <column name="CUSTOMER_ID" type="BIGINT" remarks="客户 ID">
+        <constraints nullable="false"></constraints>
+      </column>
+      <column name="ORGANIZATION_ID" type="BIGINT" remarks="组织 ID">
+        <constraints nullable="false"></constraints>
+      </column>
+      <column name="IS_DEFAULT" type="BOOLEAN" defaultValue="false" remarks="是否默认组织">
+        <constraints nullable="false"></constraints>
+      </column>
+      <column name="EMPLOYEE_TYPE" type="VARCHAR(20)" defaultValue="FULL_TIME" remarks="员工类型">
+        <constraints nullable="false"></constraints>
+      </column>
+      <column name="STATUS_CODE" type="VARCHAR(20)" defaultValue="ACTIVE" remarks="在组织内的状态">
+        <constraints nullable="false"></constraints>
+      </column>
+      <column name="DEPARTMENT_ID" type="BIGINT" remarks="所属部门 ID"></column>
+      <column name="POSITION" type="VARCHAR(100)" remarks="职位"></column>
+      <column name="CREATED_AT" type="TIMESTAMP" remarks="Record created at timestamp"></column>
+      <column name="CREATED_BY" type="BIGINT" remarks="Record created by user ID"></column>
+      <column name="UPDATED_AT" type="TIMESTAMP" remarks="Record updated at timestamp"></column>
+      <column name="UPDATED_BY" type="BIGINT" remarks="Record updated by user ID"></column>
+    </createTable>
+    <addUniqueConstraint columnNames="CUSTOMER_ID,ORGANIZATION_ID" constraintName="UK_SYS_CUSTOMER_ORGANIZATION_CUSTOMER_ID_ORGANIZATION_ID" tableName="SYS_CUSTOMER_ORGANIZATION"></addUniqueConstraint>
+    <createIndex tableName="SYS_CUSTOMER_ORGANIZATION" indexName="IDX_SYS_CUSTOMER_ORGANIZATION_CUSTOMER_ID">
+      <column name="CUSTOMER_ID"></column>
+    </createIndex>
+    <createIndex tableName="SYS_CUSTOMER_ORGANIZATION" indexName="IDX_SYS_CUSTOMER_ORGANIZATION_ORGANIZATION_ID">
+      <column name="ORGANIZATION_ID"></column>
+    </createIndex>
+  </changeSet>
+  <changeSet id="0.1.1-SNAPSHOT-1000000006" author="hope" context="auto" labels="0.1.1-SNAPSHOT">
+    <createTable remarks="组织表" tableName="SYS_ORGANIZATION">
+      <column name="ID" type="BIGINT" autoIncrement="true" remarks="Record ID, Primary Key, Auto Increment">
+        <constraints nullable="false" primaryKey="true" unique="true"></constraints>
+      </column>
+      <column name="PARENT_ID" type="BIGINT" defaultValue="0" remarks="父组织 ID">
+        <constraints nullable="false"></constraints>
+      </column>
+      <column name="ORGANIZATION_CODE" type="VARCHAR(50)" remarks="组织代码">
+        <constraints nullable="false" unique="true"></constraints>
+      </column>
+      <column name="ORGANIZATION_NAME" type="VARCHAR(100)" remarks="组织名称">
+        <constraints nullable="false"></constraints>
+      </column>
+      <column name="SORT_ORDER" type="INT" defaultValue="0" remarks="排序顺序">
+        <constraints nullable="false"></constraints>
+      </column>
+      <column name="STATUS_CODE" type="VARCHAR(20)" defaultValue="ACTIVE" remarks="组织状态">
+        <constraints nullable="false"></constraints>
+      </column>
+      <column name="VERSION" type="BIGINT" defaultValueNumeric="0" remarks="Record version, optimistic lock">
+        <constraints nullable="false"></constraints>
+      </column>
+      <column name="CREATED_AT" type="TIMESTAMP" remarks="Record created at timestamp"></column>
+      <column name="CREATED_BY" type="BIGINT" remarks="Record created by user ID"></column>
+      <column name="UPDATED_AT" type="TIMESTAMP" remarks="Record updated at timestamp"></column>
+      <column name="UPDATED_BY" type="BIGINT" remarks="Record updated by user ID"></column>
+      <column name="DELETED" type="BOOLEAN" defaultValueBoolean="false" remarks="Record deleted flag, soft delete"></column>
+      <column name="DELETED_AT" type="TIMESTAMP" remarks="Record deleted at"></column>
+      <column name="DELETED_BY" type="BIGINT" defaultValue="0" remarks="Record deleted by"></column>
+      <column name="TENANT_ID" type="BIGINT" defaultValue="0" remarks="Record tenant ID"></column>
+    </createTable>
+    <addUniqueConstraint columnNames="ORGANIZATION_CODE" constraintName="UK_SYS_ORGANIZATION_ORGANIZATION_CODE" tableName="SYS_ORGANIZATION"></addUniqueConstraint>
+    <createIndex tableName="SYS_ORGANIZATION" indexName="IDX_SYS_ORGANIZATION_PARENT_ID">
+      <column name="PARENT_ID"></column>
+    </createIndex>
+    <createIndex tableName="SYS_ORGANIZATION" indexName="IDX_SYS_ORGANIZATION_ORGANIZATION_CODE">
+      <column name="ORGANIZATION_CODE"></column>
+    </createIndex>
+  </changeSet>
+  <changeSet id="0.1.1-SNAPSHOT-1000000007" author="hope" context="auto" labels="0.1.1-SNAPSHOT">
+    <createTable remarks="角色表" tableName="SYS_ROLE">
+      <column name="ID" type="BIGINT" autoIncrement="true" remarks="Record ID, Primary Key, Auto Increment">
+        <constraints nullable="false" primaryKey="true" unique="true"></constraints>
+      </column>
+      <column name="ROLE_CODE" type="VARCHAR(50)" remarks="角色代码">
+        <constraints nullable="false" unique="true"></constraints>
+      </column>
+      <column name="ROLE_NAME" type="VARCHAR(100)" remarks="角色名称">
+        <constraints nullable="false"></constraints>
+      </column>
+      <column name="DESCRIPTION" type="VARCHAR(500)" remarks="角色描述"></column>
+      <column name="STATUS_CODE" type="VARCHAR(20)" defaultValue="ACTIVE" remarks="角色状态">
+        <constraints nullable="false"></constraints>
+      </column>
+      <column name="VERSION" type="BIGINT" defaultValueNumeric="0" remarks="Record version, optimistic lock">
+        <constraints nullable="false"></constraints>
+      </column>
+      <column name="CREATED_AT" type="TIMESTAMP" remarks="Record created at timestamp"></column>
+      <column name="CREATED_BY" type="BIGINT" remarks="Record created by user ID"></column>
+      <column name="UPDATED_AT" type="TIMESTAMP" remarks="Record updated at timestamp"></column>
+      <column name="UPDATED_BY" type="BIGINT" remarks="Record updated by user ID"></column>
+      <column name="DELETED" type="BOOLEAN" defaultValueBoolean="false" remarks="Record deleted flag, soft delete"></column>
+      <column name="DELETED_AT" type="TIMESTAMP" remarks="Record deleted at"></column>
+      <column name="DELETED_BY" type="BIGINT" defaultValue="0" remarks="Record deleted by"></column>
+      <column name="TENANT_ID" type="BIGINT" defaultValue="0" remarks="Record tenant ID"></column>
+    </createTable>
+    <addUniqueConstraint columnNames="ROLE_CODE" constraintName="UK_SYS_ROLE_ROLE_CODE" tableName="SYS_ROLE"></addUniqueConstraint>
+    <createIndex tableName="SYS_ROLE" indexName="IDX_SYS_ROLE_ROLE_CODE">
+      <column name="ROLE_CODE"></column>
+    </createIndex>
+  </changeSet>
+  <changeSet id="0.1.1-SNAPSHOT-1000000008" author="hope" context="auto" labels="0.1.1-SNAPSHOT">
+    <createTable remarks="租户表" tableName="SYS_TENANT">
+      <column name="ID" type="BIGINT" autoIncrement="true" remarks="Record ID, Primary Key, Auto Increment">
+        <constraints nullable="false" primaryKey="true" unique="true"></constraints>
+      </column>
+      <column name="TENANT_CODE" type="VARCHAR(50)" remarks="租户代码">
+        <constraints nullable="false" unique="true"></constraints>
+      </column>
+      <column name="TENANT_NAME" type="VARCHAR(100)" remarks="租户名称">
+        <constraints nullable="false"></constraints>
+      </column>
+      <column name="CONTACT_EMAIL" type="VARCHAR(100)" remarks="联系人邮箱"></column>
+      <column name="CONTACT_PHONE" type="VARCHAR(20)" remarks="联系人电话"></column>
+      <column name="STATUS_CODE" type="VARCHAR(20)" defaultValue="ACTIVE" remarks="租户状态">
+        <constraints nullable="false"></constraints>
+      </column>
+      <column name="MAX_USERS" type="INT" defaultValue="100" remarks="最大用户数">
+        <constraints nullable="false"></constraints>
+      </column>
+      <column name="MAX_STORAGE_MB" type="BIGINT" defaultValue="10240" remarks="最大存储空间（MB）">
+        <constraints nullable="false"></constraints>
+      </column>
+      <column name="EXPIRY_DATE" type="DATETIME" remarks="到期时间"></column>
+      <column name="CREATED_AT" type="TIMESTAMP" remarks="Record created at timestamp"></column>
+      <column name="CREATED_BY" type="BIGINT" remarks="Record created by user ID"></column>
+      <column name="UPDATED_AT" type="TIMESTAMP" remarks="Record updated at timestamp"></column>
+      <column name="UPDATED_BY" type="BIGINT" remarks="Record updated by user ID"></column>
+    </createTable>
+    <addUniqueConstraint columnNames="TENANT_CODE" constraintName="UK_SYS_TENANT_TENANT_CODE" tableName="SYS_TENANT"></addUniqueConstraint>
+    <createIndex tableName="SYS_TENANT" indexName="IDX_SYS_TENANT_TENANT_CODE">
+      <column name="TENANT_CODE"></column>
+    </createIndex>
+  </changeSet>
+</databaseChangeLog>

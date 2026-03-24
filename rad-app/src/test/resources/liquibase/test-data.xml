@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+
+    <!-- 测试数据 - 租户 -->
+    <changeSet id="test-data-tenant-1" author="test">
+        <insert tableName="SYS_TENANT">
+            <column name="ID" value="1"/>
+            <column name="TENANT_CODE" value="test_tenant_1"/>
+            <column name="TENANT_NAME" value="测试租户 1"/>
+            <column name="CONTACT_EMAIL" value="test1@example.com"/>
+            <column name="CONTACT_PHONE" value="13800138001"/>
+            <column name="STATUS_CODE" value="ACTIVE"/>
+            <column name="MAX_USERS" value="100"/>
+            <column name="MAX_STORAGE_MB" value="10240"/>
+            <column name="CREATED_AT" value="2024-01-01 00:00:00"/>
+            <column name="CREATED_BY" value="1"/>
+        </insert>
+        <insert tableName="SYS_TENANT">
+            <column name="ID" value="2"/>
+            <column name="TENANT_CODE" value="test_tenant_2"/>
+            <column name="TENANT_NAME" value="测试租户 2"/>
+            <column name="CONTACT_EMAIL" value="test2@example.com"/>
+            <column name="STATUS_CODE" value="ACTIVE"/>
+            <column name="MAX_USERS" value="200"/>
+            <column name="MAX_STORAGE_MB" value="20480"/>
+            <column name="CREATED_AT" value="2024-01-02 00:00:00"/>
+            <column name="CREATED_BY" value="1"/>
+        </insert>
+        <insert tableName="SYS_TENANT">
+            <column name="ID" value="3"/>
+            <column name="TENANT_CODE" value="disabled_tenant"/>
+            <column name="TENANT_NAME" value="已禁用租户"/>
+            <column name="STATUS_CODE" value="DISABLED"/>
+            <column name="CREATED_AT" value="2024-01-03 00:00:00"/>
+            <column name="CREATED_BY" value="1"/>
+        </insert>
+    </changeSet>
+
+    <!-- 测试数据 - 部门 -->
+    <changeSet id="test-data-department-1" author="test">
+        <insert tableName="SYS_DEPARTMENT">
+            <column name="ID" value="1"/>
+            <column name="PARENT_ID" value="0"/>
+            <column name="DEPT_CODE" value="tech"/>
+            <column name="DEPT_NAME" value="技术部"/>
+            <column name="SORT_ORDER" value="10"/>
+            <column name="STATUS_CODE" value="ACTIVE"/>
+            <column name="CREATED_AT" value="2024-01-01 00:00:00"/>
+            <column name="CREATED_BY" value="1"/>
+        </insert>
+        <insert tableName="SYS_DEPARTMENT">
+            <column name="ID" value="2"/>
+            <column name="PARENT_ID" value="1"/>
+            <column name="DEPT_CODE" value="tech_dev"/>
+            <column name="DEPT_NAME" value="研发部"/>
+            <column name="SORT_ORDER" value="10"/>
+            <column name="STATUS_CODE" value="ACTIVE"/>
+            <column name="CREATED_AT" value="2024-01-01 00:00:00"/>
+            <column name="CREATED_BY" value="1"/>
+        </insert>
+        <insert tableName="SYS_DEPARTMENT">
+            <column name="ID" value="3"/>
+            <column name="PARENT_ID" value="1"/>
+            <column name="DEPT_CODE" value="tech_qa"/>
+            <column name="DEPT_NAME" value="测试部"/>
+            <column name="SORT_ORDER" value="20"/>
+            <column name="STATUS_CODE" value="ACTIVE"/>
+            <column name="CREATED_AT" value="2024-01-01 00:00:00"/>
+            <column name="CREATED_BY" value="1"/>
+        </insert>
+        <insert tableName="SYS_DEPARTMENT">
+            <column name="ID" value="4"/>
+            <column name="PARENT_ID" value="0"/>
+            <column name="DEPT_CODE" value="sales"/>
+            <column name="DEPT_NAME" value="销售部"/>
+            <column name="SORT_ORDER" value="20"/>
+            <column name="STATUS_CODE" value="ACTIVE"/>
+            <column name="CREATED_AT" value="2024-01-02 00:00:00"/>
+            <column name="CREATED_BY" value="1"/>
+        </insert>
+    </changeSet>
+
+    <!-- 测试数据 - 部门员工关联 -->
+    <changeSet id="test-data-dept-employee-1" author="test">
+        <insert tableName="SYS_DEPARTMENT_EMPLOYEE">
+            <column name="ID" value="1"/>
+            <column name="EMPLOYEE_ID" value="1"/>
+            <column name="DEPARTMENT_ID" value="2"/>
+            <column name="POSITION" value="高级工程师"/>
+            <column name="IS_PRIMARY" valueBoolean="true"/>
+            <column name="CREATED_AT" value="2024-01-01 00:00:00"/>
+            <column name="CREATED_BY" value="1"/>
+        </insert>
+        <insert tableName="SYS_DEPARTMENT_EMPLOYEE">
+            <column name="ID" value="2"/>
+            <column name="EMPLOYEE_ID" value="2"/>
+            <column name="DEPARTMENT_ID" value="2"/>
+            <column name="POSITION" value="工程师"/>
+            <column name="IS_PRIMARY" valueBoolean="true"/>
+            <column name="CREATED_AT" value="2024-01-02 00:00:00"/>
+            <column name="CREATED_BY" value="1"/>
+        </insert>
+        <insert tableName="SYS_DEPARTMENT_EMPLOYEE">
+            <column name="ID" value="3"/>
+            <column name="EMPLOYEE_ID" value="3"/>
+            <column name="DEPARTMENT_ID" value="3"/>
+            <column name="POSITION" value="测试经理"/>
+            <column name="IS_PRIMARY" valueBoolean="true"/>
+            <column name="CREATED_AT" value="2024-01-03 00:00:00"/>
+            <column name="CREATED_BY" value="1"/>
+        </insert>
+    </changeSet>
+
+    <!-- 测试数据 - 角色 -->
+    <changeSet id="test-data-role-1" author="test">
+        <insert tableName="SYS_ROLE">
+            <column name="ID" value="1"/>
+            <column name="ROLE_CODE" value="admin"/>
+            <column name="ROLE_NAME" value="管理员"/>
+            <column name="STATUS_CODE" value="ACTIVE"/>
+            <column name="CREATED_AT" value="2024-01-01 00:00:00"/>
+            <column name="CREATED_BY" value="1"/>
+        </insert>
+        <insert tableName="SYS_ROLE">
+            <column name="ID" value="2"/>
+            <column name="ROLE_CODE" value="user"/>
+            <column name="ROLE_NAME" value="普通用户"/>
+            <column name="STATUS_CODE" value="ACTIVE"/>
+            <column name="CREATED_AT" value="2024-01-01 00:00:00"/>
+            <column name="CREATED_BY" value="1"/>
+        </insert>
+        <insert tableName="SYS_ROLE">
+            <column name="ID" value="3"/>
+            <column name="ROLE_CODE" value="disabled_role"/>
+            <column name="ROLE_NAME" value="禁用角色"/>
+            <column name="STATUS_CODE" value="DISABLED"/>
+            <column name="CREATED_AT" value="2024-01-02 00:00:00"/>
+            <column name="CREATED_BY" value="1"/>
+        </insert>
+    </changeSet>
+
+    <!-- 测试数据 - 菜单 -->
+    <changeSet id="test-data-menu-1" author="test">
+        <insert tableName="SYS_MENU">
+            <column name="ID" value="1"/>
+            <column name="PARENT_ID" value="0"/>
+            <column name="MENU_CODE" value="system"/>
+            <column name="MENU_NAME" value="系统管理"/>
+            <column name="PATH" value="/system"/>
+            <column name="SORT_ORDER" value="100"/>
+            <column name="MENU_TYPE" value="DIRECTORY"/>
+            <column name="STATUS_CODE" value="ACTIVE"/>
+            <column name="CREATED_AT" value="2024-01-01 00:00:00"/>
+            <column name="CREATED_BY" value="1"/>
+        </insert>
+        <insert tableName="SYS_MENU">
+            <column name="ID" value="2"/>
+            <column name="PARENT_ID" value="1"/>
+            <column name="MENU_CODE" value="system_user"/>
+            <column name="MENU_NAME" value="用户管理"/>
+            <column name="PATH" value="/system/user"/>
+            <column name="ICON" value="lucide:users"/>
+            <column name="SORT_ORDER" value="10"/>
+            <column name="MENU_TYPE" value="MENU"/>
+            <column name="PERMISSION_CODE" value="user:view"/>
+            <column name="STATUS_CODE" value="ACTIVE"/>
+            <column name="CREATED_AT" value="2024-01-01 00:00:00"/>
+            <column name="CREATED_BY" value="1"/>
+        </insert>
+        <insert tableName="SYS_MENU">
+            <column name="ID" value="3"/>
+            <column name="PARENT_ID" value="1"/>
+            <column name="MENU_CODE" value="system_role"/>
+            <column name="MENU_NAME" value="角色管理"/>
+            <column name="PATH" value="/system/role"/>
+            <column name="ICON" value="lucide:shield"/>
+            <column name="SORT_ORDER" value="20"/>
+            <column name="MENU_TYPE" value="MENU"/>
+            <column name="PERMISSION_CODE" value="role:view"/>
+            <column name="STATUS_CODE" value="ACTIVE"/>
+            <column name="CREATED_AT" value="2024-01-01 00:00:00"/>
+            <column name="CREATED_BY" value="1"/>
+        </insert>
+        <insert tableName="SYS_MENU">
+            <column name="ID" value="4"/>
+            <column name="PARENT_ID" value="1"/>
+            <column name="MENU_CODE" value="system_dept"/>
+            <column name="MENU_NAME" value="部门管理"/>
+            <column name="PATH" value="/system/department"/>
+            <column name="ICON" value="lucide:building"/>
+            <column name="SORT_ORDER" value="30"/>
+            <column name="MENU_TYPE" value="MENU"/>
+            <column name="PERMISSION_CODE" value="department:view"/>
+            <column name="STATUS_CODE" value="ACTIVE"/>
+            <column name="CREATED_AT" value="2024-01-01 00:00:00"/>
+            <column name="CREATED_BY" value="1"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>
