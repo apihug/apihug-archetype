@@ -48,7 +48,7 @@ import java.util.Set;
 @Generated("H.O.P.E. Infra Team")
 public class RadCustomer extends CustomerLongIdentifyLongTenant<RadCustomer> {
 
-  protected CustomerPlatformTypeEnum platformType = CustomerPlatformTypeEnum.UN_QUALIFY;
+  protected CustomerPlatformTypeEnum platformType = CustomerPlatformTypeEnum.NA;
 
   protected Set<String> authorities;
 
