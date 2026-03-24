@@ -9,7 +9,7 @@ import hope.common.api.PageRequest;
 import hope.common.api.exceptions.HopeErrorDetailException;
 import hope.common.meta.annotation.Kind;
 import hope.common.meta.annotation.ProtoFrom;
-import hope.common.spring.PageableResultBuilder;
+import hope.common.meta.annotation.Template;import hope.common.spring.PageableResultBuilder;
 import hope.common.spring.SimpleResultBuilder;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -18,11 +18,7 @@ import java.util.stream.Collectors;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
-/**
- * !!! FORBIDDEN REMOVE THIS CLASS LEVEL DOCUMENT, THIS IS GOLDEN RULE!!!
- *
- * Service layer implementation for handling requests from the controller layer {@link com.apihug.rad.api.menu.MenuController}.
- */
+@Template(type = Template.Type.SERVICE, usage = "Platform menu management", percentage = 90)
 @Service
 @SuppressWarnings("Duplicates")
 @ProtoFrom(
@@ -33,7 +29,7 @@ import org.springframework.stereotype.Service;
     column = 1
 )
 public class MenuServiceImpl implements MenuService {
-  
+
   private final MenuEntityRepository menuRepository;
 
   public MenuServiceImpl(MenuEntityRepository menuRepository) {
@@ -50,13 +46,13 @@ public class MenuServiceImpl implements MenuService {
     if (menuRepository.existsByMenuCode(createMenuRequest.getMenuCode())) {
       throw HopeErrorDetailException.errorBuilder(MenuErrorEnum.MENU_CODE_EXISTS).build();
     }
-    
+
     // 验证父菜单（如果 parent_id != 0）
     if (createMenuRequest.getParentId() != 0) {
       menuRepository.findById(createMenuRequest.getParentId())
           .orElseThrow(() -> HopeErrorDetailException.errorBuilder(MenuErrorEnum.INVALID_PARENT_MENU).build());
     }
-    
+
     // 创建菜单实体
     MenuEntity entity = new MenuEntity()
         .setParentId(createMenuRequest.getParentId())
@@ -67,13 +63,13 @@ public class MenuServiceImpl implements MenuService {
         .setSortOrder(createMenuRequest.getSortOrder())
         .setMenuType(createMenuRequest.getMenuType())
         .setPermissionCode(createMenuRequest.getPermissionCode())
-        .setStatus(createMenuRequest.getStatus() != null 
-            ? createMenuRequest.getStatus() 
+        .setStatus(createMenuRequest.getStatus() != null
+            ? createMenuRequest.getStatus()
             : MenuStatusEnum.ACTIVE);
-    
+
     // 保存菜单
     MenuEntity saved = menuRepository.save(entity);
-    
+
     // 返回摘要
     MenuSummary summary = new MenuSummary()
         .setId(saved.getId())
@@ -83,7 +79,7 @@ public class MenuServiceImpl implements MenuService {
         .setPath(saved.getPath())
         .setMenuType(saved.getMenuType())
         .setStatus(saved.getStatus());
-    
+
     builder.payload(summary);
   }
 
@@ -94,7 +90,7 @@ public class MenuServiceImpl implements MenuService {
   public void getMenu(SimpleResultBuilder<MenuDetail> builder, Integer menuId) {
     MenuEntity entity = menuRepository.findById(menuId.longValue())
         .orElseThrow(() -> HopeErrorDetailException.errorBuilder(MenuErrorEnum.MENU_NOT_FOUND).build());
-    
+
     MenuDetail detail = buildMenuDetail(entity);
     builder.payload(detail);
   }
@@ -107,7 +103,7 @@ public class MenuServiceImpl implements MenuService {
       UpdateMenuRequest updateMenuRequest) {
     MenuEntity entity = menuRepository.findById(menuId.longValue())
         .orElseThrow(() -> HopeErrorDetailException.errorBuilder(MenuErrorEnum.MENU_NOT_FOUND).build());
-    
+
     // 更新字段
     if (updateMenuRequest.getMenuName() != null) {
       entity.setMenuName(updateMenuRequest.getMenuName());
@@ -130,7 +126,7 @@ public class MenuServiceImpl implements MenuService {
     if (updateMenuRequest.getStatus() != null) {
       entity.setStatus(updateMenuRequest.getStatus());
     }
-    
+
     menuRepository.save(entity);
     builder.done();
   }
@@ -142,18 +138,18 @@ public class MenuServiceImpl implements MenuService {
   public void deleteMenu(SimpleResultBuilder<String> builder, Integer menuId) {
     MenuEntity entity = menuRepository.findById(menuId.longValue())
         .orElseThrow(() -> HopeErrorDetailException.errorBuilder(MenuErrorEnum.MENU_NOT_FOUND).build());
-    
+
     // 检查是否有子菜单
     List<MenuEntity> children = menuRepository.findByParentId(entity.getId());
     if (!children.isEmpty()) {
       throw HopeErrorDetailException.errorBuilder(MenuErrorEnum.MENU_HAS_CHILDREN).build();
     }
-    
+
     // 软删除
     entity.setDeleted(true)
         .setDeletedAt(LocalDateTime.now())
         .setDeletedBy(((Long) hope.common.spring.security.context.HopeContextHolder.customer().getId()));
-    
+
     menuRepository.save(entity);
     builder.done();
   }
@@ -165,16 +161,16 @@ public class MenuServiceImpl implements MenuService {
   public void getMenuTree(SimpleResultBuilder<MenuTreeNode> builder) {
     // 获取所有根菜单（parent_id = 0）
     List<MenuEntity> rootMenus = menuRepository.findByParentId(0L);
-    
+
     // 构建树形结构
     MenuTreeNode root = new MenuTreeNode();
     List<MenuTreeNode> children = new ArrayList<>();
-    
+
     for (MenuEntity rootMenu : rootMenus) {
       MenuTreeNode node = buildMenuTreeNode(rootMenu);
       children.add(node);
     }
-    
+
     root.setChildren(children);
     builder.payload(root);
   }
@@ -185,14 +181,14 @@ public class MenuServiceImpl implements MenuService {
   @Override
   public void searchMenus(PageableResultBuilder<MenuSummary> builder,
       SearchMenusRequest searchMenusRequest, PageRequest pageParameter) {
-    Page<MenuEntity> page = 
+    Page<MenuEntity> page =
         menuRepository.searchMenus(
             searchMenusRequest.getKeyword(),
             searchMenusRequest.getMenuType(),
             searchMenusRequest.getStatus(),
             pageParameter
         );
-    
+
     builder.setPageIndex(page.getNumber())
            .setPageSize(pageParameter.getSize())
            .setTotalCount(page.getTotalElements())
@@ -201,9 +197,9 @@ public class MenuServiceImpl implements MenuService {
                .map(this::buildMenuSummary)
                .collect(Collectors.toList()));
   }
-  
+
   // ========== Helper Methods ==========
-  
+
   private MenuSummary buildMenuSummary(MenuEntity entity) {
     return new MenuSummary()
         .setId(entity.getId())
@@ -214,7 +210,7 @@ public class MenuServiceImpl implements MenuService {
         .setMenuType(entity.getMenuType())
         .setStatus(entity.getStatus());
   }
-  
+
   private MenuDetail buildMenuDetail(MenuEntity entity) {
     return new MenuDetail()
         .setId(entity.getId())
@@ -230,11 +226,11 @@ public class MenuServiceImpl implements MenuService {
         .setCreatedAt(entity.getCreatedAt())
         .setUpdatedAt(entity.getUpdatedAt());
   }
-  
+
   private MenuTreeNode buildMenuTreeNode(MenuEntity entity) {
     MenuTreeNode node = new MenuTreeNode();
     node.setMenu(buildMenuSummary(entity));
-    
+
     // 递归构建子菜单
     List<MenuEntity> children = menuRepository.findByParentId(entity.getId());
     List<MenuTreeNode> childNodes = new ArrayList<>();
@@ -242,7 +238,7 @@ public class MenuServiceImpl implements MenuService {
       childNodes.add(buildMenuTreeNode(child));
     }
     node.setChildren(childNodes);
-    
+
     return node;
   }
 }

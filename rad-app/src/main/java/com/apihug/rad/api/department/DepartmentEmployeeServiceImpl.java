@@ -6,12 +6,13 @@ import com.apihug.rad.domain.department.repository.DepartmentEmployeeEntityRepos
 import hope.common.api.exceptions.HopeErrorDetailException;
 import hope.common.meta.annotation.Kind;
 import hope.common.meta.annotation.ProtoFrom;
-import hope.common.spring.SimpleResultBuilder;
+import hope.common.meta.annotation.Template;import hope.common.spring.SimpleResultBuilder;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 
+@Template(type = Template.Type.SERVICE, usage = "Department employee management", percentage = 90)
 @Service
 @SuppressWarnings("Duplicates")
 @ProtoFrom(
@@ -51,13 +52,13 @@ public class DepartmentEmployeeServiceImpl implements DepartmentEmployeeService 
   }
 
   @Override
-  public void removeEmployeeFromDepartment(SimpleResultBuilder<String> builder, 
+  public void removeEmployeeFromDepartment(SimpleResultBuilder<String> builder,
       Integer employeeId, RemoveEmployeeRequest removeEmployeeRequest) {
     // employeeId 从路径参数获取，removeEmployeeRequest 用于未来扩展
-    employeeRepository.findByEmployeeIdAndDepartmentId(employeeId.longValue(), 
+    employeeRepository.findByEmployeeIdAndDepartmentId(employeeId.longValue(),
         removeEmployeeRequest.getEmployeeId())
         .ifPresent(employeeRepository::delete);
-    
+
     builder.done();
   }
 
@@ -66,7 +67,7 @@ public class DepartmentEmployeeServiceImpl implements DepartmentEmployeeService 
       TransferEmployeeRequest transferEmployeeRequest) {
     // 从原部门移除
     employeeRepository.findByEmployeeIdAndDepartmentId(
-        transferEmployeeRequest.getEmployeeId(), 
+        transferEmployeeRequest.getEmployeeId(),
         transferEmployeeRequest.getFromDepartmentId())
         .ifPresent(employeeRepository::delete);
 
@@ -84,7 +85,7 @@ public class DepartmentEmployeeServiceImpl implements DepartmentEmployeeService 
   @Override
   public void getDepartmentEmployees(SimpleResultBuilder<DepartmentEmployeeList> builder,
       Integer departmentId) {
-    List<DepartmentEmployeeEntity> employees = 
+    List<DepartmentEmployeeEntity> employees =
         employeeRepository.findByDepartmentId(departmentId.longValue());
 
     DepartmentEmployeeList list = new DepartmentEmployeeList();

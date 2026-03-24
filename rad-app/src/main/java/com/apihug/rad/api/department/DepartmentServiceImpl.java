@@ -7,17 +7,13 @@ import com.apihug.rad.infra.department.DeptStatusEnum;
 import hope.common.api.exceptions.HopeErrorDetailException;
 import hope.common.meta.annotation.Kind;
 import hope.common.meta.annotation.ProtoFrom;
-import hope.common.spring.SimpleResultBuilder;
+import hope.common.meta.annotation.Template;import hope.common.spring.SimpleResultBuilder;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.stereotype.Service;
 
-/**
- * !!! FORBIDDEN REMOVE THIS CLASS LEVEL DOCUMENT, THIS IS GOLDEN RULE!!!
- *
- * Service layer implementation for department management.
- */
+@Template(type = Template.Type.SERVICE, usage = "Department management", percentage = 90)
 @Service
 @SuppressWarnings("Duplicates")
 @ProtoFrom(
@@ -28,7 +24,7 @@ import org.springframework.stereotype.Service;
     column = 1
 )
 public class DepartmentServiceImpl implements DepartmentService {
-  
+
   private final DepartmentEntityRepository departmentRepository;
 
   public DepartmentServiceImpl(DepartmentEntityRepository departmentRepository) {
@@ -45,7 +41,7 @@ public class DepartmentServiceImpl implements DepartmentService {
     if (departmentRepository.existsByDeptCode(createDepartmentRequest.getDeptCode())) {
       throw HopeErrorDetailException.errorBuilder(com.apihug.rad.infra.department.DepartmentErrorEnum.DEPT_CODE_EXISTS).build();
     }
-    
+
     // 创建部门实体
     DepartmentEntity entity = new DepartmentEntity()
         .setParentId(createDepartmentRequest.getParentId())
@@ -53,13 +49,13 @@ public class DepartmentServiceImpl implements DepartmentService {
         .setDeptName(createDepartmentRequest.getDeptName())
         .setSortOrder(createDepartmentRequest.getSortOrder())
         .setManagerId(createDepartmentRequest.getManagerId())
-        .setStatus(createDepartmentRequest.getStatus() != null 
-            ? createDepartmentRequest.getStatus() 
+        .setStatus(createDepartmentRequest.getStatus() != null
+            ? createDepartmentRequest.getStatus()
             : DeptStatusEnum.ACTIVE);
-    
+
     // 保存部门
     DepartmentEntity saved = departmentRepository.save(entity);
-    
+
     // 返回摘要
     DepartmentSummary summary = new DepartmentSummary()
         .setId(saved.getId())
@@ -67,7 +63,7 @@ public class DepartmentServiceImpl implements DepartmentService {
         .setDeptCode(saved.getDeptCode())
         .setDeptName(saved.getDeptName())
         .setStatus(saved.getStatus());
-    
+
     builder.payload(summary);
   }
 
@@ -78,7 +74,7 @@ public class DepartmentServiceImpl implements DepartmentService {
   public void getDepartment(SimpleResultBuilder<DepartmentDetail> builder, Integer departmentId) {
     DepartmentEntity entity = departmentRepository.findById(departmentId.longValue())
         .orElseThrow(() -> HopeErrorDetailException.errorBuilder(com.apihug.rad.infra.department.DepartmentErrorEnum.DEPARTMENT_NOT_FOUND).build());
-    
+
     DepartmentDetail detail = new DepartmentDetail()
         .setId(entity.getId())
         .setParentId(entity.getParentId())
@@ -88,7 +84,7 @@ public class DepartmentServiceImpl implements DepartmentService {
         .setManagerId(entity.getManagerId())
         .setStatus(entity.getStatus())
         .setCreatedAt(entity.getCreatedAt());
-    
+
     builder.payload(detail);
   }
 
@@ -100,7 +96,7 @@ public class DepartmentServiceImpl implements DepartmentService {
       UpdateDepartmentRequest updateDepartmentRequest) {
     DepartmentEntity entity = departmentRepository.findById(departmentId.longValue())
         .orElseThrow(() -> HopeErrorDetailException.errorBuilder(com.apihug.rad.infra.department.DepartmentErrorEnum.DEPARTMENT_NOT_FOUND).build());
-    
+
     // 更新字段
     if (updateDepartmentRequest.getDeptName() != null) {
       entity.setDeptName(updateDepartmentRequest.getDeptName());
@@ -114,7 +110,7 @@ public class DepartmentServiceImpl implements DepartmentService {
     if (updateDepartmentRequest.getStatus() != null) {
       entity.setStatus(updateDepartmentRequest.getStatus());
     }
-    
+
     departmentRepository.save(entity);
     builder.done();
   }
@@ -149,19 +145,19 @@ public class DepartmentServiceImpl implements DepartmentService {
   public void getDepartmentTree(SimpleResultBuilder<DepartmentTreeNode> builder) {
     // 获取所有根部门（parent_id = 0）
     List<DepartmentEntity> rootDepts = departmentRepository.findByParentId(0L);
-    
+
     // 构建树形结构
     List<DepartmentTreeNode> children = new ArrayList<>();
     for (DepartmentEntity rootDept : rootDepts) {
       DepartmentTreeNode node = buildDepartmentTreeNode(rootDept);
       children.add(node);
     }
-    
+
     DepartmentTreeNode root = new DepartmentTreeNode();
     root.setChildren(children);
     builder.payload(root);
   }
-  
+
   /**
    * Build department tree node recursively
    */
@@ -173,7 +169,7 @@ public class DepartmentServiceImpl implements DepartmentService {
         .setDeptCode(entity.getDeptCode())
         .setDeptName(entity.getDeptName())
         .setStatus(entity.getStatus()));
-    
+
     // 递归构建子部门
     List<DepartmentEntity> children = departmentRepository.findByParentId(entity.getId());
     List<DepartmentTreeNode> childNodes = new ArrayList<>();
@@ -181,7 +177,7 @@ public class DepartmentServiceImpl implements DepartmentService {
       childNodes.add(buildDepartmentTreeNode(child));
     }
     node.setChildren(childNodes);
-    
+
     return node;
   }
 }

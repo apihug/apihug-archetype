@@ -1,14 +1,12 @@
 // @formatter:off
 package com.apihug.rad.api.organization;
 
-import com.apihug.rad.domain.department.DepartmentEntity;
 import com.apihug.rad.domain.department.repository.DepartmentEntityRepository;
-import com.apihug.rad.domain.organization.CustomerOrganizationEntity;
 import com.apihug.rad.domain.organization.repository.CustomerOrganizationEntityRepository;
 import hope.common.api.PageRequest;
 import hope.common.meta.annotation.Kind;
 import hope.common.meta.annotation.ProtoFrom;
-import hope.common.spring.PageableResultBuilder;
+import hope.common.meta.annotation.Template;import hope.common.spring.PageableResultBuilder;
 import hope.common.spring.SimpleResultBuilder;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +21,7 @@ import org.springframework.stereotype.Service;
  * multiple domain/data access layers, implementing the application's business
  * use cases through cross-domain coordination.
  */
+@Template(type = Template.Type.SERVICE, usage = "Organization management", percentage = 90)
 @Service
 @SuppressWarnings("Duplicates")
 @ProtoFrom(

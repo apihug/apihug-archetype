@@ -7,7 +7,7 @@ import com.apihug.rad.infra.organization.CustomerOrgStatusEnum;
 import hope.common.api.PageRequest;
 import hope.common.meta.annotation.Kind;
 import hope.common.meta.annotation.ProtoFrom;
-import hope.common.spring.PageableResultBuilder;
+import hope.common.meta.annotation.Template;import hope.common.spring.PageableResultBuilder;
 import hope.common.spring.SimpleResultBuilder;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -54,6 +54,7 @@ import org.springframework.stereotype.Service;
  *  - Keep the service layer focused on orchestration across domains, not on
  *    implementation details of any single domain
  */
+@Template(type = Template.Type.SERVICE, usage = "Organization member management", percentage = 90)
 @Service
 @SuppressWarnings("Duplicates")
 @ProtoFrom(
@@ -126,7 +127,7 @@ public class CustomerOrganizationServiceImpl implements CustomerOrganizationServ
       AddMemberRequest addMemberRequest) {
     // 检查是否已存在
     if (customerOrganizationRepository.existsByCustomerIdAndOrganizationId(
-        addMemberRequest.getCustomerId().longValue(), 
+        addMemberRequest.getCustomerId().longValue(),
         organizationId.longValue())) {
       builder.done();
       return;
@@ -136,8 +137,8 @@ public class CustomerOrganizationServiceImpl implements CustomerOrganizationServ
     CustomerOrganizationEntity entity = new CustomerOrganizationEntity()
         .setCustomerId(addMemberRequest.getCustomerId().longValue())
         .setOrganizationId(organizationId.longValue())
-        .setDepartmentId(addMemberRequest.getDepartmentId() != null 
-            ? addMemberRequest.getDepartmentId().longValue() 
+        .setDepartmentId(addMemberRequest.getDepartmentId() != null
+            ? addMemberRequest.getDepartmentId().longValue()
             : null)
         .setPosition(addMemberRequest.getPosition())
         .setEmployeeType(addMemberRequest.getEmployeeType() != null
@@ -165,9 +166,9 @@ public class CustomerOrganizationServiceImpl implements CustomerOrganizationServ
   public void removeMemberFromOrganization(SimpleResultBuilder<String> builder,
       Integer organizationId, Integer customerId, RemoveMemberRequest removeMemberRequest) {
     customerOrganizationRepository.deleteByCustomerIdAndOrganizationId(
-        customerId.longValue(), 
+        customerId.longValue(),
         organizationId.longValue());
-    
+
     builder.done();
   }
 
@@ -187,7 +188,7 @@ public class CustomerOrganizationServiceImpl implements CustomerOrganizationServ
   public void toggleMemberLock(SimpleResultBuilder<String> builder, Integer organizationId,
       Integer customerId, ToggleMemberLockRequest toggleMemberLockRequest) {
     customerOrganizationRepository.findByCustomerIdAndOrganizationId(
-        customerId.longValue(), 
+        customerId.longValue(),
         organizationId.longValue())
         .ifPresent(entity -> {
           // 切换状态
@@ -197,7 +198,7 @@ public class CustomerOrganizationServiceImpl implements CustomerOrganizationServ
           entity.setStatus(newStatus);
           customerOrganizationRepository.save(entity);
         });
-    
+
     builder.done();
   }
 

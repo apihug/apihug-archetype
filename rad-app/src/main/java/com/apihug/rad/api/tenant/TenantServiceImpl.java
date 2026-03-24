@@ -9,7 +9,7 @@ import hope.common.api.PageRequest;
 import hope.common.api.exceptions.HopeErrorDetailException;
 import hope.common.meta.annotation.Kind;
 import hope.common.meta.annotation.ProtoFrom;
-import hope.common.spring.PageableResultBuilder;
+import hope.common.meta.annotation.Template;import hope.common.spring.PageableResultBuilder;
 import hope.common.spring.SimpleResultBuilder;
 import java.beans.Transient;import java.time.LocalDateTime;
 import java.util.stream.Collectors;
@@ -21,6 +21,7 @@ import org.springframework.stereotype.Service;import org.springframework.transac
  *
  * Service layer implementation for tenant management.
  */
+@Template(type = Template.Type.SERVICE, usage = "Tenant management", percentage = 90)
 @Service
 @SuppressWarnings("Duplicates")
 @ProtoFrom(

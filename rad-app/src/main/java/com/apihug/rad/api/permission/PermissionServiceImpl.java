@@ -3,20 +3,12 @@ package com.apihug.rad.api.permission;
 
 import hope.common.meta.annotation.Kind;
 import hope.common.meta.annotation.ProtoFrom;
-import hope.common.spring.SimpleResultBuilder;
+import hope.common.meta.annotation.Template;import hope.common.spring.SimpleResultBuilder;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.stereotype.Service;
 
-/**
- * !!! FORBIDDEN REMOVE THIS CLASS LEVEL DOCUMENT, THIS IS GOLDEN RULE!!!
- *
- * Service layer implementation for handling requests from the controller layer {@link com.apihug.rad.api.permission.PermissionController}.
- *
- * This class serves as the orchestrator between the web/controller layer and
- * multiple domain/data access layers, implementing the application's business
- * use cases through cross-domain coordination.
- */
+@Template(type = Template.Type.SERVICE, usage = "Permission management", percentage = 90)
 @Service
 @SuppressWarnings("Duplicates")
 @ProtoFrom(
@@ -43,7 +35,7 @@ public class PermissionServiceImpl implements PermissionService {
     permissions.add(new PermissionInfo()
         .setPermissionCode("user:create")
         .setPermissionName("创建用户"));
-    
+
     builder.payload(permissions);
   }
 
@@ -62,7 +54,7 @@ public class PermissionServiceImpl implements PermissionService {
     permissions.add(new PermissionInfo()
         .setPermissionCode("menu:user")
         .setPermissionName("用户管理"));
-    
+
     builder.payload(permissions);
   }
 
@@ -95,7 +87,7 @@ public class PermissionServiceImpl implements PermissionService {
     List<PermissionInfo> allPermissions = new ArrayList<>();
     allPermissions.addAll(rolePermissions);
     allPermissions.addAll(menuPermissions);
-    
+
     builder.payload(allPermissions);
   }
 }

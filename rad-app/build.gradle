@@ -37,6 +37,8 @@ hope {
     //appKey = "just";
     //appSecret = "${System.getenv("HOPE_APP_SECRET")}"
     //appSecret = "just";
+
+    genTemplate = true
 }
 
 description("apihug rapid application development template")
