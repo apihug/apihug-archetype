@@ -30,6 +30,7 @@ import org.springframework.data.domain.Page;
 import hope.common.meta.annotation.Template;
 import org.springframework.data.jdbc.repository.query.Query;
 import org.springframework.data.relational.core.query.Criteria;
+import static com.apihug.rad.domain.menu.dsl.MenuEntityDSL.*;
 import com.apihug.rad.infra.menu.MenuStatusEnum;
 
 /**
@@ -87,16 +88,29 @@ public interface MenuEntityRepository extends HopeJdbc<MenuEntity>,
   @Query
   List<MenuEntity> findByParentId(Long parentId);
 
+  // ========== Tenant-scoped query methods ==========
+
+  @Query
+  boolean existsByMenuCodeAndTenantId(String menuCode, Long tenantId);
+
+  @Query
+  List<MenuEntity> findByParentIdAndTenantId(Long parentId, Long tenantId);
+
+  @Query
+  List<MenuEntity> findByTenantIdAndDeletedFalse(Long tenantId);
+
   // ========== 搜索方法（使用 EasyCriteria） ==========
 
   @Query
   default Page<MenuEntity> searchMenus(
+      Long tenantId,
       String keyword,
       com.apihug.rad.infra.menu.MenuTypeEnum menuType,
       MenuStatusEnum status,
       hope.common.api.PageRequest pageParameter) {
     var pageable = page(pageParameter);
-    Criteria criteria = EasyCriteria.eq(_Deletable_.DELETED, false);
+    Criteria criteria = EasyCriteria.eq(_Tenantable_.TENANT_ID, tenantId)
+        .and(EasyCriteria.eq(_Deletable_.DELETED, false));
 
     if (keyword != null && !keyword.isBlank()) {
       criteria = criteria.and(

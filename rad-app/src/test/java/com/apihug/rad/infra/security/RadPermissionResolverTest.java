@@ -6,6 +6,7 @@ import com.apihug.rad.domain.role.RoleEntity;
 import com.apihug.rad.domain.role.RoleMenuEntity;
 import com.apihug.rad.domain.role.repository.RoleEntityRepository;
 import com.apihug.rad.domain.role.repository.RoleMenuEntityRepository;
+import com.apihug.rad.domain.security.CustomerPermissionResolver;
 import com.apihug.rad.domain.tenant.MemberRoleEntity;
 import com.apihug.rad.domain.tenant.TenantMemberEntity;
 import com.apihug.rad.domain.tenant.repository.MemberRoleEntityRepository;
@@ -38,11 +39,11 @@ class RadPermissionResolverTest {
     @Mock
     private MenuEntityRepository menuRepository;
 
-    private RadPermissionResolver resolver;
+    private CustomerPermissionResolver resolver;
 
     @BeforeEach
     void setUp() {
-        resolver = new RadPermissionResolver(
+        resolver = new CustomerPermissionResolver(
             tenantMemberRepository, memberRoleRepository,
             roleRepository, roleMenuRepository, menuRepository);
     }
@@ -225,16 +226,16 @@ class RadPermissionResolverTest {
     @Test
     @DisplayName("isSuperAdmin 检查")
     void testIsSuperAdmin() {
-        assertTrue(RadPermissionResolver.isSuperAdmin(Set.of("*:*:*")));
-        assertFalse(RadPermissionResolver.isSuperAdmin(Set.of("user:view")));
-        assertFalse(RadPermissionResolver.isSuperAdmin(null));
+        assertTrue(CustomerPermissionResolver.isSuperAdmin(Set.of("*:*:*")));
+        assertFalse(CustomerPermissionResolver.isSuperAdmin(Set.of("user:view")));
+        assertFalse(CustomerPermissionResolver.isSuperAdmin(null));
     }
 
     @Test
     @DisplayName("isSuperAdminRole 检查")
     void testIsSuperAdminRole() {
-        assertTrue(RadPermissionResolver.isSuperAdminRole(Set.of("*")));
-        assertFalse(RadPermissionResolver.isSuperAdminRole(Set.of("admin")));
-        assertFalse(RadPermissionResolver.isSuperAdminRole(null));
+        assertTrue(CustomerPermissionResolver.isSuperAdminRole(Set.of("*")));
+        assertFalse(CustomerPermissionResolver.isSuperAdminRole(Set.of("admin")));
+        assertFalse(CustomerPermissionResolver.isSuperAdminRole(null));
     }
 }

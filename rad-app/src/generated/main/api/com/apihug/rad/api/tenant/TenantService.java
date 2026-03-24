@@ -7,6 +7,7 @@ import hope.common.meta.annotation.ProtoFrom;
 import hope.common.spring.PageableResultBuilder;
 import hope.common.spring.SimpleResultBuilder;
 import java.lang.Integer;
+import java.lang.Long;
 import java.lang.String;
 import javax.annotation.Generated;
 
@@ -24,6 +25,7 @@ public interface TenantService {
    * Authorization:
    *
    * <ul>
+   * 	<li>PredefinedRoleCheckerType: PLATFORM</li>
    * 	<li>Authorities: [TENANT_CREATE]</li>
    * </ul>
    * @apiNote
@@ -40,7 +42,7 @@ public interface TenantService {
    * 	<p>{@code /api/tenants/tenants/{tenantId}}
    * 	<p>{@code 获取租户详情}
    */
-  default void getTenant(SimpleResultBuilder<TenantDetail> builder, Integer tenantId) {
+  default void getTenant(SimpleResultBuilder<TenantDetail> builder, Long tenantId) {
     builder.notImplemented();
   }
 

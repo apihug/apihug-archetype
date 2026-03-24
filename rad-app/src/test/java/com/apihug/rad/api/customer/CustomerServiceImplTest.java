@@ -9,13 +9,11 @@ import com.apihug.rad.domain.tenant.TenantMemberEntity;
 import com.apihug.rad.domain.tenant.repository.MemberRoleEntityRepository;
 import com.apihug.rad.domain.tenant.repository.TenantEntityRepository;
 import com.apihug.rad.domain.tenant.repository.TenantMemberEntityRepository;
-import com.apihug.rad.infra.customer.CustomerStatusEnum;
-import com.apihug.rad.infra.security.RadPermissionResolver;
-import com.apihug.rad.infra.tenant.MemberRoleEnum;
-import com.apihug.rad.infra.tenant.MemberTypeEnum;
+import com.apihug.rad.domain.security.CustomerPermissionResolver;
 import com.apihug.rad.infra.tenant.TenantMemberStatusEnum;
 import hope.common.api.exceptions.HopeErrorDetailException;
 import hope.common.spring.SimpleResultBuilder;
+import com.apihug.rad.infra.security.RadCustomer;
 import hope.common.spring.security.Customer;
 import hope.common.spring.security.JwtCustomizer;
 import hope.common.spring.security.context.HopeContextHolder;
@@ -52,7 +50,7 @@ class CustomerServiceImplTest {
     private JwtCustomizer jwtCustomizer;
 
     @Mock
-    private RadPermissionResolver permissionResolver;
+    private CustomerPermissionResolver permissionResolver;
 
     @Mock
     private MemberRoleEntityRepository memberRoleRepository;
@@ -131,7 +129,7 @@ class CustomerServiceImplTest {
     @DisplayName("获取客户完整信息 - 含租户信息")
     void testGetCurrentCustomerInfo_WithTenant() {
         try (MockedStatic<HopeContextHolder> holderMock = mockStatic(HopeContextHolder.class)) {
-            Customer mockCustomer = mock(Customer.class);
+            RadCustomer mockCustomer = mock(RadCustomer.class);
             when(mockCustomer.getId()).thenReturn(100L);
             holderMock.when(HopeContextHolder::customer).thenReturn(mockCustomer);
 
@@ -167,7 +165,7 @@ class CustomerServiceImplTest {
     @DisplayName("获取客户完整信息 - 无租户")
     void testGetCurrentCustomerInfo_NoTenant() {
         try (MockedStatic<HopeContextHolder> holderMock = mockStatic(HopeContextHolder.class)) {
-            Customer mockCustomer = mock(Customer.class);
+            RadCustomer mockCustomer = mock(RadCustomer.class);
             when(mockCustomer.getId()).thenReturn(100L);
             holderMock.when(HopeContextHolder::customer).thenReturn(mockCustomer);
 
@@ -249,8 +247,9 @@ class CustomerServiceImplTest {
     @DisplayName("切换租户 - 成功")
     void testSwitchTenant_Success() {
         try (MockedStatic<HopeContextHolder> holderMock = mockStatic(HopeContextHolder.class)) {
-            Customer mockCustomer = mock(Customer.class);
+            RadCustomer mockCustomer = mock(RadCustomer.class);
             when(mockCustomer.getId()).thenReturn(100L);
+            when(mockCustomer.getTenantId()).thenReturn(1L);
             holderMock.when(HopeContextHolder::customer).thenReturn(mockCustomer);
 
             CustomerEntity customer = new CustomerEntity()
@@ -286,8 +285,9 @@ class CustomerServiceImplTest {
     @DisplayName("切换租户 - 不是目标租户成员")
     void testSwitchTenant_NotMember() {
         try (MockedStatic<HopeContextHolder> holderMock = mockStatic(HopeContextHolder.class)) {
-            Customer mockCustomer = mock(Customer.class);
+            RadCustomer mockCustomer = mock(RadCustomer.class);
             when(mockCustomer.getId()).thenReturn(100L);
+            when(mockCustomer.getTenantId()).thenReturn(1L);
             holderMock.when(HopeContextHolder::customer).thenReturn(mockCustomer);
 
             CustomerEntity customer = new CustomerEntity()
@@ -310,8 +310,9 @@ class CustomerServiceImplTest {
     @DisplayName("切换租户 - 成员被锁定")
     void testSwitchTenant_MemberLocked() {
         try (MockedStatic<HopeContextHolder> holderMock = mockStatic(HopeContextHolder.class)) {
-            Customer mockCustomer = mock(Customer.class);
+            RadCustomer mockCustomer = mock(RadCustomer.class);
             when(mockCustomer.getId()).thenReturn(100L);
+            when(mockCustomer.getTenantId()).thenReturn(1L);
             holderMock.when(HopeContextHolder::customer).thenReturn(mockCustomer);
 
             CustomerEntity customer = new CustomerEntity()
@@ -338,8 +339,9 @@ class CustomerServiceImplTest {
     @DisplayName("切换租户 - 成员已退出")
     void testSwitchTenant_MemberInactive() {
         try (MockedStatic<HopeContextHolder> holderMock = mockStatic(HopeContextHolder.class)) {
-            Customer mockCustomer = mock(Customer.class);
+            RadCustomer mockCustomer = mock(RadCustomer.class);
             when(mockCustomer.getId()).thenReturn(100L);
+            when(mockCustomer.getTenantId()).thenReturn(1L);
             holderMock.when(HopeContextHolder::customer).thenReturn(mockCustomer);
 
             CustomerEntity customer = new CustomerEntity()

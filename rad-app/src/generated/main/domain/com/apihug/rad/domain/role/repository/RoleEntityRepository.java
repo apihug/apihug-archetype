@@ -31,6 +31,7 @@ import hope.common.meta.annotation.Template;
 import org.springframework.data.jdbc.repository.query.Query;
 import org.springframework.data.relational.core.query.Criteria;
 import com.apihug.rad.infra.role.RoleStatusEnum;
+import static com.apihug.rad.domain.role.dsl.RoleEntityDSL.*;
 
 /**
  * JDBC repository for the RoleEntity entity.
@@ -84,15 +85,22 @@ public interface RoleEntityRepository extends HopeJdbc<RoleEntity>,
   @Query
   boolean existsByRoleCode(String roleCode);
 
+  // ========== Tenant-scoped query methods ==========
+
+  @Query
+  boolean existsByRoleCodeAndTenantId(String roleCode, Long tenantId);
+
   // ========== 搜索方法（使用 EasyCriteria） ==========
 
   @Query
   default Page<RoleEntity> searchRoles(
+      Long tenantId,
       String keyword,
       RoleStatusEnum status,
       hope.common.api.PageRequest pageParameter) {
     var pageable = page(pageParameter);
-    Criteria criteria = EasyCriteria.eq(_Deletable_.DELETED, false);
+    Criteria criteria = EasyCriteria.eq(_Tenantable_.TENANT_ID, tenantId)
+        .and(EasyCriteria.eq(_Deletable_.DELETED, false));
 
     if (keyword != null && !keyword.isBlank()) {
       criteria = criteria.and(

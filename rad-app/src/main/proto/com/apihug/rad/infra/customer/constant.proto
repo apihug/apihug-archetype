@@ -34,3 +34,29 @@ enum CustomerStatusEnum {
     message2: "禁用"
   }];
 }
+
+
+enum CustomerPlatformTypeEnum {
+  option (hope.swagger.enm) = {
+    description: "客户平台标志"
+  };
+
+
+  MEMBER = 0 [(hope.constant.field) = {
+    code: 1,
+    message: "platform member",
+    message2: "平台员工"
+  }];
+
+  MANAGER = 1 [(hope.constant.field) = {
+    code: 1,
+    message: "platform manager",
+    message2: "平台管理员"
+  }];
+
+  OWNER = 2 [(hope.constant.field) = {
+    code:2,
+    message: "platform owner",
+    message2: "平台拥有者"
+  }];
+}

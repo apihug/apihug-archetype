@@ -6,7 +6,6 @@ import java.lang.SuppressWarnings;
 
 import com.apihug.rad.domain.customer.CustomerEntity;
 import com.apihug.rad.domain.customer.repository.CustomerEntityRepository;
-import com.apihug.rad.domain.department.DepartmentEntity;
 import com.apihug.rad.domain.department.repository.DepartmentEntityRepository;
 import com.apihug.rad.domain.role.RoleEntity;
 import com.apihug.rad.domain.role.repository.RoleEntityRepository;
@@ -17,9 +16,8 @@ import com.apihug.rad.domain.tenant.repository.TenantMemberEntityRepository;
 import com.apihug.rad.domain.tenant.TenantEntity;
 import com.apihug.rad.domain.tenant.repository.TenantEntityRepository;
 import com.apihug.rad.infra.customer.CustomerErrorEnum;
-import com.apihug.rad.infra.customer.CustomerStatusEnum;
 import com.apihug.rad.infra.security.RadCustomer;
-import com.apihug.rad.infra.security.RadPermissionResolver;
+import com.apihug.rad.domain.security.CustomerPermissionResolver;
 import com.apihug.rad.infra.tenant.TenantMemberErrorEnum;
 import com.apihug.rad.infra.tenant.TenantMemberStatusEnum;
 import hope.common.api.exceptions.HopeErrorDetailException;
@@ -52,7 +50,7 @@ public class CustomerServiceImpl implements CustomerService {
   private final TenantMemberEntityRepository tenantMemberRepository;
   private final TenantEntityRepository tenantRepository;
   private final JwtCustomizer jwtCustomizer;
-  private final RadPermissionResolver permissionResolver;
+  private final CustomerPermissionResolver permissionResolver;
   private final MemberRoleEntityRepository memberRoleRepository;
   private final RoleEntityRepository roleRepository;
   private final DepartmentEntityRepository departmentRepository;
@@ -62,7 +60,7 @@ public class CustomerServiceImpl implements CustomerService {
       TenantMemberEntityRepository tenantMemberRepository,
       TenantEntityRepository tenantRepository,
       @org.springframework.context.annotation.Lazy JwtCustomizer jwtCustomizer,
-      RadPermissionResolver permissionResolver,
+      CustomerPermissionResolver permissionResolver,
       MemberRoleEntityRepository memberRoleRepository,
       RoleEntityRepository roleRepository,
       DepartmentEntityRepository departmentRepository) {

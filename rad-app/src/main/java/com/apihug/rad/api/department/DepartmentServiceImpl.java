@@ -4,7 +4,7 @@ package com.apihug.rad.api.department;
 import com.apihug.rad.domain.department.DepartmentEntity;
 import com.apihug.rad.domain.department.repository.DepartmentEntityRepository;
 import com.apihug.rad.infra.department.DeptStatusEnum;
-import hope.common.api.exceptions.HopeErrorDetailException;
+import com.apihug.rad.infra.security.RadCustomer;import hope.common.api.exceptions.HopeErrorDetailException;
 import hope.common.meta.annotation.Kind;
 import hope.common.meta.annotation.ProtoFrom;
 import hope.common.meta.annotation.Template;import hope.common.spring.SimpleResultBuilder;
@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-import org.springframework.stereotype.Service;
+import hope.common.spring.security.context.HopeContextHolder;import org.springframework.stereotype.Service;import org.springframework.transaction.annotation.Transactional;
 
 @Template(type = Template.Type.SERVICE, usage = "Department management", percentage = 90)
 @Service
@@ -37,10 +37,14 @@ public class DepartmentServiceImpl implements DepartmentService {
    * Create department
    */
   @Override
+  @Transactional
   public void createDepartment(SimpleResultBuilder<DepartmentSummary> builder,
       CreateDepartmentRequest createDepartmentRequest) {
-    // 验证部门代码唯一性
-    if (departmentRepository.existsByDeptCode(createDepartmentRequest.getDeptCode())) {
+
+      RadCustomer customer = HopeContextHolder.customer();
+      Long tenantId = customer.getTenantId();
+    // 验证部门代码唯一性（租户内唯一）
+    if (departmentRepository.existsByDeptCodeAndTenantId(createDepartmentRequest.getDeptCode(), tenantId)) {
       throw HopeErrorDetailException.errorBuilder(com.apihug.rad.infra.department.DepartmentErrorEnum.DEPT_CODE_EXISTS).build();
     }
 
@@ -74,7 +78,9 @@ public class DepartmentServiceImpl implements DepartmentService {
    */
   @Override
   public void getDepartment(SimpleResultBuilder<DepartmentDetail> builder, Integer departmentId) {
-    DepartmentEntity entity = departmentRepository.findById(departmentId.longValue())
+      RadCustomer customer = HopeContextHolder.customer();
+      Long tenantId = customer.getTenantId();
+    DepartmentEntity entity = departmentRepository.findByIdAndTenantId(departmentId.longValue(), tenantId)
         .orElseThrow(() -> HopeErrorDetailException.errorBuilder(com.apihug.rad.infra.department.DepartmentErrorEnum.DEPARTMENT_NOT_FOUND).build());
 
     DepartmentDetail detail = new DepartmentDetail()
@@ -94,9 +100,12 @@ public class DepartmentServiceImpl implements DepartmentService {
    * Update department
    */
   @Override
+  @Transactional
   public void updateDepartment(SimpleResultBuilder<String> builder, Integer departmentId,
       UpdateDepartmentRequest updateDepartmentRequest) {
-    DepartmentEntity entity = departmentRepository.findById(departmentId.longValue())
+      RadCustomer customer = HopeContextHolder.customer();
+      Long tenantId = customer.getTenantId();
+    DepartmentEntity entity = departmentRepository.findByIdAndTenantId(departmentId.longValue(), tenantId)
         .orElseThrow(() -> HopeErrorDetailException.errorBuilder(com.apihug.rad.infra.department.DepartmentErrorEnum.DEPARTMENT_NOT_FOUND).build());
 
     // 更新字段
@@ -121,11 +130,13 @@ public class DepartmentServiceImpl implements DepartmentService {
    */
   @Override
   public void deleteDepartment(SimpleResultBuilder<String> builder, Integer departmentId) {
-    DepartmentEntity entity = departmentRepository.findById(departmentId.longValue())
+      RadCustomer customer = HopeContextHolder.customer();
+      Long tenantId = customer.getTenantId();
+    DepartmentEntity entity = departmentRepository.findByIdAndTenantId(departmentId.longValue(), tenantId)
         .orElseThrow(() -> HopeErrorDetailException.errorBuilder(com.apihug.rad.infra.department.DepartmentErrorEnum.DEPARTMENT_NOT_FOUND).build());
 
-    // 检查是否有子部门
-    List<DepartmentEntity> children = departmentRepository.findByParentId(entity.getId());
+    // 检查是否有子部门（同租户内）
+    List<DepartmentEntity> children = departmentRepository.findByParentIdAndTenantId(entity.getId(), tenantId);
     if (!children.isEmpty()) {
       throw HopeErrorDetailException.errorBuilder(com.apihug.rad.infra.department.DepartmentErrorEnum.DEPARTMENT_HAS_CHILDREN).build();
     }
@@ -143,10 +154,10 @@ public class DepartmentServiceImpl implements DepartmentService {
    */
   @Override
   public void getDepartmentTree(SimpleResultBuilder<DepartmentTreeNode> builder) {
-    // 一次性加载所有部门，避免递归 N+1，过滤软删除记录
-    List<DepartmentEntity> allDepts = departmentRepository.findAll().stream()
-        .filter(d -> !Boolean.TRUE.equals(d.isDeleted()))
-        .collect(Collectors.toList());
+      RadCustomer customer = HopeContextHolder.customer();
+      Long tenantId = customer.getTenantId();
+    // 一次性加载当前租户所有未删除部门，避免递归 N+1
+    List<DepartmentEntity> allDepts = departmentRepository.findByTenantIdAndDeletedFalse(tenantId);
 
     // 按 parentId 分组
     Map<Long, List<DepartmentEntity>> childrenMap = allDepts.stream()

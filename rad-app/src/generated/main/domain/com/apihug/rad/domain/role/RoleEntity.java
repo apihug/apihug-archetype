@@ -16,8 +16,11 @@ import org.springframework.data.relational.core.mapping.Column;
 
 @Table(
     name = "SYS_ROLE",
-    indexes = @Index(name = "IDX_SYS_ROLE_ROLE_CODE", columnList = "ROLE_CODE"),
-    uniqueConstraints = @UniqueConstraint(name = "UK_SYS_ROLE_ROLE_CODE", columnNames = "ROLE_CODE")
+    indexes = {
+        @Index(name = "IDX_SYS_ROLE_ROLE_CODE", columnList = "ROLE_CODE"),
+        @Index(name = "IDX_SYS_ROLE_TENANT_ID", columnList = "TENANT_ID")
+    },
+    uniqueConstraints = @UniqueConstraint(name = "UK_SYS_ROLE_TENANT_ID_ROLE_CODE", columnNames = {"TENANT_ID", "ROLE_CODE"})
 )
 @org.springframework.data.relational.core.mapping.Table("SYS_ROLE")
 @Generated("H.O.P.E. Infra Team")

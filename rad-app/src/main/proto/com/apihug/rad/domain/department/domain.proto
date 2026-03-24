@@ -18,9 +18,13 @@ message DepartmentEntity {
       name: "IDX_SYS_DEPARTMENT_CODE",
       column_list: ["dept_code"]
     },
+    indexes: {
+      name: "IDX_SYS_DEPARTMENT_TENANT",
+      column_list: ["tenant_id"]
+    },
     unique_constraints: {
       name: "UK_SYS_DEPARTMENT_CODE",
-      column_list: ["dept_code"]
+      column_list: ["tenant_id", "dept_code"]
     }
   };
 

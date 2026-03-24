@@ -15,9 +15,13 @@ message RoleEntity {
       name: "IDX_SYS_ROLE_CODE",
       column_list: ["role_code"]
     },
+    indexes: {
+      name: "IDX_SYS_ROLE_TENANT",
+      column_list: ["tenant_id"]
+    },
     unique_constraints: {
       name: "UK_SYS_ROLE_CODE",
-      column_list: ["role_code"]
+      column_list: ["tenant_id", "role_code"]
     }
   };
 

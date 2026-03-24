@@ -4,14 +4,18 @@ import com.apihug.rad.domain.department.DepartmentEntity;
 import com.apihug.rad.domain.department.repository.DepartmentEntityRepository;
 import com.apihug.rad.infra.department.DeptStatusEnum;
 import com.apihug.rad.infra.department.DepartmentErrorEnum;
+import com.apihug.rad.infra.security.RadCustomer;
 import hope.common.api.exceptions.HopeErrorDetailException;
 import hope.common.spring.SimpleResultBuilder;
+import hope.common.spring.security.context.HopeContextHolder;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
+import org.mockito.MockedStatic;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Arrays;
@@ -42,10 +46,22 @@ class DepartmentServiceImplTest {
     private SimpleResultBuilder<DepartmentTreeNode> treeNodeBuilder;
 
     private DepartmentServiceImpl departmentService;
+    private MockedStatic<HopeContextHolder> holderMock;
+    private static final Long TEST_TENANT_ID = 1L;
 
     @BeforeEach
     void setUp() {
+        holderMock = mockStatic(HopeContextHolder.class);
+        RadCustomer mockCustomer = mock(RadCustomer.class);
+        lenient().when(mockCustomer.getTenantId()).thenReturn(TEST_TENANT_ID);
+        lenient().when(mockCustomer.getId()).thenReturn(100L);
+        holderMock.when(HopeContextHolder::customer).thenReturn(mockCustomer);
         departmentService = new DepartmentServiceImpl(departmentRepository);
+    }
+
+    @AfterEach
+    void tearDown() {
+        holderMock.close();
     }
 
     @Test
@@ -65,7 +81,7 @@ class DepartmentServiceImplTest {
             .setDeptName("研发部")
             .setStatus(DeptStatusEnum.ACTIVE);
 
-        when(departmentRepository.existsByDeptCode("tech_dev")).thenReturn(false);
+        when(departmentRepository.existsByDeptCodeAndTenantId("tech_dev", TEST_TENANT_ID)).thenReturn(false);
         when(departmentRepository.save(any(DepartmentEntity.class))).thenReturn(savedEntity);
 
         departmentService.createDepartment(summaryBuilder, request);
@@ -84,7 +100,7 @@ class DepartmentServiceImplTest {
             .setDeptCode("existing")
             .setDeptName("现有部门");
 
-        when(departmentRepository.existsByDeptCode("existing")).thenReturn(true);
+        when(departmentRepository.existsByDeptCodeAndTenantId("existing", TEST_TENANT_ID)).thenReturn(true);
 
         assertThrows(HopeErrorDetailException.class, () -> 
             departmentService.createDepartment(summaryBuilder, request));
@@ -100,7 +116,7 @@ class DepartmentServiceImplTest {
             .setDeptCode("tech_dev")
             .setDeptName("研发部");
 
-        when(departmentRepository.findById(1L)).thenReturn(Optional.of(entity));
+        when(departmentRepository.findByIdAndTenantId(1L, TEST_TENANT_ID)).thenReturn(Optional.of(entity));
 
         departmentService.getDepartment(detailBuilder, departmentId);
 
@@ -111,7 +127,7 @@ class DepartmentServiceImplTest {
     @DisplayName("获取部门详情 - 未找到")
     void testGetDepartment_NotFound() {
         Integer departmentId = 999;
-        when(departmentRepository.findById(999L)).thenReturn(Optional.empty());
+        when(departmentRepository.findByIdAndTenantId(999L, TEST_TENANT_ID)).thenReturn(Optional.empty());
 
         assertThrows(HopeErrorDetailException.class, () -> 
             departmentService.getDepartment(detailBuilder, departmentId));
@@ -127,7 +143,7 @@ class DepartmentServiceImplTest {
 
         DepartmentEntity existing = new DepartmentEntity().setId(1L);
 
-        when(departmentRepository.findById(1L)).thenReturn(Optional.of(existing));
+        when(departmentRepository.findByIdAndTenantId(1L, TEST_TENANT_ID)).thenReturn(Optional.of(existing));
         when(departmentRepository.save(any(DepartmentEntity.class))).thenReturn(existing);
 
         departmentService.updateDepartment(stringBuilder, departmentId, request);
@@ -139,7 +155,7 @@ class DepartmentServiceImplTest {
     @DisplayName("更新部门 - 未找到")
     void testUpdateDepartment_NotFound() {
         Integer departmentId = 999;
-        when(departmentRepository.findById(999L)).thenReturn(Optional.empty());
+        when(departmentRepository.findByIdAndTenantId(999L, TEST_TENANT_ID)).thenReturn(Optional.empty());
 
         assertThrows(HopeErrorDetailException.class, () -> 
             departmentService.updateDepartment(stringBuilder, departmentId, new UpdateDepartmentRequest()));
@@ -151,8 +167,8 @@ class DepartmentServiceImplTest {
         Integer departmentId = 1;
         DepartmentEntity entity = new DepartmentEntity().setId(1L);
 
-        when(departmentRepository.findById(1L)).thenReturn(Optional.of(entity));
-        when(departmentRepository.findByParentId(1L)).thenReturn(Arrays.asList());
+        when(departmentRepository.findByIdAndTenantId(1L, TEST_TENANT_ID)).thenReturn(Optional.of(entity));
+        when(departmentRepository.findByParentIdAndTenantId(1L, TEST_TENANT_ID)).thenReturn(Arrays.asList());
         when(departmentRepository.save(any(DepartmentEntity.class))).thenAnswer(invocation -> {
             DepartmentEntity e = invocation.getArgument(0);
             e.setDeleted(true);
@@ -171,8 +187,8 @@ class DepartmentServiceImplTest {
         DepartmentEntity entity = new DepartmentEntity().setId(1L);
         List<DepartmentEntity> children = Arrays.asList(new DepartmentEntity().setId(2L));
 
-        when(departmentRepository.findById(1L)).thenReturn(Optional.of(entity));
-        when(departmentRepository.findByParentId(1L)).thenReturn(children);
+        when(departmentRepository.findByIdAndTenantId(1L, TEST_TENANT_ID)).thenReturn(Optional.of(entity));
+        when(departmentRepository.findByParentIdAndTenantId(1L, TEST_TENANT_ID)).thenReturn(children);
 
         HopeErrorDetailException exception = assertThrows(HopeErrorDetailException.class, () -> 
             departmentService.deleteDepartment(stringBuilder, departmentId));
@@ -185,7 +201,7 @@ class DepartmentServiceImplTest {
     @DisplayName("删除部门 - 未找到")
     void testDeleteDepartment_NotFound() {
         Integer departmentId = 999;
-        when(departmentRepository.findById(999L)).thenReturn(Optional.empty());
+        when(departmentRepository.findByIdAndTenantId(999L, TEST_TENANT_ID)).thenReturn(Optional.empty());
 
         assertThrows(HopeErrorDetailException.class, () -> 
             departmentService.deleteDepartment(stringBuilder, departmentId));
@@ -199,22 +215,22 @@ class DepartmentServiceImplTest {
             new DepartmentEntity().setId(2L).setParentId(0L).setDeptCode("sales")
         );
 
-        when(departmentRepository.findAll()).thenReturn(allDepts);
+        when(departmentRepository.findByTenantIdAndDeletedFalse(TEST_TENANT_ID)).thenReturn(allDepts);
 
         departmentService.getDepartmentTree(treeNodeBuilder);
 
-        verify(departmentRepository).findAll();
+        verify(departmentRepository).findByTenantIdAndDeletedFalse(TEST_TENANT_ID);
         verify(treeNodeBuilder).payload(any(DepartmentTreeNode.class));
     }
 
     @Test
     @DisplayName("获取部门树 - 空树")
     void testGetDepartmentTree_Empty() {
-        when(departmentRepository.findAll()).thenReturn(Arrays.asList());
+        when(departmentRepository.findByTenantIdAndDeletedFalse(TEST_TENANT_ID)).thenReturn(Arrays.asList());
 
         departmentService.getDepartmentTree(treeNodeBuilder);
 
-        verify(departmentRepository).findAll();
+        verify(departmentRepository).findByTenantIdAndDeletedFalse(TEST_TENANT_ID);
         verify(treeNodeBuilder).payload(any(DepartmentTreeNode.class));
     }
 }

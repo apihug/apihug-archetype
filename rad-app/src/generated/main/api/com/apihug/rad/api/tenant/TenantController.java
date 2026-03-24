@@ -17,6 +17,7 @@ import hope.common.spring.aspect.AspectManager;
 import hope.common.spring.helper.PageRequestGuardian;
 import jakarta.validation.Valid;
 import java.lang.Integer;
+import java.lang.Long;
 import java.lang.String;
 import java.lang.System;
 import java.lang.Throwable;
@@ -58,6 +59,7 @@ public class TenantController {
    * Authorization:
    *
    * <ul>
+   * 	<li>PredefinedRoleCheckerType: PLATFORM</li>
    * 	<li>Authorities: [TENANT_CREATE]</li>
    * </ul>
    * @apiNote
@@ -90,7 +92,7 @@ public class TenantController {
    */
   @GetMapping("/api/tenants/tenants/{tenantId}")
   public ResponseEntity<Result<TenantDetail>> getTenant(
-      @PathVariable(name = "tenantId", required = true) Integer tenantId) {
+      @PathVariable(name = "tenantId", required = true) Long tenantId) {
     final SimpleResultBuilder<TenantDetail> builder = new SimpleResultBuilder<TenantDetail>();
     final Map<String, Object> _ctx = Map.of(Aspect.START_TIME, System.currentTimeMillis(), Aspect.CHANNEL, "API", "tenantId", tenantId);
     try {

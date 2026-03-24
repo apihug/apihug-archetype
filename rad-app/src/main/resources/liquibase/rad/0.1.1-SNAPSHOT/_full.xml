@@ -76,6 +76,9 @@
       <column name="STATUS" type="VARCHAR(12)" defaultValue="ACTIVE" remarks="状态">
         <constraints nullable="false"></constraints>
       </column>
+      <column name="PLATFORM_TYPE" type="VARCHAR(12)" defaultValue="UN_QUALIFY" remarks="平台账号标志">
+        <constraints nullable="false"></constraints>
+      </column>
       <column name="VERSION" type="BIGINT" defaultValueNumeric="0" remarks="Record version, optimistic lock">
         <constraints nullable="false"></constraints>
       </column>
@@ -158,12 +161,15 @@
       <column name="DELETED_BY" type="BIGINT" defaultValue="0" remarks="Record deleted by"></column>
       <column name="TENANT_ID" type="BIGINT" defaultValue="0" remarks="Record tenant ID"></column>
     </createTable>
-    <addUniqueConstraint columnNames="DEPT_CODE" constraintName="UK_SYS_DEPARTMENT_DEPT_CODE" tableName="SYS_DEPARTMENT"></addUniqueConstraint>
+    <addUniqueConstraint columnNames="TENANT_ID,DEPT_CODE" constraintName="UK_SYS_DEPARTMENT_TENANT_ID_DEPT_CODE" tableName="SYS_DEPARTMENT"></addUniqueConstraint>
     <createIndex tableName="SYS_DEPARTMENT" indexName="IDX_SYS_DEPARTMENT_PARENT_ID">
       <column name="PARENT_ID"></column>
     </createIndex>
     <createIndex tableName="SYS_DEPARTMENT" indexName="IDX_SYS_DEPARTMENT_DEPT_CODE">
       <column name="DEPT_CODE"></column>
+    </createIndex>
+    <createIndex tableName="SYS_DEPARTMENT" indexName="IDX_SYS_DEPARTMENT_TENANT_ID">
+      <column name="TENANT_ID"></column>
     </createIndex>
   </changeSet>
   <changeSet id="0.1.1-SNAPSHOT-1000000004" author="hope" context="auto" labels="0.1.1-SNAPSHOT">
@@ -204,12 +210,15 @@
       <column name="DELETED_BY" type="BIGINT" defaultValue="0" remarks="Record deleted by"></column>
       <column name="TENANT_ID" type="BIGINT" defaultValue="0" remarks="Record tenant ID"></column>
     </createTable>
-    <addUniqueConstraint columnNames="MENU_CODE" constraintName="UK_SYS_MENU_MENU_CODE" tableName="SYS_MENU"></addUniqueConstraint>
+    <addUniqueConstraint columnNames="TENANT_ID,MENU_CODE" constraintName="UK_SYS_MENU_TENANT_ID_MENU_CODE" tableName="SYS_MENU"></addUniqueConstraint>
     <createIndex tableName="SYS_MENU" indexName="IDX_SYS_MENU_PARENT_ID">
       <column name="PARENT_ID"></column>
     </createIndex>
     <createIndex tableName="SYS_MENU" indexName="IDX_SYS_MENU_MENU_CODE">
       <column name="MENU_CODE"></column>
+    </createIndex>
+    <createIndex tableName="SYS_MENU" indexName="IDX_SYS_MENU_TENANT_ID">
+      <column name="TENANT_ID"></column>
     </createIndex>
   </changeSet>
   <changeSet id="0.1.1-SNAPSHOT-1000000005" author="hope" context="auto" labels="0.1.1-SNAPSHOT">
@@ -239,9 +248,12 @@
       <column name="DELETED_BY" type="BIGINT" defaultValue="0" remarks="Record deleted by"></column>
       <column name="TENANT_ID" type="BIGINT" defaultValue="0" remarks="Record tenant ID"></column>
     </createTable>
-    <addUniqueConstraint columnNames="ROLE_CODE" constraintName="UK_SYS_ROLE_ROLE_CODE" tableName="SYS_ROLE"></addUniqueConstraint>
+    <addUniqueConstraint columnNames="TENANT_ID,ROLE_CODE" constraintName="UK_SYS_ROLE_TENANT_ID_ROLE_CODE" tableName="SYS_ROLE"></addUniqueConstraint>
     <createIndex tableName="SYS_ROLE" indexName="IDX_SYS_ROLE_ROLE_CODE">
       <column name="ROLE_CODE"></column>
+    </createIndex>
+    <createIndex tableName="SYS_ROLE" indexName="IDX_SYS_ROLE_TENANT_ID">
+      <column name="TENANT_ID"></column>
     </createIndex>
   </changeSet>
   <changeSet id="0.1.1-SNAPSHOT-1000000006" author="hope" context="auto" labels="0.1.1-SNAPSHOT">

@@ -1,6 +1,7 @@
 // @formatter:off
 package com.apihug.rad.domain.bootstrap.converter;
 
+import com.apihug.rad.domain.bootstrap.mixer.CustomerPlatformTypeEnumTitleList;
 import com.apihug.rad.domain.bootstrap.mixer.CustomerStatusEnumTitleList;
 import com.apihug.rad.domain.bootstrap.mixer.DeptStatusEnumTitleList;
 import com.apihug.rad.domain.bootstrap.mixer.MemberRoleEnumTitleList;
@@ -10,6 +11,7 @@ import com.apihug.rad.domain.bootstrap.mixer.MenuTypeEnumTitleList;
 import com.apihug.rad.domain.bootstrap.mixer.RoleStatusEnumTitleList;
 import com.apihug.rad.domain.bootstrap.mixer.TenantMemberStatusEnumTitleList;
 import com.apihug.rad.domain.bootstrap.mixer.TenantStatusEnumTitleList;
+import com.apihug.rad.infra.customer.CustomerPlatformTypeEnum;
 import com.apihug.rad.infra.customer.CustomerStatusEnum;
 import com.apihug.rad.infra.department.DeptStatusEnum;
 import com.apihug.rad.infra.menu.MenuStatusEnum;
@@ -33,6 +35,10 @@ import org.springframework.data.convert.WritingConverter;
 public abstract class RadConverters {
   public static List<Converter> getConvertersToRegister() {
     List<Converter> converters = new ArrayList<>();
+    converters.add(CustomerPlatformTypeEnumReaderTitleConverter.INSTANCE);
+    converters.add(CustomerPlatformTypeEnumTitleListReaderConverter.INSTANCE);
+    converters.add(CustomerPlatformTypeEnumTitleListWriterConverter.INSTANCE);
+    converters.add(CustomerPlatformTypeEnumWriterTitleConverter.INSTANCE);
     converters.add(CustomerStatusEnumReaderTitleConverter.INSTANCE);
     converters.add(CustomerStatusEnumTitleListReaderConverter.INSTANCE);
     converters.add(CustomerStatusEnumTitleListWriterConverter.INSTANCE);
@@ -70,6 +76,59 @@ public abstract class RadConverters {
     converters.add(TenantStatusEnumTitleListWriterConverter.INSTANCE);
     converters.add(TenantStatusEnumWriterTitleConverter.INSTANCE);
     return converters;
+  }
+
+  @ReadingConverter
+  public enum CustomerPlatformTypeEnumReaderTitleConverter implements Converter<String, CustomerPlatformTypeEnum> {
+    INSTANCE;
+
+    @Override
+    public CustomerPlatformTypeEnum convert(String source) {
+      return source == null ? CustomerPlatformTypeEnum.NA : CustomerPlatformTypeEnum.NA.mapFromName(source);
+    }
+  }
+
+  @ReadingConverter
+  public enum CustomerPlatformTypeEnumTitleListReaderConverter implements Converter<String, CustomerPlatformTypeEnumTitleList> {
+    INSTANCE;
+
+    @Override
+    public CustomerPlatformTypeEnumTitleList convert(String source) {
+      if (source == null || source.isBlank()) {
+        return CustomerPlatformTypeEnumTitleList.EMPTY;
+      }
+      final CustomerPlatformTypeEnumTitleList res = new CustomerPlatformTypeEnumTitleList();
+      for (final String each : source.split(",")) {
+        CustomerPlatformTypeEnum got = CustomerPlatformTypeEnum.NA.mapFromName(each);
+        if (CustomerPlatformTypeEnum.NA != got) {
+          res.add(got);
+        }
+      }
+      return res;
+    }
+  }
+
+  @WritingConverter
+  public enum CustomerPlatformTypeEnumTitleListWriterConverter implements Converter<CustomerPlatformTypeEnumTitleList, String> {
+    INSTANCE;
+
+    @Override
+    public String convert(CustomerPlatformTypeEnumTitleList source) {
+      if (source == null || source.isEmpty()) {
+        return null;
+      }
+      return source.stream().map(it -> it.name()).collect(Collectors.joining(","));
+    }
+  }
+
+  @WritingConverter
+  public enum CustomerPlatformTypeEnumWriterTitleConverter implements Converter<CustomerPlatformTypeEnum, String> {
+    INSTANCE;
+
+    @Override
+    public String convert(CustomerPlatformTypeEnum source) {
+      return source == null ? null : source.title();
+    }
   }
 
   @ReadingConverter

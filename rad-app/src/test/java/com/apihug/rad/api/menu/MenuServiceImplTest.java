@@ -4,14 +4,18 @@ import com.apihug.rad.domain.menu.MenuEntity;
 import com.apihug.rad.domain.menu.repository.MenuEntityRepository;
 import com.apihug.rad.infra.menu.MenuStatusEnum;
 import com.apihug.rad.infra.menu.MenuTypeEnum;
+import com.apihug.rad.infra.security.RadCustomer;
 import hope.common.api.exceptions.HopeErrorDetailException;
 import hope.common.spring.SimpleResultBuilder;
+import hope.common.spring.security.context.HopeContextHolder;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
+import org.mockito.MockedStatic;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Arrays;
@@ -42,10 +46,22 @@ class MenuServiceImplTest {
     private SimpleResultBuilder<MenuTreeNode> treeNodeBuilder;
 
     private MenuServiceImpl menuService;
+    private MockedStatic<HopeContextHolder> holderMock;
+    private static final Long TEST_TENANT_ID = 1L;
 
     @BeforeEach
     void setUp() {
+        holderMock = mockStatic(HopeContextHolder.class);
+        RadCustomer mockCustomer = mock(RadCustomer.class);
+        lenient().when(mockCustomer.getTenantId()).thenReturn(TEST_TENANT_ID);
+        lenient().when(mockCustomer.getId()).thenReturn(100L);
+        holderMock.when(HopeContextHolder::customer).thenReturn(mockCustomer);
         menuService = new MenuServiceImpl(menuRepository);
+    }
+
+    @AfterEach
+    void tearDown() {
+        holderMock.close();
     }
 
     @Test
@@ -68,7 +84,7 @@ class MenuServiceImplTest {
             .setMenuName("用户管理")
             .setStatus(MenuStatusEnum.ACTIVE);
 
-        when(menuRepository.existsByMenuCode("system_user")).thenReturn(false);
+        when(menuRepository.existsByMenuCodeAndTenantId("system_user", TEST_TENANT_ID)).thenReturn(false);
         when(menuRepository.save(any(MenuEntity.class))).thenReturn(savedEntity);
 
         menuService.createMenu(summaryBuilder, request);
@@ -87,7 +103,7 @@ class MenuServiceImplTest {
             .setMenuCode("existing")
             .setMenuName("现有菜单");
 
-        when(menuRepository.existsByMenuCode("existing")).thenReturn(true);
+        when(menuRepository.existsByMenuCodeAndTenantId("existing", TEST_TENANT_ID)).thenReturn(true);
 
         assertThrows(HopeErrorDetailException.class, () -> 
             menuService.createMenu(summaryBuilder, request));
@@ -103,7 +119,7 @@ class MenuServiceImplTest {
             .setMenuCode("system_user")
             .setMenuName("用户管理");
 
-        when(menuRepository.findById(1L)).thenReturn(Optional.of(entity));
+        when(menuRepository.findByIdAndTenantId(1L, TEST_TENANT_ID)).thenReturn(Optional.of(entity));
 
         menuService.getMenu(detailBuilder, menuId);
 
@@ -114,7 +130,7 @@ class MenuServiceImplTest {
     @DisplayName("获取菜单详情 - 未找到")
     void testGetMenu_NotFound() {
         Integer menuId = 999;
-        when(menuRepository.findById(999L)).thenReturn(Optional.empty());
+        when(menuRepository.findByIdAndTenantId(999L, TEST_TENANT_ID)).thenReturn(Optional.empty());
 
         assertThrows(HopeErrorDetailException.class, () -> 
             menuService.getMenu(detailBuilder, menuId));
@@ -130,7 +146,7 @@ class MenuServiceImplTest {
 
         MenuEntity existing = new MenuEntity().setId(1L);
 
-        when(menuRepository.findById(1L)).thenReturn(Optional.of(existing));
+        when(menuRepository.findByIdAndTenantId(1L, TEST_TENANT_ID)).thenReturn(Optional.of(existing));
         when(menuRepository.save(any(MenuEntity.class))).thenReturn(existing);
 
         menuService.updateMenu(stringBuilder, menuId, request);
@@ -142,7 +158,7 @@ class MenuServiceImplTest {
     @DisplayName("更新菜单 - 未找到")
     void testUpdateMenu_NotFound() {
         Integer menuId = 999;
-        when(menuRepository.findById(999L)).thenReturn(Optional.empty());
+        when(menuRepository.findByIdAndTenantId(999L, TEST_TENANT_ID)).thenReturn(Optional.empty());
 
         assertThrows(HopeErrorDetailException.class, () -> 
             menuService.updateMenu(stringBuilder, menuId, new UpdateMenuRequest()));
@@ -154,8 +170,8 @@ class MenuServiceImplTest {
         Integer menuId = 1;
         MenuEntity entity = new MenuEntity().setId(1L);
 
-        when(menuRepository.findById(1L)).thenReturn(Optional.of(entity));
-        when(menuRepository.findByParentId(1L)).thenReturn(Arrays.asList());
+        when(menuRepository.findByIdAndTenantId(1L, TEST_TENANT_ID)).thenReturn(Optional.of(entity));
+        when(menuRepository.findByParentIdAndTenantId(1L, TEST_TENANT_ID)).thenReturn(Arrays.asList());
         when(menuRepository.save(any(MenuEntity.class))).thenAnswer(invocation -> {
             MenuEntity e = invocation.getArgument(0);
             e.setDeleted(true);
@@ -174,8 +190,8 @@ class MenuServiceImplTest {
         MenuEntity entity = new MenuEntity().setId(1L);
         List<MenuEntity> children = Arrays.asList(new MenuEntity().setId(2L));
 
-        when(menuRepository.findById(1L)).thenReturn(Optional.of(entity));
-        when(menuRepository.findByParentId(1L)).thenReturn(children);
+        when(menuRepository.findByIdAndTenantId(1L, TEST_TENANT_ID)).thenReturn(Optional.of(entity));
+        when(menuRepository.findByParentIdAndTenantId(1L, TEST_TENANT_ID)).thenReturn(children);
 
         HopeErrorDetailException exception = assertThrows(HopeErrorDetailException.class, () -> 
             menuService.deleteMenu(stringBuilder, menuId));
@@ -188,7 +204,7 @@ class MenuServiceImplTest {
     @DisplayName("删除菜单 - 未找到")
     void testDeleteMenu_NotFound() {
         Integer menuId = 999;
-        when(menuRepository.findById(999L)).thenReturn(Optional.empty());
+        when(menuRepository.findByIdAndTenantId(999L, TEST_TENANT_ID)).thenReturn(Optional.empty());
 
         assertThrows(HopeErrorDetailException.class, () -> 
             menuService.deleteMenu(stringBuilder, menuId));
@@ -202,22 +218,22 @@ class MenuServiceImplTest {
             new MenuEntity().setId(2L).setParentId(0L).setMenuCode("business")
         );
 
-        when(menuRepository.findAll()).thenReturn(allMenus);
+        when(menuRepository.findByTenantIdAndDeletedFalse(TEST_TENANT_ID)).thenReturn(allMenus);
 
         menuService.getMenuTree(treeNodeBuilder);
 
-        verify(menuRepository).findAll();
+        verify(menuRepository).findByTenantIdAndDeletedFalse(TEST_TENANT_ID);
         verify(treeNodeBuilder).payload(any(MenuTreeNode.class));
     }
 
     @Test
     @DisplayName("获取菜单树 - 空树")
     void testGetMenuTree_Empty() {
-        when(menuRepository.findAll()).thenReturn(Arrays.asList());
+        when(menuRepository.findByTenantIdAndDeletedFalse(TEST_TENANT_ID)).thenReturn(Arrays.asList());
 
         menuService.getMenuTree(treeNodeBuilder);
 
-        verify(menuRepository).findAll();
+        verify(menuRepository).findByTenantIdAndDeletedFalse(TEST_TENANT_ID);
         verify(treeNodeBuilder).payload(any(MenuTreeNode.class));
     }
 

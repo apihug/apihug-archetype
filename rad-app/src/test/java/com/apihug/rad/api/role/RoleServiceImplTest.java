@@ -8,11 +8,15 @@ import com.apihug.rad.domain.role.repository.RoleEntityRepository;
 import com.apihug.rad.domain.role.repository.RoleMenuEntityRepository;
 import com.apihug.rad.infra.role.RoleErrorEnum;
 import com.apihug.rad.infra.role.RoleStatusEnum;
+import com.apihug.rad.infra.security.RadCustomer;
 import hope.common.api.exceptions.HopeErrorDetailException;
+import hope.common.spring.security.context.HopeContextHolder;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
+import org.mockito.MockedStatic;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -44,10 +48,22 @@ class RoleServiceImplTest {
     private hope.common.spring.SimpleResultBuilder<RoleMenuSummary> menuSummaryBuilder;
 
     private RoleServiceImpl roleService;
+    private MockedStatic<HopeContextHolder> holderMock;
+    private static final Long TEST_TENANT_ID = 1L;
 
     @BeforeEach
     void setUp() {
+        holderMock = mockStatic(HopeContextHolder.class);
+        RadCustomer mockCustomer = mock(RadCustomer.class);
+        lenient().when(mockCustomer.getTenantId()).thenReturn(TEST_TENANT_ID);
+        lenient().when(mockCustomer.getId()).thenReturn(100L);
+        holderMock.when(HopeContextHolder::customer).thenReturn(mockCustomer);
         roleService = new RoleServiceImpl(roleRepository, roleMenuRepository, menuRepository);
+    }
+
+    @AfterEach
+    void tearDown() {
+        holderMock.close();
     }
 
     @Test
@@ -65,7 +81,7 @@ class RoleServiceImplTest {
             .setRoleName("管理员")
             .setStatus(RoleStatusEnum.ACTIVE);
 
-        when(roleRepository.existsByRoleCode("admin")).thenReturn(false);
+        when(roleRepository.existsByRoleCodeAndTenantId("admin", TEST_TENANT_ID)).thenReturn(false);
         when(roleRepository.save(any(RoleEntity.class))).thenReturn(savedEntity);
 
         // Act
@@ -83,7 +99,7 @@ class RoleServiceImplTest {
             .setRoleCode("existing")
             .setRoleName("现有角色");
 
-        when(roleRepository.existsByRoleCode("existing")).thenReturn(true);
+        when(roleRepository.existsByRoleCodeAndTenantId("existing", TEST_TENANT_ID)).thenReturn(true);
 
         // Act & Assert
         assertThrows(HopeErrorDetailException.class, () -> {
@@ -101,7 +117,7 @@ class RoleServiceImplTest {
             .setRoleCode("admin")
             .setRoleName("管理员");
 
-        when(roleRepository.findById(1L)).thenReturn(java.util.Optional.of(entity));
+        when(roleRepository.findByIdAndTenantId(1L, TEST_TENANT_ID)).thenReturn(java.util.Optional.of(entity));
 
         // Act
         roleService.getRole(detailBuilder, roleId);
@@ -114,7 +130,7 @@ class RoleServiceImplTest {
     void testGetRole_NotFound() {
         // Arrange
         Integer roleId = 999;
-        when(roleRepository.findById(999L)).thenReturn(java.util.Optional.empty());
+        when(roleRepository.findByIdAndTenantId(999L, TEST_TENANT_ID)).thenReturn(java.util.Optional.empty());
 
         // Act & Assert
         assertThrows(HopeErrorDetailException.class, () -> {
@@ -135,7 +151,7 @@ class RoleServiceImplTest {
             .setRoleCode("admin")
             .setRoleName("管理员");
 
-        when(roleRepository.findById(1L)).thenReturn(java.util.Optional.of(existing));
+        when(roleRepository.findByIdAndTenantId(1L, TEST_TENANT_ID)).thenReturn(java.util.Optional.of(existing));
         when(roleRepository.save(any(RoleEntity.class))).thenReturn(existing);
 
         // Act
@@ -151,7 +167,7 @@ class RoleServiceImplTest {
         Integer roleId = 999;
         UpdateRoleRequest request = new UpdateRoleRequest();
 
-        when(roleRepository.findById(999L)).thenReturn(java.util.Optional.empty());
+        when(roleRepository.findByIdAndTenantId(999L, TEST_TENANT_ID)).thenReturn(java.util.Optional.empty());
 
         // Act & Assert
         assertThrows(HopeErrorDetailException.class, () -> {
@@ -167,7 +183,7 @@ class RoleServiceImplTest {
             .setId(1L)
             .setRoleCode("admin");
 
-        when(roleRepository.findById(1L)).thenReturn(java.util.Optional.of(entity));
+        when(roleRepository.findByIdAndTenantId(1L, TEST_TENANT_ID)).thenReturn(java.util.Optional.of(entity));
         when(roleRepository.save(any(RoleEntity.class))).thenReturn(entity);
 
         // Act
@@ -182,7 +198,7 @@ class RoleServiceImplTest {
     void testDeleteRole_NotFound() {
         // Arrange
         Integer roleId = 999;
-        when(roleRepository.findById(999L)).thenReturn(java.util.Optional.empty());
+        when(roleRepository.findByIdAndTenantId(999L, TEST_TENANT_ID)).thenReturn(java.util.Optional.empty());
 
         // Act & Assert
         assertThrows(HopeErrorDetailException.class, () -> {
@@ -198,7 +214,7 @@ class RoleServiceImplTest {
             .setMenuIds(java.util.Arrays.asList(1L, 2L));
 
         RoleEntity role = new RoleEntity().setId(1L).setRoleCode("admin");
-        when(roleRepository.findById(1L)).thenReturn(java.util.Optional.of(role));
+        when(roleRepository.findByIdAndTenantId(1L, TEST_TENANT_ID)).thenReturn(java.util.Optional.of(role));
 
         // Act
         roleService.assignMenusToRole(stringBuilder, roleId, request);
@@ -215,7 +231,7 @@ class RoleServiceImplTest {
         Integer menuId = 1;
 
         RoleEntity role = new RoleEntity().setId(1L).setRoleCode("admin");
-        when(roleRepository.findById(1L)).thenReturn(java.util.Optional.of(role));
+        when(roleRepository.findByIdAndTenantId(1L, TEST_TENANT_ID)).thenReturn(java.util.Optional.of(role));
 
         // Act
         roleService.removeMenuFromRole(stringBuilder, roleId, menuId);
@@ -230,7 +246,7 @@ class RoleServiceImplTest {
         Integer roleId = 1;
 
         RoleEntity role = new RoleEntity().setId(1L).setRoleCode("admin");
-        when(roleRepository.findById(1L)).thenReturn(java.util.Optional.of(role));
+        when(roleRepository.findByIdAndTenantId(1L, TEST_TENANT_ID)).thenReturn(java.util.Optional.of(role));
 
         RoleMenuEntity rm = new RoleMenuEntity().setRoleId(1L).setMenuId(10L);
         when(roleMenuRepository.findByRoleId(1L)).thenReturn(java.util.Arrays.asList(rm));

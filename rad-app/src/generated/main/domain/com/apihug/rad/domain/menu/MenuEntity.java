@@ -20,9 +20,10 @@ import org.springframework.data.relational.core.mapping.Column;
     name = "SYS_MENU",
     indexes = {
         @Index(name = "IDX_SYS_MENU_PARENT_ID", columnList = "PARENT_ID"),
-        @Index(name = "IDX_SYS_MENU_MENU_CODE", columnList = "MENU_CODE")
+        @Index(name = "IDX_SYS_MENU_MENU_CODE", columnList = "MENU_CODE"),
+        @Index(name = "IDX_SYS_MENU_TENANT_ID", columnList = "TENANT_ID")
     },
-    uniqueConstraints = @UniqueConstraint(name = "UK_SYS_MENU_MENU_CODE", columnNames = "MENU_CODE")
+    uniqueConstraints = @UniqueConstraint(name = "UK_SYS_MENU_TENANT_ID_MENU_CODE", columnNames = {"TENANT_ID", "MENU_CODE"})
 )
 @org.springframework.data.relational.core.mapping.Table("SYS_MENU")
 @Generated("H.O.P.E. Infra Team")

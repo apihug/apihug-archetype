@@ -570,6 +570,30 @@
           "plural" : false,
           "enumColumn" : true,
           "id" : false
+        },
+        "platformType" : {
+          "deprecated" : false,
+          "fieldName" : "platformType",
+          "name" : "PLATFORM_TYPE",
+          "protoName" : "platform_type",
+          "manually" : true,
+          "clz" : "com.apihug.rad.infra.customer.CustomerPlatformTypeEnum",
+          "description" : "平台账号标志",
+          "unique" : false,
+          "nullable" : false,
+          "insertable" : true,
+          "updatable" : true,
+          "searchable" : false,
+          "sortable" : false,
+          "length" : 12,
+          "enumType" : "STRING",
+          "defaultValue" : "UN_QUALIFY",
+          "type" : "VARCHAR",
+          "protoLine" : 0,
+          "protoColumn" : 3,
+          "plural" : false,
+          "enumColumn" : true,
+          "id" : false
         }
       }
     },
@@ -700,8 +724,8 @@
       "manually" : true,
       "description" : "部门表",
       "uniqueConstraints" : [ {
-        "name" : "UK_SYS_DEPARTMENT_DEPT_CODE",
-        "columnList" : [ "DEPT_CODE" ]
+        "name" : "UK_SYS_DEPARTMENT_TENANT_ID_DEPT_CODE",
+        "columnList" : [ "TENANT_ID", "DEPT_CODE" ]
       } ],
       "indexes" : [ {
         "name" : "IDX_SYS_DEPARTMENT_PARENT_ID",
@@ -710,6 +734,10 @@
       }, {
         "name" : "IDX_SYS_DEPARTMENT_DEPT_CODE",
         "columnList" : [ "DEPT_CODE" ],
+        "unique" : false
+      }, {
+        "name" : "IDX_SYS_DEPARTMENT_TENANT_ID",
+        "columnList" : [ "TENANT_ID" ],
         "unique" : false
       } ],
       "protoFrom" : "com/apihug/rad/domain/department/domain.proto",
@@ -868,8 +896,8 @@
       "manually" : true,
       "description" : "菜单表",
       "uniqueConstraints" : [ {
-        "name" : "UK_SYS_MENU_MENU_CODE",
-        "columnList" : [ "MENU_CODE" ]
+        "name" : "UK_SYS_MENU_TENANT_ID_MENU_CODE",
+        "columnList" : [ "TENANT_ID", "MENU_CODE" ]
       } ],
       "indexes" : [ {
         "name" : "IDX_SYS_MENU_PARENT_ID",
@@ -878,6 +906,10 @@
       }, {
         "name" : "IDX_SYS_MENU_MENU_CODE",
         "columnList" : [ "MENU_CODE" ],
+        "unique" : false
+      }, {
+        "name" : "IDX_SYS_MENU_TENANT_ID",
+        "columnList" : [ "TENANT_ID" ],
         "unique" : false
       } ],
       "protoFrom" : "com/apihug/rad/domain/menu/domain.proto",
@@ -1106,12 +1138,16 @@
       "manually" : true,
       "description" : "角色表",
       "uniqueConstraints" : [ {
-        "name" : "UK_SYS_ROLE_ROLE_CODE",
-        "columnList" : [ "ROLE_CODE" ]
+        "name" : "UK_SYS_ROLE_TENANT_ID_ROLE_CODE",
+        "columnList" : [ "TENANT_ID", "ROLE_CODE" ]
       } ],
       "indexes" : [ {
         "name" : "IDX_SYS_ROLE_ROLE_CODE",
         "columnList" : [ "ROLE_CODE" ],
+        "unique" : false
+      }, {
+        "name" : "IDX_SYS_ROLE_TENANT_ID",
+        "columnList" : [ "TENANT_ID" ],
         "unique" : false
       } ],
       "protoFrom" : "com/apihug/rad/domain/role/domain.proto",

@@ -2,6 +2,7 @@
 package com.apihug.rad.domain.bootstrap.mybatis;
 
 import com.apihug.rad.domain.audit.dsl.AccessLogEntityDSL;
+import com.apihug.rad.domain.bootstrap.mybatis.type.CustomerPlatformTypeEnumTitleTypeHandler;
 import com.apihug.rad.domain.bootstrap.mybatis.type.CustomerStatusEnumTitleTypeHandler;
 import com.apihug.rad.domain.bootstrap.mybatis.type.DeptStatusEnumTitleTypeHandler;
 import com.apihug.rad.domain.bootstrap.mybatis.type.MemberRoleEnumTitleTypeHandler;
@@ -20,6 +21,7 @@ import com.apihug.rad.domain.role.dsl.RoleMenuEntityDSL;
 import com.apihug.rad.domain.tenant.dsl.MemberRoleEntityDSL;
 import com.apihug.rad.domain.tenant.dsl.TenantEntityDSL;
 import com.apihug.rad.domain.tenant.dsl.TenantMemberEntityDSL;
+import com.apihug.rad.infra.customer.CustomerPlatformTypeEnum;
 import com.apihug.rad.infra.customer.CustomerStatusEnum;
 import com.apihug.rad.infra.department.DeptStatusEnum;
 import com.apihug.rad.infra.menu.MenuStatusEnum;
@@ -213,6 +215,8 @@ public interface RadDatabase {
 
     public final SqlColumn<CustomerStatusEnum> Status = AnalystHelper.mapper(CustomerEntityDSL.Domain.Status, this, "com.apihug.rad.domain.bootstrap.mybatis.type.CustomerStatusEnumTitleTypeHandler", CustomerStatusEnumTitleTypeHandler.PTC);
 
+    public final SqlColumn<CustomerPlatformTypeEnum> PlatformType = AnalystHelper.mapper(CustomerEntityDSL.Domain.PlatformType, this, "com.apihug.rad.domain.bootstrap.mybatis.type.CustomerPlatformTypeEnumTitleTypeHandler", CustomerPlatformTypeEnumTitleTypeHandler.PTC);
+
     public final SqlColumn<Long> Id = AnalystHelper.mapper(CustomerEntityDSL.Domain.Id, this);
 
     public final SqlColumn<LocalDateTime> CreatedAt = AnalystHelper.mapper(CustomerEntityDSL.Domain.CreatedAt, this);
@@ -284,6 +288,7 @@ public interface RadDatabase {
           res.add(PasswordHash);
           res.add(Email);
           res.add(Status);
+          res.add(PlatformType);
         }
         if(kind.auditIncluded()) {
           res.add(CreatedAt);

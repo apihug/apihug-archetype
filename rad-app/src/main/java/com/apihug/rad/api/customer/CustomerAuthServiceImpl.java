@@ -7,7 +7,7 @@ import com.apihug.rad.infra.auth.AuthErrorEnum;
 import com.apihug.rad.infra.beans.PasswordEncoder;
 import com.apihug.rad.infra.customer.CustomerStatusEnum;
 import com.apihug.rad.infra.security.RadCustomer;
-import com.apihug.rad.infra.security.RadPermissionResolver;
+import com.apihug.rad.domain.security.CustomerPermissionResolver;
 import hope.common.api.exceptions.HopeErrorDetailException;
 import hope.common.meta.annotation.Kind;
 import hope.common.meta.annotation.ProtoFrom;
@@ -36,13 +36,13 @@ public class CustomerAuthServiceImpl implements CustomerAuthService {
   private final CustomerEntityRepository customerRepository;
   private final JwtCustomizer jwtCustomizer;
   private final PasswordEncoder passwordEncoder;
-  private final RadPermissionResolver permissionResolver;
+  private final CustomerPermissionResolver permissionResolver;
 
   public CustomerAuthServiceImpl(
       CustomerEntityRepository customerRepository,
       @org.springframework.context.annotation.Lazy JwtCustomizer jwtCustomizer,
       PasswordEncoder passwordEncoder,
-      RadPermissionResolver permissionResolver) {
+      CustomerPermissionResolver permissionResolver) {
     this.customerRepository = customerRepository;
     this.jwtCustomizer = jwtCustomizer;
     this.passwordEncoder = passwordEncoder;

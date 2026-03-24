@@ -4,7 +4,7 @@ import com.apihug.rad.domain.customer.CustomerEntity;
 import com.apihug.rad.domain.customer.repository.CustomerEntityRepository;
 import com.apihug.rad.infra.beans.PasswordEncoder;
 import com.apihug.rad.infra.customer.CustomerStatusEnum;
-import com.apihug.rad.infra.security.RadPermissionResolver;
+import com.apihug.rad.domain.security.CustomerPermissionResolver;
 import hope.common.api.exceptions.HopeErrorDetailException;
 import hope.common.spring.SimpleResultBuilder;
 import hope.common.spring.security.JwtCustomizer;
@@ -37,7 +37,7 @@ class CustomerAuthServiceImplTest {
     private PasswordEncoder passwordEncoder;
 
     @Mock
-    private RadPermissionResolver permissionResolver;
+    private CustomerPermissionResolver permissionResolver;
 
     @Mock
     private SimpleResultBuilder<LoginResponse> loginBuilder;

@@ -80,21 +80,33 @@ public interface DepartmentEntityRepository extends HopeJdbc<DepartmentEntity>,
 
 
   @Query
-  java.util.Optional<DepartmentEntity> findByDeptCode(String deptCode);
+  Optional<DepartmentEntity> findByDeptCode(String deptCode);
 
   @Query
   boolean existsByDeptCode(String deptCode);
 
   @Query
-  java.util.List<DepartmentEntity> findByParentId(Long parentId);
+  List<DepartmentEntity> findByParentId(Long parentId);
+
+  // ========== Tenant-scoped query methods ==========
+
+  @Query
+  boolean existsByDeptCodeAndTenantId(String deptCode, Long tenantId);
+
+  @Query
+  List<DepartmentEntity> findByParentIdAndTenantId(Long parentId, Long tenantId);
+
+  @Query
+  List<DepartmentEntity> findByTenantIdAndDeletedFalse(Long tenantId);
 
   /**
-   * Search departments with pagination
+   * Search departments with pagination (tenant-scoped)
    */
   default Page<DepartmentEntity> searchDepartments(
-      String keyword, DeptStatusEnum status, hope.common.api.PageRequest pageParameter) {
+      Long tenantId, String keyword, DeptStatusEnum status, hope.common.api.PageRequest pageParameter) {
     var pageable = page(pageParameter);
-    Criteria criteria = EasyCriteria.eq(_Deletable_.DELETED, false);
+    Criteria criteria = EasyCriteria.eq(_Tenantable_.TENANT_ID, tenantId)
+        .and(EasyCriteria.eq(_Deletable_.DELETED, false));
 
     if (keyword != null && !keyword.isBlank()) {
       criteria = criteria.and(

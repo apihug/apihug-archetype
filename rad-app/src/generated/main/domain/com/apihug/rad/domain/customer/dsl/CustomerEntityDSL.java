@@ -2,6 +2,7 @@
 package com.apihug.rad.domain.customer.dsl;
 
 import com.apihug.rad.domain.customer.CustomerEntity;
+import com.apihug.rad.infra.customer.CustomerPlatformTypeEnum;
 import com.apihug.rad.infra.customer.CustomerStatusEnum;
 import hope.common.persistence.Column;
 import hope.common.persistence.EnumType;
@@ -97,6 +98,7 @@ public interface CustomerEntityDSL extends DSL<CustomerEntity> {
     carrier[beginIndex + 2] = entity.getPasswordHash();
     carrier[beginIndex + 3] = entity.getEmail();
     carrier[beginIndex + 4] = entity.getStatus().name();
+    carrier[beginIndex + 5] = entity.getPlatformType().name();
     return carrier;
   }
 
@@ -260,6 +262,7 @@ public interface CustomerEntityDSL extends DSL<CustomerEntity> {
     	Map.entry("PASSWORDHASH", Domain.PasswordHash),
     	Map.entry("EMAIL", Domain.Email),
     	Map.entry("STATUS", Domain.Status),
+    	Map.entry("PLATFORMTYPE", Domain.PlatformType),
     	// Auditable,
     	Map.entry("CREATED_AT", _Auditable_.CREATED_AT),
     	Map.entry("CREATED_BY", _Auditable_.CREATED_BY),
@@ -339,7 +342,19 @@ public interface CustomerEntityDSL extends DSL<CustomerEntity> {
     		.setEnumType(EnumType.STRING)
     		.setDefaultValue("STATUS"));
 
-    List<ColumnMix> ALL = List.of(DefaultTenantId, Username, PasswordHash, Email, Status);
+    ColumnMix PlatformType = ColumnMix.of(table, 
+    	new Column().setFieldName("platformType")
+    		.setName("PLATFORM_TYPE")
+    		.setClz("com.apihug.rad.infra.customer.CustomerPlatformTypeEnum")
+    		.setType(Types.VARCHAR)
+    		.setDescription("平台账号标志")
+    		.setUpdatable(true)
+    		.setInsertable(true)
+    		.setLength(12)
+    		.setEnumType(EnumType.STRING)
+    		.setDefaultValue("PLATFORM_TYPE"));
+
+    List<ColumnMix> ALL = List.of(DefaultTenantId, Username, PasswordHash, Email, Status, PlatformType);
 
     ColumnMix Id = _Identifiable_.ID;
 
@@ -370,6 +385,7 @@ public interface CustomerEntityDSL extends DSL<CustomerEntity> {
     ps.setString(3, entity.getPasswordHash());
     ps.setString(4, entity.getEmail());
     ps.setString(5, entity.getStatus().name());
+    ps.setString(6, entity.getPlatformType().name());
     };
 
     RowMapper<CustomerEntity> MAPPER = new RowMapper() {
@@ -382,29 +398,30 @@ public interface CustomerEntityDSL extends DSL<CustomerEntity> {
         entity.setPasswordHash(rs.getString(4));
         entity.setEmail(rs.getString(5));
         entity.setStatus(CustomerStatusEnum.NA.mapFromName(rs.getString(6)));
-        Timestamp _7 = rs.getTimestamp(7);
-        if (_7 != null) {
-          entity.setCreatedAt(_7.toLocalDateTime());
+        entity.setPlatformType(CustomerPlatformTypeEnum.NA.mapFromName(rs.getString(7)));
+        Timestamp _8 = rs.getTimestamp(8);
+        if (_8 != null) {
+          entity.setCreatedAt(_8.toLocalDateTime());
         }
-        entity.setCreatedBy(rs.getLong(8));
-        Timestamp _9 = rs.getTimestamp(9);
-        if (_9 != null) {
-          entity.setUpdatedAt(_9.toLocalDateTime());
+        entity.setCreatedBy(rs.getLong(9));
+        Timestamp _10 = rs.getTimestamp(10);
+        if (_10 != null) {
+          entity.setUpdatedAt(_10.toLocalDateTime());
         }
-        entity.setUpdatedBy(rs.getLong(10));
-        Boolean _11 = rs.getBoolean(11);
-        if (_11 != null) {
-        entity.setDeleted(_11);
+        entity.setUpdatedBy(rs.getLong(11));
+        Boolean _12 = rs.getBoolean(12);
+        if (_12 != null) {
+        entity.setDeleted(_12);
         } else {
         entity.setDeleted(false);
         }
-        Timestamp _12 = rs.getTimestamp(12);
-        if (_12 != null) {
-          entity.setDeletedAt(_12.toLocalDateTime());
+        Timestamp _13 = rs.getTimestamp(13);
+        if (_13 != null) {
+          entity.setDeletedAt(_13.toLocalDateTime());
         }
-        entity.setDeletedBy(rs.getLong(13));
-        entity.setVersion(rs.getLong(14));
-        entity.setTenantId(rs.getLong(15));
+        entity.setDeletedBy(rs.getLong(14));
+        entity.setVersion(rs.getLong(15));
+        entity.setTenantId(rs.getLong(16));
         return entity;
       }
     };

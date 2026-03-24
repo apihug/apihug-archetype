@@ -16,7 +16,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-import org.springframework.data.domain.Page;
+import hope.common.spring.security.context.HopeContextHolder;
+import com.apihug.rad.infra.security.RadCustomer;import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 @Template(type = Template.Type.SERVICE, usage = "Platform menu management", percentage = 90)
@@ -43,14 +44,16 @@ public class MenuServiceImpl implements MenuService {
   @Override
   public void createMenu(SimpleResultBuilder<MenuSummary> builder,
       CreateMenuRequest createMenuRequest) {
-    // 验证菜单代码唯一性
-    if (menuRepository.existsByMenuCode(createMenuRequest.getMenuCode())) {
+    RadCustomer customer = HopeContextHolder.customer();
+    Long tenantId = customer.getTenantId();
+    // 验证菜单代码唯一性（租户内唯一）
+    if (menuRepository.existsByMenuCodeAndTenantId(createMenuRequest.getMenuCode(), tenantId)) {
       throw HopeErrorDetailException.errorBuilder(MenuErrorEnum.MENU_CODE_EXISTS).build();
     }
 
-    // 验证父菜单（如果 parent_id != 0）
+    // 验证父菜单（如果 parent_id != 0，必须属于同一租户）
     if (createMenuRequest.getParentId() != 0) {
-      menuRepository.findById(createMenuRequest.getParentId())
+      menuRepository.findByIdAndTenantId(createMenuRequest.getParentId(), tenantId)
           .orElseThrow(() -> HopeErrorDetailException.errorBuilder(MenuErrorEnum.INVALID_PARENT_MENU).build());
     }
 
@@ -89,7 +92,9 @@ public class MenuServiceImpl implements MenuService {
    */
   @Override
   public void getMenu(SimpleResultBuilder<MenuDetail> builder, Integer menuId) {
-    MenuEntity entity = menuRepository.findById(menuId.longValue())
+    RadCustomer customer = HopeContextHolder.customer();
+    Long tenantId = customer.getTenantId();
+    MenuEntity entity = menuRepository.findByIdAndTenantId(menuId.longValue(), tenantId)
         .orElseThrow(() -> HopeErrorDetailException.errorBuilder(MenuErrorEnum.MENU_NOT_FOUND).build());
 
     MenuDetail detail = buildMenuDetail(entity);
@@ -102,7 +107,9 @@ public class MenuServiceImpl implements MenuService {
   @Override
   public void updateMenu(SimpleResultBuilder<String> builder, Integer menuId,
       UpdateMenuRequest updateMenuRequest) {
-    MenuEntity entity = menuRepository.findById(menuId.longValue())
+    RadCustomer customer = HopeContextHolder.customer();
+    Long tenantId = customer.getTenantId();
+    MenuEntity entity = menuRepository.findByIdAndTenantId(menuId.longValue(), tenantId)
         .orElseThrow(() -> HopeErrorDetailException.errorBuilder(MenuErrorEnum.MENU_NOT_FOUND).build());
 
     // 更新字段
@@ -136,11 +143,13 @@ public class MenuServiceImpl implements MenuService {
    */
   @Override
   public void deleteMenu(SimpleResultBuilder<String> builder, Integer menuId) {
-    MenuEntity entity = menuRepository.findById(menuId.longValue())
+    RadCustomer customer = HopeContextHolder.customer();
+    Long tenantId = customer.getTenantId();
+    MenuEntity entity = menuRepository.findByIdAndTenantId(menuId.longValue(), tenantId)
         .orElseThrow(() -> HopeErrorDetailException.errorBuilder(MenuErrorEnum.MENU_NOT_FOUND).build());
 
-    // 检查是否有子菜单
-    List<MenuEntity> children = menuRepository.findByParentId(entity.getId());
+    // 检查是否有子菜单（同租户内）
+    List<MenuEntity> children = menuRepository.findByParentIdAndTenantId(entity.getId(), tenantId);
     if (!children.isEmpty()) {
       throw HopeErrorDetailException.errorBuilder(MenuErrorEnum.MENU_HAS_CHILDREN).build();
     }
@@ -158,10 +167,10 @@ public class MenuServiceImpl implements MenuService {
    */
   @Override
   public void getMenuTree(SimpleResultBuilder<MenuTreeNode> builder) {
-    // 一次性加载所有菜单，避免递归 N+1，过滤软删除记录
-    List<MenuEntity> allMenus = menuRepository.findAll().stream()
-        .filter(m -> !Boolean.TRUE.equals(m.isDeleted()))
-        .collect(Collectors.toList());
+    RadCustomer customer = HopeContextHolder.customer();
+    Long tenantId = customer.getTenantId();
+    // 一次性加载当前租户所有未删除菜单，避免递归 N+1
+    List<MenuEntity> allMenus = menuRepository.findByTenantIdAndDeletedFalse(tenantId);
 
     // 按 parentId 分组
     Map<Long, List<MenuEntity>> childrenMap = allMenus.stream()
@@ -179,8 +188,11 @@ public class MenuServiceImpl implements MenuService {
   @Override
   public void searchMenus(PageableResultBuilder<MenuSummary> builder,
       SearchMenusRequest searchMenusRequest, PageRequest pageParameter) {
+    RadCustomer customer = HopeContextHolder.customer();
+    Long tenantId = customer.getTenantId();
     Page<MenuEntity> page =
         menuRepository.searchMenus(
+            tenantId,
             searchMenusRequest.getKeyword(),
             searchMenusRequest.getMenuType(),
             searchMenusRequest.getStatus(),

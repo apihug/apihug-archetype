@@ -23,6 +23,8 @@ service TenantService {
       authorization: {
         rbac: {
           authorities: ["TENANT_CREATE"];
+          combinator: AND
+          predefined_role_checker: PLATFORM
         }
       };
     };
@@ -42,7 +44,7 @@ service TenantService {
           name: "tenantId";
           in: PATH;
           schema: {
-            format: INTEGER;
+            format: LONG;
             empty: false;
           };
         };

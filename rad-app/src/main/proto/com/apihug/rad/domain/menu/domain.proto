@@ -19,9 +19,13 @@ message MenuEntity {
       name: "IDX_SYS_MENU_CODE",
       column_list: ["menu_code"]
     },
+    indexes: {
+      name: "IDX_SYS_MENU_TENANT",
+      column_list: ["tenant_id"]
+    },
     unique_constraints: {
       name: "UK_SYS_MENU_CODE",
-      column_list: ["menu_code"]
+      column_list: ["tenant_id", "menu_code"]
     }
   };
 

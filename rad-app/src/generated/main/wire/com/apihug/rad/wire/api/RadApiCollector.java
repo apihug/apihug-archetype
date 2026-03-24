@@ -1597,6 +1597,8 @@ public final class RadApiCollector implements Collector {
             RBAC rbac = new RBAC();
             rbac.setAuthorityClz("com.apihug.rad.infra.settings.RadAuthorityEnum");
             rbac.setAuthorities(Arrays.asList("TENANT_CREATE"));
+            rbac.setPredefinedRoleChecker(RBAC.PredefinedRoleCheckerType.PLATFORM);
+            rbac.setCombinator(RBAC.Combinator.AND);
             res.setRbac(rbac);
             return res;
           }
@@ -1609,7 +1611,7 @@ public final class RadApiCollector implements Collector {
     res.addItem(_CreateTenant);
     var _GetTenant = new ServiceMethod();
     _GetTenant.setName("GetTenant");
-    _GetTenant.setProtoLine(31);
+    _GetTenant.setProtoLine(33);
     _GetTenant.setProtoColumn(3);
     _GetTenant.setRequestRef("hope.common.adaptor.Empty");
     _GetTenant.setResponseRef("com.apihug.rad.api.tenant.TenantDetail");
@@ -1631,7 +1633,7 @@ public final class RadApiCollector implements Collector {
               public JSONSchema get() {
                 JSONSchema res  = new JSONSchema();
                 res.setEmpty(false);
-                res.setFormat(JSONSchema.JSONSchemaFormat.INTEGER);
+                res.setFormat(JSONSchema.JSONSchemaFormat.LONG);
                 return res;
               }
             }.get());
@@ -1655,7 +1657,7 @@ public final class RadApiCollector implements Collector {
     res.addItem(_GetTenant);
     var _UpdateTenant = new ServiceMethod();
     _UpdateTenant.setName("UpdateTenant");
-    _UpdateTenant.setProtoLine(53);
+    _UpdateTenant.setProtoLine(55);
     _UpdateTenant.setProtoColumn(3);
     _UpdateTenant.setRequestRef("com.apihug.rad.api.tenant.UpdateTenantRequest");
     _UpdateTenant.setResponseRef("hope.common.adaptor.Empty");
@@ -1704,7 +1706,7 @@ public final class RadApiCollector implements Collector {
     res.addItem(_UpdateTenant);
     var _DisableTenant = new ServiceMethod();
     _DisableTenant.setName("DisableTenant");
-    _DisableTenant.setProtoLine(77);
+    _DisableTenant.setProtoLine(79);
     _DisableTenant.setProtoColumn(3);
     _DisableTenant.setRequestRef("hope.common.adaptor.Empty");
     _DisableTenant.setResponseRef("hope.common.adaptor.Empty");
@@ -1753,7 +1755,7 @@ public final class RadApiCollector implements Collector {
     res.addItem(_DisableTenant);
     var _ConfigureTenant = new ServiceMethod();
     _ConfigureTenant.setName("ConfigureTenant");
-    _ConfigureTenant.setProtoLine(101);
+    _ConfigureTenant.setProtoLine(103);
     _ConfigureTenant.setProtoColumn(3);
     _ConfigureTenant.setRequestRef("com.apihug.rad.api.tenant.ConfigureTenantRequest");
     _ConfigureTenant.setResponseRef("hope.common.adaptor.Empty");
@@ -1802,7 +1804,7 @@ public final class RadApiCollector implements Collector {
     res.addItem(_ConfigureTenant);
     var _SearchTenants = new ServiceMethod();
     _SearchTenants.setName("SearchTenants");
-    _SearchTenants.setProtoLine(126);
+    _SearchTenants.setProtoLine(128);
     _SearchTenants.setProtoColumn(3);
     _SearchTenants.setRequestRef("com.apihug.rad.api.tenant.SearchTenantsRequest");
     _SearchTenants.setResponseRef("com.apihug.rad.api.tenant.TenantSummary");
@@ -7182,7 +7184,7 @@ public final class RadApiCollector implements Collector {
     res.setClzName("com.apihug.rad.api.tenant.ConfigureTenantRequest");
     res.setName("ConfigureTenantRequest");
     res.setProtoFrom("com/apihug/rad/api/tenant/api.proto");
-    res.setProtoLine(237);
+    res.setProtoLine(239);
     res.setProtoColumn(1);
     res.setProtoEntity("ConfigureTenantRequest");
     res.setDescription("配置租户请求");
@@ -7207,7 +7209,7 @@ public final class RadApiCollector implements Collector {
     _maxMembers.setName("max_members");
     _maxMembers.setFieldName("maxMembers");
     _maxMembers.setTag(1);
-    _maxMembers.setProtoLine(245);
+    _maxMembers.setProtoLine(247);
     _maxMembers.setProtoColumn(3);
     _maxMembers.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -7225,7 +7227,7 @@ public final class RadApiCollector implements Collector {
     _maxStorageMb.setName("max_storage_mb");
     _maxStorageMb.setFieldName("maxStorageMb");
     _maxStorageMb.setTag(2);
-    _maxStorageMb.setProtoLine(251);
+    _maxStorageMb.setProtoLine(253);
     _maxStorageMb.setProtoColumn(3);
     _maxStorageMb.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -7243,7 +7245,7 @@ public final class RadApiCollector implements Collector {
     _enabledModules.setName("enabled_modules");
     _enabledModules.setFieldName("enabledModules");
     _enabledModules.setTag(3);
-    _enabledModules.setProtoLine(257);
+    _enabledModules.setProtoLine(259);
     _enabledModules.setProtoColumn(3);
     _enabledModules.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -7261,7 +7263,7 @@ public final class RadApiCollector implements Collector {
     _expiryDate.setName("expiry_date");
     _expiryDate.setFieldName("expiryDate");
     _expiryDate.setTag(4);
-    _expiryDate.setProtoLine(262);
+    _expiryDate.setProtoLine(264);
     _expiryDate.setProtoColumn(3);
     _expiryDate.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -7282,7 +7284,7 @@ public final class RadApiCollector implements Collector {
     res.setClzName("com.apihug.rad.api.tenant.CreateTenantRequest");
     res.setName("CreateTenantRequest");
     res.setProtoFrom("com/apihug/rad/api/tenant/api.proto");
-    res.setProtoLine(142);
+    res.setProtoLine(144);
     res.setProtoColumn(1);
     res.setProtoEntity("CreateTenantRequest");
     res.setDescription("创建租户请求");
@@ -7307,7 +7309,7 @@ public final class RadApiCollector implements Collector {
     _tenantCode.setName("tenant_code");
     _tenantCode.setFieldName("tenantCode");
     _tenantCode.setTag(1);
-    _tenantCode.setProtoLine(150);
+    _tenantCode.setProtoLine(152);
     _tenantCode.setProtoColumn(3);
     _tenantCode.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -7334,7 +7336,7 @@ public final class RadApiCollector implements Collector {
     _tenantName.setName("tenant_name");
     _tenantName.setFieldName("tenantName");
     _tenantName.setTag(2);
-    _tenantName.setProtoLine(158);
+    _tenantName.setProtoLine(160);
     _tenantName.setProtoColumn(3);
     _tenantName.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -7361,7 +7363,7 @@ public final class RadApiCollector implements Collector {
     _contactEmail.setName("contact_email");
     _contactEmail.setFieldName("contactEmail");
     _contactEmail.setTag(3);
-    _contactEmail.setProtoLine(166);
+    _contactEmail.setProtoLine(168);
     _contactEmail.setProtoColumn(3);
     _contactEmail.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -7388,7 +7390,7 @@ public final class RadApiCollector implements Collector {
     _contactPhone.setName("contact_phone");
     _contactPhone.setFieldName("contactPhone");
     _contactPhone.setTag(4);
-    _contactPhone.setProtoLine(174);
+    _contactPhone.setProtoLine(176);
     _contactPhone.setProtoColumn(3);
     _contactPhone.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -7414,7 +7416,7 @@ public final class RadApiCollector implements Collector {
     _status.setName("status");
     _status.setFieldName("status");
     _status.setTag(5);
-    _status.setProtoLine(181);
+    _status.setProtoLine(183);
     _status.setProtoColumn(3);
     _status.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -7432,7 +7434,7 @@ public final class RadApiCollector implements Collector {
     _isPlatform.setName("is_platform");
     _isPlatform.setFieldName("isPlatform");
     _isPlatform.setTag(6);
-    _isPlatform.setProtoLine(187);
+    _isPlatform.setProtoLine(189);
     _isPlatform.setProtoColumn(3);
     _isPlatform.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -7449,7 +7451,7 @@ public final class RadApiCollector implements Collector {
     _description.setName("description");
     _description.setFieldName("description");
     _description.setTag(7);
-    _description.setProtoLine(192);
+    _description.setProtoLine(194);
     _description.setProtoColumn(3);
     _description.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -7470,7 +7472,7 @@ public final class RadApiCollector implements Collector {
     res.setClzName("com.apihug.rad.api.tenant.SearchTenantsRequest");
     res.setName("SearchTenantsRequest");
     res.setProtoFrom("com/apihug/rad/api/tenant/api.proto");
-    res.setProtoLine(379);
+    res.setProtoLine(381);
     res.setProtoColumn(1);
     res.setProtoEntity("SearchTenantsRequest");
     res.setDescription("搜索租户请求");
@@ -7495,7 +7497,7 @@ public final class RadApiCollector implements Collector {
     _keyword.setName("keyword");
     _keyword.setFieldName("keyword");
     _keyword.setTag(1);
-    _keyword.setProtoLine(387);
+    _keyword.setProtoLine(389);
     _keyword.setProtoColumn(3);
     _keyword.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -7512,7 +7514,7 @@ public final class RadApiCollector implements Collector {
     _status.setName("status");
     _status.setFieldName("status");
     _status.setTag(2);
-    _status.setProtoLine(392);
+    _status.setProtoLine(394);
     _status.setProtoColumn(3);
     _status.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -7532,7 +7534,7 @@ public final class RadApiCollector implements Collector {
     res.setClzName("com.apihug.rad.api.tenant.TenantDetail");
     res.setName("TenantDetail");
     res.setProtoFrom("com/apihug/rad/api/tenant/api.proto");
-    res.setProtoLine(305);
+    res.setProtoLine(307);
     res.setProtoColumn(1);
     res.setProtoEntity("TenantDetail");
     res.setDescription("租户详情信息");
@@ -7557,7 +7559,7 @@ public final class RadApiCollector implements Collector {
     _id.setName("id");
     _id.setFieldName("id");
     _id.setTag(1);
-    _id.setProtoLine(313);
+    _id.setProtoLine(315);
     _id.setProtoColumn(3);
     _id.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -7576,7 +7578,7 @@ public final class RadApiCollector implements Collector {
     _tenantCode.setName("tenant_code");
     _tenantCode.setFieldName("tenantCode");
     _tenantCode.setTag(2);
-    _tenantCode.setProtoLine(320);
+    _tenantCode.setProtoLine(322);
     _tenantCode.setProtoColumn(3);
     _tenantCode.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -7602,7 +7604,7 @@ public final class RadApiCollector implements Collector {
     _tenantName.setName("tenant_name");
     _tenantName.setFieldName("tenantName");
     _tenantName.setTag(3);
-    _tenantName.setProtoLine(327);
+    _tenantName.setProtoLine(329);
     _tenantName.setProtoColumn(3);
     _tenantName.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -7628,7 +7630,7 @@ public final class RadApiCollector implements Collector {
     _contactEmail.setName("contact_email");
     _contactEmail.setFieldName("contactEmail");
     _contactEmail.setTag(4);
-    _contactEmail.setProtoLine(334);
+    _contactEmail.setProtoLine(336);
     _contactEmail.setProtoColumn(3);
     _contactEmail.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -7653,7 +7655,7 @@ public final class RadApiCollector implements Collector {
     _contactPhone.setName("contact_phone");
     _contactPhone.setFieldName("contactPhone");
     _contactPhone.setTag(5);
-    _contactPhone.setProtoLine(340);
+    _contactPhone.setProtoLine(342);
     _contactPhone.setProtoColumn(3);
     _contactPhone.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -7678,7 +7680,7 @@ public final class RadApiCollector implements Collector {
     _status.setName("status");
     _status.setFieldName("status");
     _status.setTag(6);
-    _status.setProtoLine(346);
+    _status.setProtoLine(348);
     _status.setProtoColumn(3);
     _status.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -7696,7 +7698,7 @@ public final class RadApiCollector implements Collector {
     _maxMembers.setName("max_members");
     _maxMembers.setFieldName("maxMembers");
     _maxMembers.setTag(7);
-    _maxMembers.setProtoLine(352);
+    _maxMembers.setProtoLine(354);
     _maxMembers.setProtoColumn(3);
     _maxMembers.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -7713,7 +7715,7 @@ public final class RadApiCollector implements Collector {
     _maxStorageMb.setName("max_storage_mb");
     _maxStorageMb.setFieldName("maxStorageMb");
     _maxStorageMb.setTag(8);
-    _maxStorageMb.setProtoLine(357);
+    _maxStorageMb.setProtoLine(359);
     _maxStorageMb.setProtoColumn(3);
     _maxStorageMb.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -7730,7 +7732,7 @@ public final class RadApiCollector implements Collector {
     _isPlatform.setName("is_platform");
     _isPlatform.setFieldName("isPlatform");
     _isPlatform.setTag(9);
-    _isPlatform.setProtoLine(362);
+    _isPlatform.setProtoLine(364);
     _isPlatform.setProtoColumn(3);
     _isPlatform.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -7747,7 +7749,7 @@ public final class RadApiCollector implements Collector {
     _description.setName("description");
     _description.setFieldName("description");
     _description.setTag(10);
-    _description.setProtoLine(367);
+    _description.setProtoLine(369);
     _description.setProtoColumn(3);
     _description.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -7764,7 +7766,7 @@ public final class RadApiCollector implements Collector {
     _createdAt.setName("created_at");
     _createdAt.setFieldName("createdAt");
     _createdAt.setTag(11);
-    _createdAt.setProtoLine(372);
+    _createdAt.setProtoLine(374);
     _createdAt.setProtoColumn(3);
     _createdAt.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -7785,7 +7787,7 @@ public final class RadApiCollector implements Collector {
     res.setClzName("com.apihug.rad.api.tenant.TenantSummary");
     res.setName("TenantSummary");
     res.setProtoFrom("com/apihug/rad/api/tenant/api.proto");
-    res.setProtoLine(269);
+    res.setProtoLine(271);
     res.setProtoColumn(1);
     res.setProtoEntity("TenantSummary");
     res.setDescription("租户摘要信息");
@@ -7810,7 +7812,7 @@ public final class RadApiCollector implements Collector {
     _id.setName("id");
     _id.setFieldName("id");
     _id.setTag(1);
-    _id.setProtoLine(277);
+    _id.setProtoLine(279);
     _id.setProtoColumn(3);
     _id.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -7829,7 +7831,7 @@ public final class RadApiCollector implements Collector {
     _tenantCode.setName("tenant_code");
     _tenantCode.setFieldName("tenantCode");
     _tenantCode.setTag(2);
-    _tenantCode.setProtoLine(284);
+    _tenantCode.setProtoLine(286);
     _tenantCode.setProtoColumn(3);
     _tenantCode.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -7855,7 +7857,7 @@ public final class RadApiCollector implements Collector {
     _tenantName.setName("tenant_name");
     _tenantName.setFieldName("tenantName");
     _tenantName.setTag(3);
-    _tenantName.setProtoLine(291);
+    _tenantName.setProtoLine(293);
     _tenantName.setProtoColumn(3);
     _tenantName.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -7881,7 +7883,7 @@ public final class RadApiCollector implements Collector {
     _status.setName("status");
     _status.setFieldName("status");
     _status.setTag(4);
-    _status.setProtoLine(298);
+    _status.setProtoLine(300);
     _status.setProtoColumn(3);
     _status.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -7902,7 +7904,7 @@ public final class RadApiCollector implements Collector {
     res.setClzName("com.apihug.rad.api.tenant.UpdateTenantRequest");
     res.setName("UpdateTenantRequest");
     res.setProtoFrom("com/apihug/rad/api/tenant/api.proto");
-    res.setProtoLine(199);
+    res.setProtoLine(201);
     res.setProtoColumn(1);
     res.setProtoEntity("UpdateTenantRequest");
     res.setDescription("更新租户请求");
@@ -7927,7 +7929,7 @@ public final class RadApiCollector implements Collector {
     _tenantName.setName("tenant_name");
     _tenantName.setFieldName("tenantName");
     _tenantName.setTag(1);
-    _tenantName.setProtoLine(207);
+    _tenantName.setProtoLine(209);
     _tenantName.setProtoColumn(3);
     _tenantName.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -7954,7 +7956,7 @@ public final class RadApiCollector implements Collector {
     _contactEmail.setName("contact_email");
     _contactEmail.setFieldName("contactEmail");
     _contactEmail.setTag(2);
-    _contactEmail.setProtoLine(215);
+    _contactEmail.setProtoLine(217);
     _contactEmail.setProtoColumn(3);
     _contactEmail.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -7981,7 +7983,7 @@ public final class RadApiCollector implements Collector {
     _contactPhone.setName("contact_phone");
     _contactPhone.setFieldName("contactPhone");
     _contactPhone.setTag(3);
-    _contactPhone.setProtoLine(223);
+    _contactPhone.setProtoLine(225);
     _contactPhone.setProtoColumn(3);
     _contactPhone.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -8007,7 +8009,7 @@ public final class RadApiCollector implements Collector {
     _status.setName("status");
     _status.setFieldName("status");
     _status.setTag(4);
-    _status.setProtoLine(230);
+    _status.setProtoLine(232);
     _status.setProtoColumn(3);
     _status.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -9165,6 +9167,51 @@ public final class RadApiCollector implements Collector {
     }.get());
     res.setEnumErrorClz(true);
     components.put("com.apihug.rad.infra.auth.AuthErrorEnum", res);
+  }
+
+  void initComponentinfra_customerCustomerPlatformTypeEnum() {
+    Component res = new Component();
+    res.setClzName("com.apihug.rad.infra.customer.CustomerPlatformTypeEnum");
+    res.setName("CustomerPlatformTypeEnum");
+    res.setProtoFrom("com/apihug/rad/infra/customer/constant.proto");
+    res.setProtoLine(39);
+    res.setProtoColumn(1);
+    res.setProtoEntity("CustomerPlatformTypeEnum");
+    res.setEnumClz(true);
+    res.addMeta(new Supplier<Meta>() {
+      @Override
+      public Meta get() {
+        Meta res  = new Meta();
+        res.setTitle("MEMBER");
+        res.setCode(1);
+        res.setMessage("platform member");
+        res.setMessage2("平台员工");
+        return res;
+      }
+    }.get());
+    res.addMeta(new Supplier<Meta>() {
+      @Override
+      public Meta get() {
+        Meta res  = new Meta();
+        res.setTitle("MANAGER");
+        res.setCode(1);
+        res.setMessage("platform manager");
+        res.setMessage2("平台管理员");
+        return res;
+      }
+    }.get());
+    res.addMeta(new Supplier<Meta>() {
+      @Override
+      public Meta get() {
+        Meta res  = new Meta();
+        res.setTitle("OWNER");
+        res.setCode(2);
+        res.setMessage("platform owner");
+        res.setMessage2("平台拥有者");
+        return res;
+      }
+    }.get());
+    components.put("com.apihug.rad.infra.customer.CustomerPlatformTypeEnum", res);
   }
 
   void initComponentinfra_customerCustomerStatusEnum() {
@@ -10399,6 +10446,7 @@ public final class RadApiCollector implements Collector {
     initComponentapi_tenantTenantMemberSummary();
     initComponentapi_tenantUpdateMemberRoleRequest();
     initComponentinfra_authAuthErrorEnum();
+    initComponentinfra_customerCustomerPlatformTypeEnum();
     initComponentinfra_customerCustomerStatusEnum();
     initComponentinfra_customerCustomerErrorEnum();
     initComponentinfra_departmentDepartmentErrorEnum();

@@ -1,6 +1,7 @@
 // @formatter:off
 package com.apihug.rad.domain.customer;
 
+import com.apihug.rad.infra.customer.CustomerPlatformTypeEnum;
 import com.apihug.rad.infra.customer.CustomerStatusEnum;
 import hope.common.persistence.annotations.Description;
 import hope.common.spring.data.persistence.Domain;
@@ -87,6 +88,20 @@ public final class CustomerEntity extends Domain<CustomerEntity, Long, Long> {
   )
   protected CustomerStatusEnum status;
 
+  /**
+   * Default value: UN_QUALIFY
+   */
+  @Column("PLATFORM_TYPE")
+  @Enumerated(EnumType.STRING)
+  @Description("平台账号标志")
+  @jakarta.persistence.Column(
+      name = "PLATFORM_TYPE",
+      insertable = true,
+      updatable = true,
+      length = 12
+  )
+  protected CustomerPlatformTypeEnum platformType;
+
   public Long getDefaultTenantId() {
     return defaultTenantId;
   }
@@ -129,6 +144,15 @@ public final class CustomerEntity extends Domain<CustomerEntity, Long, Long> {
 
   public CustomerEntity setStatus(CustomerStatusEnum status) {
     this.status = status;
+    return this;
+  }
+
+  public CustomerPlatformTypeEnum getPlatformType() {
+    return platformType;
+  }
+
+  public CustomerEntity setPlatformType(CustomerPlatformTypeEnum platformType) {
+    this.platformType = platformType;
     return this;
   }
 }

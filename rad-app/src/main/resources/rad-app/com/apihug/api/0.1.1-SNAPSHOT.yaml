@@ -352,8 +352,10 @@ paths:
         responseClz: com.apihug.rad.api.tenant.TenantSummary
         authorization:
           rbac:
+            predefinedRoleChecker: PLATFORM
             authorities:
             - TENANT_CREATE
+            combinator: AND
   /api/tenants/tenants/{tenantId}:
     put:
       tags:
@@ -2001,6 +2003,38 @@ components:
         isEnum: true
         isError: false
         clz: com.apihug.rad.infra.department.DeptStatusEnum
+    CustomerPlatformTypeEnum:
+      type: string
+      description: 客户平台标志
+      enum:
+      - MEMBER
+      - MANAGER
+      - OWNER
+      x-hope-component:
+        x-enum-extensions:
+          MEMBER:
+            name: MEMBER
+            code: 1
+            message: platform member
+            message2: 平台员工
+          MANAGER:
+            name: MANAGER
+            code: 1
+            message: platform manager
+            message2: 平台管理员
+          OWNER:
+            name: OWNER
+            code: 2
+            message: platform owner
+            message2: 平台拥有者
+        compile:
+          protoFile: com/apihug/rad/infra/customer/constant.proto
+          name: CustomerPlatformTypeEnum
+          locationLine: 39
+          locationColumn: 1
+        isEnum: true
+        isError: false
+        clz: com.apihug.rad.infra.customer.CustomerPlatformTypeEnum
     RoleStatusEnum:
       type: string
       description: 角色状态枚举定义
@@ -2996,7 +3030,7 @@ components:
           minimum: 1.0
           x-hope-field:
             compile:
-              locationLine: 277
+              locationLine: 279
               locationColumn: 3
               name: id
               type: java.lang.Long
@@ -3008,7 +3042,7 @@ components:
             mock:
               nature: NAME
             compile:
-              locationLine: 284
+              locationLine: 286
               locationColumn: 3
               name: tenant_code
               type: java.lang.String
@@ -3020,7 +3054,7 @@ components:
             mock:
               nature: NAME
             compile:
-              locationLine: 291
+              locationLine: 293
               locationColumn: 3
               name: tenant_name
               type: java.lang.String
@@ -3034,7 +3068,7 @@ components:
           - EXPIRED
           x-hope-field:
             compile:
-              locationLine: 298
+              locationLine: 300
               locationColumn: 3
               name: status
               type: com.apihug.rad.infra.tenant.TenantStatusEnum
@@ -3043,7 +3077,7 @@ components:
         compile:
           protoFile: com/apihug/rad/api/tenant/api.proto
           name: TenantSummary
-          locationLine: 269
+          locationLine: 271
           locationColumn: 1
         clz: com.apihug.rad.api.tenant.TenantSummary
     DepartmentSummary:
@@ -3533,7 +3567,7 @@ components:
           description: 搜索关键词（租户名称或代码）
           x-hope-field:
             compile:
-              locationLine: 387
+              locationLine: 389
               locationColumn: 3
               name: keyword
               type: java.lang.String
@@ -3547,7 +3581,7 @@ components:
           - EXPIRED
           x-hope-field:
             compile:
-              locationLine: 392
+              locationLine: 394
               locationColumn: 3
               name: status
               type: com.apihug.rad.infra.tenant.TenantStatusEnum
@@ -3556,7 +3590,7 @@ components:
         compile:
           protoFile: com/apihug/rad/api/tenant/api.proto
           name: SearchTenantsRequest
-          locationLine: 379
+          locationLine: 381
           locationColumn: 1
         clz: com.apihug.rad.api.tenant.SearchTenantsRequest
     LoginRequest:
@@ -3676,7 +3710,7 @@ components:
             mock:
               nature: NAME
             compile:
-              locationLine: 207
+              locationLine: 209
               locationColumn: 3
               name: tenant_name
               type: java.lang.String
@@ -3689,7 +3723,7 @@ components:
             mock:
               nature: EMAIL
             compile:
-              locationLine: 215
+              locationLine: 217
               locationColumn: 3
               name: contact_email
               type: java.lang.String
@@ -3701,7 +3735,7 @@ components:
             mock:
               nature: PHONE
             compile:
-              locationLine: 223
+              locationLine: 225
               locationColumn: 3
               name: contact_phone
               type: java.lang.String
@@ -3715,7 +3749,7 @@ components:
           - EXPIRED
           x-hope-field:
             compile:
-              locationLine: 230
+              locationLine: 232
               locationColumn: 3
               name: status
               type: com.apihug.rad.infra.tenant.TenantStatusEnum
@@ -3724,7 +3758,7 @@ components:
         compile:
           protoFile: com/apihug/rad/api/tenant/api.proto
           name: UpdateTenantRequest
-          locationLine: 199
+          locationLine: 201
           locationColumn: 1
         clz: com.apihug.rad.api.tenant.UpdateTenantRequest
     TenantMemberDetail:
@@ -4053,7 +4087,7 @@ components:
             mock:
               nature: NAME
             compile:
-              locationLine: 150
+              locationLine: 152
               locationColumn: 3
               name: tenant_code
               type: java.lang.String
@@ -4066,7 +4100,7 @@ components:
             mock:
               nature: NAME
             compile:
-              locationLine: 158
+              locationLine: 160
               locationColumn: 3
               name: tenant_name
               type: java.lang.String
@@ -4079,7 +4113,7 @@ components:
             mock:
               nature: EMAIL
             compile:
-              locationLine: 166
+              locationLine: 168
               locationColumn: 3
               name: contact_email
               type: java.lang.String
@@ -4091,7 +4125,7 @@ components:
             mock:
               nature: PHONE
             compile:
-              locationLine: 174
+              locationLine: 176
               locationColumn: 3
               name: contact_phone
               type: java.lang.String
@@ -4105,7 +4139,7 @@ components:
           - EXPIRED
           x-hope-field:
             compile:
-              locationLine: 181
+              locationLine: 183
               locationColumn: 3
               name: status
               type: com.apihug.rad.infra.tenant.TenantStatusEnum
@@ -4114,7 +4148,7 @@ components:
           description: 是否为平台租户
           x-hope-field:
             compile:
-              locationLine: 187
+              locationLine: 189
               locationColumn: 3
               name: is_platform
               type: java.lang.Boolean
@@ -4124,7 +4158,7 @@ components:
           maxLength: 500
           x-hope-field:
             compile:
-              locationLine: 192
+              locationLine: 194
               locationColumn: 3
               name: description
               type: java.lang.String
@@ -4133,7 +4167,7 @@ components:
         compile:
           protoFile: com/apihug/rad/api/tenant/api.proto
           name: CreateTenantRequest
-          locationLine: 142
+          locationLine: 144
           locationColumn: 1
         clz: com.apihug.rad.api.tenant.CreateTenantRequest
     RoleInfo:
@@ -4531,7 +4565,7 @@ components:
           minimum: 1.0
           x-hope-field:
             compile:
-              locationLine: 245
+              locationLine: 247
               locationColumn: 3
               name: max_members
               type: java.lang.Integer
@@ -4542,7 +4576,7 @@ components:
           minimum: 1.0
           x-hope-field:
             compile:
-              locationLine: 251
+              locationLine: 253
               locationColumn: 3
               name: max_storage_mb
               type: java.lang.Long
@@ -4553,7 +4587,7 @@ components:
             type: string
           x-hope-field:
             compile:
-              locationLine: 257
+              locationLine: 259
               locationColumn: 3
               name: enabled_modules
               type: java.lang.String
@@ -4564,7 +4598,7 @@ components:
           x-hope-field:
             dateFormat: ISO_LOCAL_DATE_TIME
             compile:
-              locationLine: 262
+              locationLine: 264
               locationColumn: 3
               name: expiry_date
               type: java.time.LocalDateTime
@@ -4573,7 +4607,7 @@ components:
         compile:
           protoFile: com/apihug/rad/api/tenant/api.proto
           name: ConfigureTenantRequest
-          locationLine: 237
+          locationLine: 239
           locationColumn: 1
         clz: com.apihug.rad.api.tenant.ConfigureTenantRequest
     CreateRoleRequest:
@@ -5480,7 +5514,7 @@ components:
           minimum: 1.0
           x-hope-field:
             compile:
-              locationLine: 313
+              locationLine: 315
               locationColumn: 3
               name: id
               type: java.lang.Long
@@ -5492,7 +5526,7 @@ components:
             mock:
               nature: NAME
             compile:
-              locationLine: 320
+              locationLine: 322
               locationColumn: 3
               name: tenant_code
               type: java.lang.String
@@ -5504,7 +5538,7 @@ components:
             mock:
               nature: NAME
             compile:
-              locationLine: 327
+              locationLine: 329
               locationColumn: 3
               name: tenant_name
               type: java.lang.String
@@ -5515,7 +5549,7 @@ components:
             mock:
               nature: EMAIL
             compile:
-              locationLine: 334
+              locationLine: 336
               locationColumn: 3
               name: contact_email
               type: java.lang.String
@@ -5526,7 +5560,7 @@ components:
             mock:
               nature: PHONE
             compile:
-              locationLine: 340
+              locationLine: 342
               locationColumn: 3
               name: contact_phone
               type: java.lang.String
@@ -5540,7 +5574,7 @@ components:
           - EXPIRED
           x-hope-field:
             compile:
-              locationLine: 346
+              locationLine: 348
               locationColumn: 3
               name: status
               type: com.apihug.rad.infra.tenant.TenantStatusEnum
@@ -5550,7 +5584,7 @@ components:
           description: 最大成员数
           x-hope-field:
             compile:
-              locationLine: 352
+              locationLine: 354
               locationColumn: 3
               name: max_members
               type: java.lang.Integer
@@ -5560,7 +5594,7 @@ components:
           description: 最大存储空间（MB）
           x-hope-field:
             compile:
-              locationLine: 357
+              locationLine: 359
               locationColumn: 3
               name: max_storage_mb
               type: java.lang.Long
@@ -5569,7 +5603,7 @@ components:
           description: 是否为平台租户
           x-hope-field:
             compile:
-              locationLine: 362
+              locationLine: 364
               locationColumn: 3
               name: is_platform
               type: java.lang.Boolean
@@ -5578,7 +5612,7 @@ components:
           description: 租户描述
           x-hope-field:
             compile:
-              locationLine: 367
+              locationLine: 369
               locationColumn: 3
               name: description
               type: java.lang.String
@@ -5589,7 +5623,7 @@ components:
           x-hope-field:
             dateFormat: ISO_LOCAL_DATE_TIME
             compile:
-              locationLine: 372
+              locationLine: 374
               locationColumn: 3
               name: created_at
               type: java.time.LocalDateTime
@@ -5598,7 +5632,7 @@ components:
         compile:
           protoFile: com/apihug/rad/api/tenant/api.proto
           name: TenantDetail
-          locationLine: 305
+          locationLine: 307
           locationColumn: 1
         clz: com.apihug.rad.api.tenant.TenantDetail
     AssignRolesRequest:
@@ -5831,7 +5865,7 @@ x-hope-project:
   status:
     deprecated: false
     createdTimestamp: 2026-03-20
-    updatedTimestamp: 2026-03-24 15:36:57
+    updatedTimestamp: 2026-03-24 17:50:20
     createdBy: admin
   builder: {}
   persistence:

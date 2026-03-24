@@ -1,4 +1,4 @@
-package com.apihug.rad.infra.security;
+package com.apihug.rad.domain.security;
 
 import com.apihug.rad.domain.menu.MenuEntity;
 import com.apihug.rad.domain.menu.repository.MenuEntityRepository;
@@ -11,6 +11,7 @@ import com.apihug.rad.domain.tenant.TenantMemberEntity;
 import com.apihug.rad.domain.tenant.repository.MemberRoleEntityRepository;
 import com.apihug.rad.domain.tenant.repository.TenantMemberEntityRepository;
 import com.apihug.rad.infra.tenant.MemberRoleEnum;
+import hope.common.meta.annotation.Template;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
@@ -24,10 +25,10 @@ import java.util.stream.Collectors;
  * Resolves the complete permission chain:
  * Customer -> TenantMember -> MemberRole -> RoleEntity -> RoleMenu -> MenuEntity.permission_code
  *
- * <p>Modeled after RuoYi's SysPermissionServiceImpl pattern.</p>
  */
+@Template(type = Template.Type.SERVICE, usage = "Customer permission resolver", percentage = 100)
 @Service
-public class RadPermissionResolver {
+public class CustomerPermissionResolver {
 
   /** Wildcard indicating all permissions (like RuoYi's *:*:*) */
   public static final String ALL_PERMISSIONS = "*:*:*";
@@ -40,7 +41,7 @@ public class RadPermissionResolver {
   private final RoleMenuEntityRepository roleMenuRepository;
   private final MenuEntityRepository menuRepository;
 
-  public RadPermissionResolver(
+  public CustomerPermissionResolver(
       TenantMemberEntityRepository tenantMemberRepository,
       MemberRoleEntityRepository memberRoleRepository,
       RoleEntityRepository roleRepository,
@@ -51,6 +52,20 @@ public class RadPermissionResolver {
     this.roleRepository = roleRepository;
     this.roleMenuRepository = roleMenuRepository;
     this.menuRepository = menuRepository;
+  }
+
+  /**
+   * Check if the given authorities set represents a super admin (OWNER).
+   */
+  public static boolean isSuperAdmin(Set<String> authorities) {
+    return authorities != null && authorities.contains(ALL_PERMISSIONS);
+  }
+
+  /**
+   * Check if the given roles set represents a super admin (OWNER).
+   */
+  public static boolean isSuperAdminRole(Set<String> roles) {
+    return roles != null && roles.contains(SUPER_ADMIN_ROLE);
   }
 
   /**
@@ -151,19 +166,5 @@ public class RadPermissionResolver {
         .map(MenuEntity::getPermissionCode)
         .filter(code -> code != null && !code.isBlank())
         .collect(Collectors.toSet());
-  }
-
-  /**
-   * Check if the given authorities set represents a super admin (OWNER).
-   */
-  public static boolean isSuperAdmin(Set<String> authorities) {
-    return authorities != null && authorities.contains(ALL_PERMISSIONS);
-  }
-
-  /**
-   * Check if the given roles set represents a super admin (OWNER).
-   */
-  public static boolean isSuperAdminRole(Set<String> roles) {
-    return roles != null && roles.contains(SUPER_ADMIN_ROLE);
   }
 }

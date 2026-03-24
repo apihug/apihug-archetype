@@ -1,7 +1,7 @@
 // @formatter:off
 package com.apihug.rad.api.permission;
 
-import com.apihug.rad.infra.security.RadPermissionResolver;
+import com.apihug.rad.domain.security.CustomerPermissionResolver;
 import hope.common.meta.annotation.Kind;
 import hope.common.meta.annotation.ProtoFrom;
 import hope.common.meta.annotation.Template;import hope.common.spring.SimpleResultBuilder;
@@ -24,9 +24,9 @@ import org.springframework.stereotype.Service;
 )
 public class PermissionServiceImpl implements PermissionService {
 
-  private final RadPermissionResolver permissionResolver;
+  private final CustomerPermissionResolver permissionResolver;
 
-  public PermissionServiceImpl(RadPermissionResolver permissionResolver) {
+  public PermissionServiceImpl(CustomerPermissionResolver permissionResolver) {
     this.permissionResolver = permissionResolver;
   }
 

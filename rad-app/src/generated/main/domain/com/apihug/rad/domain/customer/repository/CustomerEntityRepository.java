@@ -250,6 +250,7 @@ public interface CustomerEntityRepository extends HopeJdbc<CustomerEntity>,
     args.put("username", CollapseHelper.collapse(CustomerEntity::getUsername, updated, exist));
     args.put("email", CollapseHelper.collapse(CustomerEntity::getEmail, updated, exist));
     args.put("status", CollapseHelper.collapse(CustomerEntity::getStatus, updated, exist).name());
+    args.put("platformType", CollapseHelper.collapse(CustomerEntity::getPlatformType, updated, exist).name());
     args.put("when", now);
     args.put("who", ctx.getIdentifier());
     args.put("version", exist.getVersion());
@@ -286,7 +287,7 @@ public interface CustomerEntityRepository extends HopeJdbc<CustomerEntity>,
 
     String _DELETE_ALL_BY_ID = "UPDATE SYS_CUSTOMER SET `DELETED` = :deleted, `DELETED_BY` = :who, `DELETED_AT` = :when, `UPDATED_BY` = :who, `UPDATED_AT` = :when, `VERSION` = VERSION + 1 WHERE `ID` IN (:ids) AND `DELETED` = :_deleted";
 
-    String _UPDATE = "UPDATE SYS_CUSTOMER SET `DEFAULT_TENANT_ID` = :defaultTenantId, `USERNAME` = :username, `EMAIL` = :email, `STATUS` = :status, UPDATED_AT = :when, UPDATED_BY = :who, VERSION = VERSION + 1 WHERE `ID` = :id AND `VERSION` = :version";
+    String _UPDATE = "UPDATE SYS_CUSTOMER SET `DEFAULT_TENANT_ID` = :defaultTenantId, `USERNAME` = :username, `EMAIL` = :email, `STATUS` = :status, `PLATFORM_TYPE` = :platformType, UPDATED_AT = :when, UPDATED_BY = :who, VERSION = VERSION + 1 WHERE `ID` = :id AND `VERSION` = :version";
 
     String _DELETE_BY_VERSION = "UPDATE SYS_CUSTOMER SET `DELETED` = :deleted, `DELETED_BY` = :who, `DELETED_AT` = :when, `UPDATED_BY` = :who, `UPDATED_AT` = :when, `VERSION` = `VERSION` + 1 WHERE `ID` = :id AND `VERSION` = :version AND `DELETED` = :_deleted";
   }

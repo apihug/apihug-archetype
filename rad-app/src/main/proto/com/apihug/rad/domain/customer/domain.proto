@@ -72,4 +72,13 @@ message CustomerEntity {
     length: 12
     default_value: "ACTIVE"
   }];
+
+  com.apihug.rad.infra.customer.CustomerPlatformTypeEnum platform_type = 7 [(hope.persistence.column) = {
+    name: "PLATFORM_TYPE",
+    description: "平台账号标志",
+    nullable: false,
+    enum_type: STRING,
+    length: 12
+    default_value: "NA"
+  }];
 }
