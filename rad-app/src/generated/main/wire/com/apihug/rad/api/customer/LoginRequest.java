@@ -12,7 +12,6 @@ import java.util.StringJoiner;
 import javax.annotation.Generated;
 
 /**
- * ============ 消息类型定义 ============
  * 登录请求
  */
 @Generated("H.O.P.E. Infra Team")

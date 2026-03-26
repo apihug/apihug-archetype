@@ -169,6 +169,10 @@ public interface CustomerEntityRepository extends HopeJdbc<CustomerEntity>,
     } );
   }
 
+    @Modifying
+    @Query("UPDATE SYS_CUSTOMER SET PLATFORM_TYPE = :platformType WHERE ID = :customerId")
+    void updateCustomerPlatformType(final Long customerId, final String platformType);
+
   @Override
   default <S extends CustomerEntity> S save(S entity) {
     _save(entity);

@@ -21,8 +21,7 @@ public class RadApiContext extends ApiContext<RadApiContext> {
   }
 
   /**
-   * CustomerAuthService : ============ 客户认证 API ============
-   * 客户认证服务，提供登录登出功能
+   * CustomerAuthService : 客户认证服务，提供登录登出功能
    */
   public final RadApiContext customerAuthService(final Consumer<CustomerAuthService> consumer) {
     final CustomerAuthService svc = new CustomerAuthService();
@@ -32,8 +31,7 @@ public class RadApiContext extends ApiContext<RadApiContext> {
   }
 
   /**
-   * CustomerService : ============ 客户服务 API ============
-   * 客户服务，提供当前客户信息查询、组织管理等功能
+   * CustomerService : 客户服务，提供当前客户信息查询、组织管理等功能
    */
   public final RadApiContext customerService(final Consumer<CustomerService> consumer) {
     final CustomerService svc = new CustomerService();
@@ -43,8 +41,7 @@ public class RadApiContext extends ApiContext<RadApiContext> {
   }
 
   /**
-   * CustomerManagementService : ============ 客户管理 API ============
-   * 客户管理服务，提供客户 CRUD 和搜索功能
+   * CustomerManagementService : 客户管理服务，提供客户 CRUD 和搜索功能
    */
   public final RadApiContext customerManagementService(
       final Consumer<CustomerManagementService> consumer) {
@@ -55,8 +52,7 @@ public class RadApiContext extends ApiContext<RadApiContext> {
   }
 
   /**
-   * DepartmentService : ============ 部门管理 API ============
-   * 部门管理服务，提供部门 CRUD 和树形查询功能
+   * DepartmentService : 部门管理服务，提供部门 CRUD 和树形查询功能
    */
   public final RadApiContext departmentService(final Consumer<DepartmentService> consumer) {
     final DepartmentService svc = new DepartmentService();
@@ -66,8 +62,7 @@ public class RadApiContext extends ApiContext<RadApiContext> {
   }
 
   /**
-   * MenuService : ============ 菜单管理 API ============
-   * 菜单管理服务，提供菜单 CRUD 和树形查询功能
+   * MenuService : 菜单管理服务，提供菜单 CRUD 和树形查询功能
    */
   public final RadApiContext menuService(final Consumer<MenuService> consumer) {
     final MenuService svc = new MenuService();
@@ -87,8 +82,7 @@ public class RadApiContext extends ApiContext<RadApiContext> {
   }
 
   /**
-   * PermissionService : ============ 权限管理 API ============
-   * 权限管理服务，提供权限查询和聚合功能
+   * PermissionService : 权限管理服务，提供权限查询和聚合功能
    */
   public final RadApiContext permissionService(final Consumer<PermissionService> consumer) {
     final PermissionService svc = new PermissionService();
@@ -98,8 +92,17 @@ public class RadApiContext extends ApiContext<RadApiContext> {
   }
 
   /**
-   * RoleService : ============ 角色管理 API ============
-   * 角色管理服务，提供角色 CRUD 和权限分配功能
+   * PlatformService : 平台管理服务，提供平台成员 CRUD 和配置功能
+   */
+  public final RadApiContext platformService(final Consumer<PlatformService> consumer) {
+    final PlatformService svc = new PlatformService();
+    consumer.accept(svc);
+    svc.done();
+    return RadApiContext.this;
+  }
+
+  /**
+   * RoleService : 角色管理服务，提供角色 CRUD 和权限分配功能
    */
   public final RadApiContext roleService(final Consumer<RoleService> consumer) {
     final RoleService svc = new RoleService();
@@ -109,8 +112,7 @@ public class RadApiContext extends ApiContext<RadApiContext> {
   }
 
   /**
-   * TenantService : ============ 租户管理 API ============
-   * 租户管理服务，提供租户 CRUD 和配置功能
+   * TenantService : 租户管理服务，提供租户 CRUD 和配置功能
    */
   public final RadApiContext tenantService(final Consumer<TenantService> consumer) {
     final TenantService svc = new TenantService();
@@ -120,9 +122,7 @@ public class RadApiContext extends ApiContext<RadApiContext> {
   }
 
   /**
-   * TenantMemberService : ============ 租户成员管理 API ============
-   * 替代原 CustomerOrganizationService — 管理 Customer 在 Tenant 中的身份
-   * 租户成员管理服务，提供成员与租户关系管理功能
+   * TenantMemberService : 租户成员管理服务，提供成员与租户关系管理功能
    */
   public final RadApiContext tenantMemberService(final Consumer<TenantMemberService> consumer) {
     final TenantMemberService svc = new TenantMemberService();
@@ -176,7 +176,7 @@ public class RadApiContext extends ApiContext<RadApiContext> {
       }
 
       /**
-       * Include GetAccessLogStats : Are u sure
+       * Include GetAccessLogStats
        */
       public final AccessLogService GetAccessLogStats() {
         AccessLogService.this.include("GetAccessLogStats");
@@ -184,7 +184,7 @@ public class RadApiContext extends ApiContext<RadApiContext> {
       }
 
       /**
-       * Exclude GetAccessLogStats : Are u sure
+       * Exclude GetAccessLogStats
        */
       public final AccessLogService _GetAccessLogStats() {
         AccessLogService.this.exclude("GetAccessLogStats");
@@ -194,7 +194,6 @@ public class RadApiContext extends ApiContext<RadApiContext> {
   }
 
   /**
-   * ============ 客户认证 API ============
    * 客户认证服务，提供登录登出功能
    */
   public final class CustomerAuthService extends ApiServiceContextBuilder<CustomerAuthService, RadApiContext> {
@@ -251,7 +250,6 @@ public class RadApiContext extends ApiContext<RadApiContext> {
   }
 
   /**
-   * ============ 客户服务 API ============
    * 客户服务，提供当前客户信息查询、组织管理等功能
    */
   public final class CustomerService extends ApiServiceContextBuilder<CustomerService, RadApiContext> {
@@ -342,7 +340,6 @@ public class RadApiContext extends ApiContext<RadApiContext> {
   }
 
   /**
-   * ============ 客户管理 API ============
    * 客户管理服务，提供客户 CRUD 和搜索功能
    */
   public final class CustomerManagementService extends ApiServiceContextBuilder<CustomerManagementService, RadApiContext> {
@@ -382,8 +379,7 @@ public class RadApiContext extends ApiContext<RadApiContext> {
       }
 
       /**
-       * Include ForgotPassword : GetCustomer/UpdateCustomer/DeleteCustomer/SearchCustomers 已迁移至 TenantMemberService
-       * 租户管理员应通过 /api/tenant-members/tenants/{tenantId}/members 管理租户内成员
+       * Include ForgotPassword
        */
       public final CustomerManagementService ForgotPassword() {
         CustomerManagementService.this.include("ForgotPassword");
@@ -391,8 +387,7 @@ public class RadApiContext extends ApiContext<RadApiContext> {
       }
 
       /**
-       * Exclude ForgotPassword : GetCustomer/UpdateCustomer/DeleteCustomer/SearchCustomers 已迁移至 TenantMemberService
-       * 租户管理员应通过 /api/tenant-members/tenants/{tenantId}/members 管理租户内成员
+       * Exclude ForgotPassword
        */
       public final CustomerManagementService _ForgotPassword() {
         CustomerManagementService.this.exclude("ForgotPassword");
@@ -418,7 +413,6 @@ public class RadApiContext extends ApiContext<RadApiContext> {
   }
 
   /**
-   * ============ 部门管理 API ============
    * 部门管理服务，提供部门 CRUD 和树形查询功能
    */
   public final class DepartmentService extends ApiServiceContextBuilder<DepartmentService, RadApiContext> {
@@ -526,7 +520,6 @@ public class RadApiContext extends ApiContext<RadApiContext> {
   }
 
   /**
-   * ============ 菜单管理 API ============
    * 菜单管理服务，提供菜单 CRUD 和树形查询功能
    */
   public final class MenuService extends ApiServiceContextBuilder<MenuService, RadApiContext> {
@@ -758,7 +751,6 @@ public class RadApiContext extends ApiContext<RadApiContext> {
   }
 
   /**
-   * ============ 权限管理 API ============
    * 权限管理服务，提供权限查询和聚合功能
    */
   public final class PermissionService extends ApiServiceContextBuilder<PermissionService, RadApiContext> {
@@ -782,7 +774,7 @@ public class RadApiContext extends ApiContext<RadApiContext> {
 
     public class Methods {
       /**
-       * Include GetRolePermissions : 获取当前客户的角色权限集合
+       * Include GetRolePermissions
        */
       public final PermissionService GetRolePermissions() {
         PermissionService.this.include("GetRolePermissions");
@@ -790,7 +782,7 @@ public class RadApiContext extends ApiContext<RadApiContext> {
       }
 
       /**
-       * Exclude GetRolePermissions : 获取当前客户的角色权限集合
+       * Exclude GetRolePermissions
        */
       public final PermissionService _GetRolePermissions() {
         PermissionService.this.exclude("GetRolePermissions");
@@ -798,7 +790,7 @@ public class RadApiContext extends ApiContext<RadApiContext> {
       }
 
       /**
-       * Include GetMenuPermissions : 获取当前客户的菜单权限集合
+       * Include GetMenuPermissions
        */
       public final PermissionService GetMenuPermissions() {
         PermissionService.this.include("GetMenuPermissions");
@@ -806,7 +798,7 @@ public class RadApiContext extends ApiContext<RadApiContext> {
       }
 
       /**
-       * Exclude GetMenuPermissions : 获取当前客户的菜单权限集合
+       * Exclude GetMenuPermissions
        */
       public final PermissionService _GetMenuPermissions() {
         PermissionService.this.exclude("GetMenuPermissions");
@@ -814,7 +806,7 @@ public class RadApiContext extends ApiContext<RadApiContext> {
       }
 
       /**
-       * Include GetAllPermissions : 获取当前客户的所有权限（角色权限 ∪ 菜单权限）
+       * Include GetAllPermissions
        */
       public final PermissionService GetAllPermissions() {
         PermissionService.this.include("GetAllPermissions");
@@ -822,7 +814,7 @@ public class RadApiContext extends ApiContext<RadApiContext> {
       }
 
       /**
-       * Exclude GetAllPermissions : 获取当前客户的所有权限（角色权限 ∪ 菜单权限）
+       * Exclude GetAllPermissions
        */
       public final PermissionService _GetAllPermissions() {
         PermissionService.this.exclude("GetAllPermissions");
@@ -832,7 +824,113 @@ public class RadApiContext extends ApiContext<RadApiContext> {
   }
 
   /**
-   * ============ 角色管理 API ============
+   * 平台管理服务，提供平台成员 CRUD 和配置功能
+   */
+  public final class PlatformService extends ApiServiceContextBuilder<PlatformService, RadApiContext> {
+    public PlatformService() {
+      super(RadApiContext.this);
+      all.add("GetPlatformMembers");
+      all.add("AddPlatformMember");
+      all.add("RemovePlatformMember");
+      all.add("TogglePlatformMemberFreeze");
+      all.add("UpdatePlatformMemberRole");
+    }
+
+    public PlatformService methods(Consumer<Methods> consumer) {
+      final Methods methods = new Methods();
+      consumer.accept(methods);
+      return PlatformService.this;
+    }
+
+    @Override
+    public String clz() {
+      return "com.apihug.rad.api.platform.PlatformService";
+    }
+
+    public class Methods {
+      /**
+       * Include GetPlatformMembers
+       */
+      public final PlatformService GetPlatformMembers() {
+        PlatformService.this.include("GetPlatformMembers");
+        return PlatformService.this;
+      }
+
+      /**
+       * Exclude GetPlatformMembers
+       */
+      public final PlatformService _GetPlatformMembers() {
+        PlatformService.this.exclude("GetPlatformMembers");
+        return PlatformService.this;
+      }
+
+      /**
+       * Include AddPlatformMember
+       */
+      public final PlatformService AddPlatformMember() {
+        PlatformService.this.include("AddPlatformMember");
+        return PlatformService.this;
+      }
+
+      /**
+       * Exclude AddPlatformMember
+       */
+      public final PlatformService _AddPlatformMember() {
+        PlatformService.this.exclude("AddPlatformMember");
+        return PlatformService.this;
+      }
+
+      /**
+       * Include RemovePlatformMember
+       */
+      public final PlatformService RemovePlatformMember() {
+        PlatformService.this.include("RemovePlatformMember");
+        return PlatformService.this;
+      }
+
+      /**
+       * Exclude RemovePlatformMember
+       */
+      public final PlatformService _RemovePlatformMember() {
+        PlatformService.this.exclude("RemovePlatformMember");
+        return PlatformService.this;
+      }
+
+      /**
+       * Include TogglePlatformMemberFreeze
+       */
+      public final PlatformService TogglePlatformMemberFreeze() {
+        PlatformService.this.include("TogglePlatformMemberFreeze");
+        return PlatformService.this;
+      }
+
+      /**
+       * Exclude TogglePlatformMemberFreeze
+       */
+      public final PlatformService _TogglePlatformMemberFreeze() {
+        PlatformService.this.exclude("TogglePlatformMemberFreeze");
+        return PlatformService.this;
+      }
+
+      /**
+       * Include UpdatePlatformMemberRole : 更新平台成员角色
+       */
+      public final PlatformService UpdatePlatformMemberRole() {
+        PlatformService.this.include("UpdatePlatformMemberRole");
+        return PlatformService.this;
+      }
+
+      /**
+       * Exclude UpdatePlatformMemberRole : 更新平台成员角色
+       */
+      public final PlatformService _UpdatePlatformMemberRole() {
+        PlatformService.this.exclude("UpdatePlatformMemberRole");
+        return PlatformService.this;
+      }
+    }
+  }
+
+  /**
    * 角色管理服务，提供角色 CRUD 和权限分配功能
    */
   public final class RoleService extends ApiServiceContextBuilder<RoleService, RadApiContext> {
@@ -941,7 +1039,7 @@ public class RadApiContext extends ApiContext<RadApiContext> {
       }
 
       /**
-       * Include AssignMenusToRole : 为角色分配菜单（全量覆盖），参考 RuoYi insertRoleMenu
+       * Include AssignMenusToRole
        */
       public final RoleService AssignMenusToRole() {
         RoleService.this.include("AssignMenusToRole");
@@ -949,7 +1047,7 @@ public class RadApiContext extends ApiContext<RadApiContext> {
       }
 
       /**
-       * Exclude AssignMenusToRole : 为角色分配菜单（全量覆盖），参考 RuoYi insertRoleMenu
+       * Exclude AssignMenusToRole
        */
       public final RoleService _AssignMenusToRole() {
         RoleService.this.exclude("AssignMenusToRole");
@@ -957,7 +1055,7 @@ public class RadApiContext extends ApiContext<RadApiContext> {
       }
 
       /**
-       * Include RemoveMenuFromRole : 移除角色的某个菜单关联
+       * Include RemoveMenuFromRole
        */
       public final RoleService RemoveMenuFromRole() {
         RoleService.this.include("RemoveMenuFromRole");
@@ -965,7 +1063,7 @@ public class RadApiContext extends ApiContext<RadApiContext> {
       }
 
       /**
-       * Exclude RemoveMenuFromRole : 移除角色的某个菜单关联
+       * Exclude RemoveMenuFromRole
        */
       public final RoleService _RemoveMenuFromRole() {
         RoleService.this.exclude("RemoveMenuFromRole");
@@ -973,7 +1071,7 @@ public class RadApiContext extends ApiContext<RadApiContext> {
       }
 
       /**
-       * Include GetRoleMenus : 获取角色关联的菜单列表
+       * Include GetRoleMenus
        */
       public final RoleService GetRoleMenus() {
         RoleService.this.include("GetRoleMenus");
@@ -981,7 +1079,7 @@ public class RadApiContext extends ApiContext<RadApiContext> {
       }
 
       /**
-       * Exclude GetRoleMenus : 获取角色关联的菜单列表
+       * Exclude GetRoleMenus
        */
       public final RoleService _GetRoleMenus() {
         RoleService.this.exclude("GetRoleMenus");
@@ -991,7 +1089,6 @@ public class RadApiContext extends ApiContext<RadApiContext> {
   }
 
   /**
-   * ============ 租户管理 API ============
    * 租户管理服务，提供租户 CRUD 和配置功能
    */
   public final class TenantService extends ApiServiceContextBuilder<TenantService, RadApiContext> {
@@ -1098,7 +1195,7 @@ public class RadApiContext extends ApiContext<RadApiContext> {
       }
 
       /**
-       * Include SearchTenants : 搜索租户（分页）
+       * Include SearchTenants
        */
       public final TenantService SearchTenants() {
         TenantService.this.include("SearchTenants");
@@ -1106,7 +1203,7 @@ public class RadApiContext extends ApiContext<RadApiContext> {
       }
 
       /**
-       * Exclude SearchTenants : 搜索租户（分页）
+       * Exclude SearchTenants
        */
       public final TenantService _SearchTenants() {
         TenantService.this.exclude("SearchTenants");
@@ -1116,8 +1213,6 @@ public class RadApiContext extends ApiContext<RadApiContext> {
   }
 
   /**
-   * ============ 租户成员管理 API ============
-   * 替代原 CustomerOrganizationService — 管理 Customer 在 Tenant 中的身份
    * 租户成员管理服务，提供成员与租户关系管理功能
    */
   public final class TenantMemberService extends ApiServiceContextBuilder<TenantMemberService, RadApiContext> {
@@ -1149,8 +1244,7 @@ public class RadApiContext extends ApiContext<RadApiContext> {
 
     public class Methods {
       /**
-       * Include GetTenantMembers : 获取租户成员列表（分页）
-       *
+       * Include GetTenantMembers
        */
       public final TenantMemberService GetTenantMembers() {
         TenantMemberService.this.include("GetTenantMembers");
@@ -1158,8 +1252,7 @@ public class RadApiContext extends ApiContext<RadApiContext> {
       }
 
       /**
-       * Exclude GetTenantMembers : 获取租户成员列表（分页）
-       *
+       * Exclude GetTenantMembers
        */
       public final TenantMemberService _GetTenantMembers() {
         TenantMemberService.this.exclude("GetTenantMembers");
@@ -1167,8 +1260,7 @@ public class RadApiContext extends ApiContext<RadApiContext> {
       }
 
       /**
-       * Include AddMemberToTenant : 添加成员到租户
-       *
+       * Include AddMemberToTenant
        */
       public final TenantMemberService AddMemberToTenant() {
         TenantMemberService.this.include("AddMemberToTenant");
@@ -1176,8 +1268,7 @@ public class RadApiContext extends ApiContext<RadApiContext> {
       }
 
       /**
-       * Exclude AddMemberToTenant : 添加成员到租户
-       *
+       * Exclude AddMemberToTenant
        */
       public final TenantMemberService _AddMemberToTenant() {
         TenantMemberService.this.exclude("AddMemberToTenant");
@@ -1185,8 +1276,7 @@ public class RadApiContext extends ApiContext<RadApiContext> {
       }
 
       /**
-       * Include RemoveMemberFromTenant : 从租户移除成员
-       *
+       * Include RemoveMemberFromTenant
        */
       public final TenantMemberService RemoveMemberFromTenant() {
         TenantMemberService.this.include("RemoveMemberFromTenant");
@@ -1194,8 +1284,7 @@ public class RadApiContext extends ApiContext<RadApiContext> {
       }
 
       /**
-       * Exclude RemoveMemberFromTenant : 从租户移除成员
-       *
+       * Exclude RemoveMemberFromTenant
        */
       public final TenantMemberService _RemoveMemberFromTenant() {
         TenantMemberService.this.exclude("RemoveMemberFromTenant");
@@ -1203,8 +1292,7 @@ public class RadApiContext extends ApiContext<RadApiContext> {
       }
 
       /**
-       * Include ToggleMemberLock : 锁定/解锁成员
-       *
+       * Include ToggleMemberLock
        */
       public final TenantMemberService ToggleMemberLock() {
         TenantMemberService.this.include("ToggleMemberLock");
@@ -1212,8 +1300,7 @@ public class RadApiContext extends ApiContext<RadApiContext> {
       }
 
       /**
-       * Exclude ToggleMemberLock : 锁定/解锁成员
-       *
+       * Exclude ToggleMemberLock
        */
       public final TenantMemberService _ToggleMemberLock() {
         TenantMemberService.this.exclude("ToggleMemberLock");
@@ -1221,8 +1308,7 @@ public class RadApiContext extends ApiContext<RadApiContext> {
       }
 
       /**
-       * Include UpdateMemberRole : 更新成员角色（OWNER/ADMIN/MEMBER）
-       *
+       * Include UpdateMemberRole
        */
       public final TenantMemberService UpdateMemberRole() {
         TenantMemberService.this.include("UpdateMemberRole");
@@ -1230,8 +1316,7 @@ public class RadApiContext extends ApiContext<RadApiContext> {
       }
 
       /**
-       * Exclude UpdateMemberRole : 更新成员角色（OWNER/ADMIN/MEMBER）
-       *
+       * Exclude UpdateMemberRole
        */
       public final TenantMemberService _UpdateMemberRole() {
         TenantMemberService.this.exclude("UpdateMemberRole");
@@ -1239,8 +1324,7 @@ public class RadApiContext extends ApiContext<RadApiContext> {
       }
 
       /**
-       * Include AssignMemberDepartment : 分配成员到部门
-       *
+       * Include AssignMemberDepartment
        */
       public final TenantMemberService AssignMemberDepartment() {
         TenantMemberService.this.include("AssignMemberDepartment");
@@ -1248,8 +1332,7 @@ public class RadApiContext extends ApiContext<RadApiContext> {
       }
 
       /**
-       * Exclude AssignMemberDepartment : 分配成员到部门
-       *
+       * Exclude AssignMemberDepartment
        */
       public final TenantMemberService _AssignMemberDepartment() {
         TenantMemberService.this.exclude("AssignMemberDepartment");
@@ -1257,8 +1340,7 @@ public class RadApiContext extends ApiContext<RadApiContext> {
       }
 
       /**
-       * Include GetMemberDetail : 获取成员详情（含客户信息 + 成员身份信息）
-       *
+       * Include GetMemberDetail
        */
       public final TenantMemberService GetMemberDetail() {
         TenantMemberService.this.include("GetMemberDetail");
@@ -1266,8 +1348,7 @@ public class RadApiContext extends ApiContext<RadApiContext> {
       }
 
       /**
-       * Exclude GetMemberDetail : 获取成员详情（含客户信息 + 成员身份信息）
-       *
+       * Exclude GetMemberDetail
        */
       public final TenantMemberService _GetMemberDetail() {
         TenantMemberService.this.exclude("GetMemberDetail");
@@ -1275,8 +1356,7 @@ public class RadApiContext extends ApiContext<RadApiContext> {
       }
 
       /**
-       * Include SetDefaultTenant : 设置默认租户
-       *
+       * Include SetDefaultTenant
        */
       public final TenantMemberService SetDefaultTenant() {
         TenantMemberService.this.include("SetDefaultTenant");
@@ -1284,8 +1364,7 @@ public class RadApiContext extends ApiContext<RadApiContext> {
       }
 
       /**
-       * Exclude SetDefaultTenant : 设置默认租户
-       *
+       * Exclude SetDefaultTenant
        */
       public final TenantMemberService _SetDefaultTenant() {
         TenantMemberService.this.exclude("SetDefaultTenant");
@@ -1293,8 +1372,7 @@ public class RadApiContext extends ApiContext<RadApiContext> {
       }
 
       /**
-       * Include AssignRolesToMember : 为成员分配 RBAC 角色（全量覆盖）
-       *
+       * Include AssignRolesToMember
        */
       public final TenantMemberService AssignRolesToMember() {
         TenantMemberService.this.include("AssignRolesToMember");
@@ -1302,8 +1380,7 @@ public class RadApiContext extends ApiContext<RadApiContext> {
       }
 
       /**
-       * Exclude AssignRolesToMember : 为成员分配 RBAC 角色（全量覆盖）
-       *
+       * Exclude AssignRolesToMember
        */
       public final TenantMemberService _AssignRolesToMember() {
         TenantMemberService.this.exclude("AssignRolesToMember");
@@ -1311,8 +1388,7 @@ public class RadApiContext extends ApiContext<RadApiContext> {
       }
 
       /**
-       * Include GetMemberRoles : 获取成员的 RBAC 角色列表
-       *
+       * Include GetMemberRoles
        */
       public final TenantMemberService GetMemberRoles() {
         TenantMemberService.this.include("GetMemberRoles");
@@ -1320,8 +1396,7 @@ public class RadApiContext extends ApiContext<RadApiContext> {
       }
 
       /**
-       * Exclude GetMemberRoles : 获取成员的 RBAC 角色列表
-       *
+       * Exclude GetMemberRoles
        */
       public final TenantMemberService _GetMemberRoles() {
         TenantMemberService.this.exclude("GetMemberRoles");
@@ -1329,8 +1404,7 @@ public class RadApiContext extends ApiContext<RadApiContext> {
       }
 
       /**
-       * Include RemoveRoleFromMember : 移除成员的某个 RBAC 角色
-       *
+       * Include RemoveRoleFromMember
        */
       public final TenantMemberService RemoveRoleFromMember() {
         TenantMemberService.this.include("RemoveRoleFromMember");
@@ -1338,8 +1412,7 @@ public class RadApiContext extends ApiContext<RadApiContext> {
       }
 
       /**
-       * Exclude RemoveRoleFromMember : 移除成员的某个 RBAC 角色
-       *
+       * Exclude RemoveRoleFromMember
        */
       public final TenantMemberService _RemoveRoleFromMember() {
         TenantMemberService.this.exclude("RemoveRoleFromMember");

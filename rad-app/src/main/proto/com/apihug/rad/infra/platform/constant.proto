@@ -1,0 +1,99 @@
+syntax = "proto3";
+
+package com.apihug.rad.infra.platform;
+
+import "apihug/protobuf/extend/constant.proto";
+import "apihug/protobuf/swagger/annotations.proto";
+
+// 平台成员状态枚举
+// PM_ 前缀避免与其他 package 内的枚举值名称冲突
+enum PlatformMemberStatusEnum {
+  option (hope.swagger.enm) = {
+    description: "平台成员状态枚举"
+  };
+
+  PM_ACTIVE = 0 [(hope.constant.field) = {
+    code: 1,
+    message: "active",
+    message2: "正常"
+  }];
+
+  PM_LOCKED = 1 [(hope.constant.field) = {
+    code: 2,
+    message: "locked",
+    message2: "已冻结"
+  }];
+
+  PM_INACTIVE = 2 [(hope.constant.field) = {
+    code: 3,
+    message: "inactive",
+    message2: "已移除"
+  }];
+}
+
+// 平台成员相关错误枚举
+enum PlatformMemberErrorEnum {
+  option (hope.swagger.enm) = {
+    description: "平台成员相关错误"
+  };
+
+  PLATFORM_MEMBER_NOT_FOUND = 0 [(hope.constant.field) = {
+    code: 10008001,
+    message: "Platform member not found",
+    message2: "平台成员不存在",
+    error: {
+      tips: "Check if the platform member ID is correct",
+      http_status: NOT_FOUND,
+      phase: DOMAIN,
+      severity: FATAL
+    }
+  }];
+
+  PLATFORM_MEMBER_ALREADY_EXISTS = 1 [(hope.constant.field) = {
+    code: 10008002,
+    message: "Customer is already a platform member",
+    message2: "该客户已是平台成员",
+    error: {
+      tips: "The customer has already joined the platform",
+      http_status: CONFLICT,
+      phase: DOMAIN,
+      severity: WARN
+    }
+  }];
+
+  PLATFORM_OWNER_CANNOT_BE_REMOVED = 2 [(hope.constant.field) = {
+    code: 10008003,
+    message: "Platform owner cannot be removed",
+    message2: "平台拥有者不允许被移除",
+    error: {
+      tips: "Cannot remove the platform owner to prevent losing platform access",
+      http_status: BAD_REQUEST,
+      phase: DOMAIN,
+      severity: WARN
+    }
+  }];
+
+  PLATFORM_MEMBER_LOCKED = 3 [(hope.constant.field) = {
+    code: 10008004,
+    message: "Platform member is locked",
+    message2: "平台成员已被冻结",
+    error: {
+      tips: "Contact platform administrator to unlock your account",
+      http_status: FORBIDDEN,
+      phase: DOMAIN,
+      severity: WARN
+    }
+  }];
+
+  PLATFORM_MEMBER_INACTIVE = 4 [(hope.constant.field) = {
+    code: 10008005,
+    message: "Platform member is inactive and cannot be modified",
+    message2: "平台成员已移除，无法进行此操作",
+    error: {
+      tips: "Inactive members cannot be frozen or unfrozen",
+      http_status: BAD_REQUEST,
+      phase: DOMAIN,
+      severity: WARN
+    }
+  }];
+}

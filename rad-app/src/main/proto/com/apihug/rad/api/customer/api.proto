@@ -6,7 +6,6 @@ import "apihug/protobuf/swagger/annotations.proto";
 import "google/protobuf/empty.proto";
 import "com/apihug/rad/infra/customer/constant.proto";
 
-// ============ 客户认证 API ============
 
 service CustomerAuthService {
   option (hope.swagger.svc) = {
@@ -49,7 +48,6 @@ service CustomerAuthService {
   }
 }
 
-// ============ 客户服务 API ============
 
 service CustomerService {
   option (hope.swagger.svc) = {
@@ -120,7 +118,6 @@ service CustomerService {
   }
 }
 
-// ============ 客户管理 API ============
 
 service CustomerManagementService {
   option (hope.swagger.svc) = {
@@ -147,8 +144,6 @@ service CustomerManagementService {
     };
   }
 
-  // GetCustomer/UpdateCustomer/DeleteCustomer/SearchCustomers 已迁移至 TenantMemberService
-  // 租户管理员应通过 /api/tenant-members/tenants/{tenantId}/members 管理租户内成员
 
   rpc ForgotPassword (ForgotPasswordRequest) returns (google.protobuf.Empty) {
     option (hope.swagger.operation) = {
@@ -183,7 +178,6 @@ service CustomerManagementService {
   }
 }
 
-// ============ 消息类型定义 ============
 
 message LoginRequest {
   option (hope.swagger.schema) = {
@@ -244,24 +238,20 @@ message LoginResponse {
     mock: {nature: NAME};
   }];
 
-  // 是否需要选择租户（当客户加入多个租户且未设置默认租户时）
   bool needs_tenant_selection = 4 [(hope.swagger.field) = {
     description: "是否需要选择租户";
     example: "false";
   }];
 
-  // 客户的租户列表（当 needs_tenant_selection=true 时返回）
   repeated TenantInfo tenants = 5 [(hope.swagger.field) = {
     description: "客户的租户列表";
   }];
 
-  // 默认租户信息
   TenantInfo default_tenant = 6 [(hope.swagger.field) = {
     description: "默认租户信息";
   }];
 }
 
-// 租户信息（用于登录响应、客户租户列表等）
 message TenantInfo {
   option (hope.swagger.schema) = {
     json_schema: {
@@ -490,8 +480,6 @@ message CustomerSummary {
   }];
 }
 
-// CustomerDetail, UpdateCustomerRequest, SearchCustomersRequest 已移除
-// 租户内成员查看/搜索/管理 → TenantMemberService
 
 message ForgotPasswordRequest {
   option (hope.swagger.schema) = {

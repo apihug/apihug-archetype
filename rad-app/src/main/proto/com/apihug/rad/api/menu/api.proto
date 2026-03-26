@@ -6,7 +6,6 @@ import "apihug/protobuf/swagger/annotations.proto";
 import "google/protobuf/empty.proto";
 import "com/apihug/rad/infra/menu/constant.proto";
 
-// ============ 菜单管理 API ============
 
 service MenuService {
   option (hope.swagger.svc) = {

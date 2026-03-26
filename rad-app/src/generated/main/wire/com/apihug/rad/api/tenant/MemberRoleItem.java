@@ -11,7 +11,6 @@ import java.util.StringJoiner;
 import javax.annotation.Generated;
 
 /**
- * 成员角色项
  * 成员的 RBAC 角色信息
  */
 @Generated("H.O.P.E. Infra Team")

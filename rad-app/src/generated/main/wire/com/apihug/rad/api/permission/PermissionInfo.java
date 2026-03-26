@@ -10,7 +10,6 @@ import javax.annotation.Generated;
 
 /**
  * 权限信息
- * 权限信息
  */
 @Generated("H.O.P.E. Infra Team")
 @ProtoFrom(

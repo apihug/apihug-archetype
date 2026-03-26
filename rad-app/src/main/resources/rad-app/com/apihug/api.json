@@ -19,6 +19,122 @@
     "description" : "Sample Tag"
   } ],
   "paths" : {
+    "/api/platforms/members" : {
+      "post" : {
+        "tags" : [ "platform-member" ],
+        "summary" : "添加平台成员",
+        "description" : "将指定客户添加为平台成员，并设置平台角色",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "type" : "object",
+                "$ref" : "#/components/schemas/AddPlatformMemberRequest"
+              }
+            }
+          }
+        },
+        "x-hope-operation" : {
+          "requestClz" : "com.apihug.rad.api.platform.AddPlatformMemberRequest",
+          "authorization" : {
+            "rbac" : {
+              "predefinedRoleChecker" : "PLATFORM",
+              "authorities" : [ "PLATFORM_MEMBER_ADD" ],
+              "combinator" : "AND"
+            }
+          }
+        }
+      }
+    },
+    "/api/platforms/members/{memberId}" : {
+      "delete" : {
+        "tags" : [ "platform-member" ],
+        "summary" : "移除平台成员",
+        "description" : "移除平台成员，同时重置客户的 platform_type 为 NA。OWNER 角色不允许被移除",
+        "parameters" : [ {
+          "name" : "memberId",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "number",
+            "format" : "int64",
+            "minimum" : 1.0
+          }
+        } ],
+        "x-hope-operation" : {
+          "authorization" : {
+            "rbac" : {
+              "predefinedRoleChecker" : "PLATFORM",
+              "authorities" : [ "PLATFORM_MEMBER_REMOVE" ],
+              "combinator" : "AND"
+            }
+          }
+        }
+      }
+    },
+    "/api/platforms/members/{memberId}/toggle-freeze" : {
+      "post" : {
+        "tags" : [ "platform-member" ],
+        "summary" : "冻结/解冻平台成员",
+        "description" : "切换平台成员冻结状态：PM_ACTIVE ↔ PM_LOCKED",
+        "parameters" : [ {
+          "name" : "memberId",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "number",
+            "format" : "int64",
+            "minimum" : 1.0
+          }
+        } ],
+        "x-hope-operation" : {
+          "authorization" : {
+            "rbac" : {
+              "predefinedRoleChecker" : "PLATFORM",
+              "authorities" : [ "PLATFORM_MEMBER_FREEZE" ],
+              "combinator" : "AND"
+            }
+          }
+        }
+      }
+    },
+    "/api/platforms/members/{memberId}/role" : {
+      "put" : {
+        "tags" : [ "platform-member" ],
+        "summary" : "更新平台成员角色",
+        "description" : "更新平台成员角色\n更新平台成员的平台角色（MEMBER/MANAGER/OWNER），并同步更新 CustomerEntity.platform_type",
+        "parameters" : [ {
+          "name" : "memberId",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "number",
+            "format" : "int64",
+            "minimum" : 1.0
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "type" : "object",
+                "$ref" : "#/components/schemas/UpdatePlatformMemberRoleRequest"
+              }
+            }
+          }
+        },
+        "x-hope-operation" : {
+          "requestClz" : "com.apihug.rad.api.platform.UpdatePlatformMemberRoleRequest",
+          "authorization" : {
+            "rbac" : {
+              "predefinedRoleChecker" : "PLATFORM",
+              "authorities" : [ "PLATFORM_MEMBER_UPDATE_ROLE" ],
+              "combinator" : "AND"
+            }
+          }
+        }
+      }
+    },
     "/api/departments/departments" : {
       "post" : {
         "tags" : [ "department" ],
@@ -196,7 +312,7 @@
       "get" : {
         "tags" : [ "permission" ],
         "summary" : "获取角色权限",
-        "description" : "获取当前客户的角色权限集合\n获取当前客户的角色权限集合",
+        "description" : "获取当前客户的角色权限集合",
         "responses" : {
           "200" : {
             "description" : "获取当前客户的角色权限集合",
@@ -233,7 +349,7 @@
       "get" : {
         "tags" : [ "permission" ],
         "summary" : "获取菜单权限",
-        "description" : "获取当前客户的菜单权限集合\n获取当前客户的菜单权限集合",
+        "description" : "获取当前客户的菜单权限集合",
         "responses" : {
           "200" : {
             "description" : "获取当前客户的菜单权限集合",
@@ -270,7 +386,7 @@
       "get" : {
         "tags" : [ "permission" ],
         "summary" : "获取所有权限",
-        "description" : "获取当前客户的所有权限（角色权限 ∪ 菜单权限）\n获取当前客户的所有权限（聚合）",
+        "description" : "获取当前客户的所有权限（聚合）",
         "responses" : {
           "200" : {
             "description" : "获取当前客户的所有权限（聚合）",
@@ -595,7 +711,7 @@
       "post" : {
         "tags" : [ "tenant" ],
         "summary" : "搜索租户",
-        "description" : "搜索租户（分页）\n搜索租户（分页）",
+        "description" : "搜索租户（分页）",
         "parameters" : [ {
           "name" : "pageRequest",
           "in" : "query",
@@ -658,7 +774,7 @@
       "post" : {
         "tags" : [ "tenant-member" ],
         "summary" : "添加租户成员",
-        "description" : "添加成员到租户\r\n添加客户为租户成员",
+        "description" : "添加客户为租户成员",
         "parameters" : [ {
           "name" : "tenantId",
           "in" : "path",
@@ -693,7 +809,7 @@
       "delete" : {
         "tags" : [ "tenant-member" ],
         "summary" : "移除租户成员",
-        "description" : "从租户移除成员\r\n从租户移除成员",
+        "description" : "从租户移除成员",
         "parameters" : [ {
           "name" : "tenantId",
           "in" : "path",
@@ -726,7 +842,7 @@
       "post" : {
         "tags" : [ "tenant-member" ],
         "summary" : "切换成员锁定状态",
-        "description" : "锁定/解锁成员\r\n锁定/解锁租户成员",
+        "description" : "锁定/解锁租户成员",
         "parameters" : [ {
           "name" : "tenantId",
           "in" : "path",
@@ -759,7 +875,7 @@
       "put" : {
         "tags" : [ "tenant-member" ],
         "summary" : "更新成员角色",
-        "description" : "更新成员角色（OWNER/ADMIN/MEMBER）\r\n更新成员在租户中的角色（拥有者/管理员/普通成员）",
+        "description" : "更新成员在租户中的角色（拥有者/管理员/普通成员）",
         "parameters" : [ {
           "name" : "tenantId",
           "in" : "path",
@@ -803,7 +919,7 @@
       "put" : {
         "tags" : [ "tenant-member" ],
         "summary" : "分配成员部门",
-        "description" : "分配成员到部门\r\n将成员分配到指定部门",
+        "description" : "将成员分配到指定部门",
         "parameters" : [ {
           "name" : "tenantId",
           "in" : "path",
@@ -847,7 +963,7 @@
       "get" : {
         "tags" : [ "tenant-member" ],
         "summary" : "获取成员详情",
-        "description" : "获取成员详情（含客户信息 + 成员身份信息）\r\n获取租户成员详细信息（含客户账号信息和成员身份信息）",
+        "description" : "获取租户成员详细信息（含客户账号信息和成员身份信息）",
         "parameters" : [ {
           "name" : "tenantId",
           "in" : "path",
@@ -902,7 +1018,7 @@
       "post" : {
         "tags" : [ "tenant-member" ],
         "summary" : "设置默认租户",
-        "description" : "设置默认租户\r\n将指定租户设为客户的默认租户",
+        "description" : "将指定租户设为客户的默认租户",
         "parameters" : [ {
           "name" : "tenantId",
           "in" : "path",
@@ -924,7 +1040,7 @@
       "get" : {
         "tags" : [ "tenant-member" ],
         "summary" : "获取成员角色",
-        "description" : "获取成员的 RBAC 角色列表\r\n获取租户成员的 RBAC 角色列表",
+        "description" : "获取租户成员的 RBAC 角色列表",
         "parameters" : [ {
           "name" : "tenantId",
           "in" : "path",
@@ -978,7 +1094,7 @@
       "delete" : {
         "tags" : [ "tenant-member" ],
         "summary" : "移除成员角色",
-        "description" : "移除成员的某个 RBAC 角色\r\n移除租户成员的某个 RBAC 角色",
+        "description" : "移除租户成员的某个 RBAC 角色",
         "parameters" : [ {
           "name" : "tenantId",
           "in" : "path",
@@ -1078,7 +1194,7 @@
       "get" : {
         "tags" : [ "access-log" ],
         "summary" : "获取访问日志统计概览",
-        "description" : "Are u sure\n获取访问统计",
+        "description" : "获取访问统计",
         "parameters" : [ {
           "name" : "query",
           "in" : "query",
@@ -1395,7 +1511,7 @@
       "post" : {
         "tags" : [ "auth" ],
         "summary" : "找回密码",
-        "description" : "GetCustomer/UpdateCustomer/DeleteCustomer/SearchCustomers 已迁移至 TenantMemberService\n租户管理员应通过 /api/tenant-members/tenants/{tenantId}/members 管理租户内成员\n申请找回密码（发送重置邮件）",
+        "description" : "申请找回密码（发送重置邮件）",
         "requestBody" : {
           "content" : {
             "application/json" : {
@@ -1579,7 +1695,7 @@
       "get" : {
         "tags" : [ "role" ],
         "summary" : "获取角色菜单",
-        "description" : "获取角色关联的菜单列表\n获取角色关联的菜单列表（含权限代码）",
+        "description" : "获取角色关联的菜单列表（含权限代码）",
         "parameters" : [ {
           "name" : "roleId",
           "in" : "path",
@@ -1622,7 +1738,7 @@
       "delete" : {
         "tags" : [ "role" ],
         "summary" : "移除角色菜单",
-        "description" : "移除角色的某个菜单关联\n移除角色的某个菜单关联",
+        "description" : "移除角色的某个菜单关联",
         "parameters" : [ {
           "name" : "roleId",
           "in" : "path",
@@ -2125,6 +2241,42 @@
           "clz" : "com.apihug.rad.infra.menu.MenuTypeEnum"
         }
       },
+      "PlatformMemberStatusEnum" : {
+        "type" : "string",
+        "description" : "平台成员状态枚举\r\nPM_ 前缀避免与其他 package 内的枚举值名称冲突\r\n平台成员状态枚举",
+        "enum" : [ "PM_ACTIVE", "PM_LOCKED", "PM_INACTIVE" ],
+        "x-hope-component" : {
+          "x-enum-extensions" : {
+            "PM_ACTIVE" : {
+              "name" : "PM_ACTIVE",
+              "code" : 1,
+              "message" : "active",
+              "message2" : "正常"
+            },
+            "PM_LOCKED" : {
+              "name" : "PM_LOCKED",
+              "code" : 2,
+              "message" : "locked",
+              "message2" : "已冻结"
+            },
+            "PM_INACTIVE" : {
+              "name" : "PM_INACTIVE",
+              "code" : 3,
+              "message" : "inactive",
+              "message2" : "已移除"
+            }
+          },
+          "compile" : {
+            "protoFile" : "com/apihug/rad/infra/platform/constant.proto",
+            "name" : "PlatformMemberStatusEnum",
+            "locationLine" : 10,
+            "locationColumn" : 1
+          },
+          "isEnum" : true,
+          "isError" : false,
+          "clz" : "com.apihug.rad.infra.platform.PlatformMemberStatusEnum"
+        }
+      },
       "TenantStatusEnum" : {
         "type" : "string",
         "description" : "租户状态枚举",
@@ -2279,6 +2431,84 @@
           "isEnum" : true,
           "isError" : false,
           "clz" : "com.apihug.rad.infra.customer.CustomerStatusEnum"
+        }
+      },
+      "PlatformMemberErrorEnum" : {
+        "type" : "string",
+        "description" : "平台成员相关错误枚举\r\n平台成员相关错误",
+        "enum" : [ "PLATFORM_MEMBER_NOT_FOUND", "PLATFORM_MEMBER_ALREADY_EXISTS", "PLATFORM_OWNER_CANNOT_BE_REMOVED", "PLATFORM_MEMBER_LOCKED", "PLATFORM_MEMBER_INACTIVE" ],
+        "x-hope-component" : {
+          "x-enum-extensions" : {
+            "PLATFORM_MEMBER_NOT_FOUND" : {
+              "name" : "PLATFORM_MEMBER_NOT_FOUND",
+              "code" : 10008001,
+              "message" : "Platform member not found",
+              "message2" : "平台成员不存在",
+              "error" : {
+                "severity" : "FATAL",
+                "phase" : "DOMAIN",
+                "httpStatus" : "NOT_FOUND",
+                "tips" : "Check if the platform member ID is correct"
+              }
+            },
+            "PLATFORM_MEMBER_ALREADY_EXISTS" : {
+              "name" : "PLATFORM_MEMBER_ALREADY_EXISTS",
+              "code" : 10008002,
+              "message" : "Customer is already a platform member",
+              "message2" : "该客户已是平台成员",
+              "error" : {
+                "severity" : "WARN",
+                "phase" : "DOMAIN",
+                "httpStatus" : "CONFLICT",
+                "tips" : "The customer has already joined the platform"
+              }
+            },
+            "PLATFORM_OWNER_CANNOT_BE_REMOVED" : {
+              "name" : "PLATFORM_OWNER_CANNOT_BE_REMOVED",
+              "code" : 10008003,
+              "message" : "Platform owner cannot be removed",
+              "message2" : "平台拥有者不允许被移除",
+              "error" : {
+                "severity" : "WARN",
+                "phase" : "DOMAIN",
+                "httpStatus" : "BAD_REQUEST",
+                "tips" : "Cannot remove the platform owner to prevent losing platform access"
+              }
+            },
+            "PLATFORM_MEMBER_LOCKED" : {
+              "name" : "PLATFORM_MEMBER_LOCKED",
+              "code" : 10008004,
+              "message" : "Platform member is locked",
+              "message2" : "平台成员已被冻结",
+              "error" : {
+                "severity" : "WARN",
+                "phase" : "DOMAIN",
+                "httpStatus" : "FORBIDDEN",
+                "tips" : "Contact platform administrator to unlock your account"
+              }
+            },
+            "PLATFORM_MEMBER_INACTIVE" : {
+              "name" : "PLATFORM_MEMBER_INACTIVE",
+              "code" : 10008005,
+              "message" : "Platform member is inactive and cannot be modified",
+              "message2" : "平台成员已移除，无法进行此操作",
+              "error" : {
+                "severity" : "WARN",
+                "phase" : "DOMAIN",
+                "httpStatus" : "BAD_REQUEST",
+                "tips" : "Inactive members cannot be frozen or unfrozen"
+              }
+            }
+          },
+          "compile" : {
+            "protoFile" : "com/apihug/rad/infra/platform/constant.proto",
+            "name" : "PlatformMemberErrorEnum",
+            "locationLine" : 35,
+            "locationColumn" : 1
+          },
+          "isEnum" : true,
+          "isError" : true,
+          "clz" : "com.apihug.rad.infra.platform.PlatformMemberErrorEnum"
         }
       },
       "CustomerErrorEnum" : {
@@ -2479,13 +2709,13 @@
             },
             "MANAGER" : {
               "name" : "MANAGER",
-              "code" : 1,
+              "code" : 2,
               "message" : "platform manager",
               "message2" : "平台管理员"
             },
             "OWNER" : {
               "name" : "OWNER",
-              "code" : 2,
+              "code" : 3,
               "message" : "platform owner",
               "message2" : "平台拥有者"
             }
@@ -2540,7 +2770,7 @@
       "RadAuthorityEnum" : {
         "type" : "string",
         "description" : "RAD 权限枚举",
-        "enum" : [ "CUSTOMER_CREATE", "CUSTOMER_UPDATE", "CUSTOMER_DELETE", "CUSTOMER_VIEW", "ROLE_CREATE", "ROLE_UPDATE", "ROLE_DELETE", "ROLE_VIEW", "ROLE_ASSIGN_PERMISSION", "MENU_CREATE", "MENU_UPDATE", "MENU_DELETE", "MENU_VIEW", "TENANT_CREATE", "TENANT_UPDATE", "TENANT_DISABLE", "TENANT_CONFIGURE", "DEPARTMENT_CREATE", "DEPARTMENT_UPDATE", "DEPARTMENT_DELETE", "DEPARTMENT_ASSIGN_EMPLOYEE", "TENANT_MEMBER_VIEW", "TENANT_MEMBER_ADD", "TENANT_MEMBER_REMOVE", "TENANT_MEMBER_LOCK", "TENANT_MEMBER_ASSIGN_ROLE", "TENANT_MEMBER_ASSIGN_DEPARTMENT" ],
+        "enum" : [ "CUSTOMER_CREATE", "CUSTOMER_UPDATE", "CUSTOMER_DELETE", "CUSTOMER_VIEW", "ROLE_CREATE", "ROLE_UPDATE", "ROLE_DELETE", "ROLE_VIEW", "ROLE_ASSIGN_PERMISSION", "MENU_CREATE", "MENU_UPDATE", "MENU_DELETE", "MENU_VIEW", "TENANT_CREATE", "TENANT_UPDATE", "TENANT_DISABLE", "TENANT_CONFIGURE", "DEPARTMENT_CREATE", "DEPARTMENT_UPDATE", "DEPARTMENT_DELETE", "DEPARTMENT_ASSIGN_EMPLOYEE", "TENANT_MEMBER_VIEW", "TENANT_MEMBER_ADD", "TENANT_MEMBER_REMOVE", "TENANT_MEMBER_LOCK", "TENANT_MEMBER_ASSIGN_ROLE", "TENANT_MEMBER_ASSIGN_DEPARTMENT", "PLATFORM_MEMBER_VIEW", "PLATFORM_MEMBER_ADD", "PLATFORM_MEMBER_REMOVE", "PLATFORM_MEMBER_FREEZE", "PLATFORM_MEMBER_UPDATE_ROLE" ],
         "x-hope-component" : {
           "x-enum-extensions" : {
             "CUSTOMER_CREATE" : {
@@ -2571,57 +2801,57 @@
             "ROLE_CREATE" : {
               "name" : "ROLE_CREATE",
               "code" : 5,
-              "message" : "role:create",
+              "message" : "tenant:role:create",
               "message2" : "创建角色",
               "documentation" : "角色管理权限"
             },
             "ROLE_UPDATE" : {
               "name" : "ROLE_UPDATE",
               "code" : 6,
-              "message" : "role:update",
+              "message" : "tenant:role:update",
               "message2" : "更新角色"
             },
             "ROLE_DELETE" : {
               "name" : "ROLE_DELETE",
               "code" : 7,
-              "message" : "role:delete",
+              "message" : "tenant:role:delete",
               "message2" : "删除角色"
             },
             "ROLE_VIEW" : {
               "name" : "ROLE_VIEW",
               "code" : 8,
-              "message" : "role:view",
+              "message" : "tenant:role:view",
               "message2" : "查看角色"
             },
             "ROLE_ASSIGN_PERMISSION" : {
               "name" : "ROLE_ASSIGN_PERMISSION",
               "code" : 9,
-              "message" : "role:assign_permission",
+              "message" : "tenant:role:assign_permission",
               "message2" : "分配角色权限"
             },
             "MENU_CREATE" : {
               "name" : "MENU_CREATE",
               "code" : 10,
-              "message" : "menu:create",
+              "message" : "platform:menu:create",
               "message2" : "创建菜单",
               "documentation" : "菜单管理权限"
             },
             "MENU_UPDATE" : {
               "name" : "MENU_UPDATE",
               "code" : 11,
-              "message" : "menu:update",
+              "message" : "platform:menu:update",
               "message2" : "更新菜单"
             },
             "MENU_DELETE" : {
               "name" : "MENU_DELETE",
               "code" : 12,
-              "message" : "menu:delete",
+              "message" : "platform:menu:delete",
               "message2" : "删除菜单"
             },
             "MENU_VIEW" : {
               "name" : "MENU_VIEW",
               "code" : 13,
-              "message" : "menu:view",
+              "message" : "platform:menu:view",
               "message2" : "查看菜单"
             },
             "TENANT_CREATE" : {
@@ -2652,26 +2882,26 @@
             "DEPARTMENT_CREATE" : {
               "name" : "DEPARTMENT_CREATE",
               "code" : 18,
-              "message" : "department:create",
+              "message" : "tenant:department:create",
               "message2" : "创建部门",
               "documentation" : "部门管理权限"
             },
             "DEPARTMENT_UPDATE" : {
               "name" : "DEPARTMENT_UPDATE",
               "code" : 19,
-              "message" : "department:update",
+              "message" : "tenant:department:update",
               "message2" : "更新部门"
             },
             "DEPARTMENT_DELETE" : {
               "name" : "DEPARTMENT_DELETE",
               "code" : 20,
-              "message" : "department:delete",
+              "message" : "tenant:department:delete",
               "message2" : "删除部门"
             },
             "DEPARTMENT_ASSIGN_EMPLOYEE" : {
               "name" : "DEPARTMENT_ASSIGN_EMPLOYEE",
               "code" : 21,
-              "message" : "department:assign_employee",
+              "message" : "tenant:department:assign_employee",
               "message2" : "分配员工到部门"
             },
             "TENANT_MEMBER_VIEW" : {
@@ -2710,6 +2940,37 @@
               "code" : 27,
               "message" : "tenant:member:assign_department",
               "message2" : "分配成员部门"
+            },
+            "PLATFORM_MEMBER_VIEW" : {
+              "name" : "PLATFORM_MEMBER_VIEW",
+              "code" : 28,
+              "message" : "platform:member:view",
+              "message2" : "查看平台成员",
+              "documentation" : "平台成员管理权限"
+            },
+            "PLATFORM_MEMBER_ADD" : {
+              "name" : "PLATFORM_MEMBER_ADD",
+              "code" : 29,
+              "message" : "platform:member:add",
+              "message2" : "添加平台成员"
+            },
+            "PLATFORM_MEMBER_REMOVE" : {
+              "name" : "PLATFORM_MEMBER_REMOVE",
+              "code" : 30,
+              "message" : "platform:member:remove",
+              "message2" : "移除平台成员"
+            },
+            "PLATFORM_MEMBER_FREEZE" : {
+              "name" : "PLATFORM_MEMBER_FREEZE",
+              "code" : 31,
+              "message" : "platform:member:freeze",
+              "message2" : "冻结/解冻平台成员"
+            },
+            "PLATFORM_MEMBER_UPDATE_ROLE" : {
+              "name" : "PLATFORM_MEMBER_UPDATE_ROLE",
+              "code" : 32,
+              "message" : "platform:member:update_role",
+              "message2" : "更新平台成员角色"
             }
           },
           "compile" : {
@@ -2810,6 +3071,63 @@
           "clz" : "com.apihug.rad.infra.tenant.TenantMemberStatusEnum"
         }
       },
+      "GetPlatformMembersRequest" : {
+        "type" : "object",
+        "description" : "查询平台成员列表请求",
+        "properties" : {
+          "status" : {
+            "type" : "object",
+            "$ref" : "#/components/schemas/PlatformMemberStatusEnum",
+            "description" : "成员状态筛选",
+            "enum" : [ "PM_ACTIVE", "PM_LOCKED", "PM_INACTIVE" ],
+            "x-hope-field" : {
+              "compile" : {
+                "locationLine" : 137,
+                "locationColumn" : 3,
+                "name" : "status",
+                "type" : "com.apihug.rad.infra.platform.PlatformMemberStatusEnum"
+              }
+            }
+          },
+          "platformRole" : {
+            "type" : "object",
+            "$ref" : "#/components/schemas/CustomerPlatformTypeEnum",
+            "description" : "平台角色筛选",
+            "enum" : [ "MEMBER", "MANAGER", "OWNER" ],
+            "x-hope-field" : {
+              "compile" : {
+                "locationLine" : 142,
+                "locationColumn" : 3,
+                "name" : "platform_role",
+                "type" : "com.apihug.rad.infra.customer.CustomerPlatformTypeEnum"
+              }
+            }
+          },
+          "keyword" : {
+            "type" : "string",
+            "description" : "搜索关键词（匹配用户名或邮筱）",
+            "maxLength" : 100,
+            "x-hope-field" : {
+              "compile" : {
+                "locationLine" : 147,
+                "locationColumn" : 3,
+                "name" : "keyword",
+                "type" : "java.lang.String"
+              }
+            }
+          }
+        },
+        "title" : "GetPlatformMembersRequest",
+        "x-hope-component" : {
+          "compile" : {
+            "protoFile" : "com/apihug/rad/api/platform/api.proto",
+            "name" : "GetPlatformMembersRequest",
+            "locationLine" : 129,
+            "locationColumn" : 1
+          },
+          "clz" : "com.apihug.rad.api.platform.GetPlatformMembersRequest"
+        }
+      },
       "TenantMemberSummary" : {
         "type" : "object",
         "description" : "租户成员摘要",
@@ -2820,7 +3138,7 @@
             "description" : "成员关系 ID",
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 482,
+                "locationLine" : 468,
                 "locationColumn" : 3,
                 "name" : "id",
                 "type" : "java.lang.Long"
@@ -2833,7 +3151,7 @@
             "description" : "客户 ID",
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 487,
+                "locationLine" : 473,
                 "locationColumn" : 3,
                 "name" : "customer_id",
                 "type" : "java.lang.Long"
@@ -2845,7 +3163,7 @@
             "description" : "客户用户名",
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 492,
+                "locationLine" : 478,
                 "locationColumn" : 3,
                 "name" : "customer_username",
                 "type" : "java.lang.String"
@@ -2857,7 +3175,7 @@
             "description" : "客户邮箱",
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 497,
+                "locationLine" : 483,
                 "locationColumn" : 3,
                 "name" : "customer_email",
                 "type" : "java.lang.String"
@@ -2870,7 +3188,7 @@
             "description" : "租户 ID",
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 502,
+                "locationLine" : 488,
                 "locationColumn" : 3,
                 "name" : "tenant_id",
                 "type" : "java.lang.Long"
@@ -2882,7 +3200,7 @@
             "description" : "租户名称",
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 507,
+                "locationLine" : 493,
                 "locationColumn" : 3,
                 "name" : "tenant_name",
                 "type" : "java.lang.String"
@@ -2895,7 +3213,7 @@
             "description" : "部门 ID",
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 512,
+                "locationLine" : 498,
                 "locationColumn" : 3,
                 "name" : "department_id",
                 "type" : "java.lang.Long"
@@ -2907,7 +3225,7 @@
             "description" : "职位",
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 517,
+                "locationLine" : 503,
                 "locationColumn" : 3,
                 "name" : "position",
                 "type" : "java.lang.String"
@@ -2921,7 +3239,7 @@
             "enum" : [ "FULL_TIME", "PART_TIME", "CONTRACTOR", "INTERN" ],
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 522,
+                "locationLine" : 508,
                 "locationColumn" : 3,
                 "name" : "member_type",
                 "type" : "com.apihug.rad.infra.tenant.MemberTypeEnum"
@@ -2935,7 +3253,7 @@
             "enum" : [ "MEMBER", "ADMIN", "OWNER" ],
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 527,
+                "locationLine" : 513,
                 "locationColumn" : 3,
                 "name" : "member_role",
                 "type" : "com.apihug.rad.infra.tenant.MemberRoleEnum"
@@ -2949,7 +3267,7 @@
             "enum" : [ "TM_ACTIVE", "TM_INACTIVE", "TM_LOCKED" ],
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 532,
+                "locationLine" : 518,
                 "locationColumn" : 3,
                 "name" : "status",
                 "type" : "com.apihug.rad.infra.tenant.TenantMemberStatusEnum"
@@ -2961,7 +3279,7 @@
             "description" : "是否默认租户",
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 537,
+                "locationLine" : 523,
                 "locationColumn" : 3,
                 "name" : "is_default",
                 "type" : "java.lang.Boolean"
@@ -2974,7 +3292,7 @@
           "compile" : {
             "protoFile" : "com/apihug/rad/api/tenant/member.proto",
             "name" : "TenantMemberSummary",
-            "locationLine" : 474,
+            "locationLine" : 460,
             "locationColumn" : 1
           },
           "clz" : "com.apihug.rad.api.tenant.TenantMemberSummary"
@@ -2994,7 +3312,7 @@
                 "nature" : "NAME"
               },
               "compile" : {
-                "locationLine" : 230,
+                "locationLine" : 229,
                 "locationColumn" : 3,
                 "name" : "menu_name",
                 "type" : "java.lang.String"
@@ -3010,7 +3328,7 @@
                 "nature" : "URL"
               },
               "compile" : {
-                "locationLine" : 238,
+                "locationLine" : 237,
                 "locationColumn" : 3,
                 "name" : "path",
                 "type" : "java.lang.String"
@@ -3023,7 +3341,7 @@
             "maxLength" : 100,
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 245,
+                "locationLine" : 244,
                 "locationColumn" : 3,
                 "name" : "icon",
                 "type" : "java.lang.String"
@@ -3036,7 +3354,7 @@
             "description" : "排序顺序",
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 251,
+                "locationLine" : 250,
                 "locationColumn" : 3,
                 "name" : "sort_order",
                 "type" : "java.lang.Integer"
@@ -3050,7 +3368,7 @@
             "enum" : [ "DIRECTORY", "MENU", "BUTTON" ],
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 256,
+                "locationLine" : 255,
                 "locationColumn" : 3,
                 "name" : "menu_type",
                 "type" : "com.apihug.rad.infra.menu.MenuTypeEnum"
@@ -3063,7 +3381,7 @@
             "maxLength" : 100,
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 262,
+                "locationLine" : 261,
                 "locationColumn" : 3,
                 "name" : "permission_code",
                 "type" : "java.lang.String"
@@ -3077,7 +3395,7 @@
             "enum" : [ "ACTIVE", "INACTIVE" ],
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 268,
+                "locationLine" : 267,
                 "locationColumn" : 3,
                 "name" : "status",
                 "type" : "com.apihug.rad.infra.menu.MenuStatusEnum"
@@ -3090,7 +3408,7 @@
           "compile" : {
             "protoFile" : "com/apihug/rad/api/menu/api.proto",
             "name" : "UpdateMenuRequest",
-            "locationLine" : 222,
+            "locationLine" : 221,
             "locationColumn" : 1
           },
           "clz" : "com.apihug.rad.api.menu.UpdateMenuRequest"
@@ -3107,7 +3425,7 @@
             "minimum" : 1.0,
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 403,
+                "locationLine" : 389,
                 "locationColumn" : 3,
                 "name" : "customer_id",
                 "type" : "java.lang.Long"
@@ -3120,7 +3438,7 @@
             "description" : "部门 ID",
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 410,
+                "locationLine" : 396,
                 "locationColumn" : 3,
                 "name" : "department_id",
                 "type" : "java.lang.Long"
@@ -3133,7 +3451,7 @@
             "maxLength" : 100,
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 415,
+                "locationLine" : 401,
                 "locationColumn" : 3,
                 "name" : "position",
                 "type" : "java.lang.String"
@@ -3147,7 +3465,7 @@
             "enum" : [ "FULL_TIME", "PART_TIME", "CONTRACTOR", "INTERN" ],
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 421,
+                "locationLine" : 407,
                 "locationColumn" : 3,
                 "name" : "member_type",
                 "type" : "com.apihug.rad.infra.tenant.MemberTypeEnum"
@@ -3161,7 +3479,7 @@
             "enum" : [ "MEMBER", "ADMIN", "OWNER" ],
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 426,
+                "locationLine" : 412,
                 "locationColumn" : 3,
                 "name" : "member_role",
                 "type" : "com.apihug.rad.infra.tenant.MemberRoleEnum"
@@ -3173,7 +3491,7 @@
             "description" : "是否设为默认租户",
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 431,
+                "locationLine" : 417,
                 "locationColumn" : 3,
                 "name" : "is_default",
                 "type" : "java.lang.Boolean"
@@ -3186,7 +3504,7 @@
           "compile" : {
             "protoFile" : "com/apihug/rad/api/tenant/member.proto",
             "name" : "AddTenantMemberRequest",
-            "locationLine" : 395,
+            "locationLine" : 381,
             "locationColumn" : 1
           },
           "clz" : "com.apihug.rad.api.tenant.AddTenantMemberRequest"
@@ -3201,7 +3519,7 @@
             "description" : "搜索关键词（角色代码或名称）",
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 390,
+                "locationLine" : 386,
                 "locationColumn" : 3,
                 "name" : "keyword",
                 "type" : "java.lang.String"
@@ -3215,7 +3533,7 @@
             "enum" : [ "ACTIVE", "INACTIVE", "DISABLED" ],
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 395,
+                "locationLine" : 391,
                 "locationColumn" : 3,
                 "name" : "status",
                 "type" : "com.apihug.rad.infra.role.RoleStatusEnum"
@@ -3228,7 +3546,7 @@
           "compile" : {
             "protoFile" : "com/apihug/rad/api/role/api.proto",
             "name" : "SearchRolesRequest",
-            "locationLine" : 382,
+            "locationLine" : 378,
             "locationColumn" : 1
           },
           "clz" : "com.apihug.rad.api.role.SearchRolesRequest"
@@ -3236,7 +3554,7 @@
       },
       "AccessLogInfo" : {
         "type" : "object",
-        "description" : "============ Response Messages ============\n访问日志信息",
+        "description" : "访问日志信息",
         "properties" : {
           "id" : {
             "type" : "number",
@@ -3244,7 +3562,7 @@
             "description" : "日志ID",
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 124,
+                "locationLine" : 121,
                 "locationColumn" : 3,
                 "name" : "id",
                 "type" : "java.lang.Long"
@@ -3256,7 +3574,7 @@
             "description" : "HTTP方法",
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 129,
+                "locationLine" : 126,
                 "locationColumn" : 3,
                 "name" : "http_method",
                 "type" : "java.lang.String"
@@ -3268,7 +3586,7 @@
             "description" : "请求路径",
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 134,
+                "locationLine" : 131,
                 "locationColumn" : 3,
                 "name" : "request_path",
                 "type" : "java.lang.String"
@@ -3281,7 +3599,7 @@
             "description" : "响应状态码",
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 139,
+                "locationLine" : 136,
                 "locationColumn" : 3,
                 "name" : "response_status",
                 "type" : "java.lang.Integer"
@@ -3294,7 +3612,7 @@
             "description" : "耗时毫秒",
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 144,
+                "locationLine" : 141,
                 "locationColumn" : 3,
                 "name" : "duration_ms",
                 "type" : "java.lang.Long"
@@ -3307,7 +3625,7 @@
             "description" : "客户ID",
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 149,
+                "locationLine" : 146,
                 "locationColumn" : 3,
                 "name" : "customer_id",
                 "type" : "java.lang.Long"
@@ -3319,7 +3637,7 @@
             "description" : "IP地址",
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 154,
+                "locationLine" : 151,
                 "locationColumn" : 3,
                 "name" : "ip_address",
                 "type" : "java.lang.String"
@@ -3331,7 +3649,7 @@
             "description" : "用户代理",
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 159,
+                "locationLine" : 156,
                 "locationColumn" : 3,
                 "name" : "user_agent",
                 "type" : "java.lang.String"
@@ -3343,7 +3661,7 @@
             "description" : "服务名称",
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 164,
+                "locationLine" : 161,
                 "locationColumn" : 3,
                 "name" : "service_name",
                 "type" : "java.lang.String"
@@ -3355,7 +3673,7 @@
             "description" : "方法名称",
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 169,
+                "locationLine" : 166,
                 "locationColumn" : 3,
                 "name" : "method_name",
                 "type" : "java.lang.String"
@@ -3367,7 +3685,7 @@
             "description" : "错误码",
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 174,
+                "locationLine" : 171,
                 "locationColumn" : 3,
                 "name" : "error_code",
                 "type" : "java.lang.String"
@@ -3379,7 +3697,7 @@
             "description" : "错误信息",
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 179,
+                "locationLine" : 176,
                 "locationColumn" : 3,
                 "name" : "error_message",
                 "type" : "java.lang.String"
@@ -3391,7 +3709,7 @@
             "description" : "脱敏后的请求参数",
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 184,
+                "locationLine" : 181,
                 "locationColumn" : 3,
                 "name" : "request_params",
                 "type" : "java.lang.String"
@@ -3405,7 +3723,7 @@
             "x-hope-field" : {
               "dateFormat" : "ISO_LOCAL_DATE_TIME",
               "compile" : {
-                "locationLine" : 189,
+                "locationLine" : 186,
                 "locationColumn" : 3,
                 "name" : "created_at",
                 "type" : "java.time.LocalDateTime"
@@ -3418,7 +3736,7 @@
             "description" : "租户ID",
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 195,
+                "locationLine" : 192,
                 "locationColumn" : 3,
                 "name" : "tenant_id",
                 "type" : "java.lang.Long"
@@ -3430,7 +3748,7 @@
             "description" : "priority of this method",
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 200,
+                "locationLine" : 197,
                 "locationColumn" : 3,
                 "name" : "priority",
                 "type" : "java.lang.String"
@@ -3443,7 +3761,7 @@
           "compile" : {
             "protoFile" : "com/apihug/rad/api/audit/api.proto",
             "name" : "AccessLogInfo",
-            "locationLine" : 116,
+            "locationLine" : 113,
             "locationColumn" : 1
           },
           "clz" : "com.apihug.rad.api.audit.AccessLogInfo"
@@ -3459,7 +3777,7 @@
             "description" : "菜单信息",
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 420,
+                "locationLine" : 419,
                 "locationColumn" : 3,
                 "name" : "menu",
                 "type" : "com.apihug.rad.api.menu.MenuSummary"
@@ -3475,7 +3793,7 @@
             },
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 424,
+                "locationLine" : 423,
                 "locationColumn" : 3,
                 "name" : "children",
                 "type" : "com.apihug.rad.api.menu.MenuTreeNode"
@@ -3488,7 +3806,7 @@
           "compile" : {
             "protoFile" : "com/apihug/rad/api/menu/api.proto",
             "name" : "MenuTreeNode",
-            "locationLine" : 412,
+            "locationLine" : 411,
             "locationColumn" : 1
           },
           "clz" : "com.apihug.rad.api.menu.MenuTreeNode"
@@ -3508,7 +3826,7 @@
                 "nature" : "NAME"
               },
               "compile" : {
-                "locationLine" : 270,
+                "locationLine" : 266,
                 "locationColumn" : 3,
                 "name" : "role_name",
                 "type" : "java.lang.String"
@@ -3524,7 +3842,7 @@
                 "nature" : "BOOK"
               },
               "compile" : {
-                "locationLine" : 278,
+                "locationLine" : 274,
                 "locationColumn" : 3,
                 "name" : "description",
                 "type" : "java.lang.String"
@@ -3538,7 +3856,7 @@
             "enum" : [ "ACTIVE", "INACTIVE", "DISABLED" ],
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 285,
+                "locationLine" : 281,
                 "locationColumn" : 3,
                 "name" : "status",
                 "type" : "com.apihug.rad.infra.role.RoleStatusEnum"
@@ -3551,7 +3869,7 @@
           "compile" : {
             "protoFile" : "com/apihug/rad/api/role/api.proto",
             "name" : "UpdateRoleRequest",
-            "locationLine" : 262,
+            "locationLine" : 258,
             "locationColumn" : 1
           },
           "clz" : "com.apihug.rad.api.role.UpdateRoleRequest"
@@ -3568,7 +3886,7 @@
             "minimum" : 1.0,
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 122,
+                "locationLine" : 121,
                 "locationColumn" : 3,
                 "name" : "tenant_id",
                 "type" : "java.lang.Long"
@@ -3582,7 +3900,7 @@
             "minimum" : 0.0,
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 128,
+                "locationLine" : 127,
                 "locationColumn" : 3,
                 "name" : "parent_id",
                 "type" : "java.lang.Long"
@@ -3599,7 +3917,7 @@
                 "nature" : "NAME"
               },
               "compile" : {
-                "locationLine" : 134,
+                "locationLine" : 133,
                 "locationColumn" : 3,
                 "name" : "dept_code",
                 "type" : "java.lang.String"
@@ -3616,7 +3934,7 @@
                 "nature" : "NAME"
               },
               "compile" : {
-                "locationLine" : 142,
+                "locationLine" : 141,
                 "locationColumn" : 3,
                 "name" : "dept_name",
                 "type" : "java.lang.String"
@@ -3629,7 +3947,7 @@
             "description" : "排序顺序",
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 150,
+                "locationLine" : 149,
                 "locationColumn" : 3,
                 "name" : "sort_order",
                 "type" : "java.lang.Integer"
@@ -3642,7 +3960,7 @@
             "maxLength" : 50,
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 155,
+                "locationLine" : 154,
                 "locationColumn" : 3,
                 "name" : "manager_id",
                 "type" : "java.lang.String"
@@ -3656,7 +3974,7 @@
             "enum" : [ "ACTIVE", "DISABLED" ],
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 161,
+                "locationLine" : 160,
                 "locationColumn" : 3,
                 "name" : "status",
                 "type" : "com.apihug.rad.infra.department.DeptStatusEnum"
@@ -3669,7 +3987,7 @@
           "compile" : {
             "protoFile" : "com/apihug/rad/api/department/api.proto",
             "name" : "CreateDepartmentRequest",
-            "locationLine" : 114,
+            "locationLine" : 113,
             "locationColumn" : 1
           },
           "clz" : "com.apihug.rad.api.department.CreateDepartmentRequest"
@@ -3686,7 +4004,7 @@
             "minimum" : 1.0,
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 279,
+                "locationLine" : 276,
                 "locationColumn" : 3,
                 "name" : "id",
                 "type" : "java.lang.Long"
@@ -3702,7 +4020,7 @@
                 "nature" : "NAME"
               },
               "compile" : {
-                "locationLine" : 286,
+                "locationLine" : 283,
                 "locationColumn" : 3,
                 "name" : "tenant_code",
                 "type" : "java.lang.String"
@@ -3718,7 +4036,7 @@
                 "nature" : "NAME"
               },
               "compile" : {
-                "locationLine" : 293,
+                "locationLine" : 290,
                 "locationColumn" : 3,
                 "name" : "tenant_name",
                 "type" : "java.lang.String"
@@ -3732,7 +4050,7 @@
             "enum" : [ "ACTIVE", "DISABLED", "EXPIRED" ],
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 300,
+                "locationLine" : 297,
                 "locationColumn" : 3,
                 "name" : "status",
                 "type" : "com.apihug.rad.infra.tenant.TenantStatusEnum"
@@ -3745,7 +4063,7 @@
           "compile" : {
             "protoFile" : "com/apihug/rad/api/tenant/api.proto",
             "name" : "TenantSummary",
-            "locationLine" : 271,
+            "locationLine" : 268,
             "locationColumn" : 1
           },
           "clz" : "com.apihug.rad.api.tenant.TenantSummary"
@@ -3762,7 +4080,7 @@
             "minimum" : 1.0,
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 210,
+                "locationLine" : 209,
                 "locationColumn" : 3,
                 "name" : "id",
                 "type" : "java.lang.Long"
@@ -3775,7 +4093,7 @@
             "description" : "父部门 ID",
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 217,
+                "locationLine" : 216,
                 "locationColumn" : 3,
                 "name" : "parent_id",
                 "type" : "java.lang.Long"
@@ -3791,7 +4109,7 @@
                 "nature" : "NAME"
               },
               "compile" : {
-                "locationLine" : 223,
+                "locationLine" : 222,
                 "locationColumn" : 3,
                 "name" : "dept_code",
                 "type" : "java.lang.String"
@@ -3807,7 +4125,7 @@
                 "nature" : "NAME"
               },
               "compile" : {
-                "locationLine" : 230,
+                "locationLine" : 229,
                 "locationColumn" : 3,
                 "name" : "dept_name",
                 "type" : "java.lang.String"
@@ -3821,7 +4139,7 @@
             "enum" : [ "ACTIVE", "DISABLED" ],
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 237,
+                "locationLine" : 236,
                 "locationColumn" : 3,
                 "name" : "status",
                 "type" : "com.apihug.rad.infra.department.DeptStatusEnum"
@@ -3834,7 +4152,7 @@
           "compile" : {
             "protoFile" : "com/apihug/rad/api/department/api.proto",
             "name" : "DepartmentSummary",
-            "locationLine" : 202,
+            "locationLine" : 201,
             "locationColumn" : 1
           },
           "clz" : "com.apihug.rad.api.department.DepartmentSummary"
@@ -3851,7 +4169,7 @@
             "minimum" : 0.0,
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 163,
+                "locationLine" : 162,
                 "locationColumn" : 3,
                 "name" : "parent_id",
                 "type" : "java.lang.Long"
@@ -3868,7 +4186,7 @@
                 "nature" : "NAME"
               },
               "compile" : {
-                "locationLine" : 169,
+                "locationLine" : 168,
                 "locationColumn" : 3,
                 "name" : "menu_code",
                 "type" : "java.lang.String"
@@ -3885,7 +4203,7 @@
                 "nature" : "NAME"
               },
               "compile" : {
-                "locationLine" : 177,
+                "locationLine" : 176,
                 "locationColumn" : 3,
                 "name" : "menu_name",
                 "type" : "java.lang.String"
@@ -3901,7 +4219,7 @@
                 "nature" : "URL"
               },
               "compile" : {
-                "locationLine" : 185,
+                "locationLine" : 184,
                 "locationColumn" : 3,
                 "name" : "path",
                 "type" : "java.lang.String"
@@ -3914,7 +4232,7 @@
             "maxLength" : 100,
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 192,
+                "locationLine" : 191,
                 "locationColumn" : 3,
                 "name" : "icon",
                 "type" : "java.lang.String"
@@ -3927,7 +4245,7 @@
             "description" : "排序顺序（数字越小越靠前）",
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 198,
+                "locationLine" : 197,
                 "locationColumn" : 3,
                 "name" : "sort_order",
                 "type" : "java.lang.Integer"
@@ -3941,7 +4259,7 @@
             "enum" : [ "DIRECTORY", "MENU", "BUTTON" ],
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 203,
+                "locationLine" : 202,
                 "locationColumn" : 3,
                 "name" : "menu_type",
                 "type" : "com.apihug.rad.infra.menu.MenuTypeEnum"
@@ -3954,7 +4272,7 @@
             "maxLength" : 100,
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 209,
+                "locationLine" : 208,
                 "locationColumn" : 3,
                 "name" : "permission_code",
                 "type" : "java.lang.String"
@@ -3968,7 +4286,7 @@
             "enum" : [ "ACTIVE", "INACTIVE" ],
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 215,
+                "locationLine" : 214,
                 "locationColumn" : 3,
                 "name" : "status",
                 "type" : "com.apihug.rad.infra.menu.MenuStatusEnum"
@@ -3981,7 +4299,7 @@
           "compile" : {
             "protoFile" : "com/apihug/rad/api/menu/api.proto",
             "name" : "CreateMenuRequest",
-            "locationLine" : 155,
+            "locationLine" : 154,
             "locationColumn" : 1
           },
           "clz" : "com.apihug.rad.api.menu.CreateMenuRequest"
@@ -3998,7 +4316,7 @@
             "minimum" : 1.0,
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 460,
+                "locationLine" : 446,
                 "locationColumn" : 3,
                 "name" : "department_id",
                 "type" : "java.lang.Long"
@@ -4011,7 +4329,7 @@
             "maxLength" : 100,
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 467,
+                "locationLine" : 453,
                 "locationColumn" : 3,
                 "name" : "position",
                 "type" : "java.lang.String"
@@ -4024,7 +4342,7 @@
           "compile" : {
             "protoFile" : "com/apihug/rad/api/tenant/member.proto",
             "name" : "AssignMemberDepartmentRequest",
-            "locationLine" : 452,
+            "locationLine" : 438,
             "locationColumn" : 1
           },
           "clz" : "com.apihug.rad.api.tenant.AssignMemberDepartmentRequest"
@@ -4043,7 +4361,7 @@
             },
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 409,
+                "locationLine" : 405,
                 "locationColumn" : 3,
                 "name" : "menu_ids",
                 "type" : "java.lang.Long"
@@ -4056,7 +4374,7 @@
           "compile" : {
             "protoFile" : "com/apihug/rad/api/role/api.proto",
             "name" : "AssignMenusRequest",
-            "locationLine" : 401,
+            "locationLine" : 397,
             "locationColumn" : 1
           },
           "clz" : "com.apihug.rad.api.role.AssignMenusRequest"
@@ -4072,7 +4390,7 @@
             "description" : "部门 ID",
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 575,
+                "locationLine" : 563,
                 "locationColumn" : 3,
                 "name" : "id",
                 "type" : "java.lang.Long"
@@ -4088,7 +4406,7 @@
                 "nature" : "NAME"
               },
               "compile" : {
-                "locationLine" : 581,
+                "locationLine" : 569,
                 "locationColumn" : 3,
                 "name" : "dept_code",
                 "type" : "java.lang.String"
@@ -4104,7 +4422,7 @@
                 "nature" : "NAME"
               },
               "compile" : {
-                "locationLine" : 588,
+                "locationLine" : 576,
                 "locationColumn" : 3,
                 "name" : "dept_name",
                 "type" : "java.lang.String"
@@ -4117,7 +4435,7 @@
             "description" : "父部门 ID",
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 595,
+                "locationLine" : 583,
                 "locationColumn" : 3,
                 "name" : "parent_id",
                 "type" : "java.lang.Long"
@@ -4130,7 +4448,7 @@
           "compile" : {
             "protoFile" : "com/apihug/rad/api/customer/api.proto",
             "name" : "DepartmentInfo",
-            "locationLine" : 567,
+            "locationLine" : 555,
             "locationColumn" : 1
           },
           "clz" : "com.apihug.rad.api.customer.DepartmentInfo"
@@ -4138,7 +4456,7 @@
       },
       "ForgotPasswordRequest" : {
         "type" : "object",
-        "description" : "CustomerDetail, UpdateCustomerRequest, SearchCustomersRequest 已移除\n租户内成员查看/搜索/管理 → TenantMemberService\n找回密码请求",
+        "description" : "找回密码请求",
         "properties" : {
           "email" : {
             "type" : "string",
@@ -4150,7 +4468,7 @@
                 "nature" : "EMAIL"
               },
               "compile" : {
-                "locationLine" : 504,
+                "locationLine" : 492,
                 "locationColumn" : 3,
                 "name" : "email",
                 "type" : "java.lang.String"
@@ -4163,7 +4481,7 @@
           "compile" : {
             "protoFile" : "com/apihug/rad/api/customer/api.proto",
             "name" : "ForgotPasswordRequest",
-            "locationLine" : 496,
+            "locationLine" : 484,
             "locationColumn" : 1
           },
           "clz" : "com.apihug.rad.api.customer.ForgotPasswordRequest"
@@ -4180,7 +4498,7 @@
             "minimum" : 1.0,
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 337,
+                "locationLine" : 336,
                 "locationColumn" : 3,
                 "name" : "id",
                 "type" : "java.lang.Long"
@@ -4193,7 +4511,7 @@
             "description" : "父菜单 ID",
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 344,
+                "locationLine" : 343,
                 "locationColumn" : 3,
                 "name" : "parent_id",
                 "type" : "java.lang.Long"
@@ -4209,7 +4527,7 @@
                 "nature" : "NAME"
               },
               "compile" : {
-                "locationLine" : 350,
+                "locationLine" : 349,
                 "locationColumn" : 3,
                 "name" : "menu_code",
                 "type" : "java.lang.String"
@@ -4225,7 +4543,7 @@
                 "nature" : "NAME"
               },
               "compile" : {
-                "locationLine" : 357,
+                "locationLine" : 356,
                 "locationColumn" : 3,
                 "name" : "menu_name",
                 "type" : "java.lang.String"
@@ -4240,7 +4558,7 @@
                 "nature" : "URL"
               },
               "compile" : {
-                "locationLine" : 364,
+                "locationLine" : 363,
                 "locationColumn" : 3,
                 "name" : "path",
                 "type" : "java.lang.String"
@@ -4255,7 +4573,7 @@
                 "nature" : "NAME"
               },
               "compile" : {
-                "locationLine" : 370,
+                "locationLine" : 369,
                 "locationColumn" : 3,
                 "name" : "icon",
                 "type" : "java.lang.String"
@@ -4268,7 +4586,7 @@
             "description" : "排序顺序",
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 376,
+                "locationLine" : 375,
                 "locationColumn" : 3,
                 "name" : "sort_order",
                 "type" : "java.lang.Integer"
@@ -4282,7 +4600,7 @@
             "enum" : [ "DIRECTORY", "MENU", "BUTTON" ],
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 381,
+                "locationLine" : 380,
                 "locationColumn" : 3,
                 "name" : "menu_type",
                 "type" : "com.apihug.rad.infra.menu.MenuTypeEnum"
@@ -4297,7 +4615,7 @@
                 "nature" : "NAME"
               },
               "compile" : {
-                "locationLine" : 387,
+                "locationLine" : 386,
                 "locationColumn" : 3,
                 "name" : "permission_code",
                 "type" : "java.lang.String"
@@ -4311,7 +4629,7 @@
             "enum" : [ "ACTIVE", "INACTIVE" ],
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 393,
+                "locationLine" : 392,
                 "locationColumn" : 3,
                 "name" : "status",
                 "type" : "com.apihug.rad.infra.menu.MenuStatusEnum"
@@ -4325,7 +4643,7 @@
             "x-hope-field" : {
               "dateFormat" : "ISO_LOCAL_DATE_TIME",
               "compile" : {
-                "locationLine" : 399,
+                "locationLine" : 398,
                 "locationColumn" : 3,
                 "name" : "created_at",
                 "type" : "java.time.LocalDateTime"
@@ -4339,7 +4657,7 @@
             "x-hope-field" : {
               "dateFormat" : "ISO_LOCAL_DATE_TIME",
               "compile" : {
-                "locationLine" : 405,
+                "locationLine" : 404,
                 "locationColumn" : 3,
                 "name" : "updated_at",
                 "type" : "java.time.LocalDateTime"
@@ -4352,10 +4670,40 @@
           "compile" : {
             "protoFile" : "com/apihug/rad/api/menu/api.proto",
             "name" : "MenuDetail",
-            "locationLine" : 329,
+            "locationLine" : 328,
             "locationColumn" : 1
           },
           "clz" : "com.apihug.rad.api.menu.MenuDetail"
+        }
+      },
+      "UpdatePlatformMemberRoleRequest" : {
+        "type" : "object",
+        "description" : "更新平台成员角色请求\n更新平台成员角色请求",
+        "properties" : {
+          "platformRole" : {
+            "type" : "object",
+            "$ref" : "#/components/schemas/CustomerPlatformTypeEnum",
+            "description" : "新的平台角色（MEMBER/MANAGER/OWNER）",
+            "enum" : [ "MEMBER", "MANAGER", "OWNER" ],
+            "x-hope-field" : {
+              "compile" : {
+                "locationLine" : 191,
+                "locationColumn" : 3,
+                "name" : "platform_role",
+                "type" : "com.apihug.rad.infra.customer.CustomerPlatformTypeEnum"
+              }
+            }
+          }
+        },
+        "title" : "UpdatePlatformMemberRoleRequest",
+        "x-hope-component" : {
+          "compile" : {
+            "protoFile" : "com/apihug/rad/api/platform/api.proto",
+            "name" : "UpdatePlatformMemberRoleRequest",
+            "locationLine" : 183,
+            "locationColumn" : 1
+          },
+          "clz" : "com.apihug.rad.api.platform.UpdatePlatformMemberRoleRequest"
         }
       },
       "SearchTenantsRequest" : {
@@ -4367,7 +4715,7 @@
             "description" : "搜索关键词（租户名称或代码）",
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 389,
+                "locationLine" : 386,
                 "locationColumn" : 3,
                 "name" : "keyword",
                 "type" : "java.lang.String"
@@ -4381,7 +4729,7 @@
             "enum" : [ "ACTIVE", "DISABLED", "EXPIRED" ],
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 394,
+                "locationLine" : 391,
                 "locationColumn" : 3,
                 "name" : "status",
                 "type" : "com.apihug.rad.infra.tenant.TenantStatusEnum"
@@ -4394,7 +4742,7 @@
           "compile" : {
             "protoFile" : "com/apihug/rad/api/tenant/api.proto",
             "name" : "SearchTenantsRequest",
-            "locationLine" : 381,
+            "locationLine" : 378,
             "locationColumn" : 1
           },
           "clz" : "com.apihug.rad.api.tenant.SearchTenantsRequest"
@@ -4402,7 +4750,7 @@
       },
       "LoginRequest" : {
         "type" : "object",
-        "description" : "============ 消息类型定义 ============\n登录请求",
+        "description" : "登录请求",
         "properties" : {
           "username" : {
             "type" : "string",
@@ -4414,7 +4762,7 @@
                 "nature" : "NAME"
               },
               "compile" : {
-                "locationLine" : 196,
+                "locationLine" : 190,
                 "locationColumn" : 3,
                 "name" : "username",
                 "type" : "java.lang.String"
@@ -4428,7 +4776,7 @@
             "minLength" : 6,
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 204,
+                "locationLine" : 198,
                 "locationColumn" : 3,
                 "name" : "password",
                 "type" : "java.lang.String"
@@ -4440,7 +4788,7 @@
             "description" : "whether to remember me",
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 212,
+                "locationLine" : 206,
                 "locationColumn" : 3,
                 "name" : "remember_me",
                 "type" : "java.lang.Boolean"
@@ -4453,7 +4801,7 @@
           "compile" : {
             "protoFile" : "com/apihug/rad/api/customer/api.proto",
             "name" : "LoginRequest",
-            "locationLine" : 188,
+            "locationLine" : 182,
             "locationColumn" : 1
           },
           "clz" : "com.apihug.rad.api.customer.LoginRequest"
@@ -4470,7 +4818,7 @@
             "minimum" : 1.0,
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 398,
+                "locationLine" : 388,
                 "locationColumn" : 3,
                 "name" : "tenant_id",
                 "type" : "java.lang.Long"
@@ -4483,7 +4831,7 @@
           "compile" : {
             "protoFile" : "com/apihug/rad/api/customer/api.proto",
             "name" : "SwitchTenantRequest",
-            "locationLine" : 390,
+            "locationLine" : 380,
             "locationColumn" : 1
           },
           "clz" : "com.apihug.rad.api.customer.SwitchTenantRequest"
@@ -4491,7 +4839,7 @@
       },
       "MemberRoleSummary" : {
         "type" : "object",
-        "description" : "成员角色摘要\r\n成员角色摘要",
+        "description" : "成员角色摘要",
         "properties" : {
           "memberId" : {
             "type" : "number",
@@ -4499,7 +4847,7 @@
             "description" : "成员 ID",
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 658,
+                "locationLine" : 637,
                 "locationColumn" : 3,
                 "name" : "member_id",
                 "type" : "java.lang.Long"
@@ -4515,7 +4863,7 @@
             },
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 664,
+                "locationLine" : 643,
                 "locationColumn" : 3,
                 "name" : "roles",
                 "type" : "com.apihug.rad.api.tenant.MemberRoleItem"
@@ -4528,7 +4876,7 @@
           "compile" : {
             "protoFile" : "com/apihug/rad/api/tenant/member.proto",
             "name" : "MemberRoleSummary",
-            "locationLine" : 650,
+            "locationLine" : 629,
             "locationColumn" : 1
           },
           "clz" : "com.apihug.rad.api.tenant.MemberRoleSummary"
@@ -4548,7 +4896,7 @@
                 "nature" : "NAME"
               },
               "compile" : {
-                "locationLine" : 209,
+                "locationLine" : 206,
                 "locationColumn" : 3,
                 "name" : "tenant_name",
                 "type" : "java.lang.String"
@@ -4565,7 +4913,7 @@
                 "nature" : "EMAIL"
               },
               "compile" : {
-                "locationLine" : 217,
+                "locationLine" : 214,
                 "locationColumn" : 3,
                 "name" : "contact_email",
                 "type" : "java.lang.String"
@@ -4581,7 +4929,7 @@
                 "nature" : "PHONE"
               },
               "compile" : {
-                "locationLine" : 225,
+                "locationLine" : 222,
                 "locationColumn" : 3,
                 "name" : "contact_phone",
                 "type" : "java.lang.String"
@@ -4595,7 +4943,7 @@
             "enum" : [ "ACTIVE", "DISABLED", "EXPIRED" ],
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 232,
+                "locationLine" : 229,
                 "locationColumn" : 3,
                 "name" : "status",
                 "type" : "com.apihug.rad.infra.tenant.TenantStatusEnum"
@@ -4608,7 +4956,7 @@
           "compile" : {
             "protoFile" : "com/apihug/rad/api/tenant/api.proto",
             "name" : "UpdateTenantRequest",
-            "locationLine" : 201,
+            "locationLine" : 198,
             "locationColumn" : 1
           },
           "clz" : "com.apihug.rad.api.tenant.UpdateTenantRequest"
@@ -4616,7 +4964,7 @@
       },
       "TenantMemberDetail" : {
         "type" : "object",
-        "description" : "成员详情（含客户账号信息 + 成员身份信息）\r\n租户成员详情信息",
+        "description" : "租户成员详情信息",
         "properties" : {
           "id" : {
             "type" : "number",
@@ -4624,7 +4972,7 @@
             "description" : "成员关系 ID",
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 553,
+                "locationLine" : 537,
                 "locationColumn" : 3,
                 "name" : "id",
                 "type" : "java.lang.Long"
@@ -4637,7 +4985,7 @@
             "description" : "客户 ID",
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 558,
+                "locationLine" : 542,
                 "locationColumn" : 3,
                 "name" : "customer_id",
                 "type" : "java.lang.Long"
@@ -4650,7 +4998,7 @@
             "description" : "租户 ID",
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 563,
+                "locationLine" : 547,
                 "locationColumn" : 3,
                 "name" : "tenant_id",
                 "type" : "java.lang.Long"
@@ -4662,7 +5010,7 @@
             "description" : "客户用户名",
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 569,
+                "locationLine" : 552,
                 "locationColumn" : 3,
                 "name" : "customer_username",
                 "type" : "java.lang.String"
@@ -4674,7 +5022,7 @@
             "description" : "客户邮箱",
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 574,
+                "locationLine" : 557,
                 "locationColumn" : 3,
                 "name" : "customer_email",
                 "type" : "java.lang.String"
@@ -4688,7 +5036,7 @@
             "enum" : [ "ACTIVE", "INACTIVE", "LOCKED", "DISABLED" ],
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 579,
+                "locationLine" : 562,
                 "locationColumn" : 3,
                 "name" : "customer_status",
                 "type" : "com.apihug.rad.infra.customer.CustomerStatusEnum"
@@ -4700,7 +5048,7 @@
             "description" : "租户名称",
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 585,
+                "locationLine" : 567,
                 "locationColumn" : 3,
                 "name" : "tenant_name",
                 "type" : "java.lang.String"
@@ -4712,7 +5060,7 @@
             "description" : "租户代码",
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 590,
+                "locationLine" : 572,
                 "locationColumn" : 3,
                 "name" : "tenant_code",
                 "type" : "java.lang.String"
@@ -4726,7 +5074,7 @@
             "enum" : [ "FULL_TIME", "PART_TIME", "CONTRACTOR", "INTERN" ],
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 596,
+                "locationLine" : 577,
                 "locationColumn" : 3,
                 "name" : "member_type",
                 "type" : "com.apihug.rad.infra.tenant.MemberTypeEnum"
@@ -4740,7 +5088,7 @@
             "enum" : [ "MEMBER", "ADMIN", "OWNER" ],
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 601,
+                "locationLine" : 582,
                 "locationColumn" : 3,
                 "name" : "member_role",
                 "type" : "com.apihug.rad.infra.tenant.MemberRoleEnum"
@@ -4754,7 +5102,7 @@
             "enum" : [ "TM_ACTIVE", "TM_INACTIVE", "TM_LOCKED" ],
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 606,
+                "locationLine" : 587,
                 "locationColumn" : 3,
                 "name" : "status",
                 "type" : "com.apihug.rad.infra.tenant.TenantMemberStatusEnum"
@@ -4767,7 +5115,7 @@
             "description" : "部门 ID",
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 611,
+                "locationLine" : 592,
                 "locationColumn" : 3,
                 "name" : "department_id",
                 "type" : "java.lang.Long"
@@ -4779,7 +5127,7 @@
             "description" : "职位",
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 616,
+                "locationLine" : 597,
                 "locationColumn" : 3,
                 "name" : "position",
                 "type" : "java.lang.String"
@@ -4791,7 +5139,7 @@
             "description" : "是否默认租户",
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 621,
+                "locationLine" : 602,
                 "locationColumn" : 3,
                 "name" : "is_default",
                 "type" : "java.lang.Boolean"
@@ -4805,7 +5153,7 @@
             "x-hope-field" : {
               "dateFormat" : "ISO_LOCAL_DATE_TIME",
               "compile" : {
-                "locationLine" : 626,
+                "locationLine" : 607,
                 "locationColumn" : 3,
                 "name" : "created_at",
                 "type" : "java.time.LocalDateTime"
@@ -4818,7 +5166,7 @@
           "compile" : {
             "protoFile" : "com/apihug/rad/api/tenant/member.proto",
             "name" : "TenantMemberDetail",
-            "locationLine" : 544,
+            "locationLine" : 529,
             "locationColumn" : 1
           },
           "clz" : "com.apihug.rad.api.tenant.TenantMemberDetail"
@@ -4838,7 +5186,7 @@
                 "nature" : "GUID"
               },
               "compile" : {
-                "locationLine" : 521,
+                "locationLine" : 509,
                 "locationColumn" : 3,
                 "name" : "token",
                 "type" : "java.lang.String"
@@ -4852,7 +5200,7 @@
             "minLength" : 6,
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 529,
+                "locationLine" : 517,
                 "locationColumn" : 3,
                 "name" : "password",
                 "type" : "java.lang.String"
@@ -4865,7 +5213,7 @@
           "compile" : {
             "protoFile" : "com/apihug/rad/api/customer/api.proto",
             "name" : "ResetPasswordRequest",
-            "locationLine" : 513,
+            "locationLine" : 501,
             "locationColumn" : 1
           },
           "clz" : "com.apihug.rad.api.customer.ResetPasswordRequest"
@@ -4882,7 +5230,7 @@
             "minimum" : 1.0,
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 252,
+                "locationLine" : 251,
                 "locationColumn" : 3,
                 "name" : "id",
                 "type" : "java.lang.Long"
@@ -4895,7 +5243,7 @@
             "description" : "父部门 ID",
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 259,
+                "locationLine" : 258,
                 "locationColumn" : 3,
                 "name" : "parent_id",
                 "type" : "java.lang.Long"
@@ -4911,7 +5259,7 @@
                 "nature" : "NAME"
               },
               "compile" : {
-                "locationLine" : 265,
+                "locationLine" : 264,
                 "locationColumn" : 3,
                 "name" : "dept_code",
                 "type" : "java.lang.String"
@@ -4927,7 +5275,7 @@
                 "nature" : "NAME"
               },
               "compile" : {
-                "locationLine" : 272,
+                "locationLine" : 271,
                 "locationColumn" : 3,
                 "name" : "dept_name",
                 "type" : "java.lang.String"
@@ -4940,7 +5288,7 @@
             "description" : "排序顺序",
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 279,
+                "locationLine" : 278,
                 "locationColumn" : 3,
                 "name" : "sort_order",
                 "type" : "java.lang.Integer"
@@ -4955,7 +5303,7 @@
                 "nature" : "NAME"
               },
               "compile" : {
-                "locationLine" : 284,
+                "locationLine" : 283,
                 "locationColumn" : 3,
                 "name" : "manager_id",
                 "type" : "java.lang.String"
@@ -4969,7 +5317,7 @@
             "enum" : [ "ACTIVE", "DISABLED" ],
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 290,
+                "locationLine" : 289,
                 "locationColumn" : 3,
                 "name" : "status",
                 "type" : "com.apihug.rad.infra.department.DeptStatusEnum"
@@ -4983,7 +5331,7 @@
             "x-hope-field" : {
               "dateFormat" : "ISO_LOCAL_DATE_TIME",
               "compile" : {
-                "locationLine" : 296,
+                "locationLine" : 295,
                 "locationColumn" : 3,
                 "name" : "created_at",
                 "type" : "java.time.LocalDateTime"
@@ -4996,7 +5344,7 @@
           "compile" : {
             "protoFile" : "com/apihug/rad/api/department/api.proto",
             "name" : "DepartmentDetail",
-            "locationLine" : 244,
+            "locationLine" : 243,
             "locationColumn" : 1
           },
           "clz" : "com.apihug.rad.api.department.DepartmentDetail"
@@ -5016,7 +5364,7 @@
                 "nature" : "NAME"
               },
               "compile" : {
-                "locationLine" : 152,
+                "locationLine" : 149,
                 "locationColumn" : 3,
                 "name" : "tenant_code",
                 "type" : "java.lang.String"
@@ -5033,7 +5381,7 @@
                 "nature" : "NAME"
               },
               "compile" : {
-                "locationLine" : 160,
+                "locationLine" : 157,
                 "locationColumn" : 3,
                 "name" : "tenant_name",
                 "type" : "java.lang.String"
@@ -5050,7 +5398,7 @@
                 "nature" : "EMAIL"
               },
               "compile" : {
-                "locationLine" : 168,
+                "locationLine" : 165,
                 "locationColumn" : 3,
                 "name" : "contact_email",
                 "type" : "java.lang.String"
@@ -5066,7 +5414,7 @@
                 "nature" : "PHONE"
               },
               "compile" : {
-                "locationLine" : 176,
+                "locationLine" : 173,
                 "locationColumn" : 3,
                 "name" : "contact_phone",
                 "type" : "java.lang.String"
@@ -5080,7 +5428,7 @@
             "enum" : [ "ACTIVE", "DISABLED", "EXPIRED" ],
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 183,
+                "locationLine" : 180,
                 "locationColumn" : 3,
                 "name" : "status",
                 "type" : "com.apihug.rad.infra.tenant.TenantStatusEnum"
@@ -5092,7 +5440,7 @@
             "description" : "是否为平台租户",
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 189,
+                "locationLine" : 186,
                 "locationColumn" : 3,
                 "name" : "is_platform",
                 "type" : "java.lang.Boolean"
@@ -5105,7 +5453,7 @@
             "maxLength" : 500,
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 194,
+                "locationLine" : 191,
                 "locationColumn" : 3,
                 "name" : "description",
                 "type" : "java.lang.String"
@@ -5118,7 +5466,7 @@
           "compile" : {
             "protoFile" : "com/apihug/rad/api/tenant/api.proto",
             "name" : "CreateTenantRequest",
-            "locationLine" : 144,
+            "locationLine" : 141,
             "locationColumn" : 1
           },
           "clz" : "com.apihug.rad.api.tenant.CreateTenantRequest"
@@ -5134,7 +5482,7 @@
             "description" : "角色 ID",
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 546,
+                "locationLine" : 534,
                 "locationColumn" : 3,
                 "name" : "id",
                 "type" : "java.lang.Long"
@@ -5150,7 +5498,7 @@
                 "nature" : "NAME"
               },
               "compile" : {
-                "locationLine" : 552,
+                "locationLine" : 540,
                 "locationColumn" : 3,
                 "name" : "role_code",
                 "type" : "java.lang.String"
@@ -5166,7 +5514,7 @@
                 "nature" : "NAME"
               },
               "compile" : {
-                "locationLine" : 559,
+                "locationLine" : 547,
                 "locationColumn" : 3,
                 "name" : "role_name",
                 "type" : "java.lang.String"
@@ -5179,7 +5527,7 @@
           "compile" : {
             "protoFile" : "com/apihug/rad/api/customer/api.proto",
             "name" : "RoleInfo",
-            "locationLine" : 538,
+            "locationLine" : 526,
             "locationColumn" : 1
           },
           "clz" : "com.apihug.rad.api.customer.RoleInfo"
@@ -5195,7 +5543,7 @@
             "description" : "部门信息",
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 311,
+                "locationLine" : 310,
                 "locationColumn" : 3,
                 "name" : "department",
                 "type" : "com.apihug.rad.api.department.DepartmentSummary"
@@ -5211,7 +5559,7 @@
             },
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 315,
+                "locationLine" : 314,
                 "locationColumn" : 3,
                 "name" : "children",
                 "type" : "com.apihug.rad.api.department.DepartmentTreeNode"
@@ -5224,7 +5572,7 @@
           "compile" : {
             "protoFile" : "com/apihug/rad/api/department/api.proto",
             "name" : "DepartmentTreeNode",
-            "locationLine" : 303,
+            "locationLine" : 302,
             "locationColumn" : 1
           },
           "clz" : "com.apihug.rad.api.department.DepartmentTreeNode"
@@ -5240,7 +5588,7 @@
             "description" : "菜单 ID",
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 443,
+                "locationLine" : 439,
                 "locationColumn" : 3,
                 "name" : "id",
                 "type" : "java.lang.Long"
@@ -5253,7 +5601,7 @@
             "minLength" : 1,
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 449,
+                "locationLine" : 445,
                 "locationColumn" : 3,
                 "name" : "menu_code",
                 "type" : "java.lang.String"
@@ -5266,7 +5614,7 @@
             "minLength" : 1,
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 455,
+                "locationLine" : 451,
                 "locationColumn" : 3,
                 "name" : "menu_name",
                 "type" : "java.lang.String"
@@ -5278,7 +5626,7 @@
             "description" : "权限代码（BUTTON 类型菜单的原子权限）",
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 461,
+                "locationLine" : 457,
                 "locationColumn" : 3,
                 "name" : "permission_code",
                 "type" : "java.lang.String"
@@ -5290,7 +5638,7 @@
             "description" : "菜单类型（DIRECTORY/MENU/BUTTON）",
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 466,
+                "locationLine" : 462,
                 "locationColumn" : 3,
                 "name" : "menu_type",
                 "type" : "java.lang.String"
@@ -5303,7 +5651,7 @@
           "compile" : {
             "protoFile" : "com/apihug/rad/api/role/api.proto",
             "name" : "RoleMenuItem",
-            "locationLine" : 435,
+            "locationLine" : 431,
             "locationColumn" : 1
           },
           "clz" : "com.apihug.rad.api.role.RoleMenuItem"
@@ -5320,7 +5668,7 @@
             "minimum" : 1.0,
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 283,
+                "locationLine" : 282,
                 "locationColumn" : 3,
                 "name" : "id",
                 "type" : "java.lang.Long"
@@ -5333,7 +5681,7 @@
             "description" : "父菜单 ID",
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 290,
+                "locationLine" : 289,
                 "locationColumn" : 3,
                 "name" : "parent_id",
                 "type" : "java.lang.Long"
@@ -5349,7 +5697,7 @@
                 "nature" : "NAME"
               },
               "compile" : {
-                "locationLine" : 296,
+                "locationLine" : 295,
                 "locationColumn" : 3,
                 "name" : "menu_code",
                 "type" : "java.lang.String"
@@ -5365,7 +5713,7 @@
                 "nature" : "NAME"
               },
               "compile" : {
-                "locationLine" : 303,
+                "locationLine" : 302,
                 "locationColumn" : 3,
                 "name" : "menu_name",
                 "type" : "java.lang.String"
@@ -5380,7 +5728,7 @@
                 "nature" : "URL"
               },
               "compile" : {
-                "locationLine" : 310,
+                "locationLine" : 309,
                 "locationColumn" : 3,
                 "name" : "path",
                 "type" : "java.lang.String"
@@ -5394,7 +5742,7 @@
             "enum" : [ "DIRECTORY", "MENU", "BUTTON" ],
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 316,
+                "locationLine" : 315,
                 "locationColumn" : 3,
                 "name" : "menu_type",
                 "type" : "com.apihug.rad.infra.menu.MenuTypeEnum"
@@ -5408,7 +5756,7 @@
             "enum" : [ "ACTIVE", "INACTIVE" ],
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 322,
+                "locationLine" : 321,
                 "locationColumn" : 3,
                 "name" : "status",
                 "type" : "com.apihug.rad.infra.menu.MenuStatusEnum"
@@ -5421,7 +5769,7 @@
           "compile" : {
             "protoFile" : "com/apihug/rad/api/menu/api.proto",
             "name" : "MenuSummary",
-            "locationLine" : 275,
+            "locationLine" : 274,
             "locationColumn" : 1
           },
           "clz" : "com.apihug.rad.api.menu.MenuSummary"
@@ -5429,7 +5777,7 @@
       },
       "TenantInfo" : {
         "type" : "object",
-        "description" : "租户信息（用于登录响应、客户租户列表等）\n租户信息",
+        "description" : "租户信息",
         "properties" : {
           "id" : {
             "type" : "number",
@@ -5437,7 +5785,7 @@
             "description" : "租户 ID",
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 273,
+                "locationLine" : 263,
                 "locationColumn" : 3,
                 "name" : "id",
                 "type" : "java.lang.Long"
@@ -5453,7 +5801,7 @@
                 "nature" : "NAME"
               },
               "compile" : {
-                "locationLine" : 279,
+                "locationLine" : 269,
                 "locationColumn" : 3,
                 "name" : "tenant_code",
                 "type" : "java.lang.String"
@@ -5469,7 +5817,7 @@
                 "nature" : "NAME"
               },
               "compile" : {
-                "locationLine" : 286,
+                "locationLine" : 276,
                 "locationColumn" : 3,
                 "name" : "tenant_name",
                 "type" : "java.lang.String"
@@ -5481,7 +5829,7 @@
             "description" : "是否默认租户",
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 293,
+                "locationLine" : 283,
                 "locationColumn" : 3,
                 "name" : "is_default",
                 "type" : "java.lang.Boolean"
@@ -5493,7 +5841,7 @@
             "description" : "是否平台租户",
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 298,
+                "locationLine" : 288,
                 "locationColumn" : 3,
                 "name" : "is_platform",
                 "type" : "java.lang.Boolean"
@@ -5506,7 +5854,7 @@
           "compile" : {
             "protoFile" : "com/apihug/rad/api/customer/api.proto",
             "name" : "TenantInfo",
-            "locationLine" : 265,
+            "locationLine" : 255,
             "locationColumn" : 1
           },
           "clz" : "com.apihug.rad.api.customer.TenantInfo"
@@ -5514,14 +5862,14 @@
       },
       "PermissionInfo" : {
         "type" : "object",
-        "description" : "权限信息\n权限信息",
+        "description" : "权限信息",
         "properties" : {
           "permissionCode" : {
             "type" : "string",
             "description" : "权限代码",
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 68,
+                "locationLine" : 63,
                 "locationColumn" : 3,
                 "name" : "permission_code",
                 "type" : "java.lang.String"
@@ -5533,7 +5881,7 @@
             "description" : "权限名称",
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 73,
+                "locationLine" : 68,
                 "locationColumn" : 3,
                 "name" : "permission_name",
                 "type" : "java.lang.String"
@@ -5546,7 +5894,7 @@
           "compile" : {
             "protoFile" : "com/apihug/rad/api/permission/api.proto",
             "name" : "PermissionInfo",
-            "locationLine" : 60,
+            "locationLine" : 55,
             "locationColumn" : 1
           },
           "clz" : "com.apihug.rad.api.permission.PermissionInfo"
@@ -5561,7 +5909,7 @@
             "description" : "请求路径",
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 247,
+                "locationLine" : 244,
                 "locationColumn" : 3,
                 "name" : "path",
                 "type" : "java.lang.String"
@@ -5574,7 +5922,7 @@
             "description" : "请求次数",
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 252,
+                "locationLine" : 249,
                 "locationColumn" : 3,
                 "name" : "count",
                 "type" : "java.lang.Long"
@@ -5587,7 +5935,7 @@
             "description" : "平均耗时毫秒",
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 257,
+                "locationLine" : 254,
                 "locationColumn" : 3,
                 "name" : "avg_duration_ms",
                 "type" : "java.lang.Long"
@@ -5600,7 +5948,7 @@
             "description" : "错误率(百分比*100)",
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 262,
+                "locationLine" : 259,
                 "locationColumn" : 3,
                 "name" : "error_rate",
                 "type" : "java.lang.Integer"
@@ -5613,7 +5961,7 @@
           "compile" : {
             "protoFile" : "com/apihug/rad/api/audit/api.proto",
             "name" : "PathStats",
-            "locationLine" : 239,
+            "locationLine" : 236,
             "locationColumn" : 1
           },
           "clz" : "com.apihug.rad.api.audit.PathStats"
@@ -5630,7 +5978,7 @@
             "minimum" : 1.0,
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 247,
+                "locationLine" : 244,
                 "locationColumn" : 3,
                 "name" : "max_members",
                 "type" : "java.lang.Integer"
@@ -5644,7 +5992,7 @@
             "minimum" : 1.0,
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 253,
+                "locationLine" : 250,
                 "locationColumn" : 3,
                 "name" : "max_storage_mb",
                 "type" : "java.lang.Long"
@@ -5659,7 +6007,7 @@
             },
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 259,
+                "locationLine" : 256,
                 "locationColumn" : 3,
                 "name" : "enabled_modules",
                 "type" : "java.lang.String"
@@ -5673,7 +6021,7 @@
             "x-hope-field" : {
               "dateFormat" : "ISO_LOCAL_DATE_TIME",
               "compile" : {
-                "locationLine" : 264,
+                "locationLine" : 261,
                 "locationColumn" : 3,
                 "name" : "expiry_date",
                 "type" : "java.time.LocalDateTime"
@@ -5686,7 +6034,7 @@
           "compile" : {
             "protoFile" : "com/apihug/rad/api/tenant/api.proto",
             "name" : "ConfigureTenantRequest",
-            "locationLine" : 239,
+            "locationLine" : 236,
             "locationColumn" : 1
           },
           "clz" : "com.apihug.rad.api.tenant.ConfigureTenantRequest"
@@ -5706,7 +6054,7 @@
                 "nature" : "NAME"
               },
               "compile" : {
-                "locationLine" : 232,
+                "locationLine" : 228,
                 "locationColumn" : 3,
                 "name" : "role_code",
                 "type" : "java.lang.String"
@@ -5723,7 +6071,7 @@
                 "nature" : "NAME"
               },
               "compile" : {
-                "locationLine" : 240,
+                "locationLine" : 236,
                 "locationColumn" : 3,
                 "name" : "role_name",
                 "type" : "java.lang.String"
@@ -5739,7 +6087,7 @@
                 "nature" : "BOOK"
               },
               "compile" : {
-                "locationLine" : 248,
+                "locationLine" : 244,
                 "locationColumn" : 3,
                 "name" : "description",
                 "type" : "java.lang.String"
@@ -5753,7 +6101,7 @@
             "enum" : [ "ACTIVE", "INACTIVE", "DISABLED" ],
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 255,
+                "locationLine" : 251,
                 "locationColumn" : 3,
                 "name" : "status",
                 "type" : "com.apihug.rad.infra.role.RoleStatusEnum"
@@ -5766,7 +6114,7 @@
           "compile" : {
             "protoFile" : "com/apihug/rad/api/role/api.proto",
             "name" : "CreateRoleRequest",
-            "locationLine" : 224,
+            "locationLine" : 220,
             "locationColumn" : 1
           },
           "clz" : "com.apihug.rad.api.role.CreateRoleRequest"
@@ -5783,7 +6131,7 @@
             "enum" : [ "MEMBER", "ADMIN", "OWNER" ],
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 445,
+                "locationLine" : 431,
                 "locationColumn" : 3,
                 "name" : "member_role",
                 "type" : "com.apihug.rad.infra.tenant.MemberRoleEnum"
@@ -5796,7 +6144,7 @@
           "compile" : {
             "protoFile" : "com/apihug/rad/api/tenant/member.proto",
             "name" : "UpdateMemberRoleRequest",
-            "locationLine" : 437,
+            "locationLine" : 423,
             "locationColumn" : 1
           },
           "clz" : "com.apihug.rad.api.tenant.UpdateMemberRoleRequest"
@@ -5819,7 +6167,7 @@
                 }
               },
               "compile" : {
-                "locationLine" : 311,
+                "locationLine" : 301,
                 "locationColumn" : 3,
                 "name" : "customer_id",
                 "type" : "java.lang.Long"
@@ -5835,7 +6183,7 @@
                 "nature" : "NAME"
               },
               "compile" : {
-                "locationLine" : 319,
+                "locationLine" : 309,
                 "locationColumn" : 3,
                 "name" : "username",
                 "type" : "java.lang.String"
@@ -5855,7 +6203,7 @@
                 }
               },
               "compile" : {
-                "locationLine" : 326,
+                "locationLine" : 316,
                 "locationColumn" : 3,
                 "name" : "tenant_id",
                 "type" : "java.lang.Long"
@@ -5870,7 +6218,7 @@
             },
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 334,
+                "locationLine" : 324,
                 "locationColumn" : 3,
                 "name" : "roles",
                 "type" : "java.lang.String"
@@ -5885,7 +6233,7 @@
             },
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 338,
+                "locationLine" : 328,
                 "locationColumn" : 3,
                 "name" : "authorities",
                 "type" : "java.lang.String"
@@ -5897,7 +6245,7 @@
           "compile" : {
             "protoFile" : "com/apihug/rad/api/customer/api.proto",
             "name" : "CustomerInfo",
-            "locationLine" : 304,
+            "locationLine" : 294,
             "locationColumn" : 1
           },
           "clz" : "com.apihug.rad.api.customer.CustomerInfo"
@@ -5905,7 +6253,7 @@
       },
       "MemberRoleItem" : {
         "type" : "object",
-        "description" : "成员角色项\r\n成员的 RBAC 角色信息",
+        "description" : "成员的 RBAC 角色信息",
         "properties" : {
           "id" : {
             "type" : "number",
@@ -5913,7 +6261,7 @@
             "description" : "角色 ID",
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 678,
+                "locationLine" : 656,
                 "locationColumn" : 3,
                 "name" : "id",
                 "type" : "java.lang.Long"
@@ -5926,7 +6274,7 @@
             "minLength" : 1,
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 684,
+                "locationLine" : 662,
                 "locationColumn" : 3,
                 "name" : "role_code",
                 "type" : "java.lang.String"
@@ -5939,7 +6287,7 @@
             "minLength" : 1,
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 690,
+                "locationLine" : 668,
                 "locationColumn" : 3,
                 "name" : "role_name",
                 "type" : "java.lang.String"
@@ -5952,7 +6300,7 @@
           "compile" : {
             "protoFile" : "com/apihug/rad/api/tenant/member.proto",
             "name" : "MemberRoleItem",
-            "locationLine" : 670,
+            "locationLine" : 648,
             "locationColumn" : 1
           },
           "clz" : "com.apihug.rad.api.tenant.MemberRoleItem"
@@ -5971,7 +6319,7 @@
             },
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 380,
+                "locationLine" : 370,
                 "locationColumn" : 3,
                 "name" : "tenants",
                 "type" : "com.apihug.rad.api.customer.TenantInfo"
@@ -5984,7 +6332,7 @@
             "description" : "默认租户 ID",
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 384,
+                "locationLine" : 374,
                 "locationColumn" : 3,
                 "name" : "default_tenant_id",
                 "type" : "java.lang.Long"
@@ -5997,7 +6345,7 @@
           "compile" : {
             "protoFile" : "com/apihug/rad/api/customer/api.proto",
             "name" : "TenantList",
-            "locationLine" : 372,
+            "locationLine" : 362,
             "locationColumn" : 1
           },
           "clz" : "com.apihug.rad.api.customer.TenantList"
@@ -6014,7 +6362,7 @@
             "minimum" : 1.0,
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 300,
+                "locationLine" : 296,
                 "locationColumn" : 3,
                 "name" : "id",
                 "type" : "java.lang.Long"
@@ -6030,7 +6378,7 @@
                 "nature" : "NAME"
               },
               "compile" : {
-                "locationLine" : 307,
+                "locationLine" : 303,
                 "locationColumn" : 3,
                 "name" : "role_code",
                 "type" : "java.lang.String"
@@ -6046,7 +6394,7 @@
                 "nature" : "NAME"
               },
               "compile" : {
-                "locationLine" : 314,
+                "locationLine" : 310,
                 "locationColumn" : 3,
                 "name" : "role_name",
                 "type" : "java.lang.String"
@@ -6060,7 +6408,7 @@
             "enum" : [ "ACTIVE", "INACTIVE", "DISABLED" ],
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 321,
+                "locationLine" : 317,
                 "locationColumn" : 3,
                 "name" : "status",
                 "type" : "com.apihug.rad.infra.role.RoleStatusEnum"
@@ -6073,7 +6421,7 @@
           "compile" : {
             "protoFile" : "com/apihug/rad/api/role/api.proto",
             "name" : "RoleSummary",
-            "locationLine" : 292,
+            "locationLine" : 288,
             "locationColumn" : 1
           },
           "clz" : "com.apihug.rad.api.role.RoleSummary"
@@ -6090,7 +6438,7 @@
             "minimum" : 1.0,
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 336,
+                "locationLine" : 332,
                 "locationColumn" : 3,
                 "name" : "id",
                 "type" : "java.lang.Long"
@@ -6106,7 +6454,7 @@
                 "nature" : "NAME"
               },
               "compile" : {
-                "locationLine" : 343,
+                "locationLine" : 339,
                 "locationColumn" : 3,
                 "name" : "role_code",
                 "type" : "java.lang.String"
@@ -6122,7 +6470,7 @@
                 "nature" : "NAME"
               },
               "compile" : {
-                "locationLine" : 350,
+                "locationLine" : 346,
                 "locationColumn" : 3,
                 "name" : "role_name",
                 "type" : "java.lang.String"
@@ -6137,7 +6485,7 @@
                 "nature" : "BOOK"
               },
               "compile" : {
-                "locationLine" : 357,
+                "locationLine" : 353,
                 "locationColumn" : 3,
                 "name" : "description",
                 "type" : "java.lang.String"
@@ -6151,7 +6499,7 @@
             "enum" : [ "ACTIVE", "INACTIVE", "DISABLED" ],
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 363,
+                "locationLine" : 359,
                 "locationColumn" : 3,
                 "name" : "status",
                 "type" : "com.apihug.rad.infra.role.RoleStatusEnum"
@@ -6165,7 +6513,7 @@
             "x-hope-field" : {
               "dateFormat" : "ISO_LOCAL_DATE_TIME",
               "compile" : {
-                "locationLine" : 369,
+                "locationLine" : 365,
                 "locationColumn" : 3,
                 "name" : "created_at",
                 "type" : "java.time.LocalDateTime"
@@ -6179,7 +6527,7 @@
             "x-hope-field" : {
               "dateFormat" : "ISO_LOCAL_DATE_TIME",
               "compile" : {
-                "locationLine" : 375,
+                "locationLine" : 371,
                 "locationColumn" : 3,
                 "name" : "updated_at",
                 "type" : "java.time.LocalDateTime"
@@ -6192,7 +6540,7 @@
           "compile" : {
             "protoFile" : "com/apihug/rad/api/role/api.proto",
             "name" : "RoleDetail",
-            "locationLine" : 328,
+            "locationLine" : 324,
             "locationColumn" : 1
           },
           "clz" : "com.apihug.rad.api.role.RoleDetail"
@@ -6208,7 +6556,7 @@
             "description" : "总请求数",
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 214,
+                "locationLine" : 211,
                 "locationColumn" : 3,
                 "name" : "total_requests",
                 "type" : "java.lang.Long"
@@ -6221,7 +6569,7 @@
             "description" : "成功请求数(2xx)",
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 219,
+                "locationLine" : 216,
                 "locationColumn" : 3,
                 "name" : "success_count",
                 "type" : "java.lang.Long"
@@ -6234,7 +6582,7 @@
             "description" : "错误请求数(4xx+5xx)",
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 224,
+                "locationLine" : 221,
                 "locationColumn" : 3,
                 "name" : "error_count",
                 "type" : "java.lang.Long"
@@ -6247,7 +6595,7 @@
             "description" : "平均耗时毫秒",
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 229,
+                "locationLine" : 226,
                 "locationColumn" : 3,
                 "name" : "avg_duration_ms",
                 "type" : "java.lang.Long"
@@ -6263,7 +6611,7 @@
             },
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 234,
+                "locationLine" : 231,
                 "locationColumn" : 3,
                 "name" : "top_paths",
                 "type" : "com.apihug.rad.api.audit.PathStats"
@@ -6276,10 +6624,118 @@
           "compile" : {
             "protoFile" : "com/apihug/rad/api/audit/api.proto",
             "name" : "AccessLogStatsResponse",
-            "locationLine" : 206,
+            "locationLine" : 203,
             "locationColumn" : 1
           },
           "clz" : "com.apihug.rad.api.audit.AccessLogStatsResponse"
+        }
+      },
+      "PlatformMemberInfo" : {
+        "type" : "object",
+        "description" : "平台成员信息摘要（分页返回条目）\n平台成员信息摘要",
+        "properties" : {
+          "id" : {
+            "type" : "number",
+            "format" : "int64",
+            "description" : "平台成员记录 ID",
+            "x-hope-field" : {
+              "compile" : {
+                "locationLine" : 207,
+                "locationColumn" : 3,
+                "name" : "id",
+                "type" : "java.lang.Long"
+              }
+            }
+          },
+          "customerId" : {
+            "type" : "number",
+            "format" : "int64",
+            "description" : "客户 ID",
+            "x-hope-field" : {
+              "compile" : {
+                "locationLine" : 212,
+                "locationColumn" : 3,
+                "name" : "customer_id",
+                "type" : "java.lang.Long"
+              }
+            }
+          },
+          "customerUsername" : {
+            "type" : "string",
+            "description" : "客户用户名",
+            "x-hope-field" : {
+              "compile" : {
+                "locationLine" : 217,
+                "locationColumn" : 3,
+                "name" : "customer_username",
+                "type" : "java.lang.String"
+              }
+            }
+          },
+          "customerEmail" : {
+            "type" : "string",
+            "description" : "客户邮筱",
+            "x-hope-field" : {
+              "compile" : {
+                "locationLine" : 222,
+                "locationColumn" : 3,
+                "name" : "customer_email",
+                "type" : "java.lang.String"
+              }
+            }
+          },
+          "platformRole" : {
+            "type" : "object",
+            "$ref" : "#/components/schemas/CustomerPlatformTypeEnum",
+            "description" : "平台角色",
+            "enum" : [ "MEMBER", "MANAGER", "OWNER" ],
+            "x-hope-field" : {
+              "compile" : {
+                "locationLine" : 227,
+                "locationColumn" : 3,
+                "name" : "platform_role",
+                "type" : "com.apihug.rad.infra.customer.CustomerPlatformTypeEnum"
+              }
+            }
+          },
+          "status" : {
+            "type" : "object",
+            "$ref" : "#/components/schemas/PlatformMemberStatusEnum",
+            "description" : "平台成员状态",
+            "enum" : [ "PM_ACTIVE", "PM_LOCKED", "PM_INACTIVE" ],
+            "x-hope-field" : {
+              "compile" : {
+                "locationLine" : 232,
+                "locationColumn" : 3,
+                "name" : "status",
+                "type" : "com.apihug.rad.infra.platform.PlatformMemberStatusEnum"
+              }
+            }
+          },
+          "createdAt" : {
+            "type" : "string",
+            "format" : "date-time",
+            "description" : "加入平台时间",
+            "x-hope-field" : {
+              "dateFormat" : "YYYY_MM_DD_HH_MM_SS",
+              "compile" : {
+                "locationLine" : 237,
+                "locationColumn" : 3,
+                "name" : "created_at",
+                "type" : "java.time.LocalDateTime"
+              }
+            }
+          }
+        },
+        "title" : "PlatformMemberInfo",
+        "x-hope-component" : {
+          "compile" : {
+            "protoFile" : "com/apihug/rad/api/platform/api.proto",
+            "name" : "PlatformMemberInfo",
+            "locationLine" : 199,
+            "locationColumn" : 1
+          },
+          "clz" : "com.apihug.rad.api.platform.PlatformMemberInfo"
         }
       },
       "CustomerSummary" : {
@@ -6293,7 +6749,7 @@
             "minimum" : 1.0,
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 459,
+                "locationLine" : 449,
                 "locationColumn" : 3,
                 "name" : "id",
                 "type" : "java.lang.Long"
@@ -6309,7 +6765,7 @@
                 "nature" : "NAME"
               },
               "compile" : {
-                "locationLine" : 466,
+                "locationLine" : 456,
                 "locationColumn" : 3,
                 "name" : "username",
                 "type" : "java.lang.String"
@@ -6325,7 +6781,7 @@
                 "nature" : "EMAIL"
               },
               "compile" : {
-                "locationLine" : 473,
+                "locationLine" : 463,
                 "locationColumn" : 3,
                 "name" : "email",
                 "type" : "java.lang.String"
@@ -6339,7 +6795,7 @@
             "enum" : [ "ACTIVE", "INACTIVE", "LOCKED", "DISABLED" ],
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 480,
+                "locationLine" : 470,
                 "locationColumn" : 3,
                 "name" : "status",
                 "type" : "com.apihug.rad.infra.customer.CustomerStatusEnum"
@@ -6352,7 +6808,7 @@
             "description" : "租户 ID",
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 486,
+                "locationLine" : 476,
                 "locationColumn" : 3,
                 "name" : "tenant_id",
                 "type" : "java.lang.Long"
@@ -6365,7 +6821,7 @@
           "compile" : {
             "protoFile" : "com/apihug/rad/api/customer/api.proto",
             "name" : "CustomerSummary",
-            "locationLine" : 451,
+            "locationLine" : 441,
             "locationColumn" : 1
           },
           "clz" : "com.apihug.rad.api.customer.CustomerSummary"
@@ -6373,7 +6829,7 @@
       },
       "GetTenantMembersRequest" : {
         "type" : "object",
-        "description" : "============ 消息类型定义 ============\r\n获取租户成员列表请求",
+        "description" : "获取租户成员列表请求",
         "properties" : {
           "status" : {
             "type" : "object",
@@ -6382,7 +6838,7 @@
             "enum" : [ "TM_ACTIVE", "TM_INACTIVE", "TM_LOCKED" ],
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 380,
+                "locationLine" : 366,
                 "locationColumn" : 3,
                 "name" : "status",
                 "type" : "com.apihug.rad.infra.tenant.TenantMemberStatusEnum"
@@ -6396,7 +6852,7 @@
             "enum" : [ "MEMBER", "ADMIN", "OWNER" ],
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 385,
+                "locationLine" : 371,
                 "locationColumn" : 3,
                 "name" : "member_role",
                 "type" : "com.apihug.rad.infra.tenant.MemberRoleEnum"
@@ -6408,7 +6864,7 @@
             "description" : "搜索关键词（用户名或邮箱）",
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 389,
+                "locationLine" : 375,
                 "locationColumn" : 3,
                 "name" : "keyword",
                 "type" : "java.lang.String"
@@ -6421,7 +6877,7 @@
           "compile" : {
             "protoFile" : "com/apihug/rad/api/tenant/member.proto",
             "name" : "GetTenantMembersRequest",
-            "locationLine" : 372,
+            "locationLine" : 358,
             "locationColumn" : 1
           },
           "clz" : "com.apihug.rad.api.tenant.GetTenantMembersRequest"
@@ -6440,7 +6896,7 @@
                 "nature" : "GUID"
               },
               "compile" : {
-                "locationLine" : 225,
+                "locationLine" : 219,
                 "locationColumn" : 3,
                 "name" : "access_token",
                 "type" : "java.lang.String"
@@ -6460,7 +6916,7 @@
                 }
               },
               "compile" : {
-                "locationLine" : 232,
+                "locationLine" : 226,
                 "locationColumn" : 3,
                 "name" : "customer_id",
                 "type" : "java.lang.Long"
@@ -6476,7 +6932,7 @@
                 "nature" : "NAME"
               },
               "compile" : {
-                "locationLine" : 240,
+                "locationLine" : 234,
                 "locationColumn" : 3,
                 "name" : "username",
                 "type" : "java.lang.String"
@@ -6488,7 +6944,7 @@
             "description" : "是否需要选择租户",
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 248,
+                "locationLine" : 241,
                 "locationColumn" : 3,
                 "name" : "needs_tenant_selection",
                 "type" : "java.lang.Boolean"
@@ -6504,7 +6960,7 @@
             },
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 254,
+                "locationLine" : 246,
                 "locationColumn" : 3,
                 "name" : "tenants",
                 "type" : "com.apihug.rad.api.customer.TenantInfo"
@@ -6517,7 +6973,7 @@
             "description" : "默认租户信息",
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 259,
+                "locationLine" : 250,
                 "locationColumn" : 3,
                 "name" : "default_tenant",
                 "type" : "com.apihug.rad.api.customer.TenantInfo"
@@ -6530,10 +6986,67 @@
           "compile" : {
             "protoFile" : "com/apihug/rad/api/customer/api.proto",
             "name" : "LoginResponse",
-            "locationLine" : 217,
+            "locationLine" : 211,
             "locationColumn" : 1
           },
           "clz" : "com.apihug.rad.api.customer.LoginResponse"
+        }
+      },
+      "AddPlatformMemberRequest" : {
+        "type" : "object",
+        "description" : "添加平台成员请求\n3+ 字段 → 用 Request Message\n添加平台成员请求",
+        "properties" : {
+          "customerId" : {
+            "type" : "number",
+            "format" : "int64",
+            "description" : "客户 ID",
+            "minimum" : 1.0,
+            "x-hope-field" : {
+              "compile" : {
+                "locationLine" : 164,
+                "locationColumn" : 3,
+                "name" : "customer_id",
+                "type" : "java.lang.Long"
+              }
+            }
+          },
+          "platformRole" : {
+            "type" : "object",
+            "$ref" : "#/components/schemas/CustomerPlatformTypeEnum",
+            "description" : "平台角色，默认为 MEMBER",
+            "enum" : [ "MEMBER", "MANAGER", "OWNER" ],
+            "x-hope-field" : {
+              "compile" : {
+                "locationLine" : 171,
+                "locationColumn" : 3,
+                "name" : "platform_role",
+                "type" : "com.apihug.rad.infra.customer.CustomerPlatformTypeEnum"
+              }
+            }
+          },
+          "remark" : {
+            "type" : "string",
+            "description" : "备注（可选）",
+            "maxLength" : 200,
+            "x-hope-field" : {
+              "compile" : {
+                "locationLine" : 176,
+                "locationColumn" : 3,
+                "name" : "remark",
+                "type" : "java.lang.String"
+              }
+            }
+          }
+        },
+        "title" : "AddPlatformMemberRequest",
+        "x-hope-component" : {
+          "compile" : {
+            "protoFile" : "com/apihug/rad/api/platform/api.proto",
+            "name" : "AddPlatformMemberRequest",
+            "locationLine" : 156,
+            "locationColumn" : 1
+          },
+          "clz" : "com.apihug.rad.api.platform.AddPlatformMemberRequest"
         }
       },
       "CurrentCustomerInfo" : {
@@ -6546,7 +7059,7 @@
             "description" : "客户基本信息",
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 351,
+                "locationLine" : 341,
                 "locationColumn" : 3,
                 "name" : "customer",
                 "type" : "com.apihug.rad.api.customer.CustomerInfo"
@@ -6562,7 +7075,7 @@
             },
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 355,
+                "locationLine" : 345,
                 "locationColumn" : 3,
                 "name" : "roles",
                 "type" : "com.apihug.rad.api.customer.RoleInfo"
@@ -6577,7 +7090,7 @@
             },
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 359,
+                "locationLine" : 349,
                 "locationColumn" : 3,
                 "name" : "authorities",
                 "type" : "java.lang.String"
@@ -6590,7 +7103,7 @@
             "description" : "客户部门信息",
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 363,
+                "locationLine" : 353,
                 "locationColumn" : 3,
                 "name" : "department",
                 "type" : "com.apihug.rad.api.customer.DepartmentInfo"
@@ -6603,7 +7116,7 @@
             "description" : "当前租户信息",
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 367,
+                "locationLine" : 357,
                 "locationColumn" : 3,
                 "name" : "current_tenant",
                 "type" : "com.apihug.rad.api.customer.TenantInfo"
@@ -6616,7 +7129,7 @@
           "compile" : {
             "protoFile" : "com/apihug/rad/api/customer/api.proto",
             "name" : "CurrentCustomerInfo",
-            "locationLine" : 343,
+            "locationLine" : 333,
             "locationColumn" : 1
           },
           "clz" : "com.apihug.rad.api.customer.CurrentCustomerInfo"
@@ -6632,7 +7145,7 @@
             "description" : "角色 ID",
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 424,
+                "locationLine" : 420,
                 "locationColumn" : 3,
                 "name" : "role_id",
                 "type" : "java.lang.Long"
@@ -6648,7 +7161,7 @@
             },
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 430,
+                "locationLine" : 426,
                 "locationColumn" : 3,
                 "name" : "menus",
                 "type" : "com.apihug.rad.api.role.RoleMenuItem"
@@ -6661,7 +7174,7 @@
           "compile" : {
             "protoFile" : "com/apihug/rad/api/role/api.proto",
             "name" : "RoleMenuSummary",
-            "locationLine" : 416,
+            "locationLine" : 412,
             "locationColumn" : 1
           },
           "clz" : "com.apihug.rad.api.role.RoleMenuSummary"
@@ -6681,7 +7194,7 @@
                 "nature" : "NAME"
               },
               "compile" : {
-                "locationLine" : 176,
+                "locationLine" : 175,
                 "locationColumn" : 3,
                 "name" : "dept_name",
                 "type" : "java.lang.String"
@@ -6694,7 +7207,7 @@
             "description" : "排序顺序",
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 184,
+                "locationLine" : 183,
                 "locationColumn" : 3,
                 "name" : "sort_order",
                 "type" : "java.lang.Integer"
@@ -6707,7 +7220,7 @@
             "maxLength" : 50,
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 189,
+                "locationLine" : 188,
                 "locationColumn" : 3,
                 "name" : "manager_id",
                 "type" : "java.lang.String"
@@ -6721,7 +7234,7 @@
             "enum" : [ "ACTIVE", "DISABLED" ],
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 195,
+                "locationLine" : 194,
                 "locationColumn" : 3,
                 "name" : "status",
                 "type" : "com.apihug.rad.infra.department.DeptStatusEnum"
@@ -6734,7 +7247,7 @@
           "compile" : {
             "protoFile" : "com/apihug/rad/api/department/api.proto",
             "name" : "UpdateDepartmentRequest",
-            "locationLine" : 168,
+            "locationLine" : 167,
             "locationColumn" : 1
           },
           "clz" : "com.apihug.rad.api.department.UpdateDepartmentRequest"
@@ -6750,7 +7263,7 @@
             "description" : "客户ID（可选）",
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 60,
+                "locationLine" : 59,
                 "locationColumn" : 3,
                 "name" : "customer_id",
                 "type" : "java.lang.Long"
@@ -6762,7 +7275,7 @@
             "description" : "HTTP方法（可选）",
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 65,
+                "locationLine" : 64,
                 "locationColumn" : 3,
                 "name" : "http_method",
                 "type" : "java.lang.String"
@@ -6774,7 +7287,7 @@
             "description" : "请求路径（可选，模糊匹配）",
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 70,
+                "locationLine" : 69,
                 "locationColumn" : 3,
                 "name" : "request_path",
                 "type" : "java.lang.String"
@@ -6787,7 +7300,7 @@
             "description" : "响应状态码（可选）",
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 75,
+                "locationLine" : 74,
                 "locationColumn" : 3,
                 "name" : "response_status",
                 "type" : "java.lang.Integer"
@@ -6801,7 +7314,7 @@
             "x-hope-field" : {
               "dateFormat" : "ISO_LOCAL_DATE_TIME",
               "compile" : {
-                "locationLine" : 80,
+                "locationLine" : 79,
                 "locationColumn" : 3,
                 "name" : "start_time",
                 "type" : "java.time.LocalDateTime"
@@ -6815,7 +7328,7 @@
             "x-hope-field" : {
               "dateFormat" : "ISO_LOCAL_DATE_TIME",
               "compile" : {
-                "locationLine" : 86,
+                "locationLine" : 85,
                 "locationColumn" : 3,
                 "name" : "end_time",
                 "type" : "java.time.LocalDateTime"
@@ -6827,7 +7340,7 @@
           "compile" : {
             "protoFile" : "com/apihug/rad/api/audit/api.proto",
             "name" : "SearchAccessLogsRequest",
-            "locationLine" : 53,
+            "locationLine" : 52,
             "locationColumn" : 1
           },
           "clz" : "com.apihug.rad.api.audit.SearchAccessLogsRequest"
@@ -6844,7 +7357,7 @@
             "minimum" : 1.0,
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 315,
+                "locationLine" : 312,
                 "locationColumn" : 3,
                 "name" : "id",
                 "type" : "java.lang.Long"
@@ -6860,7 +7373,7 @@
                 "nature" : "NAME"
               },
               "compile" : {
-                "locationLine" : 322,
+                "locationLine" : 319,
                 "locationColumn" : 3,
                 "name" : "tenant_code",
                 "type" : "java.lang.String"
@@ -6876,7 +7389,7 @@
                 "nature" : "NAME"
               },
               "compile" : {
-                "locationLine" : 329,
+                "locationLine" : 326,
                 "locationColumn" : 3,
                 "name" : "tenant_name",
                 "type" : "java.lang.String"
@@ -6891,7 +7404,7 @@
                 "nature" : "EMAIL"
               },
               "compile" : {
-                "locationLine" : 336,
+                "locationLine" : 333,
                 "locationColumn" : 3,
                 "name" : "contact_email",
                 "type" : "java.lang.String"
@@ -6906,7 +7419,7 @@
                 "nature" : "PHONE"
               },
               "compile" : {
-                "locationLine" : 342,
+                "locationLine" : 339,
                 "locationColumn" : 3,
                 "name" : "contact_phone",
                 "type" : "java.lang.String"
@@ -6920,7 +7433,7 @@
             "enum" : [ "ACTIVE", "DISABLED", "EXPIRED" ],
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 348,
+                "locationLine" : 345,
                 "locationColumn" : 3,
                 "name" : "status",
                 "type" : "com.apihug.rad.infra.tenant.TenantStatusEnum"
@@ -6933,7 +7446,7 @@
             "description" : "最大成员数",
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 354,
+                "locationLine" : 351,
                 "locationColumn" : 3,
                 "name" : "max_members",
                 "type" : "java.lang.Integer"
@@ -6946,7 +7459,7 @@
             "description" : "最大存储空间（MB）",
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 359,
+                "locationLine" : 356,
                 "locationColumn" : 3,
                 "name" : "max_storage_mb",
                 "type" : "java.lang.Long"
@@ -6958,7 +7471,7 @@
             "description" : "是否为平台租户",
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 364,
+                "locationLine" : 361,
                 "locationColumn" : 3,
                 "name" : "is_platform",
                 "type" : "java.lang.Boolean"
@@ -6970,7 +7483,7 @@
             "description" : "租户描述",
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 369,
+                "locationLine" : 366,
                 "locationColumn" : 3,
                 "name" : "description",
                 "type" : "java.lang.String"
@@ -6984,7 +7497,7 @@
             "x-hope-field" : {
               "dateFormat" : "ISO_LOCAL_DATE_TIME",
               "compile" : {
-                "locationLine" : 374,
+                "locationLine" : 371,
                 "locationColumn" : 3,
                 "name" : "created_at",
                 "type" : "java.time.LocalDateTime"
@@ -6997,7 +7510,7 @@
           "compile" : {
             "protoFile" : "com/apihug/rad/api/tenant/api.proto",
             "name" : "TenantDetail",
-            "locationLine" : 307,
+            "locationLine" : 304,
             "locationColumn" : 1
           },
           "clz" : "com.apihug.rad.api.tenant.TenantDetail"
@@ -7005,7 +7518,7 @@
       },
       "AssignRolesRequest" : {
         "type" : "object",
-        "description" : "分配角色请求\r\n分配 RBAC 角色请求（全量覆盖）",
+        "description" : "分配 RBAC 角色请求（全量覆盖）",
         "properties" : {
           "roleIds" : {
             "type" : "array",
@@ -7016,7 +7529,7 @@
             },
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 642,
+                "locationLine" : 622,
                 "locationColumn" : 3,
                 "name" : "role_ids",
                 "type" : "java.lang.Long"
@@ -7029,7 +7542,7 @@
           "compile" : {
             "protoFile" : "com/apihug/rad/api/tenant/member.proto",
             "name" : "AssignRolesRequest",
-            "locationLine" : 634,
+            "locationLine" : 614,
             "locationColumn" : 1
           },
           "clz" : "com.apihug.rad.api.tenant.AssignRolesRequest"
@@ -7049,7 +7562,7 @@
                 "nature" : "NAME"
               },
               "compile" : {
-                "locationLine" : 414,
+                "locationLine" : 404,
                 "locationColumn" : 3,
                 "name" : "username",
                 "type" : "java.lang.String"
@@ -7063,7 +7576,7 @@
             "minLength" : 6,
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 422,
+                "locationLine" : 412,
                 "locationColumn" : 3,
                 "name" : "password",
                 "type" : "java.lang.String"
@@ -7080,7 +7593,7 @@
                 "nature" : "EMAIL"
               },
               "compile" : {
-                "locationLine" : 430,
+                "locationLine" : 420,
                 "locationColumn" : 3,
                 "name" : "email",
                 "type" : "java.lang.String"
@@ -7094,7 +7607,7 @@
             "enum" : [ "ACTIVE", "INACTIVE", "LOCKED", "DISABLED" ],
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 438,
+                "locationLine" : 428,
                 "locationColumn" : 3,
                 "name" : "status",
                 "type" : "com.apihug.rad.infra.customer.CustomerStatusEnum"
@@ -7108,7 +7621,7 @@
             "minimum" : 0.0,
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 444,
+                "locationLine" : 434,
                 "locationColumn" : 3,
                 "name" : "default_tenant_id",
                 "type" : "java.lang.Long"
@@ -7121,7 +7634,7 @@
           "compile" : {
             "protoFile" : "com/apihug/rad/api/customer/api.proto",
             "name" : "CreateCustomerRequest",
-            "locationLine" : 406,
+            "locationLine" : 396,
             "locationColumn" : 1
           },
           "clz" : "com.apihug.rad.api.customer.CreateCustomerRequest"
@@ -7138,7 +7651,7 @@
             "x-hope-field" : {
               "dateFormat" : "YYYY_MM_DD_HH_MM_SS",
               "compile" : {
-                "locationLine" : 101,
+                "locationLine" : 100,
                 "locationColumn" : 3,
                 "name" : "start_time",
                 "type" : "java.time.LocalDateTime"
@@ -7152,7 +7665,7 @@
             "x-hope-field" : {
               "dateFormat" : "YYYY_MM_DD_HH_MM_SS",
               "compile" : {
-                "locationLine" : 107,
+                "locationLine" : 106,
                 "locationColumn" : 3,
                 "name" : "end_time",
                 "type" : "java.time.LocalDateTime"
@@ -7165,7 +7678,7 @@
           "compile" : {
             "protoFile" : "com/apihug/rad/api/audit/api.proto",
             "name" : "GetAccessLogStatsRequest",
-            "locationLine" : 93,
+            "locationLine" : 92,
             "locationColumn" : 1
           },
           "clz" : "com.apihug.rad.api.audit.GetAccessLogStatsRequest"
@@ -7180,7 +7693,7 @@
             "description" : "搜索关键词（菜单代码或名称）",
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 437,
+                "locationLine" : 436,
                 "locationColumn" : 3,
                 "name" : "keyword",
                 "type" : "java.lang.String"
@@ -7194,7 +7707,7 @@
             "enum" : [ "DIRECTORY", "MENU", "BUTTON" ],
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 442,
+                "locationLine" : 441,
                 "locationColumn" : 3,
                 "name" : "menu_type",
                 "type" : "com.apihug.rad.infra.menu.MenuTypeEnum"
@@ -7208,7 +7721,7 @@
             "enum" : [ "ACTIVE", "INACTIVE" ],
             "x-hope-field" : {
               "compile" : {
-                "locationLine" : 447,
+                "locationLine" : 446,
                 "locationColumn" : 3,
                 "name" : "status",
                 "type" : "com.apihug.rad.infra.menu.MenuStatusEnum"
@@ -7221,7 +7734,7 @@
           "compile" : {
             "protoFile" : "com/apihug/rad/api/menu/api.proto",
             "name" : "SearchMenusRequest",
-            "locationLine" : 429,
+            "locationLine" : 428,
             "locationColumn" : 1
           },
           "clz" : "com.apihug.rad.api.menu.SearchMenusRequest"
@@ -7283,7 +7796,7 @@
     "status" : {
       "deprecated" : false,
       "createdTimestamp" : "2026-03-20",
-      "updatedTimestamp" : "2026-03-26 10:13:19",
+      "updatedTimestamp" : "2026-03-26 20:21:42",
       "createdBy" : "admin"
     },
     "builder" : { },

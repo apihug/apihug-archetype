@@ -1,7 +1,7 @@
 {
   "domain" : "rad",
   "version" : "0.1.1-SNAPSHOT",
-  "lastBuildTime" : "2026-03-26 10:13:19",
+  "lastBuildTime" : "2026-03-26 20:21:43",
   "errors" : [ {
     "name" : "AuthErrorEnum",
     "javaClass" : "com.apihug.rad.infra.auth.AuthErrorEnum",
@@ -201,6 +201,64 @@
       "tips" : "Check if the parent menu ID is correct",
       "phase" : "DOMAIN",
       "severity" : "WARN"
+    } ]
+  }, {
+    "name" : "PlatformMemberErrorEnum",
+    "javaClass" : "com.apihug.rad.infra.platform.PlatformMemberErrorEnum",
+    "description" : "平台成员相关错误",
+    "documentation" : "平台成员相关错误枚举\r",
+    "deprecated" : false,
+    "domain" : "rad",
+    "items" : [ {
+      "code" : 10008001,
+      "title" : "PLATFORM_MEMBER_NOT_FOUND",
+      "description" : "Platform member not found",
+      "description2" : "平台成员不存在",
+      "deprecated" : false,
+      "tips" : "Check if the platform member ID is correct",
+      "phase" : "DOMAIN",
+      "severity" : "FATAL",
+      "httpStatus" : "NOT_FOUND"
+    }, {
+      "code" : 10008002,
+      "title" : "PLATFORM_MEMBER_ALREADY_EXISTS",
+      "description" : "Customer is already a platform member",
+      "description2" : "该客户已是平台成员",
+      "deprecated" : false,
+      "tips" : "The customer has already joined the platform",
+      "phase" : "DOMAIN",
+      "severity" : "WARN",
+      "httpStatus" : "CONFLICT"
+    }, {
+      "code" : 10008003,
+      "title" : "PLATFORM_OWNER_CANNOT_BE_REMOVED",
+      "description" : "Platform owner cannot be removed",
+      "description2" : "平台拥有者不允许被移除",
+      "deprecated" : false,
+      "tips" : "Cannot remove the platform owner to prevent losing platform access",
+      "phase" : "DOMAIN",
+      "severity" : "WARN",
+      "httpStatus" : "BAD_REQUEST"
+    }, {
+      "code" : 10008004,
+      "title" : "PLATFORM_MEMBER_LOCKED",
+      "description" : "Platform member is locked",
+      "description2" : "平台成员已被冻结",
+      "deprecated" : false,
+      "tips" : "Contact platform administrator to unlock your account",
+      "phase" : "DOMAIN",
+      "severity" : "WARN",
+      "httpStatus" : "FORBIDDEN"
+    }, {
+      "code" : 10008005,
+      "title" : "PLATFORM_MEMBER_INACTIVE",
+      "description" : "Platform member is inactive and cannot be modified",
+      "description2" : "平台成员已移除，无法进行此操作",
+      "deprecated" : false,
+      "tips" : "Inactive members cannot be frozen or unfrozen",
+      "phase" : "DOMAIN",
+      "severity" : "WARN",
+      "httpStatus" : "BAD_REQUEST"
     } ]
   }, {
     "name" : "RoleErrorEnum",

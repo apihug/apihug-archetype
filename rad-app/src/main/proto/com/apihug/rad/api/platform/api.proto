@@ -1,0 +1,240 @@
+syntax = "proto3";
+
+package com.apihug.rad.api.platform;
+
+import "apihug/protobuf/swagger/annotations.proto";
+import "google/protobuf/empty.proto";
+import "com/apihug/rad/infra/platform/constant.proto";
+import "com/apihug/rad/infra/customer/constant.proto";
+
+service PlatformService {
+  option (hope.swagger.svc) = {
+    path: "/platforms",
+    description: "平台管理服务，提供平台成员 CRUD 和配置功能"
+  };
+
+  rpc GetPlatformMembers (GetPlatformMembersRequest) returns (PlatformMemberInfo) {
+    option (hope.swagger.operation) = {
+      get: "/members";
+      description: "获取平台成员列表，支持状态筛选和关键词搜索";
+      summary: "获取平台成员列表";
+      tags: "platform-member";
+      pageable: true;
+      authorization: {
+        rbac: {
+          authorities: ["PLATFORM_MEMBER_VIEW"];
+          combinator: AND
+          predefined_role_checker: PLATFORM
+        }
+      };
+    };
+  }
+
+  rpc AddPlatformMember (AddPlatformMemberRequest) returns (google.protobuf.Empty) {
+    option (hope.swagger.operation) = {
+      post: "/members";
+      description: "将指定客户添加为平台成员，并设置平台角色";
+      summary: "添加平台成员";
+      tags: "platform-member";
+      authorization: {
+        rbac: {
+          authorities: ["PLATFORM_MEMBER_ADD"];
+          combinator: AND
+          predefined_role_checker: PLATFORM
+        }
+      };
+    };
+  }
+
+  rpc RemovePlatformMember (google.protobuf.Empty) returns (google.protobuf.Empty) {
+    option (hope.swagger.operation) = {
+      delete: "/members/{memberId}";
+      description: "移除平台成员，同时重置客户的 platform_type 为 NA。OWNER 角色不允许被移除";
+      summary: "移除平台成员";
+      tags: "platform-member";
+      authorization: {
+        rbac: {
+          authorities: ["PLATFORM_MEMBER_REMOVE"];
+          combinator: AND
+          predefined_role_checker: PLATFORM
+        }
+      };
+      parameters: {
+        parameter: {
+          name: "memberId";
+          in: PATH;
+          schema: {
+            format: LONG;
+            minimum: 1;
+          };
+        };
+      };
+    };
+  }
+
+  rpc TogglePlatformMemberFreeze (google.protobuf.Empty) returns (google.protobuf.Empty) {
+    option (hope.swagger.operation) = {
+      post: "/members/{memberId}/toggle-freeze";
+      description: "切换平台成员冻结状态：PM_ACTIVE ↔ PM_LOCKED";
+      summary: "冻结/解冻平台成员";
+      tags: "platform-member";
+      authorization: {
+        rbac: {
+          authorities: ["PLATFORM_MEMBER_FREEZE"];
+          combinator: AND
+          predefined_role_checker: PLATFORM
+        }
+      };
+      parameters: {
+        parameter: {
+          name: "memberId";
+          in: PATH;
+          schema: {
+            format: LONG;
+            minimum: 1;
+          };
+        };
+      };
+    };
+  }
+
+  rpc UpdatePlatformMemberRole (UpdatePlatformMemberRoleRequest) returns (google.protobuf.Empty) {
+    option (hope.swagger.operation) = {
+      put: "/members/{memberId}/role";
+      description: "更新平台成员的平台角色（MEMBER/MANAGER/OWNER），并同步更新 CustomerEntity.platform_type";
+      summary: "更新平台成员角色";
+      tags: "platform-member";
+      authorization: {
+        rbac: {
+          authorities: ["PLATFORM_MEMBER_UPDATE_ROLE"];
+          combinator: AND
+          predefined_role_checker: PLATFORM
+        }
+      };
+      parameters: {
+        parameter: {
+          name: "memberId";
+          in: PATH;
+          schema: {
+            format: LONG;
+            minimum: 1;
+          };
+        };
+      };
+    };
+  }
+}
+
+message GetPlatformMembersRequest {
+  option (hope.swagger.schema) = {
+    json_schema: {
+      title: "GetPlatformMembersRequest";
+      description: "查询平台成员列表请求";
+    };
+  };
+
+  com.apihug.rad.infra.platform.PlatformMemberStatusEnum status = 1 [(hope.swagger.field) = {
+    description: "成员状态筛选";
+    example: "PM_ACTIVE";
+  }];
+
+  com.apihug.rad.infra.customer.CustomerPlatformTypeEnum platform_role = 2 [(hope.swagger.field) = {
+    description: "平台角色筛选";
+    example: "MEMBER";
+  }];
+
+  string keyword = 3 [(hope.swagger.field) = {
+    description: "搜索关键词（匹配用户名或邮筱）";
+    example: "zhangsan";
+    max_length: 100;
+  }];
+}
+
+// 添加平台成员请求
+// 3+ 字段 → 用 Request Message
+message AddPlatformMemberRequest {
+  option (hope.swagger.schema) = {
+    json_schema: {
+      title: "AddPlatformMemberRequest";
+      description: "添加平台成员请求";
+    };
+  };
+
+  int64 customer_id = 1 [(hope.swagger.field) = {
+    description: "客户 ID";
+    example: "1";
+    empty: false;
+    minimum: 1;
+  }];
+
+  com.apihug.rad.infra.customer.CustomerPlatformTypeEnum platform_role = 2 [(hope.swagger.field) = {
+    description: "平台角色，默认为 MEMBER";
+    example: "MEMBER";
+  }];
+
+  string remark = 3 [(hope.swagger.field) = {
+    description: "备注（可选）";
+    max_length: 200;
+  }];
+}
+
+message UpdatePlatformMemberRoleRequest {
+  option (hope.swagger.schema) = {
+    json_schema: {
+      title: "UpdatePlatformMemberRoleRequest";
+      description: "更新平台成员角色请求";
+    };
+  };
+
+  com.apihug.rad.infra.customer.CustomerPlatformTypeEnum platform_role = 1 [(hope.swagger.field) = {
+    description: "新的平台角色（MEMBER/MANAGER/OWNER）";
+    example: "MANAGER";
+    empty: false;
+  }];
+}
+
+// 平台成员信息摘要（分页返回条目）
+message PlatformMemberInfo {
+  option (hope.swagger.schema) = {
+    json_schema: {
+      title: "PlatformMemberInfo";
+      description: "平台成员信息摘要";
+    };
+  };
+
+  int64 id = 1 [(hope.swagger.field) = {
+    description: "平台成员记录 ID";
+    example: "1";
+  }];
+
+  int64 customer_id = 2 [(hope.swagger.field) = {
+    description: "客户 ID";
+    example: "1";
+  }];
+
+  string customer_username = 3 [(hope.swagger.field) = {
+    description: "客户用户名";
+    example: "zhangsan";
+  }];
+
+  string customer_email = 4 [(hope.swagger.field) = {
+    description: "客户邮筱";
+    example: "zhangsan@example.com";
+  }];
+
+  com.apihug.rad.infra.customer.CustomerPlatformTypeEnum platform_role = 5 [(hope.swagger.field) = {
+    description: "平台角色";
+    example: "MEMBER";
+  }];
+
+  com.apihug.rad.infra.platform.PlatformMemberStatusEnum status = 6 [(hope.swagger.field) = {
+    description: "平台成员状态";
+    example: "PM_ACTIVE";
+  }];
+
+  string created_at = 7 [(hope.swagger.field) = {
+    description: "加入平台时间";
+    example: "2024-01-15T10:30:00";
+    date_format: YYYY_MM_DD_HH_MM_SS;
+  }];
+}

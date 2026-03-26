@@ -40,9 +40,9 @@ public enum CustomerPlatformTypeEnum implements Enumeration<CustomerPlatformType
 
   MEMBER(1, "platform member", "平台员工"),
 
-  MANAGER(1, "platform manager", "平台管理员"),
+  MANAGER(2, "platform manager", "平台管理员"),
 
-  OWNER(2, "platform owner", "平台拥有者");
+  OWNER(3, "platform owner", "平台拥有者");
 
   public static final List<String> VALUES;
 

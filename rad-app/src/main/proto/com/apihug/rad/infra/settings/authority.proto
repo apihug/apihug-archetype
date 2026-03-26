@@ -16,17 +16,17 @@ enum RadAuthorityEnum {
     CUSTOMER_VIEW = 3 [(hope.constant.field) = {code: 4, message: "customer:view", message2: "查看客户"}];
 
     // 角色管理权限
-    ROLE_CREATE = 4 [(hope.constant.field) = {code: 5, message: "role:create", message2: "创建角色"}];
-    ROLE_UPDATE = 5 [(hope.constant.field) = {code: 6, message: "role:update", message2: "更新角色"}];
-    ROLE_DELETE = 6 [(hope.constant.field) = {code: 7, message: "role:delete", message2: "删除角色"}];
-    ROLE_VIEW = 7 [(hope.constant.field) = {code: 8, message: "role:view", message2: "查看角色"}];
-    ROLE_ASSIGN_PERMISSION = 8 [(hope.constant.field) = {code: 9, message: "role:assign_permission", message2: "分配角色权限"}];
+    ROLE_CREATE = 4 [(hope.constant.field) = {code: 5, message: "tenant:role:create", message2: "创建角色"}];
+    ROLE_UPDATE = 5 [(hope.constant.field) = {code: 6, message: "tenant:role:update", message2: "更新角色"}];
+    ROLE_DELETE = 6 [(hope.constant.field) = {code: 7, message: "tenant:role:delete", message2: "删除角色"}];
+    ROLE_VIEW = 7 [(hope.constant.field) = {code: 8, message: "tenant:role:view", message2: "查看角色"}];
+    ROLE_ASSIGN_PERMISSION = 8 [(hope.constant.field) = {code: 9, message: "tenant:role:assign_permission", message2: "分配角色权限"}];
 
     // 菜单管理权限
-    MENU_CREATE = 9 [(hope.constant.field) = {code: 10, message: "menu:create", message2: "创建菜单"}];
-    MENU_UPDATE = 10 [(hope.constant.field) = {code: 11, message: "menu:update", message2: "更新菜单"}];
-    MENU_DELETE = 11 [(hope.constant.field) = {code: 12, message: "menu:delete", message2: "删除菜单"}];
-    MENU_VIEW = 12 [(hope.constant.field) = {code: 13, message: "menu:view", message2: "查看菜单"}];
+    MENU_CREATE = 9 [(hope.constant.field) = {code: 10, message: "platform:menu:create", message2: "创建菜单"}];
+    MENU_UPDATE = 10 [(hope.constant.field) = {code: 11, message: "platform:menu:update", message2: "更新菜单"}];
+    MENU_DELETE = 11 [(hope.constant.field) = {code: 12, message: "platform:menu:delete", message2: "删除菜单"}];
+    MENU_VIEW = 12 [(hope.constant.field) = {code: 13, message: "platform:menu:view", message2: "查看菜单"}];
 
     // 租户管理权限
     TENANT_CREATE = 13 [(hope.constant.field) = {code: 14, message: "tenant:create", message2: "创建租户"}];
@@ -35,10 +35,10 @@ enum RadAuthorityEnum {
     TENANT_CONFIGURE = 16 [(hope.constant.field) = {code: 17, message: "tenant:configure", message2: "配置租户"}];
 
     // 部门管理权限
-    DEPARTMENT_CREATE = 17 [(hope.constant.field) = {code: 18, message: "department:create", message2: "创建部门"}];
-    DEPARTMENT_UPDATE = 18 [(hope.constant.field) = {code: 19, message: "department:update", message2: "更新部门"}];
-    DEPARTMENT_DELETE = 19 [(hope.constant.field) = {code: 20, message: "department:delete", message2: "删除部门"}];
-    DEPARTMENT_ASSIGN_EMPLOYEE = 20 [(hope.constant.field) = {code: 21, message: "department:assign_employee", message2: "分配员工到部门"}];
+    DEPARTMENT_CREATE = 17 [(hope.constant.field) = {code: 18, message: "tenant:department:create", message2: "创建部门"}];
+    DEPARTMENT_UPDATE = 18 [(hope.constant.field) = {code: 19, message: "tenant:department:update", message2: "更新部门"}];
+    DEPARTMENT_DELETE = 19 [(hope.constant.field) = {code: 20, message: "tenant:department:delete", message2: "删除部门"}];
+    DEPARTMENT_ASSIGN_EMPLOYEE = 20 [(hope.constant.field) = {code: 21, message: "tenant:department:assign_employee", message2: "分配员工到部门"}];
 
     // 租户成员管理权限
     TENANT_MEMBER_VIEW = 21 [(hope.constant.field) = {code: 22, message: "tenant:member:view", message2: "查看租户成员"}];
@@ -47,4 +47,11 @@ enum RadAuthorityEnum {
     TENANT_MEMBER_LOCK = 24 [(hope.constant.field) = {code: 25, message: "tenant:member:lock", message2: "锁定租户成员"}];
     TENANT_MEMBER_ASSIGN_ROLE = 25 [(hope.constant.field) = {code: 26, message: "tenant:member:assign_role", message2: "分配成员角色"}];
     TENANT_MEMBER_ASSIGN_DEPARTMENT = 26 [(hope.constant.field) = {code: 27, message: "tenant:member:assign_department", message2: "分配成员部门"}];
+
+    // 平台成员管理权限
+    PLATFORM_MEMBER_VIEW = 27 [(hope.constant.field) = {code: 28, message: "platform:member:view", message2: "查看平台成员"}];
+    PLATFORM_MEMBER_ADD = 28 [(hope.constant.field) = {code: 29, message: "platform:member:add", message2: "添加平台成员"}];
+    PLATFORM_MEMBER_REMOVE = 29 [(hope.constant.field) = {code: 30, message: "platform:member:remove", message2: "移除平台成员"}];
+    PLATFORM_MEMBER_FREEZE = 30 [(hope.constant.field) = {code: 31, message: "platform:member:freeze", message2: "冻结/解冻平台成员"}];
+    PLATFORM_MEMBER_UPDATE_ROLE = 31 [(hope.constant.field) = {code: 32, message: "platform:member:update_role", message2: "更新平台成员角色"}];
 }

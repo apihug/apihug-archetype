@@ -6,8 +6,6 @@ import "apihug/protobuf/swagger/annotations.proto";
 import "google/protobuf/empty.proto";
 import "com/apihug/rad/infra/tenant/constant.proto";
 
-// ============ 租户管理 API ============
-
 service TenantService {
   option (hope.swagger.svc) = {
     path: "/tenants",
@@ -124,7 +122,6 @@ service TenantService {
     };
   }
 
-  // 搜索租户（分页）
   rpc SearchTenants (SearchTenantsRequest) returns (TenantSummary) {
     option (hope.swagger.operation) = {
       post: "/tenants/search";

@@ -6,7 +6,6 @@ import "apihug/protobuf/swagger/annotations.proto";
 import "google/protobuf/empty.proto";
 import "com/apihug/rad/infra/role/constant.proto";
 
-// ============ 角色管理 API ============
 
 service RoleService {
   option (hope.swagger.svc) = {
@@ -135,7 +134,6 @@ service RoleService {
     };
   }
 
-  // 为角色分配菜单（全量覆盖），参考 RuoYi insertRoleMenu
   rpc AssignMenusToRole (AssignMenusRequest) returns (google.protobuf.Empty) {
     option (hope.swagger.operation) = {
       post: "/roles/{roleId}/menus";
@@ -164,7 +162,6 @@ service RoleService {
     };
   }
 
-  // 移除角色的某个菜单关联
   rpc RemoveMenuFromRole (google.protobuf.Empty) returns (google.protobuf.Empty) {
     option (hope.swagger.operation) = {
       delete: "/roles/{roleId}/menus/{menuId}";
@@ -197,7 +194,6 @@ service RoleService {
     };
   }
 
-  // 获取角色关联的菜单列表
   rpc GetRoleMenus (google.protobuf.Empty) returns (RoleMenuSummary) {
     option (hope.swagger.operation) = {
       get: "/roles/{roleId}/menus";

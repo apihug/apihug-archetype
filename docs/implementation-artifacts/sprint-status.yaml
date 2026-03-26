@@ -2,7 +2,7 @@
 sprint: 1
 project_name: rad
 created: '2026-03-20'
-last_updated: '2026-03-24'
+last_updated: '2026-03-26'
 ---
 
 # Sprint Status
@@ -22,6 +22,7 @@ last_updated: '2026-03-24'
 | 2-2-department-management | 部门管理 API | done | 2026-03-20 |
 | 2-3-department-employee | 部门员工管理 API | done | 2026-03-20 |
 | 4-1-multi-tenant-restructure | Customer+Tenant+TenantMember 三层架构重构 | done | 2026-03-24 |
+| 5-1-platform-member-management | 平台成员管理 API | review | 2026-03-26 |
 
 ### Epic Status
 
@@ -31,3 +32,4 @@ last_updated: '2026-03-24'
 | epic-2 | 多租户管理 | done |
 | epic-3 | 高级认证与权限 | done |
 | epic-4 | 多租户与组织管理 | done |
+| epic-5 | 平台成员管理 | in-progress |

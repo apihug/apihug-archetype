@@ -7,11 +7,13 @@ import com.apihug.rad.infra.tenant.TenantStatusEnum;
 import hope.common.api.exceptions.HopeErrorDetailException;
 import hope.common.spring.PageableResultBuilder;
 import hope.common.spring.SimpleResultBuilder;
+import hope.common.spring.security.context.HopeContextHolder;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
+import org.mockito.MockedStatic;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -103,7 +105,7 @@ class TenantServiceImplTest {
     @Test
     void testGetTenant_Success() {
         // Arrange
-        Integer tenantId = 1;
+        Long tenantId = 1L;
         TenantEntity entity = new TenantEntity()
             .setId(1L)
             .setTenantCode("acme_corp")
@@ -115,8 +117,14 @@ class TenantServiceImplTest {
 
         when(tenantRepository.findById(1L)).thenReturn(Optional.of(entity));
 
-        // Act
-        tenantService.getTenant(detailBuilder, tenantId);
+        // Act - mock HopeContextHolder to avoid NPE
+        try (MockedStatic<HopeContextHolder> contextHolder = mockStatic(HopeContextHolder.class)) {
+            com.apihug.rad.infra.security.RadCustomer mockCustomer = mock(com.apihug.rad.infra.security.RadCustomer.class);
+            when(mockCustomer.getTenantId()).thenReturn(1L);
+            contextHolder.when(HopeContextHolder::customer).thenReturn(mockCustomer);
+
+            tenantService.getTenant(detailBuilder, tenantId);
+        }
 
         // Assert
         verify(detailBuilder).payload(any(TenantDetail.class));
@@ -125,14 +133,20 @@ class TenantServiceImplTest {
     @Test
     void testGetTenant_NotFound() {
         // Arrange
-        Integer tenantId = 999;
+        Long tenantId = 999L;
         when(tenantRepository.findById(999L)).thenReturn(Optional.empty());
 
-        // Act & Assert
-        assertThrows(
-            HopeErrorDetailException.class,
-            () -> tenantService.getTenant(detailBuilder, tenantId)
-        );
+        // Act & Assert - mock HopeContextHolder to avoid NPE
+        try (MockedStatic<HopeContextHolder> contextHolder = mockStatic(HopeContextHolder.class)) {
+            com.apihug.rad.infra.security.RadCustomer mockCustomer = mock(com.apihug.rad.infra.security.RadCustomer.class);
+            when(mockCustomer.getTenantId()).thenReturn(999L);
+            contextHolder.when(HopeContextHolder::customer).thenReturn(mockCustomer);
+
+            assertThrows(
+                HopeErrorDetailException.class,
+                () -> tenantService.getTenant(detailBuilder, tenantId)
+            );
+        }
     }
 
     @Test

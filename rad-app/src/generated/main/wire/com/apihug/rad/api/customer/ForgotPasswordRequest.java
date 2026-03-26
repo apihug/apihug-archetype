@@ -11,8 +11,6 @@ import java.util.StringJoiner;
 import javax.annotation.Generated;
 
 /**
- * CustomerDetail, UpdateCustomerRequest, SearchCustomersRequest 已移除
- * 租户内成员查看/搜索/管理 → TenantMemberService
  * 找回密码请求
  */
 @Generated("H.O.P.E. Infra Team")

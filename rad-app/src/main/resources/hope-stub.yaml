@@ -15,9 +15,15 @@ project:
   status:
     deprecated: false
     createdTimestamp: "2026-03-20"
-    updatedTimestamp: "2026-03-26 10:13:19"
+    updatedTimestamp: "2026-03-26 20:21:42"
 module: com.apihug.rad.wire.api.RadApiModule
 services:
+  "com.apihug.rad.api.platform.PlatformService":
+  - "GetPlatformMembers"
+  - "AddPlatformMember"
+  - "RemovePlatformMember"
+  - "TogglePlatformMemberFreeze"
+  - "UpdatePlatformMemberRole"
   "com.apihug.rad.api.department.DepartmentService":
   - "CreateDepartment"
   - "GetDepartment"

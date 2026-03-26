@@ -13,7 +13,6 @@ import java.util.StringJoiner;
 import javax.annotation.Generated;
 
 /**
- * ============ Response Messages ============
  * 访问日志信息
  */
 @Generated("H.O.P.E. Infra Team")

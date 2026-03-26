@@ -9,6 +9,7 @@ import com.apihug.rad.domain.bootstrap.mybatis.type.MemberRoleEnumTitleTypeHandl
 import com.apihug.rad.domain.bootstrap.mybatis.type.MemberTypeEnumTitleTypeHandler;
 import com.apihug.rad.domain.bootstrap.mybatis.type.MenuStatusEnumTitleTypeHandler;
 import com.apihug.rad.domain.bootstrap.mybatis.type.MenuTypeEnumTitleTypeHandler;
+import com.apihug.rad.domain.bootstrap.mybatis.type.PlatformMemberStatusEnumTitleTypeHandler;
 import com.apihug.rad.domain.bootstrap.mybatis.type.RoleStatusEnumTitleTypeHandler;
 import com.apihug.rad.domain.bootstrap.mybatis.type.TenantMemberStatusEnumTitleTypeHandler;
 import com.apihug.rad.domain.bootstrap.mybatis.type.TenantStatusEnumTitleTypeHandler;
@@ -16,6 +17,7 @@ import com.apihug.rad.domain.customer.dsl.CustomerEntityDSL;
 import com.apihug.rad.domain.department.dsl.DepartmentEmployeeEntityDSL;
 import com.apihug.rad.domain.department.dsl.DepartmentEntityDSL;
 import com.apihug.rad.domain.menu.dsl.MenuEntityDSL;
+import com.apihug.rad.domain.platform.dsl.PlatformMemberEntityDSL;
 import com.apihug.rad.domain.role.dsl.RoleEntityDSL;
 import com.apihug.rad.domain.role.dsl.RoleMenuEntityDSL;
 import com.apihug.rad.domain.tenant.dsl.MemberRoleEntityDSL;
@@ -26,6 +28,7 @@ import com.apihug.rad.infra.customer.CustomerStatusEnum;
 import com.apihug.rad.infra.department.DeptStatusEnum;
 import com.apihug.rad.infra.menu.MenuStatusEnum;
 import com.apihug.rad.infra.menu.MenuTypeEnum;
+import com.apihug.rad.infra.platform.PlatformMemberStatusEnum;
 import com.apihug.rad.infra.role.RoleStatusEnum;
 import com.apihug.rad.infra.tenant.MemberRoleEnum;
 import com.apihug.rad.infra.tenant.MemberTypeEnum;
@@ -67,6 +70,10 @@ public interface RadDatabase {
   RadDatabase.MenuEntity SYS_MENU = new MenuEntity();
 
   Supplier<RadDatabase.MenuEntity> SYS_MENU_ALIAS = MenuEntity::new;
+
+  RadDatabase.PlatformMemberEntity SYS_PLATFORM_MEMBER = new PlatformMemberEntity();
+
+  Supplier<RadDatabase.PlatformMemberEntity> SYS_PLATFORM_MEMBER_ALIAS = PlatformMemberEntity::new;
 
   RadDatabase.RoleEntity SYS_ROLE = new RoleEntity();
 
@@ -621,6 +628,87 @@ public interface RadDatabase {
         }
         if(kind.tenantIncluded()) {
           res.add(TenantId);
+        }
+        _CACHE_COLUMN_LIST[kind.bit()] = res;
+      }
+      return res;
+    }
+  }
+
+  final class PlatformMemberEntity extends SqlTable {
+    private final List<SqlColumn>[] _CACHE_COLUMN_LIST;
+
+    public final SqlColumn<Long> CustomerId = AnalystHelper.mapper(PlatformMemberEntityDSL.Domain.CustomerId, this);
+
+    public final SqlColumn<CustomerPlatformTypeEnum> PlatformRole = AnalystHelper.mapper(PlatformMemberEntityDSL.Domain.PlatformRole, this, "com.apihug.rad.domain.bootstrap.mybatis.type.CustomerPlatformTypeEnumTitleTypeHandler", CustomerPlatformTypeEnumTitleTypeHandler.PTC);
+
+    public final SqlColumn<PlatformMemberStatusEnum> Status = AnalystHelper.mapper(PlatformMemberEntityDSL.Domain.Status, this, "com.apihug.rad.domain.bootstrap.mybatis.type.PlatformMemberStatusEnumTitleTypeHandler", PlatformMemberStatusEnumTitleTypeHandler.PTC);
+
+    public final SqlColumn<Long> Id = AnalystHelper.mapper(PlatformMemberEntityDSL.Domain.Id, this);
+
+    public final SqlColumn<LocalDateTime> CreatedAt = AnalystHelper.mapper(PlatformMemberEntityDSL.Domain.CreatedAt, this);
+
+    public final SqlColumn<Long> CreatedBy = AnalystHelper.mapper(PlatformMemberEntityDSL.Domain.CreatedBy, this);
+
+    public final SqlColumn<LocalDateTime> UpdatedAt = AnalystHelper.mapper(PlatformMemberEntityDSL.Domain.UpdatedAt, this);
+
+    public final SqlColumn<Long> UpdatedBy = AnalystHelper.mapper(PlatformMemberEntityDSL.Domain.UpdatedBy, this);
+
+    public PlatformMemberEntity() {
+      super("SYS_PLATFORM_MEMBER");
+      _CACHE_COLUMN_LIST = new List[Known._SIZE_+1];;
+    }
+
+    public boolean isIdentifiable() {
+      return true;
+    }
+
+    public boolean isAuditable() {
+      return true;
+    }
+
+    public boolean isSoftDeletable() {
+      return false;
+    }
+
+    public boolean isVersionable() {
+      return false;
+    }
+
+    public boolean isTenantable() {
+      return false;
+    }
+
+    public List<SqlColumn> columnsOfDomain() {
+      return columnsOf(Known.DOMAIN);
+    }
+
+    public List<SqlColumn> columnsOfIdentifiedDomain() {
+      return columnsOf(Known.IDENTIFIED_DOMAIN);
+    }
+
+    public List<SqlColumn> columnsOfAll() {
+      return columnsOf(Known.ALL);
+    }
+
+    public List<SqlColumn> columnsOf(Mixer kind) {
+      assert kind.good() : "Exceed the range of predefined column composited kind";
+      List<SqlColumn> res = _CACHE_COLUMN_LIST[kind.bit()];
+      if (res == null) {
+        res = new ArrayList<>();
+        if (kind.idIncluded()) {
+          res.add(Id);
+        }
+        if (kind.domainIncluded()) {
+          res.add(CustomerId);
+          res.add(PlatformRole);
+          res.add(Status);
+        }
+        if(kind.auditIncluded()) {
+          res.add(CreatedAt);
+          res.add(CreatedBy);
+          res.add(UpdatedAt);
+          res.add(UpdatedBy);
         }
         _CACHE_COLUMN_LIST[kind.bit()] = res;
       }

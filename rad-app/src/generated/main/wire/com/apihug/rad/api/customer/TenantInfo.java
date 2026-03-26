@@ -12,7 +12,6 @@ import java.util.StringJoiner;
 import javax.annotation.Generated;
 
 /**
- * 租户信息（用于登录响应、客户租户列表等）
  * 租户信息
  */
 @Generated("H.O.P.E. Infra Team")

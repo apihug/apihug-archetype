@@ -6,7 +6,6 @@ import "apihug/protobuf/swagger/annotations.proto";
 import "google/protobuf/empty.proto";
 import "com/apihug/rad/infra/department/constant.proto";
 
-// ============ 部门管理 API ============
 
 service DepartmentService {
   option (hope.swagger.svc) = {

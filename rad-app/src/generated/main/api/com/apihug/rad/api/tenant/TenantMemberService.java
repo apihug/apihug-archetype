@@ -14,7 +14,7 @@ import javax.annotation.Generated;
     value = "com/apihug/rad/api/tenant/member.proto",
     entity = "TenantMemberService",
     kind = Kind.RPC,
-    line = 13,
+    line = 11,
     column = 1
 )
 @Generated("H.O.P.E. Infra Team")

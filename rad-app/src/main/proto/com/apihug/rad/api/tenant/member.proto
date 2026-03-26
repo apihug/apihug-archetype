@@ -7,8 +7,6 @@ import "google/protobuf/empty.proto";
 import "com/apihug/rad/infra/tenant/member_constant.proto";
 import "com/apihug/rad/infra/customer/constant.proto";
 
-// ============ 租户成员管理 API ============
-// 替代原 CustomerOrganizationService — 管理 Customer 在 Tenant 中的身份
 
 service TenantMemberService {
   option (hope.swagger.svc) = {
@@ -16,7 +14,6 @@ service TenantMemberService {
     description: "租户成员管理服务，提供成员与租户关系管理功能"
   };
 
-  // 获取租户成员列表（分页）
   rpc GetTenantMembers (GetTenantMembersRequest) returns (TenantMemberSummary) {
     option (hope.swagger.operation) = {
       get: "/tenants/{tenantId}/members";
@@ -42,7 +39,6 @@ service TenantMemberService {
     };
   }
 
-  // 添加成员到租户
   rpc AddMemberToTenant (AddTenantMemberRequest) returns (google.protobuf.Empty) {
     option (hope.swagger.operation) = {
       post: "/tenants/{tenantId}/members";
@@ -67,7 +63,6 @@ service TenantMemberService {
     };
   }
 
-  // 从租户移除成员
   rpc RemoveMemberFromTenant (google.protobuf.Empty) returns (google.protobuf.Empty) {
     option (hope.swagger.operation) = {
       delete: "/tenants/{tenantId}/members/{memberId}";
@@ -100,7 +95,6 @@ service TenantMemberService {
     };
   }
 
-  // 锁定/解锁成员
   rpc ToggleMemberLock (google.protobuf.Empty) returns (google.protobuf.Empty) {
     option (hope.swagger.operation) = {
       post: "/tenants/{tenantId}/members/{memberId}/toggle-lock";
@@ -133,7 +127,6 @@ service TenantMemberService {
     };
   }
 
-  // 更新成员角色（OWNER/ADMIN/MEMBER）
   rpc UpdateMemberRole (UpdateMemberRoleRequest) returns (google.protobuf.Empty) {
     option (hope.swagger.operation) = {
       put: "/tenants/{tenantId}/members/{memberId}/role";
@@ -166,7 +159,6 @@ service TenantMemberService {
     };
   }
 
-  // 分配成员到部门
   rpc AssignMemberDepartment (AssignMemberDepartmentRequest) returns (google.protobuf.Empty) {
     option (hope.swagger.operation) = {
       put: "/tenants/{tenantId}/members/{memberId}/department";
@@ -199,7 +191,6 @@ service TenantMemberService {
     };
   }
 
-  // 获取成员详情（含客户信息 + 成员身份信息）
   rpc GetMemberDetail (google.protobuf.Empty) returns (TenantMemberDetail) {
     option (hope.swagger.operation) = {
       get: "/tenants/{tenantId}/members/{memberId}/detail";
@@ -236,7 +227,6 @@ service TenantMemberService {
     };
   }
 
-  // 设置默认租户
   rpc SetDefaultTenant (google.protobuf.Empty) returns (google.protobuf.Empty) {
     option (hope.swagger.operation) = {
       post: "/tenants/{tenantId}/set-default";
@@ -259,7 +249,6 @@ service TenantMemberService {
     };
   }
 
-  // 为成员分配 RBAC 角色（全量覆盖）
   rpc AssignRolesToMember (AssignRolesRequest) returns (google.protobuf.Empty) {
     option (hope.swagger.operation) = {
       post: "/tenants/{tenantId}/members/{memberId}/roles";
@@ -292,7 +281,6 @@ service TenantMemberService {
     };
   }
 
-  // 获取成员的 RBAC 角色列表
   rpc GetMemberRoles (google.protobuf.Empty) returns (MemberRoleSummary) {
     option (hope.swagger.operation) = {
       get: "/tenants/{tenantId}/members/{memberId}/roles";
@@ -325,7 +313,6 @@ service TenantMemberService {
     };
   }
 
-  // 移除成员的某个 RBAC 角色
   rpc RemoveRoleFromMember (google.protobuf.Empty) returns (google.protobuf.Empty) {
     option (hope.swagger.operation) = {
       delete: "/tenants/{tenantId}/members/{memberId}/roles/{roleId}";
@@ -367,7 +354,6 @@ service TenantMemberService {
   }
 }
 
-// ============ 消息类型定义 ============
 
 message GetTenantMembersRequest {
   option (hope.swagger.schema) = {
@@ -540,7 +526,6 @@ message TenantMemberSummary {
   }];
 }
 
-// 成员详情（含客户账号信息 + 成员身份信息）
 message TenantMemberDetail {
   option (hope.swagger.schema) = {
     json_schema: {
@@ -549,7 +534,6 @@ message TenantMemberDetail {
     };
   };
 
-  // 成员关系信息
   int64 id = 1 [(hope.swagger.field) = {
     description: "成员关系 ID";
     example: "1";
@@ -565,7 +549,6 @@ message TenantMemberDetail {
     example: "1";
   }];
 
-  // 客户账号信息
   string customer_username = 4 [(hope.swagger.field) = {
     description: "客户用户名";
     example: "zhangsan";
@@ -581,7 +564,6 @@ message TenantMemberDetail {
     example: "ACTIVE";
   }];
 
-  // 租户信息
   string tenant_name = 7 [(hope.swagger.field) = {
     description: "租户名称";
     example: "Acme 公司";
@@ -592,7 +574,6 @@ message TenantMemberDetail {
     example: "acme_corp";
   }];
 
-  // 成员身份信息
   com.apihug.rad.infra.tenant.MemberTypeEnum member_type = 9 [(hope.swagger.field) = {
     description: "成员类型";
     example: "FULL_TIME";
@@ -630,7 +611,6 @@ message TenantMemberDetail {
   }];
 }
 
-// 分配角色请求
 message AssignRolesRequest {
   option (hope.swagger.schema) = {
     json_schema: {
@@ -646,7 +626,6 @@ message AssignRolesRequest {
   }];
 }
 
-// 成员角色摘要
 message MemberRoleSummary {
   option (hope.swagger.schema) = {
     json_schema: {
@@ -666,7 +645,6 @@ message MemberRoleSummary {
   }];
 }
 
-// 成员角色项
 message MemberRoleItem {
   option (hope.swagger.schema) = {
     json_schema: {

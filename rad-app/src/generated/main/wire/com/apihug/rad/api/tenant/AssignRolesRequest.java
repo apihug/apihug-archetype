@@ -12,7 +12,6 @@ import java.util.StringJoiner;
 import javax.annotation.Generated;
 
 /**
- * 分配角色请求
  * 分配 RBAC 角色请求（全量覆盖）
  */
 @Generated("H.O.P.E. Infra Team")

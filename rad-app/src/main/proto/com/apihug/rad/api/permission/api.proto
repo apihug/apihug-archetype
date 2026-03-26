@@ -5,7 +5,6 @@ package com.apihug.rad.api.permission;
 import "apihug/protobuf/swagger/annotations.proto";
 import "google/protobuf/empty.proto";
 
-// ============ 权限管理 API ============
 
 service PermissionService {
   option (hope.swagger.svc) = {
@@ -13,7 +12,6 @@ service PermissionService {
     description: "权限管理服务，提供权限查询和聚合功能"
   };
 
-  // 获取当前客户的角色权限集合
   rpc GetRolePermissions (google.protobuf.Empty) returns (PermissionInfo) {
     option (hope.swagger.operation) = {
       get: "/roles";
@@ -27,7 +25,6 @@ service PermissionService {
     };
   }
 
-  // 获取当前客户的菜单权限集合
   rpc GetMenuPermissions (google.protobuf.Empty) returns (PermissionInfo) {
     option (hope.swagger.operation) = {
       get: "/menus";
@@ -41,7 +38,6 @@ service PermissionService {
     };
   }
 
-  // 获取当前客户的所有权限（角色权限 ∪ 菜单权限）
   rpc GetAllPermissions (google.protobuf.Empty) returns (PermissionInfo) {
     option (hope.swagger.operation) = {
       get: "/all";
@@ -56,7 +52,6 @@ service PermissionService {
   }
 }
 
-// 权限信息
 message PermissionInfo {
   option (hope.swagger.schema) = {
     json_schema: {

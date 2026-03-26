@@ -38,7 +38,7 @@ import org.springframework.web.bind.annotation.RestController;
     value = "com/apihug/rad/api/role/api.proto",
     entity = "RoleService",
     kind = Kind.RPC,
-    line = 11,
+    line = 10,
     column = 1
 )
 @Generated("H.O.P.E. Infra Team")

@@ -28,7 +28,7 @@ import org.springframework.web.bind.annotation.RestController;
     value = "com/apihug/rad/api/customer/api.proto",
     entity = "CustomerManagementService",
     kind = Kind.RPC,
-    line = 125,
+    line = 122,
     column = 1
 )
 @Generated("H.O.P.E. Infra Team")

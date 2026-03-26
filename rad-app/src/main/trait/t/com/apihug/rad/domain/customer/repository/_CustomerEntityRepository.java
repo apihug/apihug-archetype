@@ -7,6 +7,7 @@ import com.apihug.rad.infra.customer.CustomerStatusEnum;
 import hope.common.meta.annotation.Template;
 import hope.common.spring.data.persistence.spring.EasyCriteria;
 import org.springframework.data.domain.Page;
+import org.springframework.data.jdbc.repository.query.Modifying;
 import org.springframework.data.jdbc.repository.query.Query;
 import org.springframework.data.relational.core.query.Criteria;
 import java.util.Optional;
@@ -86,16 +87,15 @@ interface _CustomerEntityRepository extends CustomerEntityRepository {
 
   @Query
   default Page<CustomerEntity> searchUsers(
-      String keyword,
-      CustomerStatusEnum status,
-      hope.common.api.PageRequest pageParameter) {
+      String keyword, CustomerStatusEnum status, hope.common.api.PageRequest pageParameter) {
     var pageable = page(pageParameter);
     Criteria criteria = EasyCriteria.eq(_Deletable_.DELETED, false);
 
     if (keyword != null && !keyword.isBlank()) {
-      criteria = criteria.and(
-          EasyCriteria.like(Domain.Username, keyword)
-              .or(EasyCriteria.like(Domain.Email, keyword)));
+      criteria =
+          criteria.and(
+              EasyCriteria.like(Domain.Username, keyword)
+                  .or(EasyCriteria.like(Domain.Email, keyword)));
     }
 
     if (status != null) {
@@ -104,4 +104,8 @@ interface _CustomerEntityRepository extends CustomerEntityRepository {
 
     return this.findAll(criteria, pageable);
   }
+
+  @Modifying
+  @Query("UPDATE SYS_CUSTOMER SET PLATFORM_TYPE = :platformType WHERE ID = :customerId")
+  void updateCustomerPlatformType(final Long customerId, final String platformType);
 }

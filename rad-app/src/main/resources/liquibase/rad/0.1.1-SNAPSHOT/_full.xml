@@ -222,6 +222,30 @@
     </createIndex>
   </changeSet>
   <changeSet id="0.1.1-SNAPSHOT-1000000005" author="hope" context="auto" labels="0.1.1-SNAPSHOT">
+    <createTable remarks="平台成员表（客户加入平台的身份记录）" tableName="SYS_PLATFORM_MEMBER">
+      <column name="ID" type="BIGINT" autoIncrement="true" remarks="Record ID, Primary Key, Auto Increment">
+        <constraints nullable="false" primaryKey="true" unique="true"></constraints>
+      </column>
+      <column name="CUSTOMER_ID" type="BIGINT" remarks="客户 ID">
+        <constraints nullable="false"></constraints>
+      </column>
+      <column name="PLATFORM_ROLE" type="VARCHAR(20)" defaultValue="MEMBER" remarks="平台角色（MEMBER/MANAGER/OWNER）">
+        <constraints nullable="false"></constraints>
+      </column>
+      <column name="STATUS_CODE" type="VARCHAR(20)" defaultValue="PM_ACTIVE" remarks="平台成员状态">
+        <constraints nullable="false"></constraints>
+      </column>
+      <column name="CREATED_AT" type="TIMESTAMP" remarks="Record created at timestamp"></column>
+      <column name="CREATED_BY" type="BIGINT" remarks="Record created by user ID"></column>
+      <column name="UPDATED_AT" type="TIMESTAMP" remarks="Record updated at timestamp"></column>
+      <column name="UPDATED_BY" type="BIGINT" remarks="Record updated by user ID"></column>
+    </createTable>
+    <addUniqueConstraint columnNames="CUSTOMER_ID" constraintName="UK_SYS_PLATFORM_MEMBER_CUSTOMER_ID" tableName="SYS_PLATFORM_MEMBER"></addUniqueConstraint>
+    <createIndex tableName="SYS_PLATFORM_MEMBER" indexName="IDX_SYS_PLATFORM_MEMBER_CUSTOMER_ID">
+      <column name="CUSTOMER_ID"></column>
+    </createIndex>
+  </changeSet>
+  <changeSet id="0.1.1-SNAPSHOT-1000000006" author="hope" context="auto" labels="0.1.1-SNAPSHOT">
     <createTable remarks="角色表" tableName="SYS_ROLE">
       <column name="ID" type="BIGINT" autoIncrement="true" remarks="Record ID, Primary Key, Auto Increment">
         <constraints nullable="false" primaryKey="true" unique="true"></constraints>
@@ -256,7 +280,7 @@
       <column name="TENANT_ID"></column>
     </createIndex>
   </changeSet>
-  <changeSet id="0.1.1-SNAPSHOT-1000000006" author="hope" context="auto" labels="0.1.1-SNAPSHOT">
+  <changeSet id="0.1.1-SNAPSHOT-1000000007" author="hope" context="auto" labels="0.1.1-SNAPSHOT">
     <createTable remarks="角色菜单关联表（角色与菜单的多对多关系）" tableName="SYS_ROLE_MENU">
       <column name="ID" type="BIGINT" autoIncrement="true" remarks="Record ID, Primary Key, Auto Increment">
         <constraints nullable="false" primaryKey="true" unique="true"></constraints>
@@ -276,7 +300,7 @@
       <column name="MENU_ID"></column>
     </createIndex>
   </changeSet>
-  <changeSet id="0.1.1-SNAPSHOT-1000000007" author="hope" context="auto" labels="0.1.1-SNAPSHOT">
+  <changeSet id="0.1.1-SNAPSHOT-1000000008" author="hope" context="auto" labels="0.1.1-SNAPSHOT">
     <createTable remarks="租户成员角色关联表（成员与角色的多对多关系）" tableName="SYS_MEMBER_ROLE">
       <column name="ID" type="BIGINT" autoIncrement="true" remarks="Record ID, Primary Key, Auto Increment">
         <constraints nullable="false" primaryKey="true" unique="true"></constraints>
@@ -296,7 +320,7 @@
       <column name="ROLE_ID"></column>
     </createIndex>
   </changeSet>
-  <changeSet id="0.1.1-SNAPSHOT-1000000008" author="hope" context="auto" labels="0.1.1-SNAPSHOT">
+  <changeSet id="0.1.1-SNAPSHOT-1000000009" author="hope" context="auto" labels="0.1.1-SNAPSHOT">
     <createTable remarks="租户表" tableName="SYS_TENANT">
       <column name="ID" type="BIGINT" autoIncrement="true" remarks="Record ID, Primary Key, Auto Increment">
         <constraints nullable="false" primaryKey="true" unique="true"></constraints>
@@ -333,7 +357,7 @@
       <column name="TENANT_CODE"></column>
     </createIndex>
   </changeSet>
-  <changeSet id="0.1.1-SNAPSHOT-1000000009" author="hope" context="auto" labels="0.1.1-SNAPSHOT">
+  <changeSet id="0.1.1-SNAPSHOT-1000000010" author="hope" context="auto" labels="0.1.1-SNAPSHOT">
     <createTable remarks="租户成员表（客户与租户的关联，表示成员身份）" tableName="SYS_TENANT_MEMBER">
       <column name="ID" type="BIGINT" autoIncrement="true" remarks="Record ID, Primary Key, Auto Increment">
         <constraints nullable="false" primaryKey="true" unique="true"></constraints>

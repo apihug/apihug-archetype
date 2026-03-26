@@ -8,6 +8,7 @@ import com.apihug.rad.domain.bootstrap.mixer.MemberRoleEnumTitleList;
 import com.apihug.rad.domain.bootstrap.mixer.MemberTypeEnumTitleList;
 import com.apihug.rad.domain.bootstrap.mixer.MenuStatusEnumTitleList;
 import com.apihug.rad.domain.bootstrap.mixer.MenuTypeEnumTitleList;
+import com.apihug.rad.domain.bootstrap.mixer.PlatformMemberStatusEnumTitleList;
 import com.apihug.rad.domain.bootstrap.mixer.RoleStatusEnumTitleList;
 import com.apihug.rad.domain.bootstrap.mixer.TenantMemberStatusEnumTitleList;
 import com.apihug.rad.domain.bootstrap.mixer.TenantStatusEnumTitleList;
@@ -16,6 +17,7 @@ import com.apihug.rad.infra.customer.CustomerStatusEnum;
 import com.apihug.rad.infra.department.DeptStatusEnum;
 import com.apihug.rad.infra.menu.MenuStatusEnum;
 import com.apihug.rad.infra.menu.MenuTypeEnum;
+import com.apihug.rad.infra.platform.PlatformMemberStatusEnum;
 import com.apihug.rad.infra.role.RoleStatusEnum;
 import com.apihug.rad.infra.tenant.MemberRoleEnum;
 import com.apihug.rad.infra.tenant.MemberTypeEnum;
@@ -63,6 +65,10 @@ public abstract class RadConverters {
     converters.add(MenuTypeEnumTitleListReaderConverter.INSTANCE);
     converters.add(MenuTypeEnumTitleListWriterConverter.INSTANCE);
     converters.add(MenuTypeEnumWriterTitleConverter.INSTANCE);
+    converters.add(PlatformMemberStatusEnumReaderTitleConverter.INSTANCE);
+    converters.add(PlatformMemberStatusEnumTitleListReaderConverter.INSTANCE);
+    converters.add(PlatformMemberStatusEnumTitleListWriterConverter.INSTANCE);
+    converters.add(PlatformMemberStatusEnumWriterTitleConverter.INSTANCE);
     converters.add(RoleStatusEnumReaderTitleConverter.INSTANCE);
     converters.add(RoleStatusEnumTitleListReaderConverter.INSTANCE);
     converters.add(RoleStatusEnumTitleListWriterConverter.INSTANCE);
@@ -445,6 +451,59 @@ public abstract class RadConverters {
 
     @Override
     public String convert(MenuTypeEnum source) {
+      return source == null ? null : source.title();
+    }
+  }
+
+  @ReadingConverter
+  public enum PlatformMemberStatusEnumReaderTitleConverter implements Converter<String, PlatformMemberStatusEnum> {
+    INSTANCE;
+
+    @Override
+    public PlatformMemberStatusEnum convert(String source) {
+      return source == null ? PlatformMemberStatusEnum.NA : PlatformMemberStatusEnum.NA.mapFromName(source);
+    }
+  }
+
+  @ReadingConverter
+  public enum PlatformMemberStatusEnumTitleListReaderConverter implements Converter<String, PlatformMemberStatusEnumTitleList> {
+    INSTANCE;
+
+    @Override
+    public PlatformMemberStatusEnumTitleList convert(String source) {
+      if (source == null || source.isBlank()) {
+        return PlatformMemberStatusEnumTitleList.EMPTY;
+      }
+      final PlatformMemberStatusEnumTitleList res = new PlatformMemberStatusEnumTitleList();
+      for (final String each : source.split(",")) {
+        PlatformMemberStatusEnum got = PlatformMemberStatusEnum.NA.mapFromName(each);
+        if (PlatformMemberStatusEnum.NA != got) {
+          res.add(got);
+        }
+      }
+      return res;
+    }
+  }
+
+  @WritingConverter
+  public enum PlatformMemberStatusEnumTitleListWriterConverter implements Converter<PlatformMemberStatusEnumTitleList, String> {
+    INSTANCE;
+
+    @Override
+    public String convert(PlatformMemberStatusEnumTitleList source) {
+      if (source == null || source.isEmpty()) {
+        return null;
+      }
+      return source.stream().map(it -> it.name()).collect(Collectors.joining(","));
+    }
+  }
+
+  @WritingConverter
+  public enum PlatformMemberStatusEnumWriterTitleConverter implements Converter<PlatformMemberStatusEnum, String> {
+    INSTANCE;
+
+    @Override
+    public String convert(PlatformMemberStatusEnum source) {
       return source == null ? null : source.title();
     }
   }

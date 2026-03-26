@@ -49,13 +49,13 @@ enum CustomerPlatformTypeEnum {
   }];
 
   MANAGER = 1 [(hope.constant.field) = {
-    code: 1,
+    code: 2,
     message: "platform manager",
     message2: "平台管理员"
   }];
 
   OWNER = 2 [(hope.constant.field) = {
-    code:2,
+    code:3,
     message: "platform owner",
     message2: "平台拥有者"
   }];

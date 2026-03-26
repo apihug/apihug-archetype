@@ -54,7 +54,12 @@ import javax.annotation.Generated;
         "TENANT_MEMBER_REMOVE",
         "TENANT_MEMBER_LOCK",
         "TENANT_MEMBER_ASSIGN_ROLE",
-        "TENANT_MEMBER_ASSIGN_DEPARTMENT"
+        "TENANT_MEMBER_ASSIGN_DEPARTMENT",
+        "PLATFORM_MEMBER_VIEW",
+        "PLATFORM_MEMBER_ADD",
+        "PLATFORM_MEMBER_REMOVE",
+        "PLATFORM_MEMBER_FREEZE",
+        "PLATFORM_MEMBER_UPDATE_ROLE"
     },
     example = "CUSTOMER_CREATE",
     description = "RAD 权限枚举"
@@ -76,26 +81,26 @@ public enum RadAuthorityEnum implements Enumeration<RadAuthorityEnum> {
   /**
    * 角色管理权限
    */
-  ROLE_CREATE(5, "role:create", "创建角色"),
+  ROLE_CREATE(5, "tenant:role:create", "创建角色"),
 
-  ROLE_UPDATE(6, "role:update", "更新角色"),
+  ROLE_UPDATE(6, "tenant:role:update", "更新角色"),
 
-  ROLE_DELETE(7, "role:delete", "删除角色"),
+  ROLE_DELETE(7, "tenant:role:delete", "删除角色"),
 
-  ROLE_VIEW(8, "role:view", "查看角色"),
+  ROLE_VIEW(8, "tenant:role:view", "查看角色"),
 
-  ROLE_ASSIGN_PERMISSION(9, "role:assign_permission", "分配角色权限"),
+  ROLE_ASSIGN_PERMISSION(9, "tenant:role:assign_permission", "分配角色权限"),
 
   /**
    * 菜单管理权限
    */
-  MENU_CREATE(10, "menu:create", "创建菜单"),
+  MENU_CREATE(10, "platform:menu:create", "创建菜单"),
 
-  MENU_UPDATE(11, "menu:update", "更新菜单"),
+  MENU_UPDATE(11, "platform:menu:update", "更新菜单"),
 
-  MENU_DELETE(12, "menu:delete", "删除菜单"),
+  MENU_DELETE(12, "platform:menu:delete", "删除菜单"),
 
-  MENU_VIEW(13, "menu:view", "查看菜单"),
+  MENU_VIEW(13, "platform:menu:view", "查看菜单"),
 
   /**
    * 租户管理权限
@@ -111,13 +116,13 @@ public enum RadAuthorityEnum implements Enumeration<RadAuthorityEnum> {
   /**
    * 部门管理权限
    */
-  DEPARTMENT_CREATE(18, "department:create", "创建部门"),
+  DEPARTMENT_CREATE(18, "tenant:department:create", "创建部门"),
 
-  DEPARTMENT_UPDATE(19, "department:update", "更新部门"),
+  DEPARTMENT_UPDATE(19, "tenant:department:update", "更新部门"),
 
-  DEPARTMENT_DELETE(20, "department:delete", "删除部门"),
+  DEPARTMENT_DELETE(20, "tenant:department:delete", "删除部门"),
 
-  DEPARTMENT_ASSIGN_EMPLOYEE(21, "department:assign_employee", "分配员工到部门"),
+  DEPARTMENT_ASSIGN_EMPLOYEE(21, "tenant:department:assign_employee", "分配员工到部门"),
 
   /**
    * 租户成员管理权限
@@ -132,7 +137,20 @@ public enum RadAuthorityEnum implements Enumeration<RadAuthorityEnum> {
 
   TENANT_MEMBER_ASSIGN_ROLE(26, "tenant:member:assign_role", "分配成员角色"),
 
-  TENANT_MEMBER_ASSIGN_DEPARTMENT(27, "tenant:member:assign_department", "分配成员部门");
+  TENANT_MEMBER_ASSIGN_DEPARTMENT(27, "tenant:member:assign_department", "分配成员部门"),
+
+  /**
+   * 平台成员管理权限
+   */
+  PLATFORM_MEMBER_VIEW(28, "platform:member:view", "查看平台成员"),
+
+  PLATFORM_MEMBER_ADD(29, "platform:member:add", "添加平台成员"),
+
+  PLATFORM_MEMBER_REMOVE(30, "platform:member:remove", "移除平台成员"),
+
+  PLATFORM_MEMBER_FREEZE(31, "platform:member:freeze", "冻结/解冻平台成员"),
+
+  PLATFORM_MEMBER_UPDATE_ROLE(32, "platform:member:update_role", "更新平台成员角色");
 
   public static final List<String> VALUES;
 

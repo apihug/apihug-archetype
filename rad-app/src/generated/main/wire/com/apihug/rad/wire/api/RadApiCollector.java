@@ -2,6 +2,7 @@
 package com.apihug.rad.wire.api;
 
 import hope.common.proto.constant.Error;
+import hope.common.proto.constant.HttpStatus;
 import hope.common.proto.constant.Meta;
 import hope.common.proto.mock.Mock;
 import hope.common.proto.mock.Nature;
@@ -57,13 +58,13 @@ public final class RadApiCollector implements Collector {
     res.setClzName("com.apihug.rad.api.audit.AccessLogService");
     res.setName("AccessLogService");
     res.setProtoFrom("com/apihug/rad/api/audit/api.proto");
-    res.setProtoLine(10);
+    res.setProtoLine(9);
     res.setProtoColumn(1);
     res.setProtoEntity("AccessLogService");
     res.setPath("/access-logs");
     var _QueryAccessLogs = new ServiceMethod();
     _QueryAccessLogs.setName("QueryAccessLogs");
-    _QueryAccessLogs.setProtoLine(16);
+    _QueryAccessLogs.setProtoLine(15);
     _QueryAccessLogs.setProtoColumn(3);
     _QueryAccessLogs.setRequestRef("com.apihug.rad.api.audit.SearchAccessLogsRequest");
     _QueryAccessLogs.setResponseRef("com.apihug.rad.api.audit.AccessLogInfo");
@@ -92,7 +93,7 @@ public final class RadApiCollector implements Collector {
     res.addItem(_QueryAccessLogs);
     var _GetAccessLogStats = new ServiceMethod();
     _GetAccessLogStats.setName("GetAccessLogStats");
-    _GetAccessLogStats.setProtoLine(35);
+    _GetAccessLogStats.setProtoLine(34);
     _GetAccessLogStats.setProtoColumn(3);
     _GetAccessLogStats.setRequestRef("com.apihug.rad.api.audit.GetAccessLogStatsRequest");
     _GetAccessLogStats.setResponseRef("com.apihug.rad.api.audit.AccessLogStatsResponse");
@@ -102,8 +103,7 @@ public final class RadApiCollector implements Collector {
         Operation res  = new Operation();
         res.setTags(Arrays.asList("access-log"));
         res.setSummary("获取访问日志统计概览");
-        res.setDescription("Are u sure\n"
-                + "获取访问统计");
+        res.setDescription("获取访问统计");
         res.setGet("/api/access-logs/stats");
         res.setAuthorization(new Supplier<Authorization>() {
           @Override
@@ -124,18 +124,17 @@ public final class RadApiCollector implements Collector {
 
   void initServiceapi_customerCustomerAuthService() {
     Service res = new Service();
-    res.setDescription("============ 客户认证 API ============\n"
-            + "客户认证服务，提供登录登出功能");
+    res.setDescription("客户认证服务，提供登录登出功能");
     res.setClzName("com.apihug.rad.api.customer.CustomerAuthService");
     res.setName("CustomerAuthService");
     res.setProtoFrom("com/apihug/rad/api/customer/api.proto");
-    res.setProtoLine(11);
+    res.setProtoLine(10);
     res.setProtoColumn(1);
     res.setProtoEntity("CustomerAuthService");
     res.setPath("/auth");
     var _Login = new ServiceMethod();
     _Login.setName("Login");
-    _Login.setProtoLine(17);
+    _Login.setProtoLine(16);
     _Login.setProtoColumn(3);
     _Login.setRequestRef("com.apihug.rad.api.customer.LoginRequest");
     _Login.setResponseRef("com.apihug.rad.api.customer.LoginResponse");
@@ -164,7 +163,7 @@ public final class RadApiCollector implements Collector {
     res.addItem(_Login);
     var _Logout = new ServiceMethod();
     _Logout.setName("Logout");
-    _Logout.setProtoLine(34);
+    _Logout.setProtoLine(33);
     _Logout.setProtoColumn(3);
     _Logout.setRequestRef("hope.common.adaptor.Empty");
     _Logout.setResponseRef("hope.common.adaptor.Empty");
@@ -196,18 +195,17 @@ public final class RadApiCollector implements Collector {
 
   void initServiceapi_customerCustomerService() {
     Service res = new Service();
-    res.setDescription("============ 客户服务 API ============\n"
-            + "客户服务，提供当前客户信息查询、组织管理等功能");
+    res.setDescription("客户服务，提供当前客户信息查询、组织管理等功能");
     res.setClzName("com.apihug.rad.api.customer.CustomerService");
     res.setName("CustomerService");
     res.setProtoFrom("com/apihug/rad/api/customer/api.proto");
-    res.setProtoLine(54);
+    res.setProtoLine(52);
     res.setProtoColumn(1);
     res.setProtoEntity("CustomerService");
     res.setPath("/customer");
     var _Info = new ServiceMethod();
     _Info.setName("Info");
-    _Info.setProtoLine(60);
+    _Info.setProtoLine(58);
     _Info.setProtoColumn(3);
     _Info.setRequestRef("hope.common.adaptor.Empty");
     _Info.setResponseRef("com.apihug.rad.api.customer.CustomerInfo");
@@ -236,7 +234,7 @@ public final class RadApiCollector implements Collector {
     res.addItem(_Info);
     var _GetCurrentCustomerInfo = new ServiceMethod();
     _GetCurrentCustomerInfo.setName("GetCurrentCustomerInfo");
-    _GetCurrentCustomerInfo.setProtoLine(77);
+    _GetCurrentCustomerInfo.setProtoLine(75);
     _GetCurrentCustomerInfo.setProtoColumn(3);
     _GetCurrentCustomerInfo.setRequestRef("hope.common.adaptor.Empty");
     _GetCurrentCustomerInfo.setResponseRef("com.apihug.rad.api.customer.CurrentCustomerInfo");
@@ -265,7 +263,7 @@ public final class RadApiCollector implements Collector {
     res.addItem(_GetCurrentCustomerInfo);
     var _GetCustomerTenants = new ServiceMethod();
     _GetCustomerTenants.setName("GetCustomerTenants");
-    _GetCustomerTenants.setProtoLine(94);
+    _GetCustomerTenants.setProtoLine(92);
     _GetCustomerTenants.setProtoColumn(3);
     _GetCustomerTenants.setRequestRef("hope.common.adaptor.Empty");
     _GetCustomerTenants.setResponseRef("com.apihug.rad.api.customer.TenantList");
@@ -293,7 +291,7 @@ public final class RadApiCollector implements Collector {
     res.addItem(_GetCustomerTenants);
     var _SwitchTenant = new ServiceMethod();
     _SwitchTenant.setName("SwitchTenant");
-    _SwitchTenant.setProtoLine(106);
+    _SwitchTenant.setProtoLine(104);
     _SwitchTenant.setProtoColumn(3);
     _SwitchTenant.setRequestRef("com.apihug.rad.api.customer.SwitchTenantRequest");
     _SwitchTenant.setResponseRef("com.apihug.rad.api.customer.LoginResponse");
@@ -325,18 +323,17 @@ public final class RadApiCollector implements Collector {
 
   void initServiceapi_customerCustomerManagementService() {
     Service res = new Service();
-    res.setDescription("============ 客户管理 API ============\n"
-            + "客户管理服务，提供客户 CRUD 和搜索功能");
+    res.setDescription("客户管理服务，提供客户 CRUD 和搜索功能");
     res.setClzName("com.apihug.rad.api.customer.CustomerManagementService");
     res.setName("CustomerManagementService");
     res.setProtoFrom("com/apihug/rad/api/customer/api.proto");
-    res.setProtoLine(125);
+    res.setProtoLine(122);
     res.setProtoColumn(1);
     res.setProtoEntity("CustomerManagementService");
     res.setPath("/customers");
     var _CreateCustomer = new ServiceMethod();
     _CreateCustomer.setName("CreateCustomer");
-    _CreateCustomer.setProtoLine(131);
+    _CreateCustomer.setProtoLine(128);
     _CreateCustomer.setProtoColumn(3);
     _CreateCustomer.setRequestRef("com.apihug.rad.api.customer.CreateCustomerRequest");
     _CreateCustomer.setResponseRef("com.apihug.rad.api.customer.CustomerSummary");
@@ -368,7 +365,7 @@ public final class RadApiCollector implements Collector {
     res.addItem(_CreateCustomer);
     var _ForgotPassword = new ServiceMethod();
     _ForgotPassword.setName("ForgotPassword");
-    _ForgotPassword.setProtoLine(153);
+    _ForgotPassword.setProtoLine(148);
     _ForgotPassword.setProtoColumn(3);
     _ForgotPassword.setRequestRef("com.apihug.rad.api.customer.ForgotPasswordRequest");
     _ForgotPassword.setResponseRef("hope.common.adaptor.Empty");
@@ -378,9 +375,7 @@ public final class RadApiCollector implements Collector {
         Operation res  = new Operation();
         res.setTags(Arrays.asList("auth"));
         res.setSummary("找回密码");
-        res.setDescription("GetCustomer/UpdateCustomer/DeleteCustomer/SearchCustomers 已迁移至 TenantMemberService\n"
-                + "租户管理员应通过 /api/tenant-members/tenants/{tenantId}/members 管理租户内成员\n"
-                + "申请找回密码（发送重置邮件）");
+        res.setDescription("申请找回密码（发送重置邮件）");
         res.setPost("/api/customers/auth/forgot-password");
         res.setAuthorization(new Supplier<Authorization>() {
           @Override
@@ -399,7 +394,7 @@ public final class RadApiCollector implements Collector {
     res.addItem(_ForgotPassword);
     var _ResetPassword = new ServiceMethod();
     _ResetPassword.setName("ResetPassword");
-    _ResetPassword.setProtoLine(169);
+    _ResetPassword.setProtoLine(164);
     _ResetPassword.setProtoColumn(3);
     _ResetPassword.setRequestRef("com.apihug.rad.api.customer.ResetPasswordRequest");
     _ResetPassword.setResponseRef("hope.common.adaptor.Empty");
@@ -431,18 +426,17 @@ public final class RadApiCollector implements Collector {
 
   void initServiceapi_departmentDepartmentService() {
     Service res = new Service();
-    res.setDescription("============ 部门管理 API ============\n"
-            + "部门管理服务，提供部门 CRUD 和树形查询功能");
+    res.setDescription("部门管理服务，提供部门 CRUD 和树形查询功能");
     res.setClzName("com.apihug.rad.api.department.DepartmentService");
     res.setName("DepartmentService");
     res.setProtoFrom("com/apihug/rad/api/department/api.proto");
-    res.setProtoLine(11);
+    res.setProtoLine(10);
     res.setProtoColumn(1);
     res.setProtoEntity("DepartmentService");
     res.setPath("/departments");
     var _CreateDepartment = new ServiceMethod();
     _CreateDepartment.setName("CreateDepartment");
-    _CreateDepartment.setProtoLine(17);
+    _CreateDepartment.setProtoLine(16);
     _CreateDepartment.setProtoColumn(3);
     _CreateDepartment.setRequestRef("com.apihug.rad.api.department.CreateDepartmentRequest");
     _CreateDepartment.setResponseRef("com.apihug.rad.api.department.DepartmentSummary");
@@ -473,7 +467,7 @@ public final class RadApiCollector implements Collector {
     res.addItem(_CreateDepartment);
     var _GetDepartment = new ServiceMethod();
     _GetDepartment.setName("GetDepartment");
-    _GetDepartment.setProtoLine(31);
+    _GetDepartment.setProtoLine(30);
     _GetDepartment.setProtoColumn(3);
     _GetDepartment.setRequestRef("hope.common.adaptor.Empty");
     _GetDepartment.setResponseRef("com.apihug.rad.api.department.DepartmentDetail");
@@ -519,7 +513,7 @@ public final class RadApiCollector implements Collector {
     res.addItem(_GetDepartment);
     var _UpdateDepartment = new ServiceMethod();
     _UpdateDepartment.setName("UpdateDepartment");
-    _UpdateDepartment.setProtoLine(53);
+    _UpdateDepartment.setProtoLine(52);
     _UpdateDepartment.setProtoColumn(3);
     _UpdateDepartment.setRequestRef("com.apihug.rad.api.department.UpdateDepartmentRequest");
     _UpdateDepartment.setResponseRef("hope.common.adaptor.Empty");
@@ -568,7 +562,7 @@ public final class RadApiCollector implements Collector {
     res.addItem(_UpdateDepartment);
     var _DeleteDepartment = new ServiceMethod();
     _DeleteDepartment.setName("DeleteDepartment");
-    _DeleteDepartment.setProtoLine(77);
+    _DeleteDepartment.setProtoLine(76);
     _DeleteDepartment.setProtoColumn(3);
     _DeleteDepartment.setRequestRef("hope.common.adaptor.Empty");
     _DeleteDepartment.setResponseRef("hope.common.adaptor.Empty");
@@ -617,7 +611,7 @@ public final class RadApiCollector implements Collector {
     res.addItem(_DeleteDepartment);
     var _GetDepartmentTree = new ServiceMethod();
     _GetDepartmentTree.setName("GetDepartmentTree");
-    _GetDepartmentTree.setProtoLine(101);
+    _GetDepartmentTree.setProtoLine(100);
     _GetDepartmentTree.setProtoColumn(3);
     _GetDepartmentTree.setRequestRef("hope.common.adaptor.Empty");
     _GetDepartmentTree.setResponseRef("com.apihug.rad.api.department.DepartmentTreeNode");
@@ -648,18 +642,17 @@ public final class RadApiCollector implements Collector {
 
   void initServiceapi_menuMenuService() {
     Service res = new Service();
-    res.setDescription("============ 菜单管理 API ============\n"
-            + "菜单管理服务，提供菜单 CRUD 和树形查询功能");
+    res.setDescription("菜单管理服务，提供菜单 CRUD 和树形查询功能");
     res.setClzName("com.apihug.rad.api.menu.MenuService");
     res.setName("MenuService");
     res.setProtoFrom("com/apihug/rad/api/menu/api.proto");
-    res.setProtoLine(11);
+    res.setProtoLine(10);
     res.setProtoColumn(1);
     res.setProtoEntity("MenuService");
     res.setPath("/menus");
     var _CreateMenu = new ServiceMethod();
     _CreateMenu.setName("CreateMenu");
-    _CreateMenu.setProtoLine(17);
+    _CreateMenu.setProtoLine(16);
     _CreateMenu.setProtoColumn(3);
     _CreateMenu.setRequestRef("com.apihug.rad.api.menu.CreateMenuRequest");
     _CreateMenu.setResponseRef("com.apihug.rad.api.menu.MenuSummary");
@@ -691,7 +684,7 @@ public final class RadApiCollector implements Collector {
     res.addItem(_CreateMenu);
     var _GetMenu = new ServiceMethod();
     _GetMenu.setName("GetMenu");
-    _GetMenu.setProtoLine(36);
+    _GetMenu.setProtoLine(35);
     _GetMenu.setProtoColumn(3);
     _GetMenu.setRequestRef("hope.common.adaptor.Empty");
     _GetMenu.setResponseRef("com.apihug.rad.api.menu.MenuDetail");
@@ -738,7 +731,7 @@ public final class RadApiCollector implements Collector {
     res.addItem(_GetMenu);
     var _UpdateMenu = new ServiceMethod();
     _UpdateMenu.setName("UpdateMenu");
-    _UpdateMenu.setProtoLine(62);
+    _UpdateMenu.setProtoLine(61);
     _UpdateMenu.setProtoColumn(3);
     _UpdateMenu.setRequestRef("com.apihug.rad.api.menu.UpdateMenuRequest");
     _UpdateMenu.setResponseRef("hope.common.adaptor.Empty");
@@ -788,7 +781,7 @@ public final class RadApiCollector implements Collector {
     res.addItem(_UpdateMenu);
     var _DeleteMenu = new ServiceMethod();
     _DeleteMenu.setName("DeleteMenu");
-    _DeleteMenu.setProtoLine(90);
+    _DeleteMenu.setProtoLine(89);
     _DeleteMenu.setProtoColumn(3);
     _DeleteMenu.setRequestRef("hope.common.adaptor.Empty");
     _DeleteMenu.setResponseRef("hope.common.adaptor.Empty");
@@ -838,7 +831,7 @@ public final class RadApiCollector implements Collector {
     res.addItem(_DeleteMenu);
     var _GetMenuTree = new ServiceMethod();
     _GetMenuTree.setName("GetMenuTree");
-    _GetMenuTree.setProtoLine(118);
+    _GetMenuTree.setProtoLine(117);
     _GetMenuTree.setProtoColumn(3);
     _GetMenuTree.setRequestRef("hope.common.adaptor.Empty");
     _GetMenuTree.setResponseRef("com.apihug.rad.api.menu.MenuTreeNode");
@@ -867,7 +860,7 @@ public final class RadApiCollector implements Collector {
     res.addItem(_GetMenuTree);
     var _SearchMenus = new ServiceMethod();
     _SearchMenus.setName("SearchMenus");
-    _SearchMenus.setProtoLine(134);
+    _SearchMenus.setProtoLine(133);
     _SearchMenus.setProtoColumn(3);
     _SearchMenus.setRequestRef("com.apihug.rad.api.menu.SearchMenusRequest");
     _SearchMenus.setResponseRef("com.apihug.rad.api.menu.MenuSummary");
@@ -1071,18 +1064,17 @@ public final class RadApiCollector implements Collector {
 
   void initServiceapi_permissionPermissionService() {
     Service res = new Service();
-    res.setDescription("============ 权限管理 API ============\n"
-            + "权限管理服务，提供权限查询和聚合功能");
+    res.setDescription("权限管理服务，提供权限查询和聚合功能");
     res.setClzName("com.apihug.rad.api.permission.PermissionService");
     res.setName("PermissionService");
     res.setProtoFrom("com/apihug/rad/api/permission/api.proto");
-    res.setProtoLine(10);
+    res.setProtoLine(9);
     res.setProtoColumn(1);
     res.setProtoEntity("PermissionService");
     res.setPath("/permissions");
     var _GetRolePermissions = new ServiceMethod();
     _GetRolePermissions.setName("GetRolePermissions");
-    _GetRolePermissions.setProtoLine(17);
+    _GetRolePermissions.setProtoLine(15);
     _GetRolePermissions.setProtoColumn(3);
     _GetRolePermissions.setRequestRef("hope.common.adaptor.Empty");
     _GetRolePermissions.setResponseRef("com.apihug.rad.api.permission.PermissionInfo");
@@ -1092,8 +1084,7 @@ public final class RadApiCollector implements Collector {
         Operation res  = new Operation();
         res.setTags(Arrays.asList("permission"));
         res.setSummary("获取角色权限");
-        res.setDescription("获取当前客户的角色权限集合\n"
-                + "获取当前客户的角色权限集合");
+        res.setDescription("获取当前客户的角色权限集合");
         res.setOutputPlural(true);
         res.setGet("/api/permissions/roles");
         res.setAuthorization(new Supplier<Authorization>() {
@@ -1112,7 +1103,7 @@ public final class RadApiCollector implements Collector {
     res.addItem(_GetRolePermissions);
     var _GetMenuPermissions = new ServiceMethod();
     _GetMenuPermissions.setName("GetMenuPermissions");
-    _GetMenuPermissions.setProtoLine(31);
+    _GetMenuPermissions.setProtoLine(28);
     _GetMenuPermissions.setProtoColumn(3);
     _GetMenuPermissions.setRequestRef("hope.common.adaptor.Empty");
     _GetMenuPermissions.setResponseRef("com.apihug.rad.api.permission.PermissionInfo");
@@ -1122,8 +1113,7 @@ public final class RadApiCollector implements Collector {
         Operation res  = new Operation();
         res.setTags(Arrays.asList("permission"));
         res.setSummary("获取菜单权限");
-        res.setDescription("获取当前客户的菜单权限集合\n"
-                + "获取当前客户的菜单权限集合");
+        res.setDescription("获取当前客户的菜单权限集合");
         res.setOutputPlural(true);
         res.setGet("/api/permissions/menus");
         res.setAuthorization(new Supplier<Authorization>() {
@@ -1142,7 +1132,7 @@ public final class RadApiCollector implements Collector {
     res.addItem(_GetMenuPermissions);
     var _GetAllPermissions = new ServiceMethod();
     _GetAllPermissions.setName("GetAllPermissions");
-    _GetAllPermissions.setProtoLine(45);
+    _GetAllPermissions.setProtoLine(41);
     _GetAllPermissions.setProtoColumn(3);
     _GetAllPermissions.setRequestRef("hope.common.adaptor.Empty");
     _GetAllPermissions.setResponseRef("com.apihug.rad.api.permission.PermissionInfo");
@@ -1152,8 +1142,7 @@ public final class RadApiCollector implements Collector {
         Operation res  = new Operation();
         res.setTags(Arrays.asList("permission"));
         res.setSummary("获取所有权限");
-        res.setDescription("获取当前客户的所有权限（角色权限 ∪ 菜单权限）\n"
-                + "获取当前客户的所有权限（聚合）");
+        res.setDescription("获取当前客户的所有权限（聚合）");
         res.setOutputPlural(true);
         res.setGet("/api/permissions/all");
         res.setAuthorization(new Supplier<Authorization>() {
@@ -1173,20 +1162,253 @@ public final class RadApiCollector implements Collector {
     services.put("com.apihug.rad.api.permission.PermissionService", res);
   }
 
+  void initServiceapi_platformPlatformService() {
+    Service res = new Service();
+    res.setDescription("平台管理服务，提供平台成员 CRUD 和配置功能");
+    res.setClzName("com.apihug.rad.api.platform.PlatformService");
+    res.setName("PlatformService");
+    res.setProtoFrom("com/apihug/rad/api/platform/api.proto");
+    res.setProtoLine(10);
+    res.setProtoColumn(1);
+    res.setProtoEntity("PlatformService");
+    res.setPath("/platforms");
+    var _GetPlatformMembers = new ServiceMethod();
+    _GetPlatformMembers.setName("GetPlatformMembers");
+    _GetPlatformMembers.setProtoLine(16);
+    _GetPlatformMembers.setProtoColumn(3);
+    _GetPlatformMembers.setRequestRef("com.apihug.rad.api.platform.GetPlatformMembersRequest");
+    _GetPlatformMembers.setResponseRef("com.apihug.rad.api.platform.PlatformMemberInfo");
+    _GetPlatformMembers.setSchema(new Supplier<Operation>() {
+      @Override
+      public Operation get() {
+        Operation res  = new Operation();
+        res.setTags(Arrays.asList("platform-member"));
+        res.setSummary("获取平台成员列表");
+        res.setDescription("获取平台成员列表，支持状态筛选和关键词搜索");
+        res.setPageable(true);
+        res.setGet("/api/platforms/members");
+        res.setAuthorization(new Supplier<Authorization>() {
+          @Override
+          public Authorization get() {
+            Authorization res = new Authorization();
+            RBAC rbac = new RBAC();
+            rbac.setAuthorityClz("com.apihug.rad.infra.settings.RadAuthorityEnum");
+            rbac.setAuthorities(Arrays.asList("PLATFORM_MEMBER_VIEW"));
+            rbac.setPredefinedRoleChecker(RBAC.PredefinedRoleCheckerType.PLATFORM);
+            rbac.setCombinator(RBAC.Combinator.AND);
+            res.setRbac(rbac);
+            return res;
+          }
+        }.get());
+        return res;
+      }
+    }.get());
+    _GetPlatformMembers.setHttpMethod(ServiceMethod.HttpMethod.GET);
+    _GetPlatformMembers.setPath("/api/platforms/members");
+    res.addItem(_GetPlatformMembers);
+    var _AddPlatformMember = new ServiceMethod();
+    _AddPlatformMember.setName("AddPlatformMember");
+    _AddPlatformMember.setProtoLine(33);
+    _AddPlatformMember.setProtoColumn(3);
+    _AddPlatformMember.setRequestRef("com.apihug.rad.api.platform.AddPlatformMemberRequest");
+    _AddPlatformMember.setResponseRef("hope.common.adaptor.Empty");
+    _AddPlatformMember.setSchema(new Supplier<Operation>() {
+      @Override
+      public Operation get() {
+        Operation res  = new Operation();
+        res.setTags(Arrays.asList("platform-member"));
+        res.setSummary("添加平台成员");
+        res.setDescription("将指定客户添加为平台成员，并设置平台角色");
+        res.setPost("/api/platforms/members");
+        res.setAuthorization(new Supplier<Authorization>() {
+          @Override
+          public Authorization get() {
+            Authorization res = new Authorization();
+            RBAC rbac = new RBAC();
+            rbac.setAuthorityClz("com.apihug.rad.infra.settings.RadAuthorityEnum");
+            rbac.setAuthorities(Arrays.asList("PLATFORM_MEMBER_ADD"));
+            rbac.setPredefinedRoleChecker(RBAC.PredefinedRoleCheckerType.PLATFORM);
+            rbac.setCombinator(RBAC.Combinator.AND);
+            res.setRbac(rbac);
+            return res;
+          }
+        }.get());
+        return res;
+      }
+    }.get());
+    _AddPlatformMember.setHttpMethod(ServiceMethod.HttpMethod.POST);
+    _AddPlatformMember.setPath("/api/platforms/members");
+    res.addItem(_AddPlatformMember);
+    var _RemovePlatformMember = new ServiceMethod();
+    _RemovePlatformMember.setName("RemovePlatformMember");
+    _RemovePlatformMember.setProtoLine(49);
+    _RemovePlatformMember.setProtoColumn(3);
+    _RemovePlatformMember.setRequestRef("hope.common.adaptor.Empty");
+    _RemovePlatformMember.setResponseRef("hope.common.adaptor.Empty");
+    _RemovePlatformMember.setSchema(new Supplier<Operation>() {
+      @Override
+      public Operation get() {
+        Operation res  = new Operation();
+        res.setTags(Arrays.asList("platform-member"));
+        res.setSummary("移除平台成员");
+        res.setDescription("移除平台成员，同时重置客户的 platform_type 为 NA。OWNER 角色不允许被移除");
+        res.setDelete("/api/platforms/members/{memberId}");
+        res.addParameter(new Supplier<Parameter>() {
+          @Override
+          public Parameter get() {
+            Parameter res = new Parameter();
+            res.setIn(Parameter.IN.PATH);
+            res.setSchema(new Supplier<JSONSchema>() {
+              @Override
+              public JSONSchema get() {
+                JSONSchema res  = new JSONSchema();
+                res.setMinimum(1.0D);
+                res.setFormat(JSONSchema.JSONSchemaFormat.LONG);
+                return res;
+              }
+            }.get());
+            res.setName("memberId");
+            return res;
+          }
+        }.get());
+        res.setAuthorization(new Supplier<Authorization>() {
+          @Override
+          public Authorization get() {
+            Authorization res = new Authorization();
+            RBAC rbac = new RBAC();
+            rbac.setAuthorityClz("com.apihug.rad.infra.settings.RadAuthorityEnum");
+            rbac.setAuthorities(Arrays.asList("PLATFORM_MEMBER_REMOVE"));
+            rbac.setPredefinedRoleChecker(RBAC.PredefinedRoleCheckerType.PLATFORM);
+            rbac.setCombinator(RBAC.Combinator.AND);
+            res.setRbac(rbac);
+            return res;
+          }
+        }.get());
+        return res;
+      }
+    }.get());
+    _RemovePlatformMember.setHttpMethod(ServiceMethod.HttpMethod.DELETE);
+    _RemovePlatformMember.setPath("/api/platforms/members/{memberId}");
+    res.addItem(_RemovePlatformMember);
+    var _TogglePlatformMemberFreeze = new ServiceMethod();
+    _TogglePlatformMemberFreeze.setName("TogglePlatformMemberFreeze");
+    _TogglePlatformMemberFreeze.setProtoLine(75);
+    _TogglePlatformMemberFreeze.setProtoColumn(3);
+    _TogglePlatformMemberFreeze.setRequestRef("hope.common.adaptor.Empty");
+    _TogglePlatformMemberFreeze.setResponseRef("hope.common.adaptor.Empty");
+    _TogglePlatformMemberFreeze.setSchema(new Supplier<Operation>() {
+      @Override
+      public Operation get() {
+        Operation res  = new Operation();
+        res.setTags(Arrays.asList("platform-member"));
+        res.setSummary("冻结/解冻平台成员");
+        res.setDescription("切换平台成员冻结状态：PM_ACTIVE ↔ PM_LOCKED");
+        res.setPost("/api/platforms/members/{memberId}/toggle-freeze");
+        res.addParameter(new Supplier<Parameter>() {
+          @Override
+          public Parameter get() {
+            Parameter res = new Parameter();
+            res.setIn(Parameter.IN.PATH);
+            res.setSchema(new Supplier<JSONSchema>() {
+              @Override
+              public JSONSchema get() {
+                JSONSchema res  = new JSONSchema();
+                res.setMinimum(1.0D);
+                res.setFormat(JSONSchema.JSONSchemaFormat.LONG);
+                return res;
+              }
+            }.get());
+            res.setName("memberId");
+            return res;
+          }
+        }.get());
+        res.setAuthorization(new Supplier<Authorization>() {
+          @Override
+          public Authorization get() {
+            Authorization res = new Authorization();
+            RBAC rbac = new RBAC();
+            rbac.setAuthorityClz("com.apihug.rad.infra.settings.RadAuthorityEnum");
+            rbac.setAuthorities(Arrays.asList("PLATFORM_MEMBER_FREEZE"));
+            rbac.setPredefinedRoleChecker(RBAC.PredefinedRoleCheckerType.PLATFORM);
+            rbac.setCombinator(RBAC.Combinator.AND);
+            res.setRbac(rbac);
+            return res;
+          }
+        }.get());
+        return res;
+      }
+    }.get());
+    _TogglePlatformMemberFreeze.setHttpMethod(ServiceMethod.HttpMethod.POST);
+    _TogglePlatformMemberFreeze.setPath("/api/platforms/members/{memberId}/toggle-freeze");
+    res.addItem(_TogglePlatformMemberFreeze);
+    var _UpdatePlatformMemberRole = new ServiceMethod();
+    _UpdatePlatformMemberRole.setName("UpdatePlatformMemberRole");
+    _UpdatePlatformMemberRole.setProtoLine(102);
+    _UpdatePlatformMemberRole.setProtoColumn(3);
+    _UpdatePlatformMemberRole.setRequestRef("com.apihug.rad.api.platform.UpdatePlatformMemberRoleRequest");
+    _UpdatePlatformMemberRole.setResponseRef("hope.common.adaptor.Empty");
+    _UpdatePlatformMemberRole.setSchema(new Supplier<Operation>() {
+      @Override
+      public Operation get() {
+        Operation res  = new Operation();
+        res.setTags(Arrays.asList("platform-member"));
+        res.setSummary("更新平台成员角色");
+        res.setDescription("更新平台成员角色\n"
+                + "更新平台成员的平台角色（MEMBER/MANAGER/OWNER），并同步更新 CustomerEntity.platform_type");
+        res.setPut("/api/platforms/members/{memberId}/role");
+        res.addParameter(new Supplier<Parameter>() {
+          @Override
+          public Parameter get() {
+            Parameter res = new Parameter();
+            res.setIn(Parameter.IN.PATH);
+            res.setSchema(new Supplier<JSONSchema>() {
+              @Override
+              public JSONSchema get() {
+                JSONSchema res  = new JSONSchema();
+                res.setMinimum(1.0D);
+                res.setFormat(JSONSchema.JSONSchemaFormat.LONG);
+                return res;
+              }
+            }.get());
+            res.setName("memberId");
+            return res;
+          }
+        }.get());
+        res.setAuthorization(new Supplier<Authorization>() {
+          @Override
+          public Authorization get() {
+            Authorization res = new Authorization();
+            RBAC rbac = new RBAC();
+            rbac.setAuthorityClz("com.apihug.rad.infra.settings.RadAuthorityEnum");
+            rbac.setAuthorities(Arrays.asList("PLATFORM_MEMBER_UPDATE_ROLE"));
+            rbac.setPredefinedRoleChecker(RBAC.PredefinedRoleCheckerType.PLATFORM);
+            rbac.setCombinator(RBAC.Combinator.AND);
+            res.setRbac(rbac);
+            return res;
+          }
+        }.get());
+        return res;
+      }
+    }.get());
+    _UpdatePlatformMemberRole.setHttpMethod(ServiceMethod.HttpMethod.PUT);
+    _UpdatePlatformMemberRole.setPath("/api/platforms/members/{memberId}/role");
+    res.addItem(_UpdatePlatformMemberRole);
+    services.put("com.apihug.rad.api.platform.PlatformService", res);
+  }
+
   void initServiceapi_roleRoleService() {
     Service res = new Service();
-    res.setDescription("============ 角色管理 API ============\n"
-            + "角色管理服务，提供角色 CRUD 和权限分配功能");
+    res.setDescription("角色管理服务，提供角色 CRUD 和权限分配功能");
     res.setClzName("com.apihug.rad.api.role.RoleService");
     res.setName("RoleService");
     res.setProtoFrom("com/apihug/rad/api/role/api.proto");
-    res.setProtoLine(11);
+    res.setProtoLine(10);
     res.setProtoColumn(1);
     res.setProtoEntity("RoleService");
     res.setPath("/roles");
     var _CreateRole = new ServiceMethod();
     _CreateRole.setName("CreateRole");
-    _CreateRole.setProtoLine(17);
+    _CreateRole.setProtoLine(16);
     _CreateRole.setProtoColumn(3);
     _CreateRole.setRequestRef("com.apihug.rad.api.role.CreateRoleRequest");
     _CreateRole.setResponseRef("com.apihug.rad.api.role.RoleSummary");
@@ -1218,7 +1440,7 @@ public final class RadApiCollector implements Collector {
     res.addItem(_CreateRole);
     var _GetRole = new ServiceMethod();
     _GetRole.setName("GetRole");
-    _GetRole.setProtoLine(36);
+    _GetRole.setProtoLine(35);
     _GetRole.setProtoColumn(3);
     _GetRole.setRequestRef("hope.common.adaptor.Empty");
     _GetRole.setResponseRef("com.apihug.rad.api.role.RoleDetail");
@@ -1265,7 +1487,7 @@ public final class RadApiCollector implements Collector {
     res.addItem(_GetRole);
     var _UpdateRole = new ServiceMethod();
     _UpdateRole.setName("UpdateRole");
-    _UpdateRole.setProtoLine(62);
+    _UpdateRole.setProtoLine(61);
     _UpdateRole.setProtoColumn(3);
     _UpdateRole.setRequestRef("com.apihug.rad.api.role.UpdateRoleRequest");
     _UpdateRole.setResponseRef("hope.common.adaptor.Empty");
@@ -1315,7 +1537,7 @@ public final class RadApiCollector implements Collector {
     res.addItem(_UpdateRole);
     var _DeleteRole = new ServiceMethod();
     _DeleteRole.setName("DeleteRole");
-    _DeleteRole.setProtoLine(90);
+    _DeleteRole.setProtoLine(89);
     _DeleteRole.setProtoColumn(3);
     _DeleteRole.setRequestRef("hope.common.adaptor.Empty");
     _DeleteRole.setResponseRef("hope.common.adaptor.Empty");
@@ -1365,7 +1587,7 @@ public final class RadApiCollector implements Collector {
     res.addItem(_DeleteRole);
     var _SearchRoles = new ServiceMethod();
     _SearchRoles.setName("SearchRoles");
-    _SearchRoles.setProtoLine(118);
+    _SearchRoles.setProtoLine(117);
     _SearchRoles.setProtoColumn(3);
     _SearchRoles.setRequestRef("com.apihug.rad.api.role.SearchRolesRequest");
     _SearchRoles.setResponseRef("com.apihug.rad.api.role.RoleSummary");
@@ -1398,7 +1620,7 @@ public final class RadApiCollector implements Collector {
     res.addItem(_SearchRoles);
     var _AssignMenusToRole = new ServiceMethod();
     _AssignMenusToRole.setName("AssignMenusToRole");
-    _AssignMenusToRole.setProtoLine(139);
+    _AssignMenusToRole.setProtoLine(137);
     _AssignMenusToRole.setProtoColumn(3);
     _AssignMenusToRole.setRequestRef("com.apihug.rad.api.role.AssignMenusRequest");
     _AssignMenusToRole.setResponseRef("hope.common.adaptor.Empty");
@@ -1408,8 +1630,7 @@ public final class RadApiCollector implements Collector {
         Operation res  = new Operation();
         res.setTags(Arrays.asList("role"));
         res.setSummary("分配菜单给角色");
-        res.setDescription("为角色分配菜单（全量覆盖），参考 RuoYi insertRoleMenu\n"
-                + "为角色分配菜单（全量覆盖，菜单中 BUTTON 类型的 permission_code 即为权限）");
+        res.setDescription("为角色分配菜单（全量覆盖，菜单中 BUTTON 类型的 permission_code 即为权限）");
         res.setPost("/api/roles/roles/{roleId}/menus");
         res.addParameter(new Supplier<Parameter>() {
           @Override
@@ -1449,7 +1670,7 @@ public final class RadApiCollector implements Collector {
     res.addItem(_AssignMenusToRole);
     var _RemoveMenuFromRole = new ServiceMethod();
     _RemoveMenuFromRole.setName("RemoveMenuFromRole");
-    _RemoveMenuFromRole.setProtoLine(168);
+    _RemoveMenuFromRole.setProtoLine(165);
     _RemoveMenuFromRole.setProtoColumn(3);
     _RemoveMenuFromRole.setRequestRef("hope.common.adaptor.Empty");
     _RemoveMenuFromRole.setResponseRef("hope.common.adaptor.Empty");
@@ -1459,8 +1680,7 @@ public final class RadApiCollector implements Collector {
         Operation res  = new Operation();
         res.setTags(Arrays.asList("role"));
         res.setSummary("移除角色菜单");
-        res.setDescription("移除角色的某个菜单关联\n"
-                + "移除角色的某个菜单关联");
+        res.setDescription("移除角色的某个菜单关联");
         res.setDelete("/api/roles/roles/{roleId}/menus/{menuId}");
         res.addParameter(new Supplier<Parameter>() {
           @Override
@@ -1517,7 +1737,7 @@ public final class RadApiCollector implements Collector {
     res.addItem(_RemoveMenuFromRole);
     var _GetRoleMenus = new ServiceMethod();
     _GetRoleMenus.setName("GetRoleMenus");
-    _GetRoleMenus.setProtoLine(201);
+    _GetRoleMenus.setProtoLine(197);
     _GetRoleMenus.setProtoColumn(3);
     _GetRoleMenus.setRequestRef("hope.common.adaptor.Empty");
     _GetRoleMenus.setResponseRef("com.apihug.rad.api.role.RoleMenuSummary");
@@ -1527,8 +1747,7 @@ public final class RadApiCollector implements Collector {
         Operation res  = new Operation();
         res.setTags(Arrays.asList("role"));
         res.setSummary("获取角色菜单");
-        res.setDescription("获取角色关联的菜单列表\n"
-                + "获取角色关联的菜单列表（含权限代码）");
+        res.setDescription("获取角色关联的菜单列表（含权限代码）");
         res.setGet("/api/roles/roles/{roleId}/menus");
         res.addParameter(new Supplier<Parameter>() {
           @Override
@@ -1567,18 +1786,17 @@ public final class RadApiCollector implements Collector {
 
   void initServiceapi_tenantTenantService() {
     Service res = new Service();
-    res.setDescription("============ 租户管理 API ============\n"
-            + "租户管理服务，提供租户 CRUD 和配置功能");
+    res.setDescription("租户管理服务，提供租户 CRUD 和配置功能");
     res.setClzName("com.apihug.rad.api.tenant.TenantService");
     res.setName("TenantService");
     res.setProtoFrom("com/apihug/rad/api/tenant/api.proto");
-    res.setProtoLine(11);
+    res.setProtoLine(9);
     res.setProtoColumn(1);
     res.setProtoEntity("TenantService");
     res.setPath("/tenants");
     var _CreateTenant = new ServiceMethod();
     _CreateTenant.setName("CreateTenant");
-    _CreateTenant.setProtoLine(17);
+    _CreateTenant.setProtoLine(15);
     _CreateTenant.setProtoColumn(3);
     _CreateTenant.setRequestRef("com.apihug.rad.api.tenant.CreateTenantRequest");
     _CreateTenant.setResponseRef("com.apihug.rad.api.tenant.TenantSummary");
@@ -1611,7 +1829,7 @@ public final class RadApiCollector implements Collector {
     res.addItem(_CreateTenant);
     var _GetTenant = new ServiceMethod();
     _GetTenant.setName("GetTenant");
-    _GetTenant.setProtoLine(33);
+    _GetTenant.setProtoLine(31);
     _GetTenant.setProtoColumn(3);
     _GetTenant.setRequestRef("hope.common.adaptor.Empty");
     _GetTenant.setResponseRef("com.apihug.rad.api.tenant.TenantDetail");
@@ -1657,7 +1875,7 @@ public final class RadApiCollector implements Collector {
     res.addItem(_GetTenant);
     var _UpdateTenant = new ServiceMethod();
     _UpdateTenant.setName("UpdateTenant");
-    _UpdateTenant.setProtoLine(55);
+    _UpdateTenant.setProtoLine(53);
     _UpdateTenant.setProtoColumn(3);
     _UpdateTenant.setRequestRef("com.apihug.rad.api.tenant.UpdateTenantRequest");
     _UpdateTenant.setResponseRef("hope.common.adaptor.Empty");
@@ -1706,7 +1924,7 @@ public final class RadApiCollector implements Collector {
     res.addItem(_UpdateTenant);
     var _DisableTenant = new ServiceMethod();
     _DisableTenant.setName("DisableTenant");
-    _DisableTenant.setProtoLine(79);
+    _DisableTenant.setProtoLine(77);
     _DisableTenant.setProtoColumn(3);
     _DisableTenant.setRequestRef("hope.common.adaptor.Empty");
     _DisableTenant.setResponseRef("hope.common.adaptor.Empty");
@@ -1755,7 +1973,7 @@ public final class RadApiCollector implements Collector {
     res.addItem(_DisableTenant);
     var _ConfigureTenant = new ServiceMethod();
     _ConfigureTenant.setName("ConfigureTenant");
-    _ConfigureTenant.setProtoLine(103);
+    _ConfigureTenant.setProtoLine(101);
     _ConfigureTenant.setProtoColumn(3);
     _ConfigureTenant.setRequestRef("com.apihug.rad.api.tenant.ConfigureTenantRequest");
     _ConfigureTenant.setResponseRef("hope.common.adaptor.Empty");
@@ -1804,7 +2022,7 @@ public final class RadApiCollector implements Collector {
     res.addItem(_ConfigureTenant);
     var _SearchTenants = new ServiceMethod();
     _SearchTenants.setName("SearchTenants");
-    _SearchTenants.setProtoLine(128);
+    _SearchTenants.setProtoLine(125);
     _SearchTenants.setProtoColumn(3);
     _SearchTenants.setRequestRef("com.apihug.rad.api.tenant.SearchTenantsRequest");
     _SearchTenants.setResponseRef("com.apihug.rad.api.tenant.TenantSummary");
@@ -1814,8 +2032,7 @@ public final class RadApiCollector implements Collector {
         Operation res  = new Operation();
         res.setTags(Arrays.asList("tenant"));
         res.setSummary("搜索租户");
-        res.setDescription("搜索租户（分页）\n"
-                + "搜索租户（分页）");
+        res.setDescription("搜索租户（分页）");
         res.setPageable(true);
         res.setPost("/api/tenants/tenants/search");
         res.setAuthorization(new Supplier<Authorization>() {
@@ -1840,19 +2057,17 @@ public final class RadApiCollector implements Collector {
 
   void initServiceapi_tenantTenantMemberService() {
     Service res = new Service();
-    res.setDescription("============ 租户成员管理 API ============\r\n"
-            + "替代原 CustomerOrganizationService — 管理 Customer 在 Tenant 中的身份\r\n"
-            + "租户成员管理服务，提供成员与租户关系管理功能");
+    res.setDescription("租户成员管理服务，提供成员与租户关系管理功能");
     res.setClzName("com.apihug.rad.api.tenant.TenantMemberService");
     res.setName("TenantMemberService");
     res.setProtoFrom("com/apihug/rad/api/tenant/member.proto");
-    res.setProtoLine(13);
+    res.setProtoLine(11);
     res.setProtoColumn(1);
     res.setProtoEntity("TenantMemberService");
     res.setPath("/tenant-members");
     var _GetTenantMembers = new ServiceMethod();
     _GetTenantMembers.setName("GetTenantMembers");
-    _GetTenantMembers.setProtoLine(20);
+    _GetTenantMembers.setProtoLine(17);
     _GetTenantMembers.setProtoColumn(3);
     _GetTenantMembers.setRequestRef("com.apihug.rad.api.tenant.GetTenantMembersRequest");
     _GetTenantMembers.setResponseRef("com.apihug.rad.api.tenant.TenantMemberSummary");
@@ -1862,8 +2077,7 @@ public final class RadApiCollector implements Collector {
         Operation res  = new Operation();
         res.setTags(Arrays.asList("tenant-member"));
         res.setSummary("获取租户成员");
-        res.setDescription("获取租户成员列表（分页）\r\n"
-                + "获取租户成员列表");
+        res.setDescription("获取租户成员列表");
         res.setPageable(true);
         res.setGet("/api/tenant-members/tenants/{tenantId}/members");
         res.addParameter(new Supplier<Parameter>() {
@@ -1903,7 +2117,7 @@ public final class RadApiCollector implements Collector {
     res.addItem(_GetTenantMembers);
     var _AddMemberToTenant = new ServiceMethod();
     _AddMemberToTenant.setName("AddMemberToTenant");
-    _AddMemberToTenant.setProtoLine(46);
+    _AddMemberToTenant.setProtoLine(42);
     _AddMemberToTenant.setProtoColumn(3);
     _AddMemberToTenant.setRequestRef("com.apihug.rad.api.tenant.AddTenantMemberRequest");
     _AddMemberToTenant.setResponseRef("hope.common.adaptor.Empty");
@@ -1913,8 +2127,7 @@ public final class RadApiCollector implements Collector {
         Operation res  = new Operation();
         res.setTags(Arrays.asList("tenant-member"));
         res.setSummary("添加租户成员");
-        res.setDescription("添加成员到租户\r\n"
-                + "添加客户为租户成员");
+        res.setDescription("添加客户为租户成员");
         res.setPost("/api/tenant-members/tenants/{tenantId}/members");
         res.addParameter(new Supplier<Parameter>() {
           @Override
@@ -1953,7 +2166,7 @@ public final class RadApiCollector implements Collector {
     res.addItem(_AddMemberToTenant);
     var _RemoveMemberFromTenant = new ServiceMethod();
     _RemoveMemberFromTenant.setName("RemoveMemberFromTenant");
-    _RemoveMemberFromTenant.setProtoLine(71);
+    _RemoveMemberFromTenant.setProtoLine(66);
     _RemoveMemberFromTenant.setProtoColumn(3);
     _RemoveMemberFromTenant.setRequestRef("hope.common.adaptor.Empty");
     _RemoveMemberFromTenant.setResponseRef("hope.common.adaptor.Empty");
@@ -1963,8 +2176,7 @@ public final class RadApiCollector implements Collector {
         Operation res  = new Operation();
         res.setTags(Arrays.asList("tenant-member"));
         res.setSummary("移除租户成员");
-        res.setDescription("从租户移除成员\r\n"
-                + "从租户移除成员");
+        res.setDescription("从租户移除成员");
         res.setDelete("/api/tenant-members/tenants/{tenantId}/members/{memberId}");
         res.addParameter(new Supplier<Parameter>() {
           @Override
@@ -2021,7 +2233,7 @@ public final class RadApiCollector implements Collector {
     res.addItem(_RemoveMemberFromTenant);
     var _ToggleMemberLock = new ServiceMethod();
     _ToggleMemberLock.setName("ToggleMemberLock");
-    _ToggleMemberLock.setProtoLine(104);
+    _ToggleMemberLock.setProtoLine(98);
     _ToggleMemberLock.setProtoColumn(3);
     _ToggleMemberLock.setRequestRef("hope.common.adaptor.Empty");
     _ToggleMemberLock.setResponseRef("hope.common.adaptor.Empty");
@@ -2031,8 +2243,7 @@ public final class RadApiCollector implements Collector {
         Operation res  = new Operation();
         res.setTags(Arrays.asList("tenant-member"));
         res.setSummary("切换成员锁定状态");
-        res.setDescription("锁定/解锁成员\r\n"
-                + "锁定/解锁租户成员");
+        res.setDescription("锁定/解锁租户成员");
         res.setPost("/api/tenant-members/tenants/{tenantId}/members/{memberId}/toggle-lock");
         res.addParameter(new Supplier<Parameter>() {
           @Override
@@ -2089,7 +2300,7 @@ public final class RadApiCollector implements Collector {
     res.addItem(_ToggleMemberLock);
     var _UpdateMemberRole = new ServiceMethod();
     _UpdateMemberRole.setName("UpdateMemberRole");
-    _UpdateMemberRole.setProtoLine(137);
+    _UpdateMemberRole.setProtoLine(130);
     _UpdateMemberRole.setProtoColumn(3);
     _UpdateMemberRole.setRequestRef("com.apihug.rad.api.tenant.UpdateMemberRoleRequest");
     _UpdateMemberRole.setResponseRef("hope.common.adaptor.Empty");
@@ -2099,8 +2310,7 @@ public final class RadApiCollector implements Collector {
         Operation res  = new Operation();
         res.setTags(Arrays.asList("tenant-member"));
         res.setSummary("更新成员角色");
-        res.setDescription("更新成员角色（OWNER/ADMIN/MEMBER）\r\n"
-                + "更新成员在租户中的角色（拥有者/管理员/普通成员）");
+        res.setDescription("更新成员在租户中的角色（拥有者/管理员/普通成员）");
         res.setPut("/api/tenant-members/tenants/{tenantId}/members/{memberId}/role");
         res.addParameter(new Supplier<Parameter>() {
           @Override
@@ -2157,7 +2367,7 @@ public final class RadApiCollector implements Collector {
     res.addItem(_UpdateMemberRole);
     var _AssignMemberDepartment = new ServiceMethod();
     _AssignMemberDepartment.setName("AssignMemberDepartment");
-    _AssignMemberDepartment.setProtoLine(170);
+    _AssignMemberDepartment.setProtoLine(162);
     _AssignMemberDepartment.setProtoColumn(3);
     _AssignMemberDepartment.setRequestRef("com.apihug.rad.api.tenant.AssignMemberDepartmentRequest");
     _AssignMemberDepartment.setResponseRef("hope.common.adaptor.Empty");
@@ -2167,8 +2377,7 @@ public final class RadApiCollector implements Collector {
         Operation res  = new Operation();
         res.setTags(Arrays.asList("tenant-member"));
         res.setSummary("分配成员部门");
-        res.setDescription("分配成员到部门\r\n"
-                + "将成员分配到指定部门");
+        res.setDescription("将成员分配到指定部门");
         res.setPut("/api/tenant-members/tenants/{tenantId}/members/{memberId}/department");
         res.addParameter(new Supplier<Parameter>() {
           @Override
@@ -2225,7 +2434,7 @@ public final class RadApiCollector implements Collector {
     res.addItem(_AssignMemberDepartment);
     var _GetMemberDetail = new ServiceMethod();
     _GetMemberDetail.setName("GetMemberDetail");
-    _GetMemberDetail.setProtoLine(203);
+    _GetMemberDetail.setProtoLine(194);
     _GetMemberDetail.setProtoColumn(3);
     _GetMemberDetail.setRequestRef("hope.common.adaptor.Empty");
     _GetMemberDetail.setResponseRef("com.apihug.rad.api.tenant.TenantMemberDetail");
@@ -2235,8 +2444,7 @@ public final class RadApiCollector implements Collector {
         Operation res  = new Operation();
         res.setTags(Arrays.asList("tenant-member"));
         res.setSummary("获取成员详情");
-        res.setDescription("获取成员详情（含客户信息 + 成员身份信息）\r\n"
-                + "获取租户成员详细信息（含客户账号信息和成员身份信息）");
+        res.setDescription("获取租户成员详细信息（含客户账号信息和成员身份信息）");
         res.setGet("/api/tenant-members/tenants/{tenantId}/members/{memberId}/detail");
         res.addParameter(new Supplier<Parameter>() {
           @Override
@@ -2294,7 +2502,7 @@ public final class RadApiCollector implements Collector {
     res.addItem(_GetMemberDetail);
     var _SetDefaultTenant = new ServiceMethod();
     _SetDefaultTenant.setName("SetDefaultTenant");
-    _SetDefaultTenant.setProtoLine(240);
+    _SetDefaultTenant.setProtoLine(230);
     _SetDefaultTenant.setProtoColumn(3);
     _SetDefaultTenant.setRequestRef("hope.common.adaptor.Empty");
     _SetDefaultTenant.setResponseRef("hope.common.adaptor.Empty");
@@ -2304,8 +2512,7 @@ public final class RadApiCollector implements Collector {
         Operation res  = new Operation();
         res.setTags(Arrays.asList("tenant-member"));
         res.setSummary("设置默认租户");
-        res.setDescription("设置默认租户\r\n"
-                + "将指定租户设为客户的默认租户");
+        res.setDescription("将指定租户设为客户的默认租户");
         res.setPost("/api/tenant-members/tenants/{tenantId}/set-default");
         res.addParameter(new Supplier<Parameter>() {
           @Override
@@ -2341,7 +2548,7 @@ public final class RadApiCollector implements Collector {
     res.addItem(_SetDefaultTenant);
     var _AssignRolesToMember = new ServiceMethod();
     _AssignRolesToMember.setName("AssignRolesToMember");
-    _AssignRolesToMember.setProtoLine(263);
+    _AssignRolesToMember.setProtoLine(252);
     _AssignRolesToMember.setProtoColumn(3);
     _AssignRolesToMember.setRequestRef("com.apihug.rad.api.tenant.AssignRolesRequest");
     _AssignRolesToMember.setResponseRef("hope.common.adaptor.Empty");
@@ -2351,8 +2558,7 @@ public final class RadApiCollector implements Collector {
         Operation res  = new Operation();
         res.setTags(Arrays.asList("tenant-member"));
         res.setSummary("分配成员角色");
-        res.setDescription("为成员分配 RBAC 角色（全量覆盖）\r\n"
-                + "为租户成员分配 RBAC 角色（全量覆盖，替换已有角色）");
+        res.setDescription("为租户成员分配 RBAC 角色（全量覆盖，替换已有角色）");
         res.setPost("/api/tenant-members/tenants/{tenantId}/members/{memberId}/roles");
         res.addParameter(new Supplier<Parameter>() {
           @Override
@@ -2409,7 +2615,7 @@ public final class RadApiCollector implements Collector {
     res.addItem(_AssignRolesToMember);
     var _GetMemberRoles = new ServiceMethod();
     _GetMemberRoles.setName("GetMemberRoles");
-    _GetMemberRoles.setProtoLine(296);
+    _GetMemberRoles.setProtoLine(284);
     _GetMemberRoles.setProtoColumn(3);
     _GetMemberRoles.setRequestRef("hope.common.adaptor.Empty");
     _GetMemberRoles.setResponseRef("com.apihug.rad.api.tenant.MemberRoleSummary");
@@ -2419,8 +2625,7 @@ public final class RadApiCollector implements Collector {
         Operation res  = new Operation();
         res.setTags(Arrays.asList("tenant-member"));
         res.setSummary("获取成员角色");
-        res.setDescription("获取成员的 RBAC 角色列表\r\n"
-                + "获取租户成员的 RBAC 角色列表");
+        res.setDescription("获取租户成员的 RBAC 角色列表");
         res.setGet("/api/tenant-members/tenants/{tenantId}/members/{memberId}/roles");
         res.addParameter(new Supplier<Parameter>() {
           @Override
@@ -2477,7 +2682,7 @@ public final class RadApiCollector implements Collector {
     res.addItem(_GetMemberRoles);
     var _RemoveRoleFromMember = new ServiceMethod();
     _RemoveRoleFromMember.setName("RemoveRoleFromMember");
-    _RemoveRoleFromMember.setProtoLine(329);
+    _RemoveRoleFromMember.setProtoLine(316);
     _RemoveRoleFromMember.setProtoColumn(3);
     _RemoveRoleFromMember.setRequestRef("hope.common.adaptor.Empty");
     _RemoveRoleFromMember.setResponseRef("hope.common.adaptor.Empty");
@@ -2487,8 +2692,7 @@ public final class RadApiCollector implements Collector {
         Operation res  = new Operation();
         res.setTags(Arrays.asList("tenant-member"));
         res.setSummary("移除成员角色");
-        res.setDescription("移除成员的某个 RBAC 角色\r\n"
-                + "移除租户成员的某个 RBAC 角色");
+        res.setDescription("移除租户成员的某个 RBAC 角色");
         res.setDelete("/api/tenant-members/tenants/{tenantId}/members/{memberId}/roles/{roleId}");
         res.addParameter(new Supplier<Parameter>() {
           @Override
@@ -2573,6 +2777,7 @@ public final class RadApiCollector implements Collector {
     initServiceapi_menuMenuService();
     initServiceapi_metaApihugService();
     initServiceapi_permissionPermissionService();
+    initServiceapi_platformPlatformService();
     initServiceapi_roleRoleService();
     initServiceapi_tenantTenantService();
     initServiceapi_tenantTenantMemberService();
@@ -2583,11 +2788,10 @@ public final class RadApiCollector implements Collector {
     res.setClzName("com.apihug.rad.api.audit.AccessLogInfo");
     res.setName("AccessLogInfo");
     res.setProtoFrom("com/apihug/rad/api/audit/api.proto");
-    res.setProtoLine(116);
+    res.setProtoLine(113);
     res.setProtoColumn(1);
     res.setProtoEntity("AccessLogInfo");
-    res.setDescription("============ Response Messages ============\n"
-            + "访问日志信息");
+    res.setDescription("访问日志信息");
     res.setSchema(new Supplier<Schema>() {
       @Override
       public Schema get() {
@@ -2609,7 +2813,7 @@ public final class RadApiCollector implements Collector {
     _id.setName("id");
     _id.setFieldName("id");
     _id.setTag(1);
-    _id.setProtoLine(124);
+    _id.setProtoLine(121);
     _id.setProtoColumn(3);
     _id.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -2626,7 +2830,7 @@ public final class RadApiCollector implements Collector {
     _httpMethod.setName("http_method");
     _httpMethod.setFieldName("httpMethod");
     _httpMethod.setTag(2);
-    _httpMethod.setProtoLine(129);
+    _httpMethod.setProtoLine(126);
     _httpMethod.setProtoColumn(3);
     _httpMethod.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -2643,7 +2847,7 @@ public final class RadApiCollector implements Collector {
     _requestPath.setName("request_path");
     _requestPath.setFieldName("requestPath");
     _requestPath.setTag(3);
-    _requestPath.setProtoLine(134);
+    _requestPath.setProtoLine(131);
     _requestPath.setProtoColumn(3);
     _requestPath.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -2660,7 +2864,7 @@ public final class RadApiCollector implements Collector {
     _responseStatus.setName("response_status");
     _responseStatus.setFieldName("responseStatus");
     _responseStatus.setTag(4);
-    _responseStatus.setProtoLine(139);
+    _responseStatus.setProtoLine(136);
     _responseStatus.setProtoColumn(3);
     _responseStatus.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -2677,7 +2881,7 @@ public final class RadApiCollector implements Collector {
     _durationMs.setName("duration_ms");
     _durationMs.setFieldName("durationMs");
     _durationMs.setTag(5);
-    _durationMs.setProtoLine(144);
+    _durationMs.setProtoLine(141);
     _durationMs.setProtoColumn(3);
     _durationMs.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -2694,7 +2898,7 @@ public final class RadApiCollector implements Collector {
     _customerId.setName("customer_id");
     _customerId.setFieldName("customerId");
     _customerId.setTag(6);
-    _customerId.setProtoLine(149);
+    _customerId.setProtoLine(146);
     _customerId.setProtoColumn(3);
     _customerId.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -2711,7 +2915,7 @@ public final class RadApiCollector implements Collector {
     _ipAddress.setName("ip_address");
     _ipAddress.setFieldName("ipAddress");
     _ipAddress.setTag(7);
-    _ipAddress.setProtoLine(154);
+    _ipAddress.setProtoLine(151);
     _ipAddress.setProtoColumn(3);
     _ipAddress.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -2728,7 +2932,7 @@ public final class RadApiCollector implements Collector {
     _userAgent.setName("user_agent");
     _userAgent.setFieldName("userAgent");
     _userAgent.setTag(8);
-    _userAgent.setProtoLine(159);
+    _userAgent.setProtoLine(156);
     _userAgent.setProtoColumn(3);
     _userAgent.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -2745,7 +2949,7 @@ public final class RadApiCollector implements Collector {
     _serviceName.setName("service_name");
     _serviceName.setFieldName("serviceName");
     _serviceName.setTag(9);
-    _serviceName.setProtoLine(164);
+    _serviceName.setProtoLine(161);
     _serviceName.setProtoColumn(3);
     _serviceName.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -2762,7 +2966,7 @@ public final class RadApiCollector implements Collector {
     _methodName.setName("method_name");
     _methodName.setFieldName("methodName");
     _methodName.setTag(10);
-    _methodName.setProtoLine(169);
+    _methodName.setProtoLine(166);
     _methodName.setProtoColumn(3);
     _methodName.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -2779,7 +2983,7 @@ public final class RadApiCollector implements Collector {
     _errorCode.setName("error_code");
     _errorCode.setFieldName("errorCode");
     _errorCode.setTag(11);
-    _errorCode.setProtoLine(174);
+    _errorCode.setProtoLine(171);
     _errorCode.setProtoColumn(3);
     _errorCode.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -2796,7 +3000,7 @@ public final class RadApiCollector implements Collector {
     _errorMessage.setName("error_message");
     _errorMessage.setFieldName("errorMessage");
     _errorMessage.setTag(12);
-    _errorMessage.setProtoLine(179);
+    _errorMessage.setProtoLine(176);
     _errorMessage.setProtoColumn(3);
     _errorMessage.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -2813,7 +3017,7 @@ public final class RadApiCollector implements Collector {
     _requestParams.setName("request_params");
     _requestParams.setFieldName("requestParams");
     _requestParams.setTag(13);
-    _requestParams.setProtoLine(184);
+    _requestParams.setProtoLine(181);
     _requestParams.setProtoColumn(3);
     _requestParams.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -2830,7 +3034,7 @@ public final class RadApiCollector implements Collector {
     _createdAt.setName("created_at");
     _createdAt.setFieldName("createdAt");
     _createdAt.setTag(14);
-    _createdAt.setProtoLine(189);
+    _createdAt.setProtoLine(186);
     _createdAt.setProtoColumn(3);
     _createdAt.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -2848,7 +3052,7 @@ public final class RadApiCollector implements Collector {
     _tenantId.setName("tenant_id");
     _tenantId.setFieldName("tenantId");
     _tenantId.setTag(15);
-    _tenantId.setProtoLine(195);
+    _tenantId.setProtoLine(192);
     _tenantId.setProtoColumn(3);
     _tenantId.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -2865,7 +3069,7 @@ public final class RadApiCollector implements Collector {
     _priority.setName("priority");
     _priority.setFieldName("priority");
     _priority.setTag(16);
-    _priority.setProtoLine(200);
+    _priority.setProtoLine(197);
     _priority.setProtoColumn(3);
     _priority.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -2885,7 +3089,7 @@ public final class RadApiCollector implements Collector {
     res.setClzName("com.apihug.rad.api.audit.AccessLogStatsResponse");
     res.setName("AccessLogStatsResponse");
     res.setProtoFrom("com/apihug/rad/api/audit/api.proto");
-    res.setProtoLine(206);
+    res.setProtoLine(203);
     res.setProtoColumn(1);
     res.setProtoEntity("AccessLogStatsResponse");
     res.setDescription("访问统计响应");
@@ -2910,7 +3114,7 @@ public final class RadApiCollector implements Collector {
     _totalRequests.setName("total_requests");
     _totalRequests.setFieldName("totalRequests");
     _totalRequests.setTag(1);
-    _totalRequests.setProtoLine(214);
+    _totalRequests.setProtoLine(211);
     _totalRequests.setProtoColumn(3);
     _totalRequests.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -2927,7 +3131,7 @@ public final class RadApiCollector implements Collector {
     _successCount.setName("success_count");
     _successCount.setFieldName("successCount");
     _successCount.setTag(2);
-    _successCount.setProtoLine(219);
+    _successCount.setProtoLine(216);
     _successCount.setProtoColumn(3);
     _successCount.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -2944,7 +3148,7 @@ public final class RadApiCollector implements Collector {
     _errorCount.setName("error_count");
     _errorCount.setFieldName("errorCount");
     _errorCount.setTag(3);
-    _errorCount.setProtoLine(224);
+    _errorCount.setProtoLine(221);
     _errorCount.setProtoColumn(3);
     _errorCount.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -2961,7 +3165,7 @@ public final class RadApiCollector implements Collector {
     _avgDurationMs.setName("avg_duration_ms");
     _avgDurationMs.setFieldName("avgDurationMs");
     _avgDurationMs.setTag(4);
-    _avgDurationMs.setProtoLine(229);
+    _avgDurationMs.setProtoLine(226);
     _avgDurationMs.setProtoColumn(3);
     _avgDurationMs.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -2978,7 +3182,7 @@ public final class RadApiCollector implements Collector {
     _topPaths.setName("top_paths");
     _topPaths.setFieldName("topPaths");
     _topPaths.setTag(5);
-    _topPaths.setProtoLine(234);
+    _topPaths.setProtoLine(231);
     _topPaths.setProtoColumn(3);
     _topPaths.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -2998,7 +3202,7 @@ public final class RadApiCollector implements Collector {
     res.setClzName("com.apihug.rad.api.audit.GetAccessLogStatsRequest");
     res.setName("GetAccessLogStatsRequest");
     res.setProtoFrom("com/apihug/rad/api/audit/api.proto");
-    res.setProtoLine(93);
+    res.setProtoLine(92);
     res.setProtoColumn(1);
     res.setProtoEntity("GetAccessLogStatsRequest");
     res.setDescription("获取访问统计请求");
@@ -3023,7 +3227,7 @@ public final class RadApiCollector implements Collector {
     _startTime.setName("start_time");
     _startTime.setFieldName("startTime");
     _startTime.setTag(1);
-    _startTime.setProtoLine(101);
+    _startTime.setProtoLine(100);
     _startTime.setProtoColumn(3);
     _startTime.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -3041,7 +3245,7 @@ public final class RadApiCollector implements Collector {
     _endTime.setName("end_time");
     _endTime.setFieldName("endTime");
     _endTime.setTag(2);
-    _endTime.setProtoLine(107);
+    _endTime.setProtoLine(106);
     _endTime.setProtoColumn(3);
     _endTime.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -3062,7 +3266,7 @@ public final class RadApiCollector implements Collector {
     res.setClzName("com.apihug.rad.api.audit.PathStats");
     res.setName("PathStats");
     res.setProtoFrom("com/apihug/rad/api/audit/api.proto");
-    res.setProtoLine(239);
+    res.setProtoLine(236);
     res.setProtoColumn(1);
     res.setProtoEntity("PathStats");
     res.setDescription("路径统计");
@@ -3087,7 +3291,7 @@ public final class RadApiCollector implements Collector {
     _path.setName("path");
     _path.setFieldName("path");
     _path.setTag(1);
-    _path.setProtoLine(247);
+    _path.setProtoLine(244);
     _path.setProtoColumn(3);
     _path.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -3104,7 +3308,7 @@ public final class RadApiCollector implements Collector {
     _count.setName("count");
     _count.setFieldName("count");
     _count.setTag(2);
-    _count.setProtoLine(252);
+    _count.setProtoLine(249);
     _count.setProtoColumn(3);
     _count.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -3121,7 +3325,7 @@ public final class RadApiCollector implements Collector {
     _avgDurationMs.setName("avg_duration_ms");
     _avgDurationMs.setFieldName("avgDurationMs");
     _avgDurationMs.setTag(3);
-    _avgDurationMs.setProtoLine(257);
+    _avgDurationMs.setProtoLine(254);
     _avgDurationMs.setProtoColumn(3);
     _avgDurationMs.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -3138,7 +3342,7 @@ public final class RadApiCollector implements Collector {
     _errorRate.setName("error_rate");
     _errorRate.setFieldName("errorRate");
     _errorRate.setTag(4);
-    _errorRate.setProtoLine(262);
+    _errorRate.setProtoLine(259);
     _errorRate.setProtoColumn(3);
     _errorRate.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -3158,7 +3362,7 @@ public final class RadApiCollector implements Collector {
     res.setClzName("com.apihug.rad.api.audit.SearchAccessLogsRequest");
     res.setName("SearchAccessLogsRequest");
     res.setProtoFrom("com/apihug/rad/api/audit/api.proto");
-    res.setProtoLine(53);
+    res.setProtoLine(52);
     res.setProtoColumn(1);
     res.setProtoEntity("SearchAccessLogsRequest");
     res.setDescription("Let it go\n"
@@ -3183,7 +3387,7 @@ public final class RadApiCollector implements Collector {
     _customerId.setName("customer_id");
     _customerId.setFieldName("customerId");
     _customerId.setTag(1);
-    _customerId.setProtoLine(60);
+    _customerId.setProtoLine(59);
     _customerId.setProtoColumn(3);
     _customerId.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -3200,7 +3404,7 @@ public final class RadApiCollector implements Collector {
     _httpMethod.setName("http_method");
     _httpMethod.setFieldName("httpMethod");
     _httpMethod.setTag(2);
-    _httpMethod.setProtoLine(65);
+    _httpMethod.setProtoLine(64);
     _httpMethod.setProtoColumn(3);
     _httpMethod.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -3217,7 +3421,7 @@ public final class RadApiCollector implements Collector {
     _requestPath.setName("request_path");
     _requestPath.setFieldName("requestPath");
     _requestPath.setTag(3);
-    _requestPath.setProtoLine(70);
+    _requestPath.setProtoLine(69);
     _requestPath.setProtoColumn(3);
     _requestPath.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -3234,7 +3438,7 @@ public final class RadApiCollector implements Collector {
     _responseStatus.setName("response_status");
     _responseStatus.setFieldName("responseStatus");
     _responseStatus.setTag(4);
-    _responseStatus.setProtoLine(75);
+    _responseStatus.setProtoLine(74);
     _responseStatus.setProtoColumn(3);
     _responseStatus.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -3251,7 +3455,7 @@ public final class RadApiCollector implements Collector {
     _startTime.setName("start_time");
     _startTime.setFieldName("startTime");
     _startTime.setTag(5);
-    _startTime.setProtoLine(80);
+    _startTime.setProtoLine(79);
     _startTime.setProtoColumn(3);
     _startTime.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -3269,7 +3473,7 @@ public final class RadApiCollector implements Collector {
     _endTime.setName("end_time");
     _endTime.setFieldName("endTime");
     _endTime.setTag(6);
-    _endTime.setProtoLine(86);
+    _endTime.setProtoLine(85);
     _endTime.setProtoColumn(3);
     _endTime.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -3290,7 +3494,7 @@ public final class RadApiCollector implements Collector {
     res.setClzName("com.apihug.rad.api.customer.CreateCustomerRequest");
     res.setName("CreateCustomerRequest");
     res.setProtoFrom("com/apihug/rad/api/customer/api.proto");
-    res.setProtoLine(406);
+    res.setProtoLine(396);
     res.setProtoColumn(1);
     res.setProtoEntity("CreateCustomerRequest");
     res.setDescription("创建客户请求");
@@ -3315,7 +3519,7 @@ public final class RadApiCollector implements Collector {
     _username.setName("username");
     _username.setFieldName("username");
     _username.setTag(1);
-    _username.setProtoLine(414);
+    _username.setProtoLine(404);
     _username.setProtoColumn(3);
     _username.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -3342,7 +3546,7 @@ public final class RadApiCollector implements Collector {
     _password.setName("password");
     _password.setFieldName("password");
     _password.setTag(2);
-    _password.setProtoLine(422);
+    _password.setProtoLine(412);
     _password.setProtoColumn(3);
     _password.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -3362,7 +3566,7 @@ public final class RadApiCollector implements Collector {
     _email.setName("email");
     _email.setFieldName("email");
     _email.setTag(3);
-    _email.setProtoLine(430);
+    _email.setProtoLine(420);
     _email.setProtoColumn(3);
     _email.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -3389,7 +3593,7 @@ public final class RadApiCollector implements Collector {
     _status.setName("status");
     _status.setFieldName("status");
     _status.setTag(4);
-    _status.setProtoLine(438);
+    _status.setProtoLine(428);
     _status.setProtoColumn(3);
     _status.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -3407,7 +3611,7 @@ public final class RadApiCollector implements Collector {
     _defaultTenantId.setName("default_tenant_id");
     _defaultTenantId.setFieldName("defaultTenantId");
     _defaultTenantId.setTag(5);
-    _defaultTenantId.setProtoLine(444);
+    _defaultTenantId.setProtoLine(434);
     _defaultTenantId.setProtoColumn(3);
     _defaultTenantId.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -3428,7 +3632,7 @@ public final class RadApiCollector implements Collector {
     res.setClzName("com.apihug.rad.api.customer.CurrentCustomerInfo");
     res.setName("CurrentCustomerInfo");
     res.setProtoFrom("com/apihug/rad/api/customer/api.proto");
-    res.setProtoLine(343);
+    res.setProtoLine(333);
     res.setProtoColumn(1);
     res.setProtoEntity("CurrentCustomerInfo");
     res.setDescription("当前客户完整信息");
@@ -3453,7 +3657,7 @@ public final class RadApiCollector implements Collector {
     _customer.setName("customer");
     _customer.setFieldName("customer");
     _customer.setTag(1);
-    _customer.setProtoLine(351);
+    _customer.setProtoLine(341);
     _customer.setProtoColumn(3);
     _customer.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -3469,7 +3673,7 @@ public final class RadApiCollector implements Collector {
     _roles.setName("roles");
     _roles.setFieldName("roles");
     _roles.setTag(2);
-    _roles.setProtoLine(355);
+    _roles.setProtoLine(345);
     _roles.setProtoColumn(3);
     _roles.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -3486,7 +3690,7 @@ public final class RadApiCollector implements Collector {
     _authorities.setName("authorities");
     _authorities.setFieldName("authorities");
     _authorities.setTag(3);
-    _authorities.setProtoLine(359);
+    _authorities.setProtoLine(349);
     _authorities.setProtoColumn(3);
     _authorities.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -3503,7 +3707,7 @@ public final class RadApiCollector implements Collector {
     _department.setName("department");
     _department.setFieldName("department");
     _department.setTag(4);
-    _department.setProtoLine(363);
+    _department.setProtoLine(353);
     _department.setProtoColumn(3);
     _department.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -3519,7 +3723,7 @@ public final class RadApiCollector implements Collector {
     _currentTenant.setName("current_tenant");
     _currentTenant.setFieldName("currentTenant");
     _currentTenant.setTag(5);
-    _currentTenant.setProtoLine(367);
+    _currentTenant.setProtoLine(357);
     _currentTenant.setProtoColumn(3);
     _currentTenant.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -3538,7 +3742,7 @@ public final class RadApiCollector implements Collector {
     res.setClzName("com.apihug.rad.api.customer.CustomerInfo");
     res.setName("CustomerInfo");
     res.setProtoFrom("com/apihug/rad/api/customer/api.proto");
-    res.setProtoLine(304);
+    res.setProtoLine(294);
     res.setProtoColumn(1);
     res.setProtoEntity("CustomerInfo");
     res.setDescription("客户信息");
@@ -3562,7 +3766,7 @@ public final class RadApiCollector implements Collector {
     _customerId.setName("customer_id");
     _customerId.setFieldName("customerId");
     _customerId.setTag(1);
-    _customerId.setProtoLine(311);
+    _customerId.setProtoLine(301);
     _customerId.setProtoColumn(3);
     _customerId.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -3592,7 +3796,7 @@ public final class RadApiCollector implements Collector {
     _username.setName("username");
     _username.setFieldName("username");
     _username.setTag(3);
-    _username.setProtoLine(319);
+    _username.setProtoLine(309);
     _username.setProtoColumn(3);
     _username.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -3618,7 +3822,7 @@ public final class RadApiCollector implements Collector {
     _tenantId.setName("tenant_id");
     _tenantId.setFieldName("tenantId");
     _tenantId.setTag(4);
-    _tenantId.setProtoLine(326);
+    _tenantId.setProtoLine(316);
     _tenantId.setProtoColumn(3);
     _tenantId.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -3648,7 +3852,7 @@ public final class RadApiCollector implements Collector {
     _roles.setName("roles");
     _roles.setFieldName("roles");
     _roles.setTag(5);
-    _roles.setProtoLine(334);
+    _roles.setProtoLine(324);
     _roles.setProtoColumn(3);
     _roles.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -3665,7 +3869,7 @@ public final class RadApiCollector implements Collector {
     _authorities.setName("authorities");
     _authorities.setFieldName("authorities");
     _authorities.setTag(6);
-    _authorities.setProtoLine(338);
+    _authorities.setProtoLine(328);
     _authorities.setProtoColumn(3);
     _authorities.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -3685,7 +3889,7 @@ public final class RadApiCollector implements Collector {
     res.setClzName("com.apihug.rad.api.customer.CustomerSummary");
     res.setName("CustomerSummary");
     res.setProtoFrom("com/apihug/rad/api/customer/api.proto");
-    res.setProtoLine(451);
+    res.setProtoLine(441);
     res.setProtoColumn(1);
     res.setProtoEntity("CustomerSummary");
     res.setDescription("客户摘要信息");
@@ -3710,7 +3914,7 @@ public final class RadApiCollector implements Collector {
     _id.setName("id");
     _id.setFieldName("id");
     _id.setTag(1);
-    _id.setProtoLine(459);
+    _id.setProtoLine(449);
     _id.setProtoColumn(3);
     _id.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -3729,7 +3933,7 @@ public final class RadApiCollector implements Collector {
     _username.setName("username");
     _username.setFieldName("username");
     _username.setTag(2);
-    _username.setProtoLine(466);
+    _username.setProtoLine(456);
     _username.setProtoColumn(3);
     _username.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -3755,7 +3959,7 @@ public final class RadApiCollector implements Collector {
     _email.setName("email");
     _email.setFieldName("email");
     _email.setTag(3);
-    _email.setProtoLine(473);
+    _email.setProtoLine(463);
     _email.setProtoColumn(3);
     _email.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -3781,7 +3985,7 @@ public final class RadApiCollector implements Collector {
     _status.setName("status");
     _status.setFieldName("status");
     _status.setTag(4);
-    _status.setProtoLine(480);
+    _status.setProtoLine(470);
     _status.setProtoColumn(3);
     _status.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -3799,7 +4003,7 @@ public final class RadApiCollector implements Collector {
     _tenantId.setName("tenant_id");
     _tenantId.setFieldName("tenantId");
     _tenantId.setTag(5);
-    _tenantId.setProtoLine(486);
+    _tenantId.setProtoLine(476);
     _tenantId.setProtoColumn(3);
     _tenantId.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -3820,7 +4024,7 @@ public final class RadApiCollector implements Collector {
     res.setClzName("com.apihug.rad.api.customer.DepartmentInfo");
     res.setName("DepartmentInfo");
     res.setProtoFrom("com/apihug/rad/api/customer/api.proto");
-    res.setProtoLine(567);
+    res.setProtoLine(555);
     res.setProtoColumn(1);
     res.setProtoEntity("DepartmentInfo");
     res.setDescription("部门信息");
@@ -3845,7 +4049,7 @@ public final class RadApiCollector implements Collector {
     _id.setName("id");
     _id.setFieldName("id");
     _id.setTag(1);
-    _id.setProtoLine(575);
+    _id.setProtoLine(563);
     _id.setProtoColumn(3);
     _id.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -3863,7 +4067,7 @@ public final class RadApiCollector implements Collector {
     _deptCode.setName("dept_code");
     _deptCode.setFieldName("deptCode");
     _deptCode.setTag(2);
-    _deptCode.setProtoLine(581);
+    _deptCode.setProtoLine(569);
     _deptCode.setProtoColumn(3);
     _deptCode.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -3889,7 +4093,7 @@ public final class RadApiCollector implements Collector {
     _deptName.setName("dept_name");
     _deptName.setFieldName("deptName");
     _deptName.setTag(3);
-    _deptName.setProtoLine(588);
+    _deptName.setProtoLine(576);
     _deptName.setProtoColumn(3);
     _deptName.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -3915,7 +4119,7 @@ public final class RadApiCollector implements Collector {
     _parentId.setName("parent_id");
     _parentId.setFieldName("parentId");
     _parentId.setTag(4);
-    _parentId.setProtoLine(595);
+    _parentId.setProtoLine(583);
     _parentId.setProtoColumn(3);
     _parentId.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -3935,12 +4139,10 @@ public final class RadApiCollector implements Collector {
     res.setClzName("com.apihug.rad.api.customer.ForgotPasswordRequest");
     res.setName("ForgotPasswordRequest");
     res.setProtoFrom("com/apihug/rad/api/customer/api.proto");
-    res.setProtoLine(496);
+    res.setProtoLine(484);
     res.setProtoColumn(1);
     res.setProtoEntity("ForgotPasswordRequest");
-    res.setDescription("CustomerDetail, UpdateCustomerRequest, SearchCustomersRequest 已移除\n"
-            + "租户内成员查看/搜索/管理 → TenantMemberService\n"
-            + "找回密码请求");
+    res.setDescription("找回密码请求");
     res.setSchema(new Supplier<Schema>() {
       @Override
       public Schema get() {
@@ -3962,7 +4164,7 @@ public final class RadApiCollector implements Collector {
     _email.setName("email");
     _email.setFieldName("email");
     _email.setTag(1);
-    _email.setProtoLine(504);
+    _email.setProtoLine(492);
     _email.setProtoColumn(3);
     _email.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -3992,11 +4194,10 @@ public final class RadApiCollector implements Collector {
     res.setClzName("com.apihug.rad.api.customer.LoginRequest");
     res.setName("LoginRequest");
     res.setProtoFrom("com/apihug/rad/api/customer/api.proto");
-    res.setProtoLine(188);
+    res.setProtoLine(182);
     res.setProtoColumn(1);
     res.setProtoEntity("LoginRequest");
-    res.setDescription("============ 消息类型定义 ============\n"
-            + "登录请求");
+    res.setDescription("登录请求");
     res.setSchema(new Supplier<Schema>() {
       @Override
       public Schema get() {
@@ -4018,7 +4219,7 @@ public final class RadApiCollector implements Collector {
     _username.setName("username");
     _username.setFieldName("username");
     _username.setTag(1);
-    _username.setProtoLine(196);
+    _username.setProtoLine(190);
     _username.setProtoColumn(3);
     _username.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -4045,7 +4246,7 @@ public final class RadApiCollector implements Collector {
     _password.setName("password");
     _password.setFieldName("password");
     _password.setTag(2);
-    _password.setProtoLine(204);
+    _password.setProtoLine(198);
     _password.setProtoColumn(3);
     _password.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -4065,7 +4266,7 @@ public final class RadApiCollector implements Collector {
     _rememberMe.setName("remember_me");
     _rememberMe.setFieldName("rememberMe");
     _rememberMe.setTag(3);
-    _rememberMe.setProtoLine(212);
+    _rememberMe.setProtoLine(206);
     _rememberMe.setProtoColumn(3);
     _rememberMe.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -4084,7 +4285,7 @@ public final class RadApiCollector implements Collector {
     res.setClzName("com.apihug.rad.api.customer.LoginResponse");
     res.setName("LoginResponse");
     res.setProtoFrom("com/apihug/rad/api/customer/api.proto");
-    res.setProtoLine(217);
+    res.setProtoLine(211);
     res.setProtoColumn(1);
     res.setProtoEntity("LoginResponse");
     res.setDescription("登录响应");
@@ -4109,7 +4310,7 @@ public final class RadApiCollector implements Collector {
     _accessToken.setName("access_token");
     _accessToken.setFieldName("accessToken");
     _accessToken.setTag(1);
-    _accessToken.setProtoLine(225);
+    _accessToken.setProtoLine(219);
     _accessToken.setProtoColumn(3);
     _accessToken.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -4135,7 +4336,7 @@ public final class RadApiCollector implements Collector {
     _customerId.setName("customer_id");
     _customerId.setFieldName("customerId");
     _customerId.setTag(2);
-    _customerId.setProtoLine(232);
+    _customerId.setProtoLine(226);
     _customerId.setProtoColumn(3);
     _customerId.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -4165,7 +4366,7 @@ public final class RadApiCollector implements Collector {
     _username.setName("username");
     _username.setFieldName("username");
     _username.setTag(3);
-    _username.setProtoLine(240);
+    _username.setProtoLine(234);
     _username.setProtoColumn(3);
     _username.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -4191,7 +4392,7 @@ public final class RadApiCollector implements Collector {
     _needsTenantSelection.setName("needs_tenant_selection");
     _needsTenantSelection.setFieldName("needsTenantSelection");
     _needsTenantSelection.setTag(4);
-    _needsTenantSelection.setProtoLine(248);
+    _needsTenantSelection.setProtoLine(241);
     _needsTenantSelection.setProtoColumn(3);
     _needsTenantSelection.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -4208,7 +4409,7 @@ public final class RadApiCollector implements Collector {
     _tenants.setName("tenants");
     _tenants.setFieldName("tenants");
     _tenants.setTag(5);
-    _tenants.setProtoLine(254);
+    _tenants.setProtoLine(246);
     _tenants.setProtoColumn(3);
     _tenants.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -4225,7 +4426,7 @@ public final class RadApiCollector implements Collector {
     _defaultTenant.setName("default_tenant");
     _defaultTenant.setFieldName("defaultTenant");
     _defaultTenant.setTag(6);
-    _defaultTenant.setProtoLine(259);
+    _defaultTenant.setProtoLine(250);
     _defaultTenant.setProtoColumn(3);
     _defaultTenant.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -4244,7 +4445,7 @@ public final class RadApiCollector implements Collector {
     res.setClzName("com.apihug.rad.api.customer.ResetPasswordRequest");
     res.setName("ResetPasswordRequest");
     res.setProtoFrom("com/apihug/rad/api/customer/api.proto");
-    res.setProtoLine(513);
+    res.setProtoLine(501);
     res.setProtoColumn(1);
     res.setProtoEntity("ResetPasswordRequest");
     res.setDescription("重置密码请求");
@@ -4269,7 +4470,7 @@ public final class RadApiCollector implements Collector {
     _token.setName("token");
     _token.setFieldName("token");
     _token.setTag(1);
-    _token.setProtoLine(521);
+    _token.setProtoLine(509);
     _token.setProtoColumn(3);
     _token.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -4296,7 +4497,7 @@ public final class RadApiCollector implements Collector {
     _password.setName("password");
     _password.setFieldName("password");
     _password.setTag(2);
-    _password.setProtoLine(529);
+    _password.setProtoLine(517);
     _password.setProtoColumn(3);
     _password.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -4319,7 +4520,7 @@ public final class RadApiCollector implements Collector {
     res.setClzName("com.apihug.rad.api.customer.RoleInfo");
     res.setName("RoleInfo");
     res.setProtoFrom("com/apihug/rad/api/customer/api.proto");
-    res.setProtoLine(538);
+    res.setProtoLine(526);
     res.setProtoColumn(1);
     res.setProtoEntity("RoleInfo");
     res.setDescription("角色信息");
@@ -4344,7 +4545,7 @@ public final class RadApiCollector implements Collector {
     _id.setName("id");
     _id.setFieldName("id");
     _id.setTag(1);
-    _id.setProtoLine(546);
+    _id.setProtoLine(534);
     _id.setProtoColumn(3);
     _id.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -4362,7 +4563,7 @@ public final class RadApiCollector implements Collector {
     _roleCode.setName("role_code");
     _roleCode.setFieldName("roleCode");
     _roleCode.setTag(2);
-    _roleCode.setProtoLine(552);
+    _roleCode.setProtoLine(540);
     _roleCode.setProtoColumn(3);
     _roleCode.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -4388,7 +4589,7 @@ public final class RadApiCollector implements Collector {
     _roleName.setName("role_name");
     _roleName.setFieldName("roleName");
     _roleName.setTag(3);
-    _roleName.setProtoLine(559);
+    _roleName.setProtoLine(547);
     _roleName.setProtoColumn(3);
     _roleName.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -4417,7 +4618,7 @@ public final class RadApiCollector implements Collector {
     res.setClzName("com.apihug.rad.api.customer.SwitchTenantRequest");
     res.setName("SwitchTenantRequest");
     res.setProtoFrom("com/apihug/rad/api/customer/api.proto");
-    res.setProtoLine(390);
+    res.setProtoLine(380);
     res.setProtoColumn(1);
     res.setProtoEntity("SwitchTenantRequest");
     res.setDescription("切换租户请求");
@@ -4442,7 +4643,7 @@ public final class RadApiCollector implements Collector {
     _tenantId.setName("tenant_id");
     _tenantId.setFieldName("tenantId");
     _tenantId.setTag(1);
-    _tenantId.setProtoLine(398);
+    _tenantId.setProtoLine(388);
     _tenantId.setProtoColumn(3);
     _tenantId.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -4464,11 +4665,10 @@ public final class RadApiCollector implements Collector {
     res.setClzName("com.apihug.rad.api.customer.TenantInfo");
     res.setName("TenantInfo");
     res.setProtoFrom("com/apihug/rad/api/customer/api.proto");
-    res.setProtoLine(265);
+    res.setProtoLine(255);
     res.setProtoColumn(1);
     res.setProtoEntity("TenantInfo");
-    res.setDescription("租户信息（用于登录响应、客户租户列表等）\n"
-            + "租户信息");
+    res.setDescription("租户信息");
     res.setSchema(new Supplier<Schema>() {
       @Override
       public Schema get() {
@@ -4490,7 +4690,7 @@ public final class RadApiCollector implements Collector {
     _id.setName("id");
     _id.setFieldName("id");
     _id.setTag(1);
-    _id.setProtoLine(273);
+    _id.setProtoLine(263);
     _id.setProtoColumn(3);
     _id.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -4508,7 +4708,7 @@ public final class RadApiCollector implements Collector {
     _tenantCode.setName("tenant_code");
     _tenantCode.setFieldName("tenantCode");
     _tenantCode.setTag(2);
-    _tenantCode.setProtoLine(279);
+    _tenantCode.setProtoLine(269);
     _tenantCode.setProtoColumn(3);
     _tenantCode.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -4534,7 +4734,7 @@ public final class RadApiCollector implements Collector {
     _tenantName.setName("tenant_name");
     _tenantName.setFieldName("tenantName");
     _tenantName.setTag(3);
-    _tenantName.setProtoLine(286);
+    _tenantName.setProtoLine(276);
     _tenantName.setProtoColumn(3);
     _tenantName.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -4560,7 +4760,7 @@ public final class RadApiCollector implements Collector {
     _isDefault.setName("is_default");
     _isDefault.setFieldName("isDefault");
     _isDefault.setTag(4);
-    _isDefault.setProtoLine(293);
+    _isDefault.setProtoLine(283);
     _isDefault.setProtoColumn(3);
     _isDefault.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -4577,7 +4777,7 @@ public final class RadApiCollector implements Collector {
     _isPlatform.setName("is_platform");
     _isPlatform.setFieldName("isPlatform");
     _isPlatform.setTag(5);
-    _isPlatform.setProtoLine(298);
+    _isPlatform.setProtoLine(288);
     _isPlatform.setProtoColumn(3);
     _isPlatform.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -4597,7 +4797,7 @@ public final class RadApiCollector implements Collector {
     res.setClzName("com.apihug.rad.api.customer.TenantList");
     res.setName("TenantList");
     res.setProtoFrom("com/apihug/rad/api/customer/api.proto");
-    res.setProtoLine(372);
+    res.setProtoLine(362);
     res.setProtoColumn(1);
     res.setProtoEntity("TenantList");
     res.setDescription("租户列表");
@@ -4622,7 +4822,7 @@ public final class RadApiCollector implements Collector {
     _tenants.setName("tenants");
     _tenants.setFieldName("tenants");
     _tenants.setTag(1);
-    _tenants.setProtoLine(380);
+    _tenants.setProtoLine(370);
     _tenants.setProtoColumn(3);
     _tenants.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -4639,7 +4839,7 @@ public final class RadApiCollector implements Collector {
     _defaultTenantId.setName("default_tenant_id");
     _defaultTenantId.setFieldName("defaultTenantId");
     _defaultTenantId.setTag(2);
-    _defaultTenantId.setProtoLine(384);
+    _defaultTenantId.setProtoLine(374);
     _defaultTenantId.setProtoColumn(3);
     _defaultTenantId.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -4659,7 +4859,7 @@ public final class RadApiCollector implements Collector {
     res.setClzName("com.apihug.rad.api.department.CreateDepartmentRequest");
     res.setName("CreateDepartmentRequest");
     res.setProtoFrom("com/apihug/rad/api/department/api.proto");
-    res.setProtoLine(114);
+    res.setProtoLine(113);
     res.setProtoColumn(1);
     res.setProtoEntity("CreateDepartmentRequest");
     res.setDescription("创建部门请求");
@@ -4684,7 +4884,7 @@ public final class RadApiCollector implements Collector {
     _tenantId.setName("tenant_id");
     _tenantId.setFieldName("tenantId");
     _tenantId.setTag(1);
-    _tenantId.setProtoLine(122);
+    _tenantId.setProtoLine(121);
     _tenantId.setProtoColumn(3);
     _tenantId.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -4702,7 +4902,7 @@ public final class RadApiCollector implements Collector {
     _parentId.setName("parent_id");
     _parentId.setFieldName("parentId");
     _parentId.setTag(2);
-    _parentId.setProtoLine(128);
+    _parentId.setProtoLine(127);
     _parentId.setProtoColumn(3);
     _parentId.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -4720,7 +4920,7 @@ public final class RadApiCollector implements Collector {
     _deptCode.setName("dept_code");
     _deptCode.setFieldName("deptCode");
     _deptCode.setTag(3);
-    _deptCode.setProtoLine(134);
+    _deptCode.setProtoLine(133);
     _deptCode.setProtoColumn(3);
     _deptCode.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -4747,7 +4947,7 @@ public final class RadApiCollector implements Collector {
     _deptName.setName("dept_name");
     _deptName.setFieldName("deptName");
     _deptName.setTag(4);
-    _deptName.setProtoLine(142);
+    _deptName.setProtoLine(141);
     _deptName.setProtoColumn(3);
     _deptName.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -4774,7 +4974,7 @@ public final class RadApiCollector implements Collector {
     _sortOrder.setName("sort_order");
     _sortOrder.setFieldName("sortOrder");
     _sortOrder.setTag(5);
-    _sortOrder.setProtoLine(150);
+    _sortOrder.setProtoLine(149);
     _sortOrder.setProtoColumn(3);
     _sortOrder.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -4791,7 +4991,7 @@ public final class RadApiCollector implements Collector {
     _managerId.setName("manager_id");
     _managerId.setFieldName("managerId");
     _managerId.setTag(6);
-    _managerId.setProtoLine(155);
+    _managerId.setProtoLine(154);
     _managerId.setProtoColumn(3);
     _managerId.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -4809,7 +5009,7 @@ public final class RadApiCollector implements Collector {
     _status.setName("status");
     _status.setFieldName("status");
     _status.setTag(7);
-    _status.setProtoLine(161);
+    _status.setProtoLine(160);
     _status.setProtoColumn(3);
     _status.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -4830,7 +5030,7 @@ public final class RadApiCollector implements Collector {
     res.setClzName("com.apihug.rad.api.department.DepartmentDetail");
     res.setName("DepartmentDetail");
     res.setProtoFrom("com/apihug/rad/api/department/api.proto");
-    res.setProtoLine(244);
+    res.setProtoLine(243);
     res.setProtoColumn(1);
     res.setProtoEntity("DepartmentDetail");
     res.setDescription("部门详情信息");
@@ -4855,7 +5055,7 @@ public final class RadApiCollector implements Collector {
     _id.setName("id");
     _id.setFieldName("id");
     _id.setTag(1);
-    _id.setProtoLine(252);
+    _id.setProtoLine(251);
     _id.setProtoColumn(3);
     _id.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -4874,7 +5074,7 @@ public final class RadApiCollector implements Collector {
     _parentId.setName("parent_id");
     _parentId.setFieldName("parentId");
     _parentId.setTag(2);
-    _parentId.setProtoLine(259);
+    _parentId.setProtoLine(258);
     _parentId.setProtoColumn(3);
     _parentId.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -4892,7 +5092,7 @@ public final class RadApiCollector implements Collector {
     _deptCode.setName("dept_code");
     _deptCode.setFieldName("deptCode");
     _deptCode.setTag(3);
-    _deptCode.setProtoLine(265);
+    _deptCode.setProtoLine(264);
     _deptCode.setProtoColumn(3);
     _deptCode.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -4918,7 +5118,7 @@ public final class RadApiCollector implements Collector {
     _deptName.setName("dept_name");
     _deptName.setFieldName("deptName");
     _deptName.setTag(4);
-    _deptName.setProtoLine(272);
+    _deptName.setProtoLine(271);
     _deptName.setProtoColumn(3);
     _deptName.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -4944,7 +5144,7 @@ public final class RadApiCollector implements Collector {
     _sortOrder.setName("sort_order");
     _sortOrder.setFieldName("sortOrder");
     _sortOrder.setTag(5);
-    _sortOrder.setProtoLine(279);
+    _sortOrder.setProtoLine(278);
     _sortOrder.setProtoColumn(3);
     _sortOrder.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -4961,7 +5161,7 @@ public final class RadApiCollector implements Collector {
     _managerId.setName("manager_id");
     _managerId.setFieldName("managerId");
     _managerId.setTag(6);
-    _managerId.setProtoLine(284);
+    _managerId.setProtoLine(283);
     _managerId.setProtoColumn(3);
     _managerId.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -4986,7 +5186,7 @@ public final class RadApiCollector implements Collector {
     _status.setName("status");
     _status.setFieldName("status");
     _status.setTag(7);
-    _status.setProtoLine(290);
+    _status.setProtoLine(289);
     _status.setProtoColumn(3);
     _status.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -5004,7 +5204,7 @@ public final class RadApiCollector implements Collector {
     _createdAt.setName("created_at");
     _createdAt.setFieldName("createdAt");
     _createdAt.setTag(8);
-    _createdAt.setProtoLine(296);
+    _createdAt.setProtoLine(295);
     _createdAt.setProtoColumn(3);
     _createdAt.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -5025,7 +5225,7 @@ public final class RadApiCollector implements Collector {
     res.setClzName("com.apihug.rad.api.department.DepartmentSummary");
     res.setName("DepartmentSummary");
     res.setProtoFrom("com/apihug/rad/api/department/api.proto");
-    res.setProtoLine(202);
+    res.setProtoLine(201);
     res.setProtoColumn(1);
     res.setProtoEntity("DepartmentSummary");
     res.setDescription("部门摘要信息");
@@ -5050,7 +5250,7 @@ public final class RadApiCollector implements Collector {
     _id.setName("id");
     _id.setFieldName("id");
     _id.setTag(1);
-    _id.setProtoLine(210);
+    _id.setProtoLine(209);
     _id.setProtoColumn(3);
     _id.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -5069,7 +5269,7 @@ public final class RadApiCollector implements Collector {
     _parentId.setName("parent_id");
     _parentId.setFieldName("parentId");
     _parentId.setTag(2);
-    _parentId.setProtoLine(217);
+    _parentId.setProtoLine(216);
     _parentId.setProtoColumn(3);
     _parentId.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -5087,7 +5287,7 @@ public final class RadApiCollector implements Collector {
     _deptCode.setName("dept_code");
     _deptCode.setFieldName("deptCode");
     _deptCode.setTag(3);
-    _deptCode.setProtoLine(223);
+    _deptCode.setProtoLine(222);
     _deptCode.setProtoColumn(3);
     _deptCode.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -5113,7 +5313,7 @@ public final class RadApiCollector implements Collector {
     _deptName.setName("dept_name");
     _deptName.setFieldName("deptName");
     _deptName.setTag(4);
-    _deptName.setProtoLine(230);
+    _deptName.setProtoLine(229);
     _deptName.setProtoColumn(3);
     _deptName.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -5139,7 +5339,7 @@ public final class RadApiCollector implements Collector {
     _status.setName("status");
     _status.setFieldName("status");
     _status.setTag(5);
-    _status.setProtoLine(237);
+    _status.setProtoLine(236);
     _status.setProtoColumn(3);
     _status.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -5160,7 +5360,7 @@ public final class RadApiCollector implements Collector {
     res.setClzName("com.apihug.rad.api.department.DepartmentTreeNode");
     res.setName("DepartmentTreeNode");
     res.setProtoFrom("com/apihug/rad/api/department/api.proto");
-    res.setProtoLine(303);
+    res.setProtoLine(302);
     res.setProtoColumn(1);
     res.setProtoEntity("DepartmentTreeNode");
     res.setDescription("部门树节点");
@@ -5185,7 +5385,7 @@ public final class RadApiCollector implements Collector {
     _department.setName("department");
     _department.setFieldName("department");
     _department.setTag(1);
-    _department.setProtoLine(311);
+    _department.setProtoLine(310);
     _department.setProtoColumn(3);
     _department.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -5201,7 +5401,7 @@ public final class RadApiCollector implements Collector {
     _children.setName("children");
     _children.setFieldName("children");
     _children.setTag(2);
-    _children.setProtoLine(315);
+    _children.setProtoLine(314);
     _children.setProtoColumn(3);
     _children.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -5221,7 +5421,7 @@ public final class RadApiCollector implements Collector {
     res.setClzName("com.apihug.rad.api.department.UpdateDepartmentRequest");
     res.setName("UpdateDepartmentRequest");
     res.setProtoFrom("com/apihug/rad/api/department/api.proto");
-    res.setProtoLine(168);
+    res.setProtoLine(167);
     res.setProtoColumn(1);
     res.setProtoEntity("UpdateDepartmentRequest");
     res.setDescription("更新部门请求");
@@ -5246,7 +5446,7 @@ public final class RadApiCollector implements Collector {
     _deptName.setName("dept_name");
     _deptName.setFieldName("deptName");
     _deptName.setTag(1);
-    _deptName.setProtoLine(176);
+    _deptName.setProtoLine(175);
     _deptName.setProtoColumn(3);
     _deptName.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -5273,7 +5473,7 @@ public final class RadApiCollector implements Collector {
     _sortOrder.setName("sort_order");
     _sortOrder.setFieldName("sortOrder");
     _sortOrder.setTag(2);
-    _sortOrder.setProtoLine(184);
+    _sortOrder.setProtoLine(183);
     _sortOrder.setProtoColumn(3);
     _sortOrder.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -5290,7 +5490,7 @@ public final class RadApiCollector implements Collector {
     _managerId.setName("manager_id");
     _managerId.setFieldName("managerId");
     _managerId.setTag(3);
-    _managerId.setProtoLine(189);
+    _managerId.setProtoLine(188);
     _managerId.setProtoColumn(3);
     _managerId.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -5308,7 +5508,7 @@ public final class RadApiCollector implements Collector {
     _status.setName("status");
     _status.setFieldName("status");
     _status.setTag(4);
-    _status.setProtoLine(195);
+    _status.setProtoLine(194);
     _status.setProtoColumn(3);
     _status.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -5329,7 +5529,7 @@ public final class RadApiCollector implements Collector {
     res.setClzName("com.apihug.rad.api.menu.CreateMenuRequest");
     res.setName("CreateMenuRequest");
     res.setProtoFrom("com/apihug/rad/api/menu/api.proto");
-    res.setProtoLine(155);
+    res.setProtoLine(154);
     res.setProtoColumn(1);
     res.setProtoEntity("CreateMenuRequest");
     res.setDescription("创建菜单请求");
@@ -5354,7 +5554,7 @@ public final class RadApiCollector implements Collector {
     _parentId.setName("parent_id");
     _parentId.setFieldName("parentId");
     _parentId.setTag(1);
-    _parentId.setProtoLine(163);
+    _parentId.setProtoLine(162);
     _parentId.setProtoColumn(3);
     _parentId.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -5372,7 +5572,7 @@ public final class RadApiCollector implements Collector {
     _menuCode.setName("menu_code");
     _menuCode.setFieldName("menuCode");
     _menuCode.setTag(2);
-    _menuCode.setProtoLine(169);
+    _menuCode.setProtoLine(168);
     _menuCode.setProtoColumn(3);
     _menuCode.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -5399,7 +5599,7 @@ public final class RadApiCollector implements Collector {
     _menuName.setName("menu_name");
     _menuName.setFieldName("menuName");
     _menuName.setTag(3);
-    _menuName.setProtoLine(177);
+    _menuName.setProtoLine(176);
     _menuName.setProtoColumn(3);
     _menuName.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -5426,7 +5626,7 @@ public final class RadApiCollector implements Collector {
     _path.setName("path");
     _path.setFieldName("path");
     _path.setTag(4);
-    _path.setProtoLine(185);
+    _path.setProtoLine(184);
     _path.setProtoColumn(3);
     _path.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -5452,7 +5652,7 @@ public final class RadApiCollector implements Collector {
     _icon.setName("icon");
     _icon.setFieldName("icon");
     _icon.setTag(5);
-    _icon.setProtoLine(192);
+    _icon.setProtoLine(191);
     _icon.setProtoColumn(3);
     _icon.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -5470,7 +5670,7 @@ public final class RadApiCollector implements Collector {
     _sortOrder.setName("sort_order");
     _sortOrder.setFieldName("sortOrder");
     _sortOrder.setTag(6);
-    _sortOrder.setProtoLine(198);
+    _sortOrder.setProtoLine(197);
     _sortOrder.setProtoColumn(3);
     _sortOrder.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -5487,7 +5687,7 @@ public final class RadApiCollector implements Collector {
     _menuType.setName("menu_type");
     _menuType.setFieldName("menuType");
     _menuType.setTag(7);
-    _menuType.setProtoLine(203);
+    _menuType.setProtoLine(202);
     _menuType.setProtoColumn(3);
     _menuType.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -5505,7 +5705,7 @@ public final class RadApiCollector implements Collector {
     _permissionCode.setName("permission_code");
     _permissionCode.setFieldName("permissionCode");
     _permissionCode.setTag(8);
-    _permissionCode.setProtoLine(209);
+    _permissionCode.setProtoLine(208);
     _permissionCode.setProtoColumn(3);
     _permissionCode.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -5523,7 +5723,7 @@ public final class RadApiCollector implements Collector {
     _status.setName("status");
     _status.setFieldName("status");
     _status.setTag(9);
-    _status.setProtoLine(215);
+    _status.setProtoLine(214);
     _status.setProtoColumn(3);
     _status.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -5544,7 +5744,7 @@ public final class RadApiCollector implements Collector {
     res.setClzName("com.apihug.rad.api.menu.MenuDetail");
     res.setName("MenuDetail");
     res.setProtoFrom("com/apihug/rad/api/menu/api.proto");
-    res.setProtoLine(329);
+    res.setProtoLine(328);
     res.setProtoColumn(1);
     res.setProtoEntity("MenuDetail");
     res.setDescription("菜单详情信息");
@@ -5569,7 +5769,7 @@ public final class RadApiCollector implements Collector {
     _id.setName("id");
     _id.setFieldName("id");
     _id.setTag(1);
-    _id.setProtoLine(337);
+    _id.setProtoLine(336);
     _id.setProtoColumn(3);
     _id.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -5588,7 +5788,7 @@ public final class RadApiCollector implements Collector {
     _parentId.setName("parent_id");
     _parentId.setFieldName("parentId");
     _parentId.setTag(2);
-    _parentId.setProtoLine(344);
+    _parentId.setProtoLine(343);
     _parentId.setProtoColumn(3);
     _parentId.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -5606,7 +5806,7 @@ public final class RadApiCollector implements Collector {
     _menuCode.setName("menu_code");
     _menuCode.setFieldName("menuCode");
     _menuCode.setTag(3);
-    _menuCode.setProtoLine(350);
+    _menuCode.setProtoLine(349);
     _menuCode.setProtoColumn(3);
     _menuCode.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -5632,7 +5832,7 @@ public final class RadApiCollector implements Collector {
     _menuName.setName("menu_name");
     _menuName.setFieldName("menuName");
     _menuName.setTag(4);
-    _menuName.setProtoLine(357);
+    _menuName.setProtoLine(356);
     _menuName.setProtoColumn(3);
     _menuName.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -5658,7 +5858,7 @@ public final class RadApiCollector implements Collector {
     _path.setName("path");
     _path.setFieldName("path");
     _path.setTag(5);
-    _path.setProtoLine(364);
+    _path.setProtoLine(363);
     _path.setProtoColumn(3);
     _path.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -5683,7 +5883,7 @@ public final class RadApiCollector implements Collector {
     _icon.setName("icon");
     _icon.setFieldName("icon");
     _icon.setTag(6);
-    _icon.setProtoLine(370);
+    _icon.setProtoLine(369);
     _icon.setProtoColumn(3);
     _icon.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -5708,7 +5908,7 @@ public final class RadApiCollector implements Collector {
     _sortOrder.setName("sort_order");
     _sortOrder.setFieldName("sortOrder");
     _sortOrder.setTag(7);
-    _sortOrder.setProtoLine(376);
+    _sortOrder.setProtoLine(375);
     _sortOrder.setProtoColumn(3);
     _sortOrder.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -5725,7 +5925,7 @@ public final class RadApiCollector implements Collector {
     _menuType.setName("menu_type");
     _menuType.setFieldName("menuType");
     _menuType.setTag(8);
-    _menuType.setProtoLine(381);
+    _menuType.setProtoLine(380);
     _menuType.setProtoColumn(3);
     _menuType.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -5743,7 +5943,7 @@ public final class RadApiCollector implements Collector {
     _permissionCode.setName("permission_code");
     _permissionCode.setFieldName("permissionCode");
     _permissionCode.setTag(9);
-    _permissionCode.setProtoLine(387);
+    _permissionCode.setProtoLine(386);
     _permissionCode.setProtoColumn(3);
     _permissionCode.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -5768,7 +5968,7 @@ public final class RadApiCollector implements Collector {
     _status.setName("status");
     _status.setFieldName("status");
     _status.setTag(10);
-    _status.setProtoLine(393);
+    _status.setProtoLine(392);
     _status.setProtoColumn(3);
     _status.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -5786,7 +5986,7 @@ public final class RadApiCollector implements Collector {
     _createdAt.setName("created_at");
     _createdAt.setFieldName("createdAt");
     _createdAt.setTag(11);
-    _createdAt.setProtoLine(399);
+    _createdAt.setProtoLine(398);
     _createdAt.setProtoColumn(3);
     _createdAt.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -5804,7 +6004,7 @@ public final class RadApiCollector implements Collector {
     _updatedAt.setName("updated_at");
     _updatedAt.setFieldName("updatedAt");
     _updatedAt.setTag(12);
-    _updatedAt.setProtoLine(405);
+    _updatedAt.setProtoLine(404);
     _updatedAt.setProtoColumn(3);
     _updatedAt.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -5825,7 +6025,7 @@ public final class RadApiCollector implements Collector {
     res.setClzName("com.apihug.rad.api.menu.MenuSummary");
     res.setName("MenuSummary");
     res.setProtoFrom("com/apihug/rad/api/menu/api.proto");
-    res.setProtoLine(275);
+    res.setProtoLine(274);
     res.setProtoColumn(1);
     res.setProtoEntity("MenuSummary");
     res.setDescription("菜单摘要信息（列表用）");
@@ -5850,7 +6050,7 @@ public final class RadApiCollector implements Collector {
     _id.setName("id");
     _id.setFieldName("id");
     _id.setTag(1);
-    _id.setProtoLine(283);
+    _id.setProtoLine(282);
     _id.setProtoColumn(3);
     _id.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -5869,7 +6069,7 @@ public final class RadApiCollector implements Collector {
     _parentId.setName("parent_id");
     _parentId.setFieldName("parentId");
     _parentId.setTag(2);
-    _parentId.setProtoLine(290);
+    _parentId.setProtoLine(289);
     _parentId.setProtoColumn(3);
     _parentId.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -5887,7 +6087,7 @@ public final class RadApiCollector implements Collector {
     _menuCode.setName("menu_code");
     _menuCode.setFieldName("menuCode");
     _menuCode.setTag(3);
-    _menuCode.setProtoLine(296);
+    _menuCode.setProtoLine(295);
     _menuCode.setProtoColumn(3);
     _menuCode.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -5913,7 +6113,7 @@ public final class RadApiCollector implements Collector {
     _menuName.setName("menu_name");
     _menuName.setFieldName("menuName");
     _menuName.setTag(4);
-    _menuName.setProtoLine(303);
+    _menuName.setProtoLine(302);
     _menuName.setProtoColumn(3);
     _menuName.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -5939,7 +6139,7 @@ public final class RadApiCollector implements Collector {
     _path.setName("path");
     _path.setFieldName("path");
     _path.setTag(5);
-    _path.setProtoLine(310);
+    _path.setProtoLine(309);
     _path.setProtoColumn(3);
     _path.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -5964,7 +6164,7 @@ public final class RadApiCollector implements Collector {
     _menuType.setName("menu_type");
     _menuType.setFieldName("menuType");
     _menuType.setTag(6);
-    _menuType.setProtoLine(316);
+    _menuType.setProtoLine(315);
     _menuType.setProtoColumn(3);
     _menuType.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -5982,7 +6182,7 @@ public final class RadApiCollector implements Collector {
     _status.setName("status");
     _status.setFieldName("status");
     _status.setTag(7);
-    _status.setProtoLine(322);
+    _status.setProtoLine(321);
     _status.setProtoColumn(3);
     _status.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -6003,7 +6203,7 @@ public final class RadApiCollector implements Collector {
     res.setClzName("com.apihug.rad.api.menu.MenuTreeNode");
     res.setName("MenuTreeNode");
     res.setProtoFrom("com/apihug/rad/api/menu/api.proto");
-    res.setProtoLine(412);
+    res.setProtoLine(411);
     res.setProtoColumn(1);
     res.setProtoEntity("MenuTreeNode");
     res.setDescription("菜单树节点");
@@ -6028,7 +6228,7 @@ public final class RadApiCollector implements Collector {
     _menu.setName("menu");
     _menu.setFieldName("menu");
     _menu.setTag(1);
-    _menu.setProtoLine(420);
+    _menu.setProtoLine(419);
     _menu.setProtoColumn(3);
     _menu.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -6044,7 +6244,7 @@ public final class RadApiCollector implements Collector {
     _children.setName("children");
     _children.setFieldName("children");
     _children.setTag(2);
-    _children.setProtoLine(424);
+    _children.setProtoLine(423);
     _children.setProtoColumn(3);
     _children.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -6064,7 +6264,7 @@ public final class RadApiCollector implements Collector {
     res.setClzName("com.apihug.rad.api.menu.SearchMenusRequest");
     res.setName("SearchMenusRequest");
     res.setProtoFrom("com/apihug/rad/api/menu/api.proto");
-    res.setProtoLine(429);
+    res.setProtoLine(428);
     res.setProtoColumn(1);
     res.setProtoEntity("SearchMenusRequest");
     res.setDescription("搜索菜单请求");
@@ -6089,7 +6289,7 @@ public final class RadApiCollector implements Collector {
     _keyword.setName("keyword");
     _keyword.setFieldName("keyword");
     _keyword.setTag(1);
-    _keyword.setProtoLine(437);
+    _keyword.setProtoLine(436);
     _keyword.setProtoColumn(3);
     _keyword.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -6106,7 +6306,7 @@ public final class RadApiCollector implements Collector {
     _menuType.setName("menu_type");
     _menuType.setFieldName("menuType");
     _menuType.setTag(2);
-    _menuType.setProtoLine(442);
+    _menuType.setProtoLine(441);
     _menuType.setProtoColumn(3);
     _menuType.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -6123,7 +6323,7 @@ public final class RadApiCollector implements Collector {
     _status.setName("status");
     _status.setFieldName("status");
     _status.setTag(3);
-    _status.setProtoLine(447);
+    _status.setProtoLine(446);
     _status.setProtoColumn(3);
     _status.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -6143,7 +6343,7 @@ public final class RadApiCollector implements Collector {
     res.setClzName("com.apihug.rad.api.menu.UpdateMenuRequest");
     res.setName("UpdateMenuRequest");
     res.setProtoFrom("com/apihug/rad/api/menu/api.proto");
-    res.setProtoLine(222);
+    res.setProtoLine(221);
     res.setProtoColumn(1);
     res.setProtoEntity("UpdateMenuRequest");
     res.setDescription("更新菜单请求");
@@ -6168,7 +6368,7 @@ public final class RadApiCollector implements Collector {
     _menuName.setName("menu_name");
     _menuName.setFieldName("menuName");
     _menuName.setTag(1);
-    _menuName.setProtoLine(230);
+    _menuName.setProtoLine(229);
     _menuName.setProtoColumn(3);
     _menuName.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -6195,7 +6395,7 @@ public final class RadApiCollector implements Collector {
     _path.setName("path");
     _path.setFieldName("path");
     _path.setTag(2);
-    _path.setProtoLine(238);
+    _path.setProtoLine(237);
     _path.setProtoColumn(3);
     _path.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -6221,7 +6421,7 @@ public final class RadApiCollector implements Collector {
     _icon.setName("icon");
     _icon.setFieldName("icon");
     _icon.setTag(3);
-    _icon.setProtoLine(245);
+    _icon.setProtoLine(244);
     _icon.setProtoColumn(3);
     _icon.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -6239,7 +6439,7 @@ public final class RadApiCollector implements Collector {
     _sortOrder.setName("sort_order");
     _sortOrder.setFieldName("sortOrder");
     _sortOrder.setTag(4);
-    _sortOrder.setProtoLine(251);
+    _sortOrder.setProtoLine(250);
     _sortOrder.setProtoColumn(3);
     _sortOrder.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -6256,7 +6456,7 @@ public final class RadApiCollector implements Collector {
     _menuType.setName("menu_type");
     _menuType.setFieldName("menuType");
     _menuType.setTag(5);
-    _menuType.setProtoLine(256);
+    _menuType.setProtoLine(255);
     _menuType.setProtoColumn(3);
     _menuType.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -6274,7 +6474,7 @@ public final class RadApiCollector implements Collector {
     _permissionCode.setName("permission_code");
     _permissionCode.setFieldName("permissionCode");
     _permissionCode.setTag(6);
-    _permissionCode.setProtoLine(262);
+    _permissionCode.setProtoLine(261);
     _permissionCode.setProtoColumn(3);
     _permissionCode.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -6292,7 +6492,7 @@ public final class RadApiCollector implements Collector {
     _status.setName("status");
     _status.setFieldName("status");
     _status.setTag(7);
-    _status.setProtoLine(268);
+    _status.setProtoLine(267);
     _status.setProtoColumn(3);
     _status.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -6313,11 +6513,10 @@ public final class RadApiCollector implements Collector {
     res.setClzName("com.apihug.rad.api.permission.PermissionInfo");
     res.setName("PermissionInfo");
     res.setProtoFrom("com/apihug/rad/api/permission/api.proto");
-    res.setProtoLine(60);
+    res.setProtoLine(55);
     res.setProtoColumn(1);
     res.setProtoEntity("PermissionInfo");
-    res.setDescription("权限信息\n"
-            + "权限信息");
+    res.setDescription("权限信息");
     res.setSchema(new Supplier<Schema>() {
       @Override
       public Schema get() {
@@ -6339,7 +6538,7 @@ public final class RadApiCollector implements Collector {
     _permissionCode.setName("permission_code");
     _permissionCode.setFieldName("permissionCode");
     _permissionCode.setTag(1);
-    _permissionCode.setProtoLine(68);
+    _permissionCode.setProtoLine(63);
     _permissionCode.setProtoColumn(3);
     _permissionCode.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -6356,7 +6555,7 @@ public final class RadApiCollector implements Collector {
     _permissionName.setName("permission_name");
     _permissionName.setFieldName("permissionName");
     _permissionName.setTag(2);
-    _permissionName.setProtoLine(73);
+    _permissionName.setProtoLine(68);
     _permissionName.setProtoColumn(3);
     _permissionName.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -6371,12 +6570,371 @@ public final class RadApiCollector implements Collector {
     components.put("com.apihug.rad.api.permission.PermissionInfo", res);
   }
 
+  void initComponentapi_platformAddPlatformMemberRequest() {
+    Component res = new Component();
+    res.setClzName("com.apihug.rad.api.platform.AddPlatformMemberRequest");
+    res.setName("AddPlatformMemberRequest");
+    res.setProtoFrom("com/apihug/rad/api/platform/api.proto");
+    res.setProtoLine(156);
+    res.setProtoColumn(1);
+    res.setProtoEntity("AddPlatformMemberRequest");
+    res.setDescription("添加平台成员请求\n"
+            + "3+ 字段 → 用 Request Message\n"
+            + "添加平台成员请求");
+    res.setSchema(new Supplier<Schema>() {
+      @Override
+      public Schema get() {
+        Schema res  = new Schema();
+        res.setJsonSchema(new Supplier<JSONSchema>() {
+          @Override
+          public JSONSchema get() {
+            JSONSchema res  = new JSONSchema();
+            res.setTitle("AddPlatformMemberRequest");
+            res.setDescription("添加平台成员请求");
+            return res;
+          }
+        }.get());
+        return res;
+      }
+    }.get());
+    ComponentItem _customerId = new ComponentItem();
+    _customerId.setClzName("java.lang.Long");
+    _customerId.setName("customer_id");
+    _customerId.setFieldName("customerId");
+    _customerId.setTag(1);
+    _customerId.setProtoLine(164);
+    _customerId.setProtoColumn(3);
+    _customerId.setSchema(new Supplier<JSONSchema>() {
+      @Override
+      public JSONSchema get() {
+        JSONSchema res  = new JSONSchema();
+        res.setDescription("客户 ID");
+        res.setExample("1");
+        res.setMinimum(1.0D);
+        res.setEmpty(false);
+        return res;
+      }
+    }.get());
+    res.addItem(_customerId);
+    ComponentItem _platformRole = new ComponentItem();
+    _platformRole.setClzName("com.apihug.rad.infra.customer.CustomerPlatformTypeEnum");
+    _platformRole.setName("platform_role");
+    _platformRole.setFieldName("platformRole");
+    _platformRole.setTag(2);
+    _platformRole.setProtoLine(171);
+    _platformRole.setProtoColumn(3);
+    _platformRole.setSchema(new Supplier<JSONSchema>() {
+      @Override
+      public JSONSchema get() {
+        JSONSchema res  = new JSONSchema();
+        res.setDescription("平台角色，默认为 MEMBER");
+        res.setExample("MEMBER");
+        return res;
+      }
+    }.get());
+    res.addItem(_platformRole);
+    ComponentItem _remark = new ComponentItem();
+    _remark.setClzName("java.lang.String");
+    _remark.setName("remark");
+    _remark.setFieldName("remark");
+    _remark.setTag(3);
+    _remark.setProtoLine(176);
+    _remark.setProtoColumn(3);
+    _remark.setSchema(new Supplier<JSONSchema>() {
+      @Override
+      public JSONSchema get() {
+        JSONSchema res  = new JSONSchema();
+        res.setDescription("备注（可选）");
+        res.setMaxLength(200l);
+        return res;
+      }
+    }.get());
+    res.addItem(_remark);
+    components.put("com.apihug.rad.api.platform.AddPlatformMemberRequest", res);
+  }
+
+  void initComponentapi_platformGetPlatformMembersRequest() {
+    Component res = new Component();
+    res.setClzName("com.apihug.rad.api.platform.GetPlatformMembersRequest");
+    res.setName("GetPlatformMembersRequest");
+    res.setProtoFrom("com/apihug/rad/api/platform/api.proto");
+    res.setProtoLine(129);
+    res.setProtoColumn(1);
+    res.setProtoEntity("GetPlatformMembersRequest");
+    res.setDescription("查询平台成员列表请求");
+    res.setSchema(new Supplier<Schema>() {
+      @Override
+      public Schema get() {
+        Schema res  = new Schema();
+        res.setJsonSchema(new Supplier<JSONSchema>() {
+          @Override
+          public JSONSchema get() {
+            JSONSchema res  = new JSONSchema();
+            res.setTitle("GetPlatformMembersRequest");
+            res.setDescription("查询平台成员列表请求");
+            return res;
+          }
+        }.get());
+        return res;
+      }
+    }.get());
+    ComponentItem _status = new ComponentItem();
+    _status.setClzName("com.apihug.rad.infra.platform.PlatformMemberStatusEnum");
+    _status.setName("status");
+    _status.setFieldName("status");
+    _status.setTag(1);
+    _status.setProtoLine(137);
+    _status.setProtoColumn(3);
+    _status.setSchema(new Supplier<JSONSchema>() {
+      @Override
+      public JSONSchema get() {
+        JSONSchema res  = new JSONSchema();
+        res.setDescription("成员状态筛选");
+        res.setExample("PM_ACTIVE");
+        return res;
+      }
+    }.get());
+    res.addItem(_status);
+    ComponentItem _platformRole = new ComponentItem();
+    _platformRole.setClzName("com.apihug.rad.infra.customer.CustomerPlatformTypeEnum");
+    _platformRole.setName("platform_role");
+    _platformRole.setFieldName("platformRole");
+    _platformRole.setTag(2);
+    _platformRole.setProtoLine(142);
+    _platformRole.setProtoColumn(3);
+    _platformRole.setSchema(new Supplier<JSONSchema>() {
+      @Override
+      public JSONSchema get() {
+        JSONSchema res  = new JSONSchema();
+        res.setDescription("平台角色筛选");
+        res.setExample("MEMBER");
+        return res;
+      }
+    }.get());
+    res.addItem(_platformRole);
+    ComponentItem _keyword = new ComponentItem();
+    _keyword.setClzName("java.lang.String");
+    _keyword.setName("keyword");
+    _keyword.setFieldName("keyword");
+    _keyword.setTag(3);
+    _keyword.setProtoLine(147);
+    _keyword.setProtoColumn(3);
+    _keyword.setSchema(new Supplier<JSONSchema>() {
+      @Override
+      public JSONSchema get() {
+        JSONSchema res  = new JSONSchema();
+        res.setDescription("搜索关键词（匹配用户名或邮筱）");
+        res.setExample("zhangsan");
+        res.setMaxLength(100l);
+        return res;
+      }
+    }.get());
+    res.addItem(_keyword);
+    components.put("com.apihug.rad.api.platform.GetPlatformMembersRequest", res);
+  }
+
+  void initComponentapi_platformPlatformMemberInfo() {
+    Component res = new Component();
+    res.setClzName("com.apihug.rad.api.platform.PlatformMemberInfo");
+    res.setName("PlatformMemberInfo");
+    res.setProtoFrom("com/apihug/rad/api/platform/api.proto");
+    res.setProtoLine(199);
+    res.setProtoColumn(1);
+    res.setProtoEntity("PlatformMemberInfo");
+    res.setDescription("平台成员信息摘要（分页返回条目）\n"
+            + "平台成员信息摘要");
+    res.setSchema(new Supplier<Schema>() {
+      @Override
+      public Schema get() {
+        Schema res  = new Schema();
+        res.setJsonSchema(new Supplier<JSONSchema>() {
+          @Override
+          public JSONSchema get() {
+            JSONSchema res  = new JSONSchema();
+            res.setTitle("PlatformMemberInfo");
+            res.setDescription("平台成员信息摘要");
+            return res;
+          }
+        }.get());
+        return res;
+      }
+    }.get());
+    ComponentItem _id = new ComponentItem();
+    _id.setClzName("java.lang.Long");
+    _id.setName("id");
+    _id.setFieldName("id");
+    _id.setTag(1);
+    _id.setProtoLine(207);
+    _id.setProtoColumn(3);
+    _id.setSchema(new Supplier<JSONSchema>() {
+      @Override
+      public JSONSchema get() {
+        JSONSchema res  = new JSONSchema();
+        res.setDescription("平台成员记录 ID");
+        res.setExample("1");
+        return res;
+      }
+    }.get());
+    res.addItem(_id);
+    ComponentItem _customerId = new ComponentItem();
+    _customerId.setClzName("java.lang.Long");
+    _customerId.setName("customer_id");
+    _customerId.setFieldName("customerId");
+    _customerId.setTag(2);
+    _customerId.setProtoLine(212);
+    _customerId.setProtoColumn(3);
+    _customerId.setSchema(new Supplier<JSONSchema>() {
+      @Override
+      public JSONSchema get() {
+        JSONSchema res  = new JSONSchema();
+        res.setDescription("客户 ID");
+        res.setExample("1");
+        return res;
+      }
+    }.get());
+    res.addItem(_customerId);
+    ComponentItem _customerUsername = new ComponentItem();
+    _customerUsername.setClzName("java.lang.String");
+    _customerUsername.setName("customer_username");
+    _customerUsername.setFieldName("customerUsername");
+    _customerUsername.setTag(3);
+    _customerUsername.setProtoLine(217);
+    _customerUsername.setProtoColumn(3);
+    _customerUsername.setSchema(new Supplier<JSONSchema>() {
+      @Override
+      public JSONSchema get() {
+        JSONSchema res  = new JSONSchema();
+        res.setDescription("客户用户名");
+        res.setExample("zhangsan");
+        return res;
+      }
+    }.get());
+    res.addItem(_customerUsername);
+    ComponentItem _customerEmail = new ComponentItem();
+    _customerEmail.setClzName("java.lang.String");
+    _customerEmail.setName("customer_email");
+    _customerEmail.setFieldName("customerEmail");
+    _customerEmail.setTag(4);
+    _customerEmail.setProtoLine(222);
+    _customerEmail.setProtoColumn(3);
+    _customerEmail.setSchema(new Supplier<JSONSchema>() {
+      @Override
+      public JSONSchema get() {
+        JSONSchema res  = new JSONSchema();
+        res.setDescription("客户邮筱");
+        res.setExample("zhangsan@example.com");
+        return res;
+      }
+    }.get());
+    res.addItem(_customerEmail);
+    ComponentItem _platformRole = new ComponentItem();
+    _platformRole.setClzName("com.apihug.rad.infra.customer.CustomerPlatformTypeEnum");
+    _platformRole.setName("platform_role");
+    _platformRole.setFieldName("platformRole");
+    _platformRole.setTag(5);
+    _platformRole.setProtoLine(227);
+    _platformRole.setProtoColumn(3);
+    _platformRole.setSchema(new Supplier<JSONSchema>() {
+      @Override
+      public JSONSchema get() {
+        JSONSchema res  = new JSONSchema();
+        res.setDescription("平台角色");
+        res.setExample("MEMBER");
+        return res;
+      }
+    }.get());
+    res.addItem(_platformRole);
+    ComponentItem _status = new ComponentItem();
+    _status.setClzName("com.apihug.rad.infra.platform.PlatformMemberStatusEnum");
+    _status.setName("status");
+    _status.setFieldName("status");
+    _status.setTag(6);
+    _status.setProtoLine(232);
+    _status.setProtoColumn(3);
+    _status.setSchema(new Supplier<JSONSchema>() {
+      @Override
+      public JSONSchema get() {
+        JSONSchema res  = new JSONSchema();
+        res.setDescription("平台成员状态");
+        res.setExample("PM_ACTIVE");
+        return res;
+      }
+    }.get());
+    res.addItem(_status);
+    ComponentItem _createdAt = new ComponentItem();
+    _createdAt.setClzName("java.time.LocalDateTime");
+    _createdAt.setName("created_at");
+    _createdAt.setFieldName("createdAt");
+    _createdAt.setTag(7);
+    _createdAt.setProtoLine(237);
+    _createdAt.setProtoColumn(3);
+    _createdAt.setSchema(new Supplier<JSONSchema>() {
+      @Override
+      public JSONSchema get() {
+        JSONSchema res  = new JSONSchema();
+        res.setDescription("加入平台时间");
+        res.setExample("2024-01-15T10:30:00");
+        res.setDateFormat(DateFormat.YYYY_MM_DD_HH_MM_SS);
+        return res;
+      }
+    }.get());
+    res.addItem(_createdAt);
+    components.put("com.apihug.rad.api.platform.PlatformMemberInfo", res);
+  }
+
+  void initComponentapi_platformUpdatePlatformMemberRoleRequest() {
+    Component res = new Component();
+    res.setClzName("com.apihug.rad.api.platform.UpdatePlatformMemberRoleRequest");
+    res.setName("UpdatePlatformMemberRoleRequest");
+    res.setProtoFrom("com/apihug/rad/api/platform/api.proto");
+    res.setProtoLine(183);
+    res.setProtoColumn(1);
+    res.setProtoEntity("UpdatePlatformMemberRoleRequest");
+    res.setDescription("更新平台成员角色请求\n"
+            + "更新平台成员角色请求");
+    res.setSchema(new Supplier<Schema>() {
+      @Override
+      public Schema get() {
+        Schema res  = new Schema();
+        res.setJsonSchema(new Supplier<JSONSchema>() {
+          @Override
+          public JSONSchema get() {
+            JSONSchema res  = new JSONSchema();
+            res.setTitle("UpdatePlatformMemberRoleRequest");
+            res.setDescription("更新平台成员角色请求");
+            return res;
+          }
+        }.get());
+        return res;
+      }
+    }.get());
+    ComponentItem _platformRole = new ComponentItem();
+    _platformRole.setClzName("com.apihug.rad.infra.customer.CustomerPlatformTypeEnum");
+    _platformRole.setName("platform_role");
+    _platformRole.setFieldName("platformRole");
+    _platformRole.setTag(1);
+    _platformRole.setProtoLine(191);
+    _platformRole.setProtoColumn(3);
+    _platformRole.setSchema(new Supplier<JSONSchema>() {
+      @Override
+      public JSONSchema get() {
+        JSONSchema res  = new JSONSchema();
+        res.setDescription("新的平台角色（MEMBER/MANAGER/OWNER）");
+        res.setExample("MANAGER");
+        res.setEmpty(false);
+        return res;
+      }
+    }.get());
+    res.addItem(_platformRole);
+    components.put("com.apihug.rad.api.platform.UpdatePlatformMemberRoleRequest", res);
+  }
+
   void initComponentapi_roleAssignMenusRequest() {
     Component res = new Component();
     res.setClzName("com.apihug.rad.api.role.AssignMenusRequest");
     res.setName("AssignMenusRequest");
     res.setProtoFrom("com/apihug/rad/api/role/api.proto");
-    res.setProtoLine(401);
+    res.setProtoLine(397);
     res.setProtoColumn(1);
     res.setProtoEntity("AssignMenusRequest");
     res.setDescription("分配菜单请求（全量覆盖）");
@@ -6401,7 +6959,7 @@ public final class RadApiCollector implements Collector {
     _menuIds.setName("menu_ids");
     _menuIds.setFieldName("menuIds");
     _menuIds.setTag(1);
-    _menuIds.setProtoLine(409);
+    _menuIds.setProtoLine(405);
     _menuIds.setProtoColumn(3);
     _menuIds.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -6423,7 +6981,7 @@ public final class RadApiCollector implements Collector {
     res.setClzName("com.apihug.rad.api.role.CreateRoleRequest");
     res.setName("CreateRoleRequest");
     res.setProtoFrom("com/apihug/rad/api/role/api.proto");
-    res.setProtoLine(224);
+    res.setProtoLine(220);
     res.setProtoColumn(1);
     res.setProtoEntity("CreateRoleRequest");
     res.setDescription("创建角色请求");
@@ -6448,7 +7006,7 @@ public final class RadApiCollector implements Collector {
     _roleCode.setName("role_code");
     _roleCode.setFieldName("roleCode");
     _roleCode.setTag(1);
-    _roleCode.setProtoLine(232);
+    _roleCode.setProtoLine(228);
     _roleCode.setProtoColumn(3);
     _roleCode.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -6475,7 +7033,7 @@ public final class RadApiCollector implements Collector {
     _roleName.setName("role_name");
     _roleName.setFieldName("roleName");
     _roleName.setTag(2);
-    _roleName.setProtoLine(240);
+    _roleName.setProtoLine(236);
     _roleName.setProtoColumn(3);
     _roleName.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -6502,7 +7060,7 @@ public final class RadApiCollector implements Collector {
     _description.setName("description");
     _description.setFieldName("description");
     _description.setTag(3);
-    _description.setProtoLine(248);
+    _description.setProtoLine(244);
     _description.setProtoColumn(3);
     _description.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -6528,7 +7086,7 @@ public final class RadApiCollector implements Collector {
     _status.setName("status");
     _status.setFieldName("status");
     _status.setTag(4);
-    _status.setProtoLine(255);
+    _status.setProtoLine(251);
     _status.setProtoColumn(3);
     _status.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -6549,7 +7107,7 @@ public final class RadApiCollector implements Collector {
     res.setClzName("com.apihug.rad.api.role.RoleDetail");
     res.setName("RoleDetail");
     res.setProtoFrom("com/apihug/rad/api/role/api.proto");
-    res.setProtoLine(328);
+    res.setProtoLine(324);
     res.setProtoColumn(1);
     res.setProtoEntity("RoleDetail");
     res.setDescription("角色详情信息");
@@ -6574,7 +7132,7 @@ public final class RadApiCollector implements Collector {
     _id.setName("id");
     _id.setFieldName("id");
     _id.setTag(1);
-    _id.setProtoLine(336);
+    _id.setProtoLine(332);
     _id.setProtoColumn(3);
     _id.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -6593,7 +7151,7 @@ public final class RadApiCollector implements Collector {
     _roleCode.setName("role_code");
     _roleCode.setFieldName("roleCode");
     _roleCode.setTag(2);
-    _roleCode.setProtoLine(343);
+    _roleCode.setProtoLine(339);
     _roleCode.setProtoColumn(3);
     _roleCode.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -6619,7 +7177,7 @@ public final class RadApiCollector implements Collector {
     _roleName.setName("role_name");
     _roleName.setFieldName("roleName");
     _roleName.setTag(3);
-    _roleName.setProtoLine(350);
+    _roleName.setProtoLine(346);
     _roleName.setProtoColumn(3);
     _roleName.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -6645,7 +7203,7 @@ public final class RadApiCollector implements Collector {
     _description.setName("description");
     _description.setFieldName("description");
     _description.setTag(4);
-    _description.setProtoLine(357);
+    _description.setProtoLine(353);
     _description.setProtoColumn(3);
     _description.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -6670,7 +7228,7 @@ public final class RadApiCollector implements Collector {
     _status.setName("status");
     _status.setFieldName("status");
     _status.setTag(5);
-    _status.setProtoLine(363);
+    _status.setProtoLine(359);
     _status.setProtoColumn(3);
     _status.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -6688,7 +7246,7 @@ public final class RadApiCollector implements Collector {
     _createdAt.setName("created_at");
     _createdAt.setFieldName("createdAt");
     _createdAt.setTag(6);
-    _createdAt.setProtoLine(369);
+    _createdAt.setProtoLine(365);
     _createdAt.setProtoColumn(3);
     _createdAt.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -6706,7 +7264,7 @@ public final class RadApiCollector implements Collector {
     _updatedAt.setName("updated_at");
     _updatedAt.setFieldName("updatedAt");
     _updatedAt.setTag(7);
-    _updatedAt.setProtoLine(375);
+    _updatedAt.setProtoLine(371);
     _updatedAt.setProtoColumn(3);
     _updatedAt.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -6727,7 +7285,7 @@ public final class RadApiCollector implements Collector {
     res.setClzName("com.apihug.rad.api.role.RoleMenuItem");
     res.setName("RoleMenuItem");
     res.setProtoFrom("com/apihug/rad/api/role/api.proto");
-    res.setProtoLine(435);
+    res.setProtoLine(431);
     res.setProtoColumn(1);
     res.setProtoEntity("RoleMenuItem");
     res.setDescription("角色关联的菜单项");
@@ -6752,7 +7310,7 @@ public final class RadApiCollector implements Collector {
     _id.setName("id");
     _id.setFieldName("id");
     _id.setTag(1);
-    _id.setProtoLine(443);
+    _id.setProtoLine(439);
     _id.setProtoColumn(3);
     _id.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -6770,7 +7328,7 @@ public final class RadApiCollector implements Collector {
     _menuCode.setName("menu_code");
     _menuCode.setFieldName("menuCode");
     _menuCode.setTag(2);
-    _menuCode.setProtoLine(449);
+    _menuCode.setProtoLine(445);
     _menuCode.setProtoColumn(3);
     _menuCode.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -6788,7 +7346,7 @@ public final class RadApiCollector implements Collector {
     _menuName.setName("menu_name");
     _menuName.setFieldName("menuName");
     _menuName.setTag(3);
-    _menuName.setProtoLine(455);
+    _menuName.setProtoLine(451);
     _menuName.setProtoColumn(3);
     _menuName.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -6806,7 +7364,7 @@ public final class RadApiCollector implements Collector {
     _permissionCode.setName("permission_code");
     _permissionCode.setFieldName("permissionCode");
     _permissionCode.setTag(4);
-    _permissionCode.setProtoLine(461);
+    _permissionCode.setProtoLine(457);
     _permissionCode.setProtoColumn(3);
     _permissionCode.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -6823,7 +7381,7 @@ public final class RadApiCollector implements Collector {
     _menuType.setName("menu_type");
     _menuType.setFieldName("menuType");
     _menuType.setTag(5);
-    _menuType.setProtoLine(466);
+    _menuType.setProtoLine(462);
     _menuType.setProtoColumn(3);
     _menuType.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -6843,7 +7401,7 @@ public final class RadApiCollector implements Collector {
     res.setClzName("com.apihug.rad.api.role.RoleMenuSummary");
     res.setName("RoleMenuSummary");
     res.setProtoFrom("com/apihug/rad/api/role/api.proto");
-    res.setProtoLine(416);
+    res.setProtoLine(412);
     res.setProtoColumn(1);
     res.setProtoEntity("RoleMenuSummary");
     res.setDescription("角色菜单摘要");
@@ -6868,7 +7426,7 @@ public final class RadApiCollector implements Collector {
     _roleId.setName("role_id");
     _roleId.setFieldName("roleId");
     _roleId.setTag(1);
-    _roleId.setProtoLine(424);
+    _roleId.setProtoLine(420);
     _roleId.setProtoColumn(3);
     _roleId.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -6886,7 +7444,7 @@ public final class RadApiCollector implements Collector {
     _menus.setName("menus");
     _menus.setFieldName("menus");
     _menus.setTag(2);
-    _menus.setProtoLine(430);
+    _menus.setProtoLine(426);
     _menus.setProtoColumn(3);
     _menus.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -6906,7 +7464,7 @@ public final class RadApiCollector implements Collector {
     res.setClzName("com.apihug.rad.api.role.RoleSummary");
     res.setName("RoleSummary");
     res.setProtoFrom("com/apihug/rad/api/role/api.proto");
-    res.setProtoLine(292);
+    res.setProtoLine(288);
     res.setProtoColumn(1);
     res.setProtoEntity("RoleSummary");
     res.setDescription("角色摘要信息（列表用）");
@@ -6931,7 +7489,7 @@ public final class RadApiCollector implements Collector {
     _id.setName("id");
     _id.setFieldName("id");
     _id.setTag(1);
-    _id.setProtoLine(300);
+    _id.setProtoLine(296);
     _id.setProtoColumn(3);
     _id.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -6950,7 +7508,7 @@ public final class RadApiCollector implements Collector {
     _roleCode.setName("role_code");
     _roleCode.setFieldName("roleCode");
     _roleCode.setTag(2);
-    _roleCode.setProtoLine(307);
+    _roleCode.setProtoLine(303);
     _roleCode.setProtoColumn(3);
     _roleCode.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -6976,7 +7534,7 @@ public final class RadApiCollector implements Collector {
     _roleName.setName("role_name");
     _roleName.setFieldName("roleName");
     _roleName.setTag(3);
-    _roleName.setProtoLine(314);
+    _roleName.setProtoLine(310);
     _roleName.setProtoColumn(3);
     _roleName.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -7002,7 +7560,7 @@ public final class RadApiCollector implements Collector {
     _status.setName("status");
     _status.setFieldName("status");
     _status.setTag(4);
-    _status.setProtoLine(321);
+    _status.setProtoLine(317);
     _status.setProtoColumn(3);
     _status.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -7023,7 +7581,7 @@ public final class RadApiCollector implements Collector {
     res.setClzName("com.apihug.rad.api.role.SearchRolesRequest");
     res.setName("SearchRolesRequest");
     res.setProtoFrom("com/apihug/rad/api/role/api.proto");
-    res.setProtoLine(382);
+    res.setProtoLine(378);
     res.setProtoColumn(1);
     res.setProtoEntity("SearchRolesRequest");
     res.setDescription("搜索角色请求");
@@ -7048,7 +7606,7 @@ public final class RadApiCollector implements Collector {
     _keyword.setName("keyword");
     _keyword.setFieldName("keyword");
     _keyword.setTag(1);
-    _keyword.setProtoLine(390);
+    _keyword.setProtoLine(386);
     _keyword.setProtoColumn(3);
     _keyword.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -7065,7 +7623,7 @@ public final class RadApiCollector implements Collector {
     _status.setName("status");
     _status.setFieldName("status");
     _status.setTag(2);
-    _status.setProtoLine(395);
+    _status.setProtoLine(391);
     _status.setProtoColumn(3);
     _status.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -7085,7 +7643,7 @@ public final class RadApiCollector implements Collector {
     res.setClzName("com.apihug.rad.api.role.UpdateRoleRequest");
     res.setName("UpdateRoleRequest");
     res.setProtoFrom("com/apihug/rad/api/role/api.proto");
-    res.setProtoLine(262);
+    res.setProtoLine(258);
     res.setProtoColumn(1);
     res.setProtoEntity("UpdateRoleRequest");
     res.setDescription("更新角色请求");
@@ -7110,7 +7668,7 @@ public final class RadApiCollector implements Collector {
     _roleName.setName("role_name");
     _roleName.setFieldName("roleName");
     _roleName.setTag(1);
-    _roleName.setProtoLine(270);
+    _roleName.setProtoLine(266);
     _roleName.setProtoColumn(3);
     _roleName.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -7137,7 +7695,7 @@ public final class RadApiCollector implements Collector {
     _description.setName("description");
     _description.setFieldName("description");
     _description.setTag(2);
-    _description.setProtoLine(278);
+    _description.setProtoLine(274);
     _description.setProtoColumn(3);
     _description.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -7163,7 +7721,7 @@ public final class RadApiCollector implements Collector {
     _status.setName("status");
     _status.setFieldName("status");
     _status.setTag(3);
-    _status.setProtoLine(285);
+    _status.setProtoLine(281);
     _status.setProtoColumn(3);
     _status.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -7184,7 +7742,7 @@ public final class RadApiCollector implements Collector {
     res.setClzName("com.apihug.rad.api.tenant.ConfigureTenantRequest");
     res.setName("ConfigureTenantRequest");
     res.setProtoFrom("com/apihug/rad/api/tenant/api.proto");
-    res.setProtoLine(239);
+    res.setProtoLine(236);
     res.setProtoColumn(1);
     res.setProtoEntity("ConfigureTenantRequest");
     res.setDescription("配置租户请求");
@@ -7209,7 +7767,7 @@ public final class RadApiCollector implements Collector {
     _maxMembers.setName("max_members");
     _maxMembers.setFieldName("maxMembers");
     _maxMembers.setTag(1);
-    _maxMembers.setProtoLine(247);
+    _maxMembers.setProtoLine(244);
     _maxMembers.setProtoColumn(3);
     _maxMembers.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -7227,7 +7785,7 @@ public final class RadApiCollector implements Collector {
     _maxStorageMb.setName("max_storage_mb");
     _maxStorageMb.setFieldName("maxStorageMb");
     _maxStorageMb.setTag(2);
-    _maxStorageMb.setProtoLine(253);
+    _maxStorageMb.setProtoLine(250);
     _maxStorageMb.setProtoColumn(3);
     _maxStorageMb.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -7245,7 +7803,7 @@ public final class RadApiCollector implements Collector {
     _enabledModules.setName("enabled_modules");
     _enabledModules.setFieldName("enabledModules");
     _enabledModules.setTag(3);
-    _enabledModules.setProtoLine(259);
+    _enabledModules.setProtoLine(256);
     _enabledModules.setProtoColumn(3);
     _enabledModules.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -7263,7 +7821,7 @@ public final class RadApiCollector implements Collector {
     _expiryDate.setName("expiry_date");
     _expiryDate.setFieldName("expiryDate");
     _expiryDate.setTag(4);
-    _expiryDate.setProtoLine(264);
+    _expiryDate.setProtoLine(261);
     _expiryDate.setProtoColumn(3);
     _expiryDate.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -7284,7 +7842,7 @@ public final class RadApiCollector implements Collector {
     res.setClzName("com.apihug.rad.api.tenant.CreateTenantRequest");
     res.setName("CreateTenantRequest");
     res.setProtoFrom("com/apihug/rad/api/tenant/api.proto");
-    res.setProtoLine(144);
+    res.setProtoLine(141);
     res.setProtoColumn(1);
     res.setProtoEntity("CreateTenantRequest");
     res.setDescription("创建租户请求");
@@ -7309,7 +7867,7 @@ public final class RadApiCollector implements Collector {
     _tenantCode.setName("tenant_code");
     _tenantCode.setFieldName("tenantCode");
     _tenantCode.setTag(1);
-    _tenantCode.setProtoLine(152);
+    _tenantCode.setProtoLine(149);
     _tenantCode.setProtoColumn(3);
     _tenantCode.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -7336,7 +7894,7 @@ public final class RadApiCollector implements Collector {
     _tenantName.setName("tenant_name");
     _tenantName.setFieldName("tenantName");
     _tenantName.setTag(2);
-    _tenantName.setProtoLine(160);
+    _tenantName.setProtoLine(157);
     _tenantName.setProtoColumn(3);
     _tenantName.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -7363,7 +7921,7 @@ public final class RadApiCollector implements Collector {
     _contactEmail.setName("contact_email");
     _contactEmail.setFieldName("contactEmail");
     _contactEmail.setTag(3);
-    _contactEmail.setProtoLine(168);
+    _contactEmail.setProtoLine(165);
     _contactEmail.setProtoColumn(3);
     _contactEmail.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -7390,7 +7948,7 @@ public final class RadApiCollector implements Collector {
     _contactPhone.setName("contact_phone");
     _contactPhone.setFieldName("contactPhone");
     _contactPhone.setTag(4);
-    _contactPhone.setProtoLine(176);
+    _contactPhone.setProtoLine(173);
     _contactPhone.setProtoColumn(3);
     _contactPhone.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -7416,7 +7974,7 @@ public final class RadApiCollector implements Collector {
     _status.setName("status");
     _status.setFieldName("status");
     _status.setTag(5);
-    _status.setProtoLine(183);
+    _status.setProtoLine(180);
     _status.setProtoColumn(3);
     _status.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -7434,7 +7992,7 @@ public final class RadApiCollector implements Collector {
     _isPlatform.setName("is_platform");
     _isPlatform.setFieldName("isPlatform");
     _isPlatform.setTag(6);
-    _isPlatform.setProtoLine(189);
+    _isPlatform.setProtoLine(186);
     _isPlatform.setProtoColumn(3);
     _isPlatform.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -7451,7 +8009,7 @@ public final class RadApiCollector implements Collector {
     _description.setName("description");
     _description.setFieldName("description");
     _description.setTag(7);
-    _description.setProtoLine(194);
+    _description.setProtoLine(191);
     _description.setProtoColumn(3);
     _description.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -7472,7 +8030,7 @@ public final class RadApiCollector implements Collector {
     res.setClzName("com.apihug.rad.api.tenant.SearchTenantsRequest");
     res.setName("SearchTenantsRequest");
     res.setProtoFrom("com/apihug/rad/api/tenant/api.proto");
-    res.setProtoLine(381);
+    res.setProtoLine(378);
     res.setProtoColumn(1);
     res.setProtoEntity("SearchTenantsRequest");
     res.setDescription("搜索租户请求");
@@ -7497,7 +8055,7 @@ public final class RadApiCollector implements Collector {
     _keyword.setName("keyword");
     _keyword.setFieldName("keyword");
     _keyword.setTag(1);
-    _keyword.setProtoLine(389);
+    _keyword.setProtoLine(386);
     _keyword.setProtoColumn(3);
     _keyword.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -7514,7 +8072,7 @@ public final class RadApiCollector implements Collector {
     _status.setName("status");
     _status.setFieldName("status");
     _status.setTag(2);
-    _status.setProtoLine(394);
+    _status.setProtoLine(391);
     _status.setProtoColumn(3);
     _status.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -7534,7 +8092,7 @@ public final class RadApiCollector implements Collector {
     res.setClzName("com.apihug.rad.api.tenant.TenantDetail");
     res.setName("TenantDetail");
     res.setProtoFrom("com/apihug/rad/api/tenant/api.proto");
-    res.setProtoLine(307);
+    res.setProtoLine(304);
     res.setProtoColumn(1);
     res.setProtoEntity("TenantDetail");
     res.setDescription("租户详情信息");
@@ -7559,7 +8117,7 @@ public final class RadApiCollector implements Collector {
     _id.setName("id");
     _id.setFieldName("id");
     _id.setTag(1);
-    _id.setProtoLine(315);
+    _id.setProtoLine(312);
     _id.setProtoColumn(3);
     _id.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -7578,7 +8136,7 @@ public final class RadApiCollector implements Collector {
     _tenantCode.setName("tenant_code");
     _tenantCode.setFieldName("tenantCode");
     _tenantCode.setTag(2);
-    _tenantCode.setProtoLine(322);
+    _tenantCode.setProtoLine(319);
     _tenantCode.setProtoColumn(3);
     _tenantCode.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -7604,7 +8162,7 @@ public final class RadApiCollector implements Collector {
     _tenantName.setName("tenant_name");
     _tenantName.setFieldName("tenantName");
     _tenantName.setTag(3);
-    _tenantName.setProtoLine(329);
+    _tenantName.setProtoLine(326);
     _tenantName.setProtoColumn(3);
     _tenantName.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -7630,7 +8188,7 @@ public final class RadApiCollector implements Collector {
     _contactEmail.setName("contact_email");
     _contactEmail.setFieldName("contactEmail");
     _contactEmail.setTag(4);
-    _contactEmail.setProtoLine(336);
+    _contactEmail.setProtoLine(333);
     _contactEmail.setProtoColumn(3);
     _contactEmail.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -7655,7 +8213,7 @@ public final class RadApiCollector implements Collector {
     _contactPhone.setName("contact_phone");
     _contactPhone.setFieldName("contactPhone");
     _contactPhone.setTag(5);
-    _contactPhone.setProtoLine(342);
+    _contactPhone.setProtoLine(339);
     _contactPhone.setProtoColumn(3);
     _contactPhone.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -7680,7 +8238,7 @@ public final class RadApiCollector implements Collector {
     _status.setName("status");
     _status.setFieldName("status");
     _status.setTag(6);
-    _status.setProtoLine(348);
+    _status.setProtoLine(345);
     _status.setProtoColumn(3);
     _status.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -7698,7 +8256,7 @@ public final class RadApiCollector implements Collector {
     _maxMembers.setName("max_members");
     _maxMembers.setFieldName("maxMembers");
     _maxMembers.setTag(7);
-    _maxMembers.setProtoLine(354);
+    _maxMembers.setProtoLine(351);
     _maxMembers.setProtoColumn(3);
     _maxMembers.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -7715,7 +8273,7 @@ public final class RadApiCollector implements Collector {
     _maxStorageMb.setName("max_storage_mb");
     _maxStorageMb.setFieldName("maxStorageMb");
     _maxStorageMb.setTag(8);
-    _maxStorageMb.setProtoLine(359);
+    _maxStorageMb.setProtoLine(356);
     _maxStorageMb.setProtoColumn(3);
     _maxStorageMb.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -7732,7 +8290,7 @@ public final class RadApiCollector implements Collector {
     _isPlatform.setName("is_platform");
     _isPlatform.setFieldName("isPlatform");
     _isPlatform.setTag(9);
-    _isPlatform.setProtoLine(364);
+    _isPlatform.setProtoLine(361);
     _isPlatform.setProtoColumn(3);
     _isPlatform.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -7749,7 +8307,7 @@ public final class RadApiCollector implements Collector {
     _description.setName("description");
     _description.setFieldName("description");
     _description.setTag(10);
-    _description.setProtoLine(369);
+    _description.setProtoLine(366);
     _description.setProtoColumn(3);
     _description.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -7766,7 +8324,7 @@ public final class RadApiCollector implements Collector {
     _createdAt.setName("created_at");
     _createdAt.setFieldName("createdAt");
     _createdAt.setTag(11);
-    _createdAt.setProtoLine(374);
+    _createdAt.setProtoLine(371);
     _createdAt.setProtoColumn(3);
     _createdAt.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -7787,7 +8345,7 @@ public final class RadApiCollector implements Collector {
     res.setClzName("com.apihug.rad.api.tenant.TenantSummary");
     res.setName("TenantSummary");
     res.setProtoFrom("com/apihug/rad/api/tenant/api.proto");
-    res.setProtoLine(271);
+    res.setProtoLine(268);
     res.setProtoColumn(1);
     res.setProtoEntity("TenantSummary");
     res.setDescription("租户摘要信息");
@@ -7812,7 +8370,7 @@ public final class RadApiCollector implements Collector {
     _id.setName("id");
     _id.setFieldName("id");
     _id.setTag(1);
-    _id.setProtoLine(279);
+    _id.setProtoLine(276);
     _id.setProtoColumn(3);
     _id.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -7831,7 +8389,7 @@ public final class RadApiCollector implements Collector {
     _tenantCode.setName("tenant_code");
     _tenantCode.setFieldName("tenantCode");
     _tenantCode.setTag(2);
-    _tenantCode.setProtoLine(286);
+    _tenantCode.setProtoLine(283);
     _tenantCode.setProtoColumn(3);
     _tenantCode.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -7857,7 +8415,7 @@ public final class RadApiCollector implements Collector {
     _tenantName.setName("tenant_name");
     _tenantName.setFieldName("tenantName");
     _tenantName.setTag(3);
-    _tenantName.setProtoLine(293);
+    _tenantName.setProtoLine(290);
     _tenantName.setProtoColumn(3);
     _tenantName.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -7883,7 +8441,7 @@ public final class RadApiCollector implements Collector {
     _status.setName("status");
     _status.setFieldName("status");
     _status.setTag(4);
-    _status.setProtoLine(300);
+    _status.setProtoLine(297);
     _status.setProtoColumn(3);
     _status.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -7904,7 +8462,7 @@ public final class RadApiCollector implements Collector {
     res.setClzName("com.apihug.rad.api.tenant.UpdateTenantRequest");
     res.setName("UpdateTenantRequest");
     res.setProtoFrom("com/apihug/rad/api/tenant/api.proto");
-    res.setProtoLine(201);
+    res.setProtoLine(198);
     res.setProtoColumn(1);
     res.setProtoEntity("UpdateTenantRequest");
     res.setDescription("更新租户请求");
@@ -7929,7 +8487,7 @@ public final class RadApiCollector implements Collector {
     _tenantName.setName("tenant_name");
     _tenantName.setFieldName("tenantName");
     _tenantName.setTag(1);
-    _tenantName.setProtoLine(209);
+    _tenantName.setProtoLine(206);
     _tenantName.setProtoColumn(3);
     _tenantName.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -7956,7 +8514,7 @@ public final class RadApiCollector implements Collector {
     _contactEmail.setName("contact_email");
     _contactEmail.setFieldName("contactEmail");
     _contactEmail.setTag(2);
-    _contactEmail.setProtoLine(217);
+    _contactEmail.setProtoLine(214);
     _contactEmail.setProtoColumn(3);
     _contactEmail.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -7983,7 +8541,7 @@ public final class RadApiCollector implements Collector {
     _contactPhone.setName("contact_phone");
     _contactPhone.setFieldName("contactPhone");
     _contactPhone.setTag(3);
-    _contactPhone.setProtoLine(225);
+    _contactPhone.setProtoLine(222);
     _contactPhone.setProtoColumn(3);
     _contactPhone.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -8009,7 +8567,7 @@ public final class RadApiCollector implements Collector {
     _status.setName("status");
     _status.setFieldName("status");
     _status.setTag(4);
-    _status.setProtoLine(232);
+    _status.setProtoLine(229);
     _status.setProtoColumn(3);
     _status.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -8030,7 +8588,7 @@ public final class RadApiCollector implements Collector {
     res.setClzName("com.apihug.rad.api.tenant.AddTenantMemberRequest");
     res.setName("AddTenantMemberRequest");
     res.setProtoFrom("com/apihug/rad/api/tenant/member.proto");
-    res.setProtoLine(395);
+    res.setProtoLine(381);
     res.setProtoColumn(1);
     res.setProtoEntity("AddTenantMemberRequest");
     res.setDescription("添加租户成员请求");
@@ -8055,7 +8613,7 @@ public final class RadApiCollector implements Collector {
     _customerId.setName("customer_id");
     _customerId.setFieldName("customerId");
     _customerId.setTag(1);
-    _customerId.setProtoLine(403);
+    _customerId.setProtoLine(389);
     _customerId.setProtoColumn(3);
     _customerId.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -8074,7 +8632,7 @@ public final class RadApiCollector implements Collector {
     _departmentId.setName("department_id");
     _departmentId.setFieldName("departmentId");
     _departmentId.setTag(2);
-    _departmentId.setProtoLine(410);
+    _departmentId.setProtoLine(396);
     _departmentId.setProtoColumn(3);
     _departmentId.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -8091,7 +8649,7 @@ public final class RadApiCollector implements Collector {
     _position.setName("position");
     _position.setFieldName("position");
     _position.setTag(3);
-    _position.setProtoLine(415);
+    _position.setProtoLine(401);
     _position.setProtoColumn(3);
     _position.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -8109,7 +8667,7 @@ public final class RadApiCollector implements Collector {
     _memberType.setName("member_type");
     _memberType.setFieldName("memberType");
     _memberType.setTag(4);
-    _memberType.setProtoLine(421);
+    _memberType.setProtoLine(407);
     _memberType.setProtoColumn(3);
     _memberType.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -8126,7 +8684,7 @@ public final class RadApiCollector implements Collector {
     _memberRole.setName("member_role");
     _memberRole.setFieldName("memberRole");
     _memberRole.setTag(5);
-    _memberRole.setProtoLine(426);
+    _memberRole.setProtoLine(412);
     _memberRole.setProtoColumn(3);
     _memberRole.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -8143,7 +8701,7 @@ public final class RadApiCollector implements Collector {
     _isDefault.setName("is_default");
     _isDefault.setFieldName("isDefault");
     _isDefault.setTag(6);
-    _isDefault.setProtoLine(431);
+    _isDefault.setProtoLine(417);
     _isDefault.setProtoColumn(3);
     _isDefault.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -8163,7 +8721,7 @@ public final class RadApiCollector implements Collector {
     res.setClzName("com.apihug.rad.api.tenant.AssignMemberDepartmentRequest");
     res.setName("AssignMemberDepartmentRequest");
     res.setProtoFrom("com/apihug/rad/api/tenant/member.proto");
-    res.setProtoLine(452);
+    res.setProtoLine(438);
     res.setProtoColumn(1);
     res.setProtoEntity("AssignMemberDepartmentRequest");
     res.setDescription("分配成员部门请求");
@@ -8188,7 +8746,7 @@ public final class RadApiCollector implements Collector {
     _departmentId.setName("department_id");
     _departmentId.setFieldName("departmentId");
     _departmentId.setTag(1);
-    _departmentId.setProtoLine(460);
+    _departmentId.setProtoLine(446);
     _departmentId.setProtoColumn(3);
     _departmentId.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -8207,7 +8765,7 @@ public final class RadApiCollector implements Collector {
     _position.setName("position");
     _position.setFieldName("position");
     _position.setTag(2);
-    _position.setProtoLine(467);
+    _position.setProtoLine(453);
     _position.setProtoColumn(3);
     _position.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -8228,11 +8786,10 @@ public final class RadApiCollector implements Collector {
     res.setClzName("com.apihug.rad.api.tenant.AssignRolesRequest");
     res.setName("AssignRolesRequest");
     res.setProtoFrom("com/apihug/rad/api/tenant/member.proto");
-    res.setProtoLine(634);
+    res.setProtoLine(614);
     res.setProtoColumn(1);
     res.setProtoEntity("AssignRolesRequest");
-    res.setDescription("分配角色请求\r\n"
-            + "分配 RBAC 角色请求（全量覆盖）");
+    res.setDescription("分配 RBAC 角色请求（全量覆盖）");
     res.setSchema(new Supplier<Schema>() {
       @Override
       public Schema get() {
@@ -8254,7 +8811,7 @@ public final class RadApiCollector implements Collector {
     _roleIds.setName("role_ids");
     _roleIds.setFieldName("roleIds");
     _roleIds.setTag(1);
-    _roleIds.setProtoLine(642);
+    _roleIds.setProtoLine(622);
     _roleIds.setProtoColumn(3);
     _roleIds.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -8276,11 +8833,10 @@ public final class RadApiCollector implements Collector {
     res.setClzName("com.apihug.rad.api.tenant.GetTenantMembersRequest");
     res.setName("GetTenantMembersRequest");
     res.setProtoFrom("com/apihug/rad/api/tenant/member.proto");
-    res.setProtoLine(372);
+    res.setProtoLine(358);
     res.setProtoColumn(1);
     res.setProtoEntity("GetTenantMembersRequest");
-    res.setDescription("============ 消息类型定义 ============\r\n"
-            + "获取租户成员列表请求");
+    res.setDescription("获取租户成员列表请求");
     res.setSchema(new Supplier<Schema>() {
       @Override
       public Schema get() {
@@ -8302,7 +8858,7 @@ public final class RadApiCollector implements Collector {
     _status.setName("status");
     _status.setFieldName("status");
     _status.setTag(1);
-    _status.setProtoLine(380);
+    _status.setProtoLine(366);
     _status.setProtoColumn(3);
     _status.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -8319,7 +8875,7 @@ public final class RadApiCollector implements Collector {
     _memberRole.setName("member_role");
     _memberRole.setFieldName("memberRole");
     _memberRole.setTag(2);
-    _memberRole.setProtoLine(385);
+    _memberRole.setProtoLine(371);
     _memberRole.setProtoColumn(3);
     _memberRole.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -8335,7 +8891,7 @@ public final class RadApiCollector implements Collector {
     _keyword.setName("keyword");
     _keyword.setFieldName("keyword");
     _keyword.setTag(3);
-    _keyword.setProtoLine(389);
+    _keyword.setProtoLine(375);
     _keyword.setProtoColumn(3);
     _keyword.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -8355,11 +8911,10 @@ public final class RadApiCollector implements Collector {
     res.setClzName("com.apihug.rad.api.tenant.MemberRoleItem");
     res.setName("MemberRoleItem");
     res.setProtoFrom("com/apihug/rad/api/tenant/member.proto");
-    res.setProtoLine(670);
+    res.setProtoLine(648);
     res.setProtoColumn(1);
     res.setProtoEntity("MemberRoleItem");
-    res.setDescription("成员角色项\r\n"
-            + "成员的 RBAC 角色信息");
+    res.setDescription("成员的 RBAC 角色信息");
     res.setSchema(new Supplier<Schema>() {
       @Override
       public Schema get() {
@@ -8381,7 +8936,7 @@ public final class RadApiCollector implements Collector {
     _id.setName("id");
     _id.setFieldName("id");
     _id.setTag(1);
-    _id.setProtoLine(678);
+    _id.setProtoLine(656);
     _id.setProtoColumn(3);
     _id.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -8399,7 +8954,7 @@ public final class RadApiCollector implements Collector {
     _roleCode.setName("role_code");
     _roleCode.setFieldName("roleCode");
     _roleCode.setTag(2);
-    _roleCode.setProtoLine(684);
+    _roleCode.setProtoLine(662);
     _roleCode.setProtoColumn(3);
     _roleCode.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -8417,7 +8972,7 @@ public final class RadApiCollector implements Collector {
     _roleName.setName("role_name");
     _roleName.setFieldName("roleName");
     _roleName.setTag(3);
-    _roleName.setProtoLine(690);
+    _roleName.setProtoLine(668);
     _roleName.setProtoColumn(3);
     _roleName.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -8438,11 +8993,10 @@ public final class RadApiCollector implements Collector {
     res.setClzName("com.apihug.rad.api.tenant.MemberRoleSummary");
     res.setName("MemberRoleSummary");
     res.setProtoFrom("com/apihug/rad/api/tenant/member.proto");
-    res.setProtoLine(650);
+    res.setProtoLine(629);
     res.setProtoColumn(1);
     res.setProtoEntity("MemberRoleSummary");
-    res.setDescription("成员角色摘要\r\n"
-            + "成员角色摘要");
+    res.setDescription("成员角色摘要");
     res.setSchema(new Supplier<Schema>() {
       @Override
       public Schema get() {
@@ -8464,7 +9018,7 @@ public final class RadApiCollector implements Collector {
     _memberId.setName("member_id");
     _memberId.setFieldName("memberId");
     _memberId.setTag(1);
-    _memberId.setProtoLine(658);
+    _memberId.setProtoLine(637);
     _memberId.setProtoColumn(3);
     _memberId.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -8482,7 +9036,7 @@ public final class RadApiCollector implements Collector {
     _roles.setName("roles");
     _roles.setFieldName("roles");
     _roles.setTag(2);
-    _roles.setProtoLine(664);
+    _roles.setProtoLine(643);
     _roles.setProtoColumn(3);
     _roles.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -8502,11 +9056,10 @@ public final class RadApiCollector implements Collector {
     res.setClzName("com.apihug.rad.api.tenant.TenantMemberDetail");
     res.setName("TenantMemberDetail");
     res.setProtoFrom("com/apihug/rad/api/tenant/member.proto");
-    res.setProtoLine(544);
+    res.setProtoLine(529);
     res.setProtoColumn(1);
     res.setProtoEntity("TenantMemberDetail");
-    res.setDescription("成员详情（含客户账号信息 + 成员身份信息）\r\n"
-            + "租户成员详情信息");
+    res.setDescription("租户成员详情信息");
     res.setSchema(new Supplier<Schema>() {
       @Override
       public Schema get() {
@@ -8528,7 +9081,7 @@ public final class RadApiCollector implements Collector {
     _id.setName("id");
     _id.setFieldName("id");
     _id.setTag(1);
-    _id.setProtoLine(553);
+    _id.setProtoLine(537);
     _id.setProtoColumn(3);
     _id.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -8545,7 +9098,7 @@ public final class RadApiCollector implements Collector {
     _customerId.setName("customer_id");
     _customerId.setFieldName("customerId");
     _customerId.setTag(2);
-    _customerId.setProtoLine(558);
+    _customerId.setProtoLine(542);
     _customerId.setProtoColumn(3);
     _customerId.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -8562,7 +9115,7 @@ public final class RadApiCollector implements Collector {
     _tenantId.setName("tenant_id");
     _tenantId.setFieldName("tenantId");
     _tenantId.setTag(3);
-    _tenantId.setProtoLine(563);
+    _tenantId.setProtoLine(547);
     _tenantId.setProtoColumn(3);
     _tenantId.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -8579,7 +9132,7 @@ public final class RadApiCollector implements Collector {
     _customerUsername.setName("customer_username");
     _customerUsername.setFieldName("customerUsername");
     _customerUsername.setTag(4);
-    _customerUsername.setProtoLine(569);
+    _customerUsername.setProtoLine(552);
     _customerUsername.setProtoColumn(3);
     _customerUsername.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -8596,7 +9149,7 @@ public final class RadApiCollector implements Collector {
     _customerEmail.setName("customer_email");
     _customerEmail.setFieldName("customerEmail");
     _customerEmail.setTag(5);
-    _customerEmail.setProtoLine(574);
+    _customerEmail.setProtoLine(557);
     _customerEmail.setProtoColumn(3);
     _customerEmail.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -8613,7 +9166,7 @@ public final class RadApiCollector implements Collector {
     _customerStatus.setName("customer_status");
     _customerStatus.setFieldName("customerStatus");
     _customerStatus.setTag(6);
-    _customerStatus.setProtoLine(579);
+    _customerStatus.setProtoLine(562);
     _customerStatus.setProtoColumn(3);
     _customerStatus.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -8630,7 +9183,7 @@ public final class RadApiCollector implements Collector {
     _tenantName.setName("tenant_name");
     _tenantName.setFieldName("tenantName");
     _tenantName.setTag(7);
-    _tenantName.setProtoLine(585);
+    _tenantName.setProtoLine(567);
     _tenantName.setProtoColumn(3);
     _tenantName.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -8647,7 +9200,7 @@ public final class RadApiCollector implements Collector {
     _tenantCode.setName("tenant_code");
     _tenantCode.setFieldName("tenantCode");
     _tenantCode.setTag(8);
-    _tenantCode.setProtoLine(590);
+    _tenantCode.setProtoLine(572);
     _tenantCode.setProtoColumn(3);
     _tenantCode.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -8664,7 +9217,7 @@ public final class RadApiCollector implements Collector {
     _memberType.setName("member_type");
     _memberType.setFieldName("memberType");
     _memberType.setTag(9);
-    _memberType.setProtoLine(596);
+    _memberType.setProtoLine(577);
     _memberType.setProtoColumn(3);
     _memberType.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -8681,7 +9234,7 @@ public final class RadApiCollector implements Collector {
     _memberRole.setName("member_role");
     _memberRole.setFieldName("memberRole");
     _memberRole.setTag(10);
-    _memberRole.setProtoLine(601);
+    _memberRole.setProtoLine(582);
     _memberRole.setProtoColumn(3);
     _memberRole.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -8698,7 +9251,7 @@ public final class RadApiCollector implements Collector {
     _status.setName("status");
     _status.setFieldName("status");
     _status.setTag(11);
-    _status.setProtoLine(606);
+    _status.setProtoLine(587);
     _status.setProtoColumn(3);
     _status.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -8715,7 +9268,7 @@ public final class RadApiCollector implements Collector {
     _departmentId.setName("department_id");
     _departmentId.setFieldName("departmentId");
     _departmentId.setTag(12);
-    _departmentId.setProtoLine(611);
+    _departmentId.setProtoLine(592);
     _departmentId.setProtoColumn(3);
     _departmentId.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -8732,7 +9285,7 @@ public final class RadApiCollector implements Collector {
     _position.setName("position");
     _position.setFieldName("position");
     _position.setTag(13);
-    _position.setProtoLine(616);
+    _position.setProtoLine(597);
     _position.setProtoColumn(3);
     _position.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -8749,7 +9302,7 @@ public final class RadApiCollector implements Collector {
     _isDefault.setName("is_default");
     _isDefault.setFieldName("isDefault");
     _isDefault.setTag(14);
-    _isDefault.setProtoLine(621);
+    _isDefault.setProtoLine(602);
     _isDefault.setProtoColumn(3);
     _isDefault.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -8766,7 +9319,7 @@ public final class RadApiCollector implements Collector {
     _createdAt.setName("created_at");
     _createdAt.setFieldName("createdAt");
     _createdAt.setTag(15);
-    _createdAt.setProtoLine(626);
+    _createdAt.setProtoLine(607);
     _createdAt.setProtoColumn(3);
     _createdAt.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -8787,7 +9340,7 @@ public final class RadApiCollector implements Collector {
     res.setClzName("com.apihug.rad.api.tenant.TenantMemberSummary");
     res.setName("TenantMemberSummary");
     res.setProtoFrom("com/apihug/rad/api/tenant/member.proto");
-    res.setProtoLine(474);
+    res.setProtoLine(460);
     res.setProtoColumn(1);
     res.setProtoEntity("TenantMemberSummary");
     res.setDescription("租户成员摘要");
@@ -8812,7 +9365,7 @@ public final class RadApiCollector implements Collector {
     _id.setName("id");
     _id.setFieldName("id");
     _id.setTag(1);
-    _id.setProtoLine(482);
+    _id.setProtoLine(468);
     _id.setProtoColumn(3);
     _id.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -8829,7 +9382,7 @@ public final class RadApiCollector implements Collector {
     _customerId.setName("customer_id");
     _customerId.setFieldName("customerId");
     _customerId.setTag(2);
-    _customerId.setProtoLine(487);
+    _customerId.setProtoLine(473);
     _customerId.setProtoColumn(3);
     _customerId.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -8846,7 +9399,7 @@ public final class RadApiCollector implements Collector {
     _customerUsername.setName("customer_username");
     _customerUsername.setFieldName("customerUsername");
     _customerUsername.setTag(3);
-    _customerUsername.setProtoLine(492);
+    _customerUsername.setProtoLine(478);
     _customerUsername.setProtoColumn(3);
     _customerUsername.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -8863,7 +9416,7 @@ public final class RadApiCollector implements Collector {
     _customerEmail.setName("customer_email");
     _customerEmail.setFieldName("customerEmail");
     _customerEmail.setTag(4);
-    _customerEmail.setProtoLine(497);
+    _customerEmail.setProtoLine(483);
     _customerEmail.setProtoColumn(3);
     _customerEmail.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -8880,7 +9433,7 @@ public final class RadApiCollector implements Collector {
     _tenantId.setName("tenant_id");
     _tenantId.setFieldName("tenantId");
     _tenantId.setTag(5);
-    _tenantId.setProtoLine(502);
+    _tenantId.setProtoLine(488);
     _tenantId.setProtoColumn(3);
     _tenantId.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -8897,7 +9450,7 @@ public final class RadApiCollector implements Collector {
     _tenantName.setName("tenant_name");
     _tenantName.setFieldName("tenantName");
     _tenantName.setTag(6);
-    _tenantName.setProtoLine(507);
+    _tenantName.setProtoLine(493);
     _tenantName.setProtoColumn(3);
     _tenantName.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -8914,7 +9467,7 @@ public final class RadApiCollector implements Collector {
     _departmentId.setName("department_id");
     _departmentId.setFieldName("departmentId");
     _departmentId.setTag(7);
-    _departmentId.setProtoLine(512);
+    _departmentId.setProtoLine(498);
     _departmentId.setProtoColumn(3);
     _departmentId.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -8931,7 +9484,7 @@ public final class RadApiCollector implements Collector {
     _position.setName("position");
     _position.setFieldName("position");
     _position.setTag(8);
-    _position.setProtoLine(517);
+    _position.setProtoLine(503);
     _position.setProtoColumn(3);
     _position.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -8948,7 +9501,7 @@ public final class RadApiCollector implements Collector {
     _memberType.setName("member_type");
     _memberType.setFieldName("memberType");
     _memberType.setTag(9);
-    _memberType.setProtoLine(522);
+    _memberType.setProtoLine(508);
     _memberType.setProtoColumn(3);
     _memberType.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -8965,7 +9518,7 @@ public final class RadApiCollector implements Collector {
     _memberRole.setName("member_role");
     _memberRole.setFieldName("memberRole");
     _memberRole.setTag(10);
-    _memberRole.setProtoLine(527);
+    _memberRole.setProtoLine(513);
     _memberRole.setProtoColumn(3);
     _memberRole.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -8982,7 +9535,7 @@ public final class RadApiCollector implements Collector {
     _status.setName("status");
     _status.setFieldName("status");
     _status.setTag(11);
-    _status.setProtoLine(532);
+    _status.setProtoLine(518);
     _status.setProtoColumn(3);
     _status.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -8999,7 +9552,7 @@ public final class RadApiCollector implements Collector {
     _isDefault.setName("is_default");
     _isDefault.setFieldName("isDefault");
     _isDefault.setTag(12);
-    _isDefault.setProtoLine(537);
+    _isDefault.setProtoLine(523);
     _isDefault.setProtoColumn(3);
     _isDefault.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -9019,7 +9572,7 @@ public final class RadApiCollector implements Collector {
     res.setClzName("com.apihug.rad.api.tenant.UpdateMemberRoleRequest");
     res.setName("UpdateMemberRoleRequest");
     res.setProtoFrom("com/apihug/rad/api/tenant/member.proto");
-    res.setProtoLine(437);
+    res.setProtoLine(423);
     res.setProtoColumn(1);
     res.setProtoEntity("UpdateMemberRoleRequest");
     res.setDescription("更新成员角色请求");
@@ -9044,7 +9597,7 @@ public final class RadApiCollector implements Collector {
     _memberRole.setName("member_role");
     _memberRole.setFieldName("memberRole");
     _memberRole.setTag(1);
-    _memberRole.setProtoLine(445);
+    _memberRole.setProtoLine(431);
     _memberRole.setProtoColumn(3);
     _memberRole.setSchema(new Supplier<JSONSchema>() {
       @Override
@@ -9194,7 +9747,7 @@ public final class RadApiCollector implements Collector {
       public Meta get() {
         Meta res  = new Meta();
         res.setTitle("MANAGER");
-        res.setCode(1);
+        res.setCode(2);
         res.setMessage("platform manager");
         res.setMessage2("平台管理员");
         return res;
@@ -9205,7 +9758,7 @@ public final class RadApiCollector implements Collector {
       public Meta get() {
         Meta res  = new Meta();
         res.setTitle("OWNER");
-        res.setCode(2);
+        res.setCode(3);
         res.setMessage("platform owner");
         res.setMessage2("平台拥有者");
         return res;
@@ -9630,6 +10183,149 @@ public final class RadApiCollector implements Collector {
     components.put("com.apihug.rad.infra.menu.MenuErrorEnum", res);
   }
 
+  void initComponentinfra_platformPlatformMemberErrorEnum() {
+    Component res = new Component();
+    res.setClzName("com.apihug.rad.infra.platform.PlatformMemberErrorEnum");
+    res.setName("PlatformMemberErrorEnum");
+    res.setProtoFrom("com/apihug/rad/infra/platform/constant.proto");
+    res.setProtoLine(35);
+    res.setProtoColumn(1);
+    res.setProtoEntity("PlatformMemberErrorEnum");
+    res.setEnumClz(true);
+    res.addMeta(new Supplier<Meta>() {
+      @Override
+      public Meta get() {
+        Meta res  = new Meta();
+        res.setTitle("PLATFORM_MEMBER_NOT_FOUND");
+        res.setCode(10008001);
+        res.setMessage("Platform member not found");
+        res.setMessage2("平台成员不存在");
+        var error  = new Error();
+        error.setHttpStatus(HttpStatus.NOT_FOUND);
+        error.setSeverity(Error.Severity.FATAL);
+        error.setPhase(Error.Phase.DOMAIN);
+        error.setTips("Check if the platform member ID is correct");
+        res.setError(error);
+        return res;
+      }
+    }.get());
+    res.addMeta(new Supplier<Meta>() {
+      @Override
+      public Meta get() {
+        Meta res  = new Meta();
+        res.setTitle("PLATFORM_MEMBER_ALREADY_EXISTS");
+        res.setCode(10008002);
+        res.setMessage("Customer is already a platform member");
+        res.setMessage2("该客户已是平台成员");
+        var error  = new Error();
+        error.setHttpStatus(HttpStatus.CONFLICT);
+        error.setSeverity(Error.Severity.WARN);
+        error.setPhase(Error.Phase.DOMAIN);
+        error.setTips("The customer has already joined the platform");
+        res.setError(error);
+        return res;
+      }
+    }.get());
+    res.addMeta(new Supplier<Meta>() {
+      @Override
+      public Meta get() {
+        Meta res  = new Meta();
+        res.setTitle("PLATFORM_OWNER_CANNOT_BE_REMOVED");
+        res.setCode(10008003);
+        res.setMessage("Platform owner cannot be removed");
+        res.setMessage2("平台拥有者不允许被移除");
+        var error  = new Error();
+        error.setHttpStatus(HttpStatus.BAD_REQUEST);
+        error.setSeverity(Error.Severity.WARN);
+        error.setPhase(Error.Phase.DOMAIN);
+        error.setTips("Cannot remove the platform owner to prevent losing platform access");
+        res.setError(error);
+        return res;
+      }
+    }.get());
+    res.addMeta(new Supplier<Meta>() {
+      @Override
+      public Meta get() {
+        Meta res  = new Meta();
+        res.setTitle("PLATFORM_MEMBER_LOCKED");
+        res.setCode(10008004);
+        res.setMessage("Platform member is locked");
+        res.setMessage2("平台成员已被冻结");
+        var error  = new Error();
+        error.setHttpStatus(HttpStatus.FORBIDDEN);
+        error.setSeverity(Error.Severity.WARN);
+        error.setPhase(Error.Phase.DOMAIN);
+        error.setTips("Contact platform administrator to unlock your account");
+        res.setError(error);
+        return res;
+      }
+    }.get());
+    res.addMeta(new Supplier<Meta>() {
+      @Override
+      public Meta get() {
+        Meta res  = new Meta();
+        res.setTitle("PLATFORM_MEMBER_INACTIVE");
+        res.setCode(10008005);
+        res.setMessage("Platform member is inactive and cannot be modified");
+        res.setMessage2("平台成员已移除，无法进行此操作");
+        var error  = new Error();
+        error.setHttpStatus(HttpStatus.BAD_REQUEST);
+        error.setSeverity(Error.Severity.WARN);
+        error.setPhase(Error.Phase.DOMAIN);
+        error.setTips("Inactive members cannot be frozen or unfrozen");
+        res.setError(error);
+        return res;
+      }
+    }.get());
+    res.setEnumErrorClz(true);
+    components.put("com.apihug.rad.infra.platform.PlatformMemberErrorEnum", res);
+  }
+
+  void initComponentinfra_platformPlatformMemberStatusEnum() {
+    Component res = new Component();
+    res.setClzName("com.apihug.rad.infra.platform.PlatformMemberStatusEnum");
+    res.setName("PlatformMemberStatusEnum");
+    res.setProtoFrom("com/apihug/rad/infra/platform/constant.proto");
+    res.setProtoLine(10);
+    res.setProtoColumn(1);
+    res.setProtoEntity("PlatformMemberStatusEnum");
+    res.setEnumClz(true);
+    res.addMeta(new Supplier<Meta>() {
+      @Override
+      public Meta get() {
+        Meta res  = new Meta();
+        res.setTitle("PM_ACTIVE");
+        res.setCode(1);
+        res.setMessage("active");
+        res.setMessage2("正常");
+        return res;
+      }
+    }.get());
+    res.addMeta(new Supplier<Meta>() {
+      @Override
+      public Meta get() {
+        Meta res  = new Meta();
+        res.setTitle("PM_LOCKED");
+        res.setCode(2);
+        res.setMessage("locked");
+        res.setMessage2("已冻结");
+        return res;
+      }
+    }.get());
+    res.addMeta(new Supplier<Meta>() {
+      @Override
+      public Meta get() {
+        Meta res  = new Meta();
+        res.setTitle("PM_INACTIVE");
+        res.setCode(3);
+        res.setMessage("inactive");
+        res.setMessage2("已移除");
+        return res;
+      }
+    }.get());
+    components.put("com.apihug.rad.infra.platform.PlatformMemberStatusEnum", res);
+  }
+
   void initComponentinfra_roleRoleStatusEnum() {
     Component res = new Component();
     res.setClzName("com.apihug.rad.infra.role.RoleStatusEnum");
@@ -9827,7 +10523,7 @@ public final class RadApiCollector implements Collector {
         Meta res  = new Meta();
         res.setTitle("ROLE_CREATE");
         res.setCode(5);
-        res.setMessage("role:create");
+        res.setMessage("tenant:role:create");
         res.setMessage2("创建角色");
         return res;
       }
@@ -9838,7 +10534,7 @@ public final class RadApiCollector implements Collector {
         Meta res  = new Meta();
         res.setTitle("ROLE_UPDATE");
         res.setCode(6);
-        res.setMessage("role:update");
+        res.setMessage("tenant:role:update");
         res.setMessage2("更新角色");
         return res;
       }
@@ -9849,7 +10545,7 @@ public final class RadApiCollector implements Collector {
         Meta res  = new Meta();
         res.setTitle("ROLE_DELETE");
         res.setCode(7);
-        res.setMessage("role:delete");
+        res.setMessage("tenant:role:delete");
         res.setMessage2("删除角色");
         return res;
       }
@@ -9860,7 +10556,7 @@ public final class RadApiCollector implements Collector {
         Meta res  = new Meta();
         res.setTitle("ROLE_VIEW");
         res.setCode(8);
-        res.setMessage("role:view");
+        res.setMessage("tenant:role:view");
         res.setMessage2("查看角色");
         return res;
       }
@@ -9871,7 +10567,7 @@ public final class RadApiCollector implements Collector {
         Meta res  = new Meta();
         res.setTitle("ROLE_ASSIGN_PERMISSION");
         res.setCode(9);
-        res.setMessage("role:assign_permission");
+        res.setMessage("tenant:role:assign_permission");
         res.setMessage2("分配角色权限");
         return res;
       }
@@ -9882,7 +10578,7 @@ public final class RadApiCollector implements Collector {
         Meta res  = new Meta();
         res.setTitle("MENU_CREATE");
         res.setCode(10);
-        res.setMessage("menu:create");
+        res.setMessage("platform:menu:create");
         res.setMessage2("创建菜单");
         return res;
       }
@@ -9893,7 +10589,7 @@ public final class RadApiCollector implements Collector {
         Meta res  = new Meta();
         res.setTitle("MENU_UPDATE");
         res.setCode(11);
-        res.setMessage("menu:update");
+        res.setMessage("platform:menu:update");
         res.setMessage2("更新菜单");
         return res;
       }
@@ -9904,7 +10600,7 @@ public final class RadApiCollector implements Collector {
         Meta res  = new Meta();
         res.setTitle("MENU_DELETE");
         res.setCode(12);
-        res.setMessage("menu:delete");
+        res.setMessage("platform:menu:delete");
         res.setMessage2("删除菜单");
         return res;
       }
@@ -9915,7 +10611,7 @@ public final class RadApiCollector implements Collector {
         Meta res  = new Meta();
         res.setTitle("MENU_VIEW");
         res.setCode(13);
-        res.setMessage("menu:view");
+        res.setMessage("platform:menu:view");
         res.setMessage2("查看菜单");
         return res;
       }
@@ -9970,7 +10666,7 @@ public final class RadApiCollector implements Collector {
         Meta res  = new Meta();
         res.setTitle("DEPARTMENT_CREATE");
         res.setCode(18);
-        res.setMessage("department:create");
+        res.setMessage("tenant:department:create");
         res.setMessage2("创建部门");
         return res;
       }
@@ -9981,7 +10677,7 @@ public final class RadApiCollector implements Collector {
         Meta res  = new Meta();
         res.setTitle("DEPARTMENT_UPDATE");
         res.setCode(19);
-        res.setMessage("department:update");
+        res.setMessage("tenant:department:update");
         res.setMessage2("更新部门");
         return res;
       }
@@ -9992,7 +10688,7 @@ public final class RadApiCollector implements Collector {
         Meta res  = new Meta();
         res.setTitle("DEPARTMENT_DELETE");
         res.setCode(20);
-        res.setMessage("department:delete");
+        res.setMessage("tenant:department:delete");
         res.setMessage2("删除部门");
         return res;
       }
@@ -10003,7 +10699,7 @@ public final class RadApiCollector implements Collector {
         Meta res  = new Meta();
         res.setTitle("DEPARTMENT_ASSIGN_EMPLOYEE");
         res.setCode(21);
-        res.setMessage("department:assign_employee");
+        res.setMessage("tenant:department:assign_employee");
         res.setMessage2("分配员工到部门");
         return res;
       }
@@ -10071,6 +10767,61 @@ public final class RadApiCollector implements Collector {
         res.setCode(27);
         res.setMessage("tenant:member:assign_department");
         res.setMessage2("分配成员部门");
+        return res;
+      }
+    }.get());
+    res.addMeta(new Supplier<Meta>() {
+      @Override
+      public Meta get() {
+        Meta res  = new Meta();
+        res.setTitle("PLATFORM_MEMBER_VIEW");
+        res.setCode(28);
+        res.setMessage("platform:member:view");
+        res.setMessage2("查看平台成员");
+        return res;
+      }
+    }.get());
+    res.addMeta(new Supplier<Meta>() {
+      @Override
+      public Meta get() {
+        Meta res  = new Meta();
+        res.setTitle("PLATFORM_MEMBER_ADD");
+        res.setCode(29);
+        res.setMessage("platform:member:add");
+        res.setMessage2("添加平台成员");
+        return res;
+      }
+    }.get());
+    res.addMeta(new Supplier<Meta>() {
+      @Override
+      public Meta get() {
+        Meta res  = new Meta();
+        res.setTitle("PLATFORM_MEMBER_REMOVE");
+        res.setCode(30);
+        res.setMessage("platform:member:remove");
+        res.setMessage2("移除平台成员");
+        return res;
+      }
+    }.get());
+    res.addMeta(new Supplier<Meta>() {
+      @Override
+      public Meta get() {
+        Meta res  = new Meta();
+        res.setTitle("PLATFORM_MEMBER_FREEZE");
+        res.setCode(31);
+        res.setMessage("platform:member:freeze");
+        res.setMessage2("冻结/解冻平台成员");
+        return res;
+      }
+    }.get());
+    res.addMeta(new Supplier<Meta>() {
+      @Override
+      public Meta get() {
+        Meta res  = new Meta();
+        res.setTitle("PLATFORM_MEMBER_UPDATE_ROLE");
+        res.setCode(32);
+        res.setMessage("platform:member:update_role");
+        res.setMessage2("更新平台成员角色");
         return res;
       }
     }.get());
@@ -10422,6 +11173,10 @@ public final class RadApiCollector implements Collector {
     initComponentapi_menuSearchMenusRequest();
     initComponentapi_menuUpdateMenuRequest();
     initComponentapi_permissionPermissionInfo();
+    initComponentapi_platformAddPlatformMemberRequest();
+    initComponentapi_platformGetPlatformMembersRequest();
+    initComponentapi_platformPlatformMemberInfo();
+    initComponentapi_platformUpdatePlatformMemberRoleRequest();
     initComponentapi_roleAssignMenusRequest();
     initComponentapi_roleCreateRoleRequest();
     initComponentapi_roleRoleDetail();
@@ -10454,6 +11209,8 @@ public final class RadApiCollector implements Collector {
     initComponentinfra_menuMenuStatusEnum();
     initComponentinfra_menuMenuTypeEnum();
     initComponentinfra_menuMenuErrorEnum();
+    initComponentinfra_platformPlatformMemberErrorEnum();
+    initComponentinfra_platformPlatformMemberStatusEnum();
     initComponentinfra_roleRoleStatusEnum();
     initComponentinfra_roleRoleErrorEnum();
     initComponentinfra_settingsRadAuthorityEnum();

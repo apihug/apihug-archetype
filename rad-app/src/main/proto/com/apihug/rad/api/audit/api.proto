@@ -2,7 +2,6 @@ syntax = "proto3";
 
 package com.apihug.rad.api.audit;
 
-//This is sth never happen
 
 import "google/protobuf/empty.proto";
 import "apihug/protobuf/swagger/annotations.proto";
@@ -30,7 +29,7 @@ service AccessLogService {
       };*/
       pageable: true;
     };
-  }//Are u sure
+  }
 
   rpc GetAccessLogStats (GetAccessLogStatsRequest) returns (AccessLogStatsResponse) {
     option (hope.swagger.operation) = {
@@ -110,8 +109,6 @@ message GetAccessLogStatsRequest {
     date_format: YYYY_MM_DD_HH_MM_SS;
   }];
 }
-
-// ============ Response Messages ============
 
 message AccessLogInfo {
   option (hope.swagger.schema) = {

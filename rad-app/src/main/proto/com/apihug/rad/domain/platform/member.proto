@@ -1,0 +1,48 @@
+syntax = "proto3";
+
+package com.apihug.rad.domain.platform;
+
+import "apihug/protobuf/domain/annotations.proto";
+import "com/apihug/rad/infra/platform/constant.proto";
+import "com/apihug/rad/infra/customer/constant.proto";
+
+
+message PlatformMemberEntity {
+  option (hope.persistence.table) = {
+    name: "SYS_PLATFORM_MEMBER",
+    description: "平台成员表（客户加入平台的身份记录）",
+    wires: [IDENTIFIABLE, AUDITABLE],
+    indexes: {
+      name: "IDX_SPM_CUSTOMER_ID",
+      column_list: ["customer_id"]
+    },
+    unique_constraints: {
+      name: "UK_SPM_CUSTOMER",
+      column_list: ["customer_id"]
+    }
+  };
+
+  int64 customer_id = 1 [(hope.persistence.column) = {
+    name: "CUSTOMER_ID",
+    description: "客户 ID",
+    nullable: false
+  }];
+
+  com.apihug.rad.infra.customer.CustomerPlatformTypeEnum platform_role = 2 [(hope.persistence.column) = {
+    name: "PLATFORM_ROLE",
+    description: "平台角色（MEMBER/MANAGER/OWNER）",
+    nullable: false,
+    enum_type: STRING,
+    length: 20,
+    default_value: "MEMBER"
+  }];
+
+  com.apihug.rad.infra.platform.PlatformMemberStatusEnum status = 3 [(hope.persistence.column) = {
+    name: "STATUS_CODE",
+    description: "平台成员状态",
+    nullable: false,
+    enum_type: STRING,
+    length: 20,
+    default_value: "PM_ACTIVE"
+  }];
+}

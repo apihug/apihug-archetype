@@ -17,7 +17,6 @@ import java.util.StringJoiner;
 import javax.annotation.Generated;
 
 /**
- * 成员详情（含客户账号信息 + 成员身份信息）
  * 租户成员详情信息
  */
 @Generated("H.O.P.E. Infra Team")

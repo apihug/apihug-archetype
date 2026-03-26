@@ -41,7 +41,7 @@ import javax.annotation.Generated;
 @EnableJdbcRepositories(
     jdbcOperationsRef = "_HPP_rad_namedParameterJdbcTemplate",
     transactionManagerRef = "_HPP_rad_transactionManager",
-    basePackages = { "com.apihug.rad.domain.audit.repository","com.apihug.rad.domain.bootstrap","com.apihug.rad.domain.customer.repository","com.apihug.rad.domain.department.repository","com.apihug.rad.domain.menu.repository","com.apihug.rad.domain.role.repository","com.apihug.rad.domain.tenant.repository" },
+    basePackages = { "com.apihug.rad.domain.audit.repository","com.apihug.rad.domain.bootstrap","com.apihug.rad.domain.customer.repository","com.apihug.rad.domain.department.repository","com.apihug.rad.domain.menu.repository","com.apihug.rad.domain.platform.repository","com.apihug.rad.domain.role.repository","com.apihug.rad.domain.tenant.repository" },
     repositoryBaseClass = HopeJdbcRepository.class)
 public class RadJdbcConfiguration extends HopeAbstractJdbcConfiguration {
 
