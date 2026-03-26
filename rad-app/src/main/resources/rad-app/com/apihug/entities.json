@@ -587,7 +587,7 @@
           "sortable" : false,
           "length" : 12,
           "enumType" : "STRING",
-          "defaultValue" : "UN_QUALIFY",
+          "defaultValue" : "NA",
           "type" : "VARCHAR",
           "protoLine" : 0,
           "protoColumn" : 3,

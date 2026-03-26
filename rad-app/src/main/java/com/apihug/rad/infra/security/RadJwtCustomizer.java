@@ -1,15 +1,11 @@
 // @formatter:off
 package com.apihug.rad.infra.security;
 
+import hope.common.meta.annotation.Template;
 import hope.common.spring.security.DefaultJwtCustomizer;
 import hope.common.spring.security.HopeSecurityProperties;
 import hope.common.spring.security.JwtCustomizer;
 import hope.common.spring.security.JwtTrivialConfigurationProvider;
-import java.lang.Class;
-import java.lang.Long;
-import java.lang.Object;
-import java.lang.Override;
-import java.lang.String;
 import java.util.Collection;
 import java.util.Map;
 import javax.annotation.Generated;
@@ -67,6 +63,12 @@ import org.springframework.stereotype.Component;
  * @see com.apihug.rad.infra.security.RadCustomer
  * @see com.apihug.rad.infra.security.AnonymousRadCustomer
  */
+@Template(
+    type = Template.Type.INFRA,
+    infra = Template.Infra.JwtCustomizer,
+    usage =
+        "extension of JwtCustomizer, remember to review your tenant and customer Id type and converter",
+    percentage = 30)
 @Component
 @Generated("H.O.P.E. Infra Team")
 public class RadJwtCustomizer extends DefaultJwtCustomizer<RadCustomer> {

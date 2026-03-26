@@ -76,7 +76,7 @@
       <column name="STATUS" type="VARCHAR(12)" defaultValue="ACTIVE" remarks="状态">
         <constraints nullable="false"></constraints>
       </column>
-      <column name="PLATFORM_TYPE" type="VARCHAR(12)" defaultValue="UN_QUALIFY" remarks="平台账号标志">
+      <column name="PLATFORM_TYPE" type="VARCHAR(12)" defaultValue="NA" remarks="平台账号标志">
         <constraints nullable="false"></constraints>
       </column>
       <column name="VERSION" type="BIGINT" defaultValueNumeric="0" remarks="Record version, optimistic lock">

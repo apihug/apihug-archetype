@@ -89,7 +89,7 @@ public final class CustomerEntity extends Domain<CustomerEntity, Long, Long> {
   protected CustomerStatusEnum status;
 
   /**
-   * Default value: UN_QUALIFY
+   * Default value: NA
    */
   @Column("PLATFORM_TYPE")
   @Enumerated(EnumType.STRING)

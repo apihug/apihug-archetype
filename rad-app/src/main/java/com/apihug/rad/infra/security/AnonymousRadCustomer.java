@@ -3,9 +3,6 @@ package com.apihug.rad.infra.security;
 
 import com.apihug.rad.infra.customer.CustomerPlatformTypeEnum;
 import hope.common.spring.security.internal.ImmutableCustomer;
-import java.lang.Long;
-import java.lang.Override;
-import java.lang.String;
 import java.util.Collection;
 import javax.annotation.Generated;
 
@@ -36,7 +33,7 @@ import javax.annotation.Generated;
  * </ul>
  *
  * @see com.apihug.rad.infra.security.RadCustomer
- * @see com.apihug.rad.infra.security.RadSecurityCustomerContextCustomizer#anonymous()
+ * @see com.apihug.rad.infra.security.RadJwtCustomizer#anonymous()
  */
 @Generated("H.O.P.E. Infra Team")
 public class AnonymousRadCustomer extends RadCustomer {

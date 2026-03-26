@@ -2,11 +2,12 @@
 package com.apihug.rad.infra.security;
 
 import com.apihug.rad.infra.customer.CustomerPlatformTypeEnum;
+import hope.common.meta.annotation.Template;
 import hope.common.spring.security.internal.CustomerLongIdentifyLongTenant;
-import javax.annotation.Generated;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Set;
+import javax.annotation.Generated;
 
 /**
  * Rad system user identity entity carrying core information of authenticated users.
@@ -42,9 +43,14 @@ import java.util.Set;
  *   <li>Provides role and permission checking capabilities during authorization
  * </ol>
  *
- * @see com.apihug.rad.infra.security.AnonymousRadCustomer Anonymous user implementation
- * @see #SecurityCustomerContextCustomizer# Responsible for creating and parsing user instances
+ * @see AnonymousRadCustomer Anonymous user implementation
+ * @see RadJwtCustomizer Responsible for creating and parsing user instances
  */
+@Template(
+    type = Template.Type.INFRA,
+    infra = Template.Infra.Customer,
+    usage = "extension of the customer add authorities and platform type support",
+    percentage = 70)
 @Generated("H.O.P.E. Infra Team")
 public class RadCustomer extends CustomerLongIdentifyLongTenant<RadCustomer> {
 

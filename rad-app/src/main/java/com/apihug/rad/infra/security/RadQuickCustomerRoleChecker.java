@@ -2,8 +2,8 @@
 package com.apihug.rad.infra.security;
 
 import com.apihug.rad.infra.customer.CustomerPlatformTypeEnum;
+import hope.common.meta.annotation.Template;
 import hope.common.spring.security.checker.QuickCustomerRoleChecker;
-import java.lang.Override;
 import javax.annotation.Generated;
 import org.springframework.stereotype.Component;
 
@@ -38,9 +38,14 @@ import org.springframework.stereotype.Component;
  * }
  * }</pre>
  *
- * @see com.apihug.rad.infra.security.RadCustomer
- * @see #com.apihug.rad.infra.security.RadSecurityCustomizer#
+ * @see RadCustomer
+ * @see RadSecurityCustomizer
  */
+@Template(
+    type = Template.Type.INFRA,
+    infra = Template.Infra.QuickCustomerRoleChecker,
+    usage = "extension of QuickCustomerRoleChecker support check of the predefined rules",
+    percentage = 30)
 @Component
 @Generated("H.O.P.E. Infra Team")
 public class RadQuickCustomerRoleChecker implements QuickCustomerRoleChecker<RadCustomer> {

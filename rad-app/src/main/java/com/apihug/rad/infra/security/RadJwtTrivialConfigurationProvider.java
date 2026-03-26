@@ -2,9 +2,6 @@
 package com.apihug.rad.infra.security;
 
 import hope.common.spring.security.JwtTrivialConfigurationProvider;
-import java.lang.Exception;
-import java.lang.Override;
-import java.lang.String;
 import javax.annotation.Generated;
 import org.springframework.security.oauth2.jose.jws.MacAlgorithm;
 import org.springframework.stereotype.Component;
