@@ -4,6 +4,7 @@ package com.apihug.rad.api.customer;
 import com.apihug.rad.domain.customer.CustomerEntity;
 import com.apihug.rad.domain.customer.repository.CustomerEntityRepository;
 import com.apihug.rad.infra.beans.PasswordEncoder;
+import com.apihug.rad.infra.beans.ResetTokenStore;
 import com.apihug.rad.infra.customer.CustomerErrorEnum;
 import com.apihug.rad.infra.customer.CustomerStatusEnum;
 import hope.common.api.exceptions.HopeErrorDetailException;
@@ -11,6 +12,7 @@ import hope.common.meta.annotation.Kind;
 import hope.common.meta.annotation.ProtoFrom;
 import hope.common.meta.annotation.Template;
 import hope.common.spring.SimpleResultBuilder;
+import java.util.UUID;
 import org.springframework.stereotype.Service;
 
 
@@ -26,13 +28,19 @@ import org.springframework.stereotype.Service;
     column = 1)
 public class CustomerManagementServiceImpl implements CustomerManagementService {
 
+  private static final long RESET_TOKEN_EXPIRY_MINUTES = 30;
+
   protected final PasswordEncoder passwordEncoder;
   private final CustomerEntityRepository customerRepository;
+  private final ResetTokenStore resetTokenStore;
 
   public CustomerManagementServiceImpl(
-      PasswordEncoder passwordEncoder, CustomerEntityRepository customerRepository) {
+      PasswordEncoder passwordEncoder,
+      CustomerEntityRepository customerRepository,
+      ResetTokenStore resetTokenStore) {
     this.passwordEncoder = passwordEncoder;
     this.customerRepository = customerRepository;
+    this.resetTokenStore = resetTokenStore;
   }
 
   /**
@@ -97,13 +105,16 @@ public class CustomerManagementServiceImpl implements CustomerManagementService 
   @Override
   public void forgotPassword(
       SimpleResultBuilder<String> builder, ForgotPasswordRequest forgotPasswordRequest) {
-    // 查找客户（不泄露邮箱是否存在）
+    // 无论是否找到用户都返回成功，防止泄露邮箱信息
     customerRepository.findByEmail(forgotPasswordRequest.getEmail())
         .ifPresent(customer -> {
-          // TODO: 生成重置 token 并发送邮件
-        });
+          // 生成重置 token（UUID）
+          String token = UUID.randomUUID().toString();
+          resetTokenStore.store(token, customer.getId(), RESET_TOKEN_EXPIRY_MINUTES);
 
-    // 无论是否找到用户都返回成功，防止泄露邮箱信息
+          // TODO: 接入邮件服务后替换为真实邮件发送
+
+        });
   }
 
   /**
@@ -115,9 +126,19 @@ public class CustomerManagementServiceImpl implements CustomerManagementService 
   @Override
   public void resetPassword(
       SimpleResultBuilder<String> builder, ResetPasswordRequest resetPasswordRequest) {
-    // TODO: 验证 token 有效性
-    // TODO: 验证 token 是否过期
-    // TODO: 使用 BCrypt 加密新密码
-    // TODO: 更新密码
+    // 1. 查找并移除 token
+    Long customerId = resetTokenStore.removeAndGet(resetPasswordRequest.getToken());
+    if (customerId == null) {
+      throw HopeErrorDetailException.errorBuilder(CustomerErrorEnum.RESET_TOKEN_EXPIRED).build();
+    }
+
+    // 2. 查找客户
+    CustomerEntity customer = customerRepository.findById(customerId)
+        .orElseThrow(() -> HopeErrorDetailException.errorBuilder(
+            CustomerErrorEnum.CUSTOMER_NOT_FOUND).build());
+
+    // 3. 使用 BCrypt 加密新密码并更新
+    customer.setPasswordHash(passwordEncoder.encode(resetPasswordRequest.getPassword()));
+    customerRepository.save(customer);
   }
 }

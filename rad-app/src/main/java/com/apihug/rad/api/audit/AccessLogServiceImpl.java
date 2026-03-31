@@ -128,7 +128,7 @@ public class AccessLogServiceImpl implements AccessLogService {
     AccessLogStatsResponse response = new AccessLogStatsResponse();
     response.setSuccessCount(successCount);
     response.setErrorCount(totalRequests - successCount);
-    response.setAvgDurationMs(totalDurationMs / totalRequests);
+    response.setAvgDurationMs(totalRequests > 0 ? totalDurationMs / totalRequests : 0L);
     response.setTotalRequests(totalRequests);
     // TODO
     // response.setTopPaths()

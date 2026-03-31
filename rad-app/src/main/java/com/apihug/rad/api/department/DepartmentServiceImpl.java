@@ -52,6 +52,13 @@ public class DepartmentServiceImpl implements DepartmentService {
       throw HopeErrorDetailException.errorBuilder(DepartmentErrorEnum.DEPT_CODE_EXISTS).build();
     }
 
+    // 验证父部门（如果 parentId != 0，必须属于同一租户）
+    if (createDepartmentRequest.getParentId() != null && createDepartmentRequest.getParentId() != 0) {
+      departmentRepository.findByIdAndTenantId(createDepartmentRequest.getParentId(), tenantId)
+          .orElseThrow(() -> HopeErrorDetailException.errorBuilder(
+              DepartmentErrorEnum.DEPARTMENT_NOT_FOUND).build());
+    }
+
     // 创建部门实体
     DepartmentEntity entity =
         new DepartmentEntity()
@@ -143,6 +150,7 @@ public class DepartmentServiceImpl implements DepartmentService {
 
   /** Delete department */
   @Override
+  @Transactional
   public void deleteDepartment(SimpleResultBuilder<String> builder, Integer departmentId) {
     RadCustomer customer = HopeContextHolder.customer();
     Long tenantId = customer.getTenantId();

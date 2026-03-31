@@ -167,4 +167,16 @@ public class CustomerPermissionResolver {
         .filter(code -> code != null && !code.isBlank())
         .collect(Collectors.toSet());
   }
+
+    /**
+     * 加载指定租户下所有菜单的 permission_code。
+     * 用于 OWNER 权限解析，避免使用 *:*:* 通配符导致越权。
+     */
+    private Set<String> resolveAllTenantPermissions(Long tenantId) {
+        List<MenuEntity> allMenus = menuRepository.findByTenantIdAndDeletedFalse(tenantId);
+        return allMenus.stream()
+                .map(MenuEntity::getPermissionCode)
+                .filter(code -> code != null && !code.isBlank())
+                .collect(Collectors.toSet());
+    }
 }

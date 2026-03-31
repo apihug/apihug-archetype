@@ -2,8 +2,14 @@ package com.apihug.rad.api.customer;
 
 import com.apihug.rad.domain.customer.CustomerEntity;
 import com.apihug.rad.domain.customer.repository.CustomerEntityRepository;
+import com.apihug.rad.domain.tenant.TenantEntity;
+import com.apihug.rad.domain.tenant.TenantMemberEntity;
+import com.apihug.rad.domain.tenant.repository.TenantEntityRepository;
+import com.apihug.rad.domain.tenant.repository.TenantMemberEntityRepository;
 import com.apihug.rad.infra.beans.PasswordEncoder;
 import com.apihug.rad.infra.customer.CustomerStatusEnum;
+import com.apihug.rad.infra.tenant.TenantMemberStatusEnum;
+import com.apihug.rad.infra.tenant.TenantStatusEnum;
 import com.apihug.rad.domain.security.CustomerPermissionResolver;
 import hope.common.api.exceptions.HopeErrorDetailException;
 import hope.common.spring.SimpleResultBuilder;
@@ -21,6 +27,7 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
 
 @DisplayName("客户认证 Service 单元测试")
@@ -29,6 +36,12 @@ class CustomerAuthServiceImplTest {
 
     @Mock
     private CustomerEntityRepository customerRepository;
+
+    @Mock
+    private TenantEntityRepository tenantRepository;
+
+    @Mock
+    private TenantMemberEntityRepository tenantMemberRepository;
 
     @Mock
     private JwtCustomizer jwtCustomizer;
@@ -49,7 +62,23 @@ class CustomerAuthServiceImplTest {
 
     @BeforeEach
     void setUp() {
-        service = new CustomerAuthServiceImpl(customerRepository, jwtCustomizer, passwordEncoder, permissionResolver);
+        service = new CustomerAuthServiceImpl(
+            customerRepository, tenantRepository, tenantMemberRepository,
+            jwtCustomizer, passwordEncoder, permissionResolver);
+    }
+
+    /**
+     * Mock tenant + member validation for resolveEffectiveTenant() to pass with given tenantId.
+     */
+    private void mockTenantValid(Long tenantId) {
+        TenantEntity tenant = mock(TenantEntity.class);
+        when(tenant.getStatus()).thenReturn(TenantStatusEnum.ACTIVE);
+        when(tenantRepository.findById(tenantId)).thenReturn(Optional.of(tenant));
+
+        TenantMemberEntity member = mock(TenantMemberEntity.class);
+        when(member.getStatus()).thenReturn(TenantMemberStatusEnum.TM_ACTIVE);
+        lenient().when(tenantMemberRepository.findByCustomerIdAndTenantId(any(), eq(tenantId)))
+            .thenReturn(Optional.of(member));
     }
 
     // ========== login ==========
@@ -70,6 +99,7 @@ class CustomerAuthServiceImplTest {
 
         when(customerRepository.findByUsername("testuser")).thenReturn(Optional.of(customer));
         when(passwordEncoder.matches("password123", "$2a$10$hashedPassword")).thenReturn(true);
+        mockTenantValid(1L);
         when(jwtCustomizer.encode(any())).thenReturn("jwt-token-123");
         when(permissionResolver.resolveRoles(1L, 1L)).thenReturn(Collections.emptySet());
         when(permissionResolver.resolveAuthorities(1L, 1L)).thenReturn(Collections.emptySet());

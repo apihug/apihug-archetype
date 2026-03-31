@@ -216,12 +216,41 @@ class RoleServiceImplTest {
         RoleEntity role = new RoleEntity().setId(1L).setRoleCode("admin");
         when(roleRepository.findByIdAndTenantId(1L, TEST_TENANT_ID)).thenReturn(java.util.Optional.of(role));
 
+        // Mock cross-tenant validation: both menus belong to TEST_TENANT_ID
+        MenuEntity menu1 = new MenuEntity().setId(1L).setTenantId(TEST_TENANT_ID);
+        MenuEntity menu2 = new MenuEntity().setId(2L).setTenantId(TEST_TENANT_ID);
+        when(menuRepository.findAllById(java.util.Arrays.asList(1L, 2L)))
+            .thenReturn(java.util.Arrays.asList(menu1, menu2));
+
         // Act
         roleService.assignMenusToRole(stringBuilder, roleId, request);
 
         // Assert
         verify(roleMenuRepository).deleteByRoleId(1L);
         verify(roleMenuRepository).saveAll(any());
+    }
+
+    @Test
+    void testAssignMenusToRole_CrossTenantRejected() {
+        // Arrange
+        Integer roleId = 1;
+        AssignMenusRequest request = new AssignMenusRequest()
+            .setMenuIds(java.util.Arrays.asList(1L, 2L));
+
+        RoleEntity role = new RoleEntity().setId(1L).setRoleCode("admin");
+        when(roleRepository.findByIdAndTenantId(1L, TEST_TENANT_ID)).thenReturn(java.util.Optional.of(role));
+
+        // menuId=2 belongs to another tenant
+        MenuEntity menu1 = new MenuEntity().setId(1L).setTenantId(TEST_TENANT_ID);
+        MenuEntity menu2 = new MenuEntity().setId(2L).setTenantId(999L);
+        when(menuRepository.findAllById(java.util.Arrays.asList(1L, 2L)))
+            .thenReturn(java.util.Arrays.asList(menu1, menu2));
+
+        // Act & Assert
+        assertThrows(HopeErrorDetailException.class, () -> {
+            roleService.assignMenusToRole(stringBuilder, roleId, request);
+        });
+        verify(roleMenuRepository, never()).saveAll(any());
     }
 
     @Test

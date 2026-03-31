@@ -432,8 +432,17 @@ public void assignRolesToMember(SimpleResultBuilder<String> builder, Integer ten
 
     // 批量插入新关联
     if (assignRolesRequest.getRoleIds() != null && !assignRolesRequest.getRoleIds().isEmpty()) {
+      List<Long> roleIds = assignRolesRequest.getRoleIds();
+
+      // 校验所有角色 ID 属于当前租户（防止跨租户角色分配）
+      List<RoleEntity> roles = roleRepository.findAllById(roleIds);
+      if (roles.size() != roleIds.size()
+          || roles.stream().anyMatch(r -> !Long.valueOf(tenantId).equals(r.getTenantId()))) {
+        throw HopeErrorDetailException.errorBuilder(TenantMemberErrorEnum.MEMBER_NOT_FOUND).build();
+      }
+
       List<MemberRoleEntity> memberRoles = new ArrayList<>();
-      for (Long roleId : assignRolesRequest.getRoleIds()) {
+      for (Long roleId : roleIds) {
         MemberRoleEntity mr = new MemberRoleEntity()
             .setMemberId(member.getId())
             .setRoleId(roleId);

@@ -19,6 +19,7 @@ import java.util.stream.Collectors;
 import hope.common.spring.security.context.HopeContextHolder;
 import com.apihug.rad.infra.security.RadCustomer;import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Template(type = Template.Type.SERVICE, usage = "Platform menu management", percentage = 90)
 @Service
@@ -42,6 +43,7 @@ public class MenuServiceImpl implements MenuService {
    * Authorization: ROLE_CREATE
    */
   @Override
+  @Transactional
   public void createMenu(SimpleResultBuilder<MenuSummary> builder,
       CreateMenuRequest createMenuRequest) {
     RadCustomer customer = HopeContextHolder.customer();
@@ -105,6 +107,7 @@ public class MenuServiceImpl implements MenuService {
    * Update menu
    */
   @Override
+  @Transactional
   public void updateMenu(SimpleResultBuilder<String> builder, Integer menuId,
       UpdateMenuRequest updateMenuRequest) {
     RadCustomer customer = HopeContextHolder.customer();
@@ -142,6 +145,7 @@ public class MenuServiceImpl implements MenuService {
    * Delete menu (soft delete)
    */
   @Override
+  @Transactional
   public void deleteMenu(SimpleResultBuilder<String> builder, Integer menuId) {
     RadCustomer customer = HopeContextHolder.customer();
     Long tenantId = customer.getTenantId();
