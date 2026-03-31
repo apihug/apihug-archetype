@@ -1,10 +1,13 @@
 package com.apihug.rad.infra.beans;
 
+import hope.common.meta.annotation.Template;
+
 /**
  * 密码重置 Token 存储抽象接口。
  *
  * <p>dev 环境使用内存缓存实现，其它环境使用 Redis 缓存实现。
  */
+@Template(type = Template.Type.SERVICE, usage = "Reset token store interface for password reset flow", percentage = 100)
 public interface ResetTokenStore {
 
   /**

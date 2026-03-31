@@ -1,5 +1,6 @@
 package com.apihug.rad.infra.beans;
 
+import hope.common.meta.annotation.Template;
 import java.time.LocalDateTime;
 import java.util.concurrent.ConcurrentHashMap;
 import org.springframework.context.annotation.Profile;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Component;
  * <p>使用 ConcurrentHashMap 存储 token → 客户 ID 的映射，
  * 适用于开发、测试环境。应用重启后所有 token 失效。
  */
+@Template(type = Template.Type.SERVICE, usage = "In-memory reset token store for dev environment", percentage = 100)
 @Component
 @Profile("dev")
 public class InMemoryResetTokenStore implements ResetTokenStore {
