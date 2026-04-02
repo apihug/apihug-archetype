@@ -1,6 +1,6 @@
 [versions]
 # libraries
-apihugVersion = "2.5.0-RELEASE"
+apihugVersion = "2.5.2-RELEASE"
 
 # Carry from apihug lib env - high risky
 javaxCache = "1.1.1"
@@ -637,6 +637,7 @@ spring-dependency = { id = "io.spring.dependency-management", version.ref = "spr
 #Hug plugin
 hope = { id = "com.apihug.hope", version.ref = "apihugVersion" }
 hope-repl = { id = "com.apihug.repl", version.ref = "apihugVersion" }
+hope-ui = { id = "com.apihug.ui", version.ref = "apihugVersion" }
 
 #Protobuf plugin
 protobuf = { id = "com.google.protobuf", version.ref = "protobuf" }
