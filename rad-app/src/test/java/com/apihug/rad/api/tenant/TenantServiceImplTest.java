@@ -1,13 +1,19 @@
 package com.apihug.rad.api.tenant;
 
+import com.apihug.rad.domain.platform.repository.PlatformMemberEntityRepository;
+import com.apihug.rad.domain.platform.PlatformMemberEntity;
 import com.apihug.rad.domain.tenant.TenantEntity;
 import com.apihug.rad.domain.tenant.repository.TenantEntityRepository;
+import com.apihug.rad.infra.customer.CustomerPlatformTypeEnum;
+import com.apihug.rad.infra.platform.PlatformMemberStatusEnum;
+import com.apihug.rad.infra.security.RadCustomer;
 import com.apihug.rad.infra.tenant.TenantErrorEnum;
 import com.apihug.rad.infra.tenant.TenantStatusEnum;
 import hope.common.api.exceptions.HopeErrorDetailException;
 import hope.common.spring.PageableResultBuilder;
 import hope.common.spring.SimpleResultBuilder;
 import hope.common.spring.security.context.HopeContextHolder;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -25,6 +31,7 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -32,6 +39,9 @@ class TenantServiceImplTest {
 
     @Mock
     private TenantEntityRepository tenantRepository;
+
+    @Mock
+    private PlatformMemberEntityRepository platformMemberRepository;
 
     @Mock
     private SimpleResultBuilder<TenantSummary> summaryBuilder;
@@ -46,10 +56,32 @@ class TenantServiceImplTest {
     private PageableResultBuilder<TenantSummary> pageableBuilder;
 
     private TenantServiceImpl tenantService;
+    private MockedStatic<HopeContextHolder> holderMock;
+    private static final Long TEST_TENANT_ID = 1L;
 
     @BeforeEach
     void setUp() {
-        tenantService = new TenantServiceImpl(tenantRepository);
+        holderMock = mockStatic(HopeContextHolder.class);
+        RadCustomer mockCustomer = mock(RadCustomer.class);
+        lenient().when(mockCustomer.getTenantId()).thenReturn(TEST_TENANT_ID);
+        lenient().when(mockCustomer.getId()).thenReturn(100L);
+        holderMock.when(HopeContextHolder::customer).thenReturn(mockCustomer);
+        tenantService = new TenantServiceImpl(tenantRepository, platformMemberRepository);
+    }
+
+    @AfterEach
+    void tearDown() {
+        holderMock.close();
+    }
+
+    /**
+     * Mock platformMemberRepository to allow assertPlatformLeader() to pass.
+     */
+    private void mockPlatformLeader() {
+        PlatformMemberEntity pm = mock(PlatformMemberEntity.class);
+        when(pm.getPlatformRole()).thenReturn(CustomerPlatformTypeEnum.OWNER);
+        when(platformMemberRepository.findByCustomerIdAndStatus(eq(100L), eq(PlatformMemberStatusEnum.PM_ACTIVE)))
+            .thenReturn(Optional.of(pm));
     }
 
     @Test
@@ -117,14 +149,8 @@ class TenantServiceImplTest {
 
         when(tenantRepository.findById(1L)).thenReturn(Optional.of(entity));
 
-        // Act - mock HopeContextHolder to avoid NPE
-        try (MockedStatic<HopeContextHolder> contextHolder = mockStatic(HopeContextHolder.class)) {
-            com.apihug.rad.infra.security.RadCustomer mockCustomer = mock(com.apihug.rad.infra.security.RadCustomer.class);
-            when(mockCustomer.getTenantId()).thenReturn(1L);
-            contextHolder.when(HopeContextHolder::customer).thenReturn(mockCustomer);
-
-            tenantService.getTenant(detailBuilder, tenantId);
-        }
+        // Act - tenantId == contextTenantId, no platform leader check needed
+        tenantService.getTenant(detailBuilder, tenantId);
 
         // Assert
         verify(detailBuilder).payload(any(TenantDetail.class));
@@ -134,19 +160,14 @@ class TenantServiceImplTest {
     void testGetTenant_NotFound() {
         // Arrange
         Long tenantId = 999L;
+        mockPlatformLeader();
         when(tenantRepository.findById(999L)).thenReturn(Optional.empty());
 
-        // Act & Assert - mock HopeContextHolder to avoid NPE
-        try (MockedStatic<HopeContextHolder> contextHolder = mockStatic(HopeContextHolder.class)) {
-            com.apihug.rad.infra.security.RadCustomer mockCustomer = mock(com.apihug.rad.infra.security.RadCustomer.class);
-            when(mockCustomer.getTenantId()).thenReturn(999L);
-            contextHolder.when(HopeContextHolder::customer).thenReturn(mockCustomer);
-
-            assertThrows(
-                HopeErrorDetailException.class,
-                () -> tenantService.getTenant(detailBuilder, tenantId)
-            );
-        }
+        // Act & Assert - tenantId != contextTenantId, platform leader check passes
+        assertThrows(
+            HopeErrorDetailException.class,
+            () -> tenantService.getTenant(detailBuilder, tenantId)
+        );
     }
 
     @Test
@@ -163,6 +184,7 @@ class TenantServiceImplTest {
             .setTenantCode("acme_corp")
             .setTenantName("Acme 公司");
 
+        // contextTenantId == tenantId, no platform leader check
         when(tenantRepository.findById(1L)).thenReturn(Optional.of(existing));
         when(tenantRepository.save(any(TenantEntity.class))).thenReturn(existing);
 
@@ -179,6 +201,8 @@ class TenantServiceImplTest {
         Integer tenantId = 999;
         UpdateTenantRequest request = new UpdateTenantRequest();
 
+        // tenantId != contextTenantId, platform leader check needed
+        mockPlatformLeader();
         when(tenantRepository.findById(999L)).thenReturn(Optional.empty());
 
         // Act & Assert
@@ -196,6 +220,7 @@ class TenantServiceImplTest {
             .setId(1L)
             .setStatus(TenantStatusEnum.ACTIVE);
 
+        mockPlatformLeader();
         when(tenantRepository.findById(1L)).thenReturn(Optional.of(entity));
         when(tenantRepository.save(any(TenantEntity.class))).thenReturn(entity);
 
@@ -211,6 +236,7 @@ class TenantServiceImplTest {
     void testDisableTenant_NotFound() {
         // Arrange
         Integer tenantId = 999;
+        mockPlatformLeader();
         when(tenantRepository.findById(999L)).thenReturn(Optional.empty());
 
         // Act & Assert
@@ -230,6 +256,7 @@ class TenantServiceImplTest {
 
         TenantEntity entity = new TenantEntity().setId(1L);
 
+        mockPlatformLeader();
         when(tenantRepository.findById(1L)).thenReturn(Optional.of(entity));
         when(tenantRepository.save(any(TenantEntity.class))).thenReturn(entity);
 

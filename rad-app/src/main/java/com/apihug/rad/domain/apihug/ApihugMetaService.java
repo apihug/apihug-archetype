@@ -113,6 +113,6 @@ public class ApihugMetaService {
   }
 
   String loadApis() {
-    return loadResource("entities");
+    return loadResource("apis");
   }
 }

@@ -279,8 +279,17 @@ public class RoleServiceImpl implements RoleService {
 
     // 批量插入新关联
     if (assignMenusRequest.getMenuIds() != null && !assignMenusRequest.getMenuIds().isEmpty()) {
+      List<Long> menuIds = assignMenusRequest.getMenuIds();
+
+      // 校验所有菜单 ID 属于当前租户（防止跨租户菜单关联）
+      List<MenuEntity> menus = menuRepository.findAllById(menuIds);
+      if (menus.size() != menuIds.size()
+          || menus.stream().anyMatch(m -> !tenantId.equals(m.getTenantId()))) {
+        throw HopeErrorDetailException.errorBuilder(RoleErrorEnum.ROLE_NOT_FOUND).build();
+      }
+
       List<RoleMenuEntity> roleMenus = new ArrayList<>();
-      for (Long menuId : assignMenusRequest.getMenuIds()) {
+      for (Long menuId : menuIds) {
         RoleMenuEntity rm = new RoleMenuEntity()
             .setRoleId(role.getId())
             .setMenuId(menuId);
