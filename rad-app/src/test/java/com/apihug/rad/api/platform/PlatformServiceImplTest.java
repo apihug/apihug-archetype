@@ -127,10 +127,8 @@ class PlatformServiceImplTest {
         assertEquals(CustomerPlatformTypeEnum.MEMBER, saved.getPlatformRole());
         assertEquals(PlatformMemberStatusEnum.PM_ACTIVE, saved.getStatus());
 
-        // 验证客户的 platformType 被更新
-        ArgumentCaptor<CustomerEntity> customerCaptor = ArgumentCaptor.forClass(CustomerEntity.class);
-        verify(customerRepository).save(customerCaptor.capture());
-        assertEquals(CustomerPlatformTypeEnum.MEMBER, customerCaptor.getValue().getPlatformType());
+        // 验证客户的 platformType 被更新（通过 updateCustomerPlatformType 方法）
+        verify(customerRepository).updateCustomerPlatformType(100L, CustomerPlatformTypeEnum.MEMBER.title());
     }
 
     @Test
@@ -188,10 +186,7 @@ class PlatformServiceImplTest {
             .setPlatformRole(CustomerPlatformTypeEnum.MEMBER)
             .setStatus(PlatformMemberStatusEnum.PM_ACTIVE);
 
-        CustomerEntity customer = new CustomerEntity().setId(100L).setPlatformType(CustomerPlatformTypeEnum.MEMBER);
-
         when(platformMemberRepository.findById(1L)).thenReturn(Optional.of(member));
-        when(customerRepository.findById(100L)).thenReturn(Optional.of(customer));
 
         service.removePlatformMember(stringBuilder, 1L);
 
@@ -199,9 +194,7 @@ class PlatformServiceImplTest {
         verify(platformMemberRepository).save(memberCaptor.capture());
         assertEquals(PlatformMemberStatusEnum.PM_INACTIVE, memberCaptor.getValue().getStatus());
 
-        ArgumentCaptor<CustomerEntity> customerCaptor = ArgumentCaptor.forClass(CustomerEntity.class);
-        verify(customerRepository).save(customerCaptor.capture());
-        assertNull(customerCaptor.getValue().getPlatformType());
+        verify(customerRepository).updateCustomerPlatformType(100L, CustomerPlatformTypeEnum.NA.title());
     }
 
     @Test
@@ -306,13 +299,10 @@ class PlatformServiceImplTest {
             .setPlatformRole(CustomerPlatformTypeEnum.MEMBER)
             .setStatus(PlatformMemberStatusEnum.PM_ACTIVE);
 
-        CustomerEntity customer = new CustomerEntity();
-
         UpdatePlatformMemberRoleRequest request = new UpdatePlatformMemberRoleRequest()
             .setPlatformRole(CustomerPlatformTypeEnum.MANAGER);
 
         when(platformMemberRepository.findById(1L)).thenReturn(Optional.of(member));
-        when(customerRepository.findById(10L)).thenReturn(Optional.of(customer));
 
         service.updatePlatformMemberRole(stringBuilder, 1L, request);
 
@@ -320,9 +310,7 @@ class PlatformServiceImplTest {
         verify(platformMemberRepository).save(memberCaptor.capture());
         assertEquals(CustomerPlatformTypeEnum.MANAGER, memberCaptor.getValue().getPlatformRole());
 
-        ArgumentCaptor<CustomerEntity> customerCaptor = ArgumentCaptor.forClass(CustomerEntity.class);
-        verify(customerRepository).save(customerCaptor.capture());
-        assertEquals(CustomerPlatformTypeEnum.MANAGER, customerCaptor.getValue().getPlatformType());
+        verify(customerRepository).updateCustomerPlatformType(10L, CustomerPlatformTypeEnum.MANAGER.title());
     }
 
     @Test

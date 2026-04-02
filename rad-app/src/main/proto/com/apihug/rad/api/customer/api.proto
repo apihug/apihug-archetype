@@ -19,6 +19,8 @@ service CustomerAuthService {
       description: "客户登录认证接口，验证用户名和密码，成功后返回访问令牌";
       summary: "客户登录认证";
       tags: "auth";
+      priority: CRITICAL;
+      group: CUSTOMER
       authorization: {
         low_limit_risky_mode: ANONYMOUS
       };
@@ -36,6 +38,8 @@ service CustomerAuthService {
       description: "客户退出登录接口，清除当前客户的会话信息";
       summary: "退出登录";
       tags: "auth";
+      priority: CRITICAL;
+      group: CUSTOMER
       authorization: {
         low_limit_risky_mode: LOGIN
       };
@@ -61,6 +65,8 @@ service CustomerService {
       description: "查询当前客户信息";
       summary: "当前客户信息查询";
       tags: "customer";
+      priority: LOW;
+      group: CUSTOMER
       authorization: {
         low_limit_risky_mode: LOGIN
       };
@@ -78,6 +84,8 @@ service CustomerService {
       description: "获取当前客户完整信息（包含权限、角色、部门、当前租户）";
       summary: "获取当前客户完整信息";
       tags: "customer";
+      priority: LOW;
+      group: CUSTOMER
       authorization: {
         low_limit_risky_mode: LOGIN
       };
@@ -95,6 +103,8 @@ service CustomerService {
       description: "获取客户加入的所有租户列表";
       summary: "获取客户租户列表";
       tags: "customer";
+      priority: LOW;
+      group: CUSTOMER
       authorization: {
         low_limit_risky_mode: LOGIN
       };
@@ -107,6 +117,8 @@ service CustomerService {
       description: "切换到指定租户，重新签发 Token";
       summary: "切换租户";
       tags: "customer";
+      priority: MIDDLE;
+      group: CUSTOMER
       authorization: {
         low_limit_risky_mode: LOGIN
       };
@@ -131,6 +143,8 @@ service CustomerManagementService {
       description: "创建新客户";
       summary: "创建客户";
       tags: "customer";
+      priority: HIGH;
+      group: PLATFORM
       authorization: {
         rbac: {
           authorities: ["CUSTOMER_CREATE"];
@@ -151,6 +165,8 @@ service CustomerManagementService {
       description: "申请找回密码（发送重置邮件）";
       summary: "找回密码";
       tags: "auth";
+      priority: MIDDLE;
+      group: CUSTOMER
       authorization: {
         low_limit_risky_mode: ANONYMOUS
       };
@@ -167,6 +183,8 @@ service CustomerManagementService {
       description: "重置密码（使用 token）";
       summary: "重置密码";
       tags: "auth";
+      priority: HIGH;
+      group: CUSTOMER
       authorization: {
         low_limit_risky_mode: ANONYMOUS
       };

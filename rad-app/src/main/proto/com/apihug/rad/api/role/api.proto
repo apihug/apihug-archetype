@@ -19,6 +19,8 @@ service RoleService {
       description: "创建新角色";
       summary: "创建角色";
       tags: "role";
+      priority: MIDDLE;
+      group: TENANT
       authorization: {
         rbac: {
           authorities: ["ROLE_CREATE"];
@@ -38,6 +40,8 @@ service RoleService {
       description: "获取角色详情";
       summary: "获取角色详情";
       tags: "role";
+      priority: LOW;
+      group: TENANT
       authorization: {
         low_limit_risky_mode: LOGIN
       };
@@ -64,6 +68,8 @@ service RoleService {
       description: "更新角色信息";
       summary: "更新角色";
       tags: "role";
+      priority: MIDDLE;
+      group: TENANT
       authorization: {
         rbac: {
           authorities: ["ROLE_UPDATE"];
@@ -92,6 +98,8 @@ service RoleService {
       description: "删除角色（软删除）";
       summary: "删除角色";
       tags: "role";
+      priority: HIGH;
+      group: TENANT
       authorization: {
         rbac: {
           authorities: ["ROLE_DELETE"];
@@ -120,6 +128,8 @@ service RoleService {
       description: "搜索角色（分页）";
       summary: "搜索角色";
       tags: "role";
+      priority: LOW;
+      group: TENANT
       authorization: {
         rbac: {
           authorities: ["ROLE_VIEW"];
@@ -140,6 +150,8 @@ service RoleService {
       description: "为角色分配菜单（全量覆盖，菜单中 BUTTON 类型的 permission_code 即为权限）";
       summary: "分配菜单给角色";
       tags: "role";
+      priority: MIDDLE;
+      group: TENANT
       authorization: {
         rbac: {
           authorities: ["ROLE_ASSIGN_PERMISSION"];
@@ -168,6 +180,8 @@ service RoleService {
       description: "移除角色的某个菜单关联";
       summary: "移除角色菜单";
       tags: "role";
+      priority: HIGH;
+      group: TENANT
       authorization: {
         rbac: {
           authorities: ["ROLE_ASSIGN_PERMISSION"];
@@ -200,6 +214,8 @@ service RoleService {
       description: "获取角色关联的菜单列表（含权限代码）";
       summary: "获取角色菜单";
       tags: "role";
+      priority: LOW;
+      group: TENANT
       authorization: {
         low_limit_risky_mode: LOGIN
       };

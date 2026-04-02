@@ -29,7 +29,7 @@ import org.springframework.web.bind.annotation.RestController;
     value = "com/apihug/rad/api/customer/api.proto",
     entity = "CustomerService",
     kind = Kind.RPC,
-    line = 52,
+    line = 56,
     column = 1
 )
 @Generated("H.O.P.E. Infra Team")
@@ -145,6 +145,6 @@ public class CustomerController {
 
     ServiceMethodContext GetCustomerTenants = new ServiceMethodContext("com.apihug.rad.api.customer.CustomerService", "GetCustomerTenants", "/api/customer/tenants", Priority.LOW, ServiceMethod.HttpMethod.GET);
 
-    ServiceMethodContext SwitchTenant = new ServiceMethodContext("com.apihug.rad.api.customer.CustomerService", "SwitchTenant", "/api/customer/switch-tenant", Priority.LOW, ServiceMethod.HttpMethod.POST);
+    ServiceMethodContext SwitchTenant = new ServiceMethodContext("com.apihug.rad.api.customer.CustomerService", "SwitchTenant", "/api/customer/switch-tenant", Priority.MIDDLE, ServiceMethod.HttpMethod.POST);
   }
 }

@@ -236,15 +236,15 @@ public class TenantController {
   }
 
   public interface Apis {
-    ServiceMethodContext CreateTenant = new ServiceMethodContext("com.apihug.rad.api.tenant.TenantService", "CreateTenant", "/api/tenants/tenants", Priority.LOW, ServiceMethod.HttpMethod.POST);
+    ServiceMethodContext CreateTenant = new ServiceMethodContext("com.apihug.rad.api.tenant.TenantService", "CreateTenant", "/api/tenants/tenants", Priority.HIGH, ServiceMethod.HttpMethod.POST);
 
     ServiceMethodContext GetTenant = new ServiceMethodContext("com.apihug.rad.api.tenant.TenantService", "GetTenant", "/api/tenants/tenants/{tenantId}", Priority.LOW, ServiceMethod.HttpMethod.GET);
 
-    ServiceMethodContext UpdateTenant = new ServiceMethodContext("com.apihug.rad.api.tenant.TenantService", "UpdateTenant", "/api/tenants/tenants/{tenantId}", Priority.LOW, ServiceMethod.HttpMethod.PUT);
+    ServiceMethodContext UpdateTenant = new ServiceMethodContext("com.apihug.rad.api.tenant.TenantService", "UpdateTenant", "/api/tenants/tenants/{tenantId}", Priority.MIDDLE, ServiceMethod.HttpMethod.PUT);
 
-    ServiceMethodContext DisableTenant = new ServiceMethodContext("com.apihug.rad.api.tenant.TenantService", "DisableTenant", "/api/tenants/tenants/{tenantId}/disable", Priority.LOW, ServiceMethod.HttpMethod.DELETE);
+    ServiceMethodContext DisableTenant = new ServiceMethodContext("com.apihug.rad.api.tenant.TenantService", "DisableTenant", "/api/tenants/tenants/{tenantId}/disable", Priority.HIGH, ServiceMethod.HttpMethod.DELETE);
 
-    ServiceMethodContext ConfigureTenant = new ServiceMethodContext("com.apihug.rad.api.tenant.TenantService", "ConfigureTenant", "/api/tenants/tenants/{tenantId}/configure", Priority.LOW, ServiceMethod.HttpMethod.POST);
+    ServiceMethodContext ConfigureTenant = new ServiceMethodContext("com.apihug.rad.api.tenant.TenantService", "ConfigureTenant", "/api/tenants/tenants/{tenantId}/configure", Priority.MIDDLE, ServiceMethod.HttpMethod.POST);
 
     ServiceMethodContext SearchTenants = new ServiceMethodContext("com.apihug.rad.api.tenant.TenantService", "SearchTenants", "/api/tenants/tenants/search", Priority.LOW, ServiceMethod.HttpMethod.POST);
   }

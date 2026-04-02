@@ -94,8 +94,8 @@ public class CustomerAuthController {
   }
 
   public interface Apis {
-    ServiceMethodContext Login = new ServiceMethodContext("com.apihug.rad.api.customer.CustomerAuthService", "Login", "/api/auth/login", Priority.LOW, ServiceMethod.HttpMethod.POST);
+    ServiceMethodContext Login = new ServiceMethodContext("com.apihug.rad.api.customer.CustomerAuthService", "Login", "/api/auth/login", Priority.CRITICAL, ServiceMethod.HttpMethod.POST);
 
-    ServiceMethodContext Logout = new ServiceMethodContext("com.apihug.rad.api.customer.CustomerAuthService", "Logout", "/api/auth/logout", Priority.LOW, ServiceMethod.HttpMethod.POST);
+    ServiceMethodContext Logout = new ServiceMethodContext("com.apihug.rad.api.customer.CustomerAuthService", "Logout", "/api/auth/logout", Priority.CRITICAL, ServiceMethod.HttpMethod.POST);
   }
 }

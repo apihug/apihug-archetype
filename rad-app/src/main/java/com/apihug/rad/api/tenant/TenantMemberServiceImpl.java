@@ -6,9 +6,7 @@ import com.apihug.rad.domain.customer.repository.CustomerEntityRepository;
 import com.apihug.rad.domain.role.RoleEntity;
 import com.apihug.rad.domain.role.repository.RoleEntityRepository;
 import com.apihug.rad.domain.tenant.MemberRoleEntity;
-import com.apihug.rad.domain.tenant.TenantEntity;
 import com.apihug.rad.domain.tenant.TenantMemberEntity;
-import hope.common.meta.annotation.Template;
 import com.apihug.rad.domain.tenant.repository.MemberRoleEntityRepository;
 import com.apihug.rad.domain.tenant.repository.TenantMemberEntityRepository;
 import com.apihug.rad.domain.tenant.repository.TenantEntityRepository;
@@ -21,6 +19,7 @@ import hope.common.api.PageRequest;
 import hope.common.api.exceptions.HopeErrorDetailException;
 import hope.common.meta.annotation.Kind;
 import hope.common.meta.annotation.ProtoFrom;
+import hope.common.meta.annotation.Template;
 import hope.common.spring.PageableResultBuilder;
 import hope.common.spring.SimpleResultBuilder;
 import hope.common.spring.security.context.HopeContextHolder;
@@ -72,66 +71,17 @@ public class TenantMemberServiceImpl implements TenantMemberService {
     this.memberRoleRepository = memberRoleRepository;
     this.roleRepository = roleRepository;
   }
+
   /**
-   *
-   * Authorization:
-   *
-   * <ul>
-   * 	<li>Authorities: [TENANT_MEMBER_VIEW]</li>
-   * </ul>
-   * @apiNote
-   * 	<p>{@code /api/tenant-members/tenants/{tenantId}/members}
-   * 	<p>{@code 获取租户成员列表}
-   * @see TenantMemberService#getTenantMembers
+   * 校验成员是否属于指定租户，不匹配则抛 FORBIDDEN 越权异常。
+   * 将租户归属检查下沉为可复用工具方法，避免重复代码。
    */
-  @Override
-  public void getTenantMembers(PageableResultBuilder<TenantMemberSummary> builder, Integer tenantId,
-      GetTenantMembersRequest getTenantMembersRequest, PageRequest pageParameter) {
-    // 验证租户存在
-    if (!tenantRepository.existsById(tenantId.longValue())) {
-      throw HopeErrorDetailException.errorBuilder(TenantErrorEnum.TENANT_NOT_FOUND).build();
+  private void validateMemberBelongsToTenant(TenantMemberEntity member, Long expectedTenantId) {
+    if (!member.getTenantId().equals(expectedTenantId)) {
+      throw HopeErrorDetailException.errorBuilder(
+              TenantMemberErrorEnum.MEMBER_TENANT_ACCESS_DENIED)
+          .build();
     }
-
-    // 使用 trait 中的分页搜索方法
-    Page<TenantMemberEntity> page = tenantMemberRepository.searchTenantMembers(
-        tenantId.longValue(),
-        getTenantMembersRequest.getStatus(),
-        getTenantMembersRequest.getMemberRole(),
-        pageParameter);
-
-    // 批量加载客户信息，避免 N+1
-    List<Long> customerIds = page.getContent().stream()
-        .map(TenantMemberEntity::getCustomerId)
-        .collect(Collectors.toList());
-    Map<Long, CustomerEntity> customerMap = customerRepository.findAllById(customerIds).stream()
-        .collect(Collectors.toMap(CustomerEntity::getId, c -> c));
-
-    // 构建响应
-    builder.setPageIndex(pageParameter.getPage())
-           .setPageSize(pageParameter.getSize())
-           .setTotalCount(page.getTotalElements())
-           .setTotalPage(page.getTotalPages())
-           .setData(page.getContent().stream()
-               .map(m -> {
-                 TenantMemberSummary summary = new TenantMemberSummary()
-                     .setId(m.getId())
-                     .setCustomerId(m.getCustomerId())
-                     .setTenantId(m.getTenantId())
-                     .setDepartmentId(m.getDepartmentId())
-                     .setPosition(m.getPosition())
-                     .setMemberType(m.getMemberType())
-                     .setMemberRole(m.getMemberRole())
-                     .setStatus(m.getStatus())
-                     .setIsDefault(m.getIsDefault());
-                 // 从批量加载的 Map 中获取客户信息
-                 CustomerEntity c = customerMap.get(m.getCustomerId());
-                 if (c != null) {
-                   summary.setCustomerUsername(c.getUsername())
-                       .setCustomerEmail(c.getEmail());
-                 }
-                 return summary;
-               })
-               .collect(Collectors.toList()));
   }
 
   /**
@@ -139,58 +89,134 @@ public class TenantMemberServiceImpl implements TenantMemberService {
    * Authorization:
    *
    * <ul>
-   * 	<li>Authorities: [TENANT_MEMBER_ADD]</li>
+   *   <li>Authorities: [TENANT_MEMBER_VIEW]</li>
    * </ul>
+   *
    * @apiNote
-   * 	<p>{@code /api/tenant-members/tenants/{tenantId}/members}
-   * 	<p>{@code 添加客户为租户成员}
-   * @see TenantMemberService#addMemberToTenant
+   *     <p>{@code /api/tenant-members/tenants/{tenantId}/members}
+   *     <p>{@code 获取租户成员列表}
+   * @see TenantMemberService#getTenantMembers
    */
-  @Transactional
   @Override
-  public void addMemberToTenant(SimpleResultBuilder<String> builder, Integer tenantId,
-      AddTenantMemberRequest addTenantMemberRequest) {
+  public void getTenantMembers(
+      PageableResultBuilder<TenantMemberSummary> builder,
+      Integer tenantId,
+      GetTenantMembersRequest getTenantMembersRequest,
+      PageRequest pageParameter) {
     Long tid = tenantId.longValue();
-    Long customerId = addTenantMemberRequest.getCustomerId();
 
-    // 验证租户存在
     if (!tenantRepository.existsById(tid)) {
       throw HopeErrorDetailException.errorBuilder(TenantErrorEnum.TENANT_NOT_FOUND).build();
     }
 
-    // 验证客户存在
+    Page<TenantMemberEntity> page =
+        tenantMemberRepository.searchTenantMembers(
+            tid,
+            getTenantMembersRequest.getStatus(),
+            getTenantMembersRequest.getMemberRole(),
+            pageParameter);
+
+    // 批量加载客户信息，避免 N+1
+    List<Long> customerIds =
+        page.getContent().stream()
+            .map(TenantMemberEntity::getCustomerId)
+            .collect(Collectors.toList());
+    Map<Long, CustomerEntity> customerMap =
+        customerRepository.findAllById(customerIds).stream()
+            .collect(Collectors.toMap(CustomerEntity::getId, c -> c));
+
+    builder.setPageIndex(pageParameter.getPage())
+        .setPageSize(pageParameter.getSize())
+        .setTotalCount(page.getTotalElements())
+        .setTotalPage(page.getTotalPages())
+        .setData(
+            page.getContent().stream()
+                .map(
+                    m -> {
+                      TenantMemberSummary summary =
+                          new TenantMemberSummary()
+                              .setId(m.getId())
+                              .setCustomerId(m.getCustomerId())
+                              .setTenantId(m.getTenantId())
+                              .setDepartmentId(m.getDepartmentId())
+                              .setPosition(m.getPosition())
+                              .setMemberType(m.getMemberType())
+                              .setMemberRole(m.getMemberRole())
+                              .setStatus(m.getStatus())
+                              .setIsDefault(m.getIsDefault());
+                      CustomerEntity c = customerMap.get(m.getCustomerId());
+                      if (c != null) {
+                        summary.setCustomerUsername(c.getUsername()).setCustomerEmail(c.getEmail());
+                      }
+                      return summary;
+                    })
+                .collect(Collectors.toList()));
+  }
+
+  /**
+   *
+   * Authorization:
+   *
+   * <ul>
+   *   <li>Authorities: [TENANT_MEMBER_ADD]</li>
+   * </ul>
+   *
+   * @apiNote
+   *     <p>{@code /api/tenant-members/tenants/{tenantId}/members}
+   *     <p>{@code 添加客户为租户成员}
+   * @see TenantMemberService#addMemberToTenant
+   */
+  @Transactional
+  @Override
+  public void addMemberToTenant(
+      SimpleResultBuilder<String> builder,
+      Integer tenantId,
+      AddTenantMemberRequest addTenantMemberRequest) {
+    Long tid = tenantId.longValue();
+    Long customerId = addTenantMemberRequest.getCustomerId();
+
+    if (!tenantRepository.existsById(tid)) {
+      throw HopeErrorDetailException.errorBuilder(TenantErrorEnum.TENANT_NOT_FOUND).build();
+    }
+
     if (!customerRepository.existsById(customerId)) {
       throw HopeErrorDetailException.errorBuilder(TenantMemberErrorEnum.MEMBER_NOT_FOUND).build();
     }
 
-    // 验证成员关系不重复
     if (tenantMemberRepository.existsByCustomerIdAndTenantId(customerId, tid)) {
       throw HopeErrorDetailException.errorBuilder(TenantMemberErrorEnum.MEMBER_ALREADY_EXISTS).build();
     }
 
-    // 创建成员关系
-    TenantMemberEntity member = new TenantMemberEntity()
-        .setCustomerId(customerId)
-        .setTenantId(tid)
-        .setIsDefault(addTenantMemberRequest.getIsDefault() != null
-            ? addTenantMemberRequest.getIsDefault() : false)
-        .setMemberType(addTenantMemberRequest.getMemberType() != null
-            ? addTenantMemberRequest.getMemberType() : MemberTypeEnum.FULL_TIME)
-        .setMemberRole(addTenantMemberRequest.getMemberRole() != null
-            ? addTenantMemberRequest.getMemberRole() : MemberRoleEnum.MEMBER)
-        .setStatus(TenantMemberStatusEnum.TM_ACTIVE)
-        .setDepartmentId(addTenantMemberRequest.getDepartmentId())
-        .setPosition(addTenantMemberRequest.getPosition());
+    TenantMemberEntity member =
+        new TenantMemberEntity()
+            .setCustomerId(customerId)
+            .setTenantId(tid)
+            .setIsDefault(
+                addTenantMemberRequest.getIsDefault() != null
+                    ? addTenantMemberRequest.getIsDefault()
+                    : false)
+            .setMemberType(
+                addTenantMemberRequest.getMemberType() != null
+                    ? addTenantMemberRequest.getMemberType()
+                    : MemberTypeEnum.FULL_TIME)
+            .setMemberRole(
+                addTenantMemberRequest.getMemberRole() != null
+                    ? addTenantMemberRequest.getMemberRole()
+                    : MemberRoleEnum.MEMBER)
+            .setStatus(TenantMemberStatusEnum.TM_ACTIVE)
+            .setDepartmentId(addTenantMemberRequest.getDepartmentId())
+            .setPosition(addTenantMemberRequest.getPosition());
 
     tenantMemberRepository.save(member);
 
-    // 如果设为默认租户，更新客户的 defaultTenantId
     if (Boolean.TRUE.equals(addTenantMemberRequest.getIsDefault())) {
-      customerRepository.findById(customerId)
-          .ifPresent(c -> {
-            c.setDefaultTenantId(tid);
-            customerRepository.save(c);
-          });
+      customerRepository
+          .findById(customerId)
+          .ifPresent(
+              c -> {
+                c.setDefaultTenantId(tid);
+                customerRepository.save(c);
+              });
     }
   }
 
@@ -199,26 +225,28 @@ public class TenantMemberServiceImpl implements TenantMemberService {
    * Authorization:
    *
    * <ul>
-   * 	<li>Authorities: [TENANT_MEMBER_REMOVE]</li>
+   *   <li>Authorities: [TENANT_MEMBER_REMOVE]</li>
    * </ul>
+   *
    * @apiNote
-   * 	<p>{@code /api/tenant-members/tenants/{tenantId}/members/{memberId}}
-   * 	<p>{@code 从租户移除成员}
+   *     <p>{@code /api/tenant-members/tenants/{tenantId}/members/{memberId}}
+   *     <p>{@code 从租户移除成员}
    * @see TenantMemberService#removeMemberFromTenant
    */
   @Transactional
   @Override
-  public void removeMemberFromTenant(SimpleResultBuilder<String> builder, Integer tenantId,
-      Integer memberId) {
-    TenantMemberEntity member = tenantMemberRepository.findById(memberId.longValue())
-        .orElseThrow(() -> HopeErrorDetailException.errorBuilder(TenantMemberErrorEnum.MEMBER_NOT_FOUND).build());
+  public void removeMemberFromTenant(
+      SimpleResultBuilder<String> builder, Integer tenantId, Integer memberId) {
+    TenantMemberEntity member =
+        tenantMemberRepository
+            .findById(memberId.longValue())
+            .orElseThrow(
+                () ->
+                    HopeErrorDetailException.errorBuilder(TenantMemberErrorEnum.MEMBER_NOT_FOUND)
+                        .build());
 
-    // 验证成员属于该租户
-    if (!member.getTenantId().equals(tenantId.longValue())) {
-      throw HopeErrorDetailException.errorBuilder(TenantMemberErrorEnum.MEMBER_NOT_FOUND).build();
-    }
+    validateMemberBelongsToTenant(member, tenantId.longValue());
 
-    // 设置为已退出状态（软删除）
     member.setStatus(TenantMemberStatusEnum.TM_INACTIVE);
     tenantMemberRepository.save(member);
   }
@@ -228,26 +256,29 @@ public class TenantMemberServiceImpl implements TenantMemberService {
    * Authorization:
    *
    * <ul>
-   * 	<li>Authorities: [TENANT_MEMBER_LOCK]</li>
+   *   <li>Authorities: [TENANT_MEMBER_LOCK]</li>
    * </ul>
+   *
    * @apiNote
-   * 	<p>{@code /api/tenant-members/tenants/{tenantId}/members/{memberId}/toggle-lock}
-   * 	<p>{@code 锁定/解锁租户成员}
+   *     <p>{@code
+   * /api/tenant-members/tenants/{tenantId}/members/{memberId}/toggle-lock}
+   *     <p>{@code 锁定/解锁租户成员}
    * @see TenantMemberService#toggleMemberLock
    */
   @Transactional
   @Override
-  public void toggleMemberLock(SimpleResultBuilder<String> builder, Integer tenantId,
-      Integer memberId) {
-    TenantMemberEntity member = tenantMemberRepository.findById(memberId.longValue())
-        .orElseThrow(() -> HopeErrorDetailException.errorBuilder(TenantMemberErrorEnum.MEMBER_NOT_FOUND).build());
+  public void toggleMemberLock(
+      SimpleResultBuilder<String> builder, Integer tenantId, Integer memberId) {
+    TenantMemberEntity member =
+        tenantMemberRepository
+            .findById(memberId.longValue())
+            .orElseThrow(
+                () ->
+                    HopeErrorDetailException.errorBuilder(TenantMemberErrorEnum.MEMBER_NOT_FOUND)
+                        .build());
 
-    // 验证成员属于该租户
-    if (!member.getTenantId().equals(tenantId.longValue())) {
-      throw HopeErrorDetailException.errorBuilder(TenantMemberErrorEnum.MEMBER_NOT_FOUND).build();
-    }
+    validateMemberBelongsToTenant(member, tenantId.longValue());
 
-    // 切换锁定状态
     if (member.getStatus() == TenantMemberStatusEnum.TM_LOCKED) {
       member.setStatus(TenantMemberStatusEnum.TM_ACTIVE);
     } else {
@@ -262,24 +293,30 @@ public class TenantMemberServiceImpl implements TenantMemberService {
    * Authorization:
    *
    * <ul>
-   * 	<li>Authorities: [TENANT_MEMBER_ASSIGN_ROLE]</li>
+   *   <li>Authorities: [TENANT_MEMBER_ASSIGN_ROLE]</li>
    * </ul>
+   *
    * @apiNote
-   * 	<p>{@code /api/tenant-members/tenants/{tenantId}/members/{memberId}/role}
-   * 	<p>{@code 更新成员在租户中的角色（拥有者/管理员/普通成员）}
+   *     <p>{@code /api/tenant-members/tenants/{tenantId}/members/{memberId}/role}
+   *     <p>{@code 更新成员在租户中的角色（拥有者/管理员/普通成员）}
    * @see TenantMemberService#updateMemberRole
    */
   @Transactional
   @Override
-  public void updateMemberRole(SimpleResultBuilder<String> builder, Integer tenantId,
-      Integer memberId, UpdateMemberRoleRequest updateMemberRoleRequest) {
-    TenantMemberEntity member = tenantMemberRepository.findById(memberId.longValue())
-        .orElseThrow(() -> HopeErrorDetailException.errorBuilder(TenantMemberErrorEnum.MEMBER_NOT_FOUND).build());
+  public void updateMemberRole(
+      SimpleResultBuilder<String> builder,
+      Integer tenantId,
+      Integer memberId,
+      UpdateMemberRoleRequest updateMemberRoleRequest) {
+    TenantMemberEntity member =
+        tenantMemberRepository
+            .findById(memberId.longValue())
+            .orElseThrow(
+                () ->
+                    HopeErrorDetailException.errorBuilder(TenantMemberErrorEnum.MEMBER_NOT_FOUND)
+                        .build());
 
-    // 验证成员属于该租户
-    if (!member.getTenantId().equals(tenantId.longValue())) {
-      throw HopeErrorDetailException.errorBuilder(TenantMemberErrorEnum.MEMBER_NOT_FOUND).build();
-    }
+    validateMemberBelongsToTenant(member, tenantId.longValue());
 
     member.setMemberRole(updateMemberRoleRequest.getMemberRole());
     tenantMemberRepository.save(member);
@@ -290,24 +327,31 @@ public class TenantMemberServiceImpl implements TenantMemberService {
    * Authorization:
    *
    * <ul>
-   * 	<li>Authorities: [TENANT_MEMBER_ASSIGN_ROLE]</li>
+   *   <li>Authorities: [TENANT_MEMBER_ASSIGN_ROLE]</li>
    * </ul>
+   *
    * @apiNote
-   * 	<p>{@code /api/tenant-members/tenants/{tenantId}/members/{memberId}/department}
-   * 	<p>{@code 将成员分配到指定部门}
+   *     <p>{@code
+   * /api/tenant-members/tenants/{tenantId}/members/{memberId}/department}
+   *     <p>{@code 将成员分配到指定部门}
    * @see TenantMemberService#assignMemberDepartment
    */
   @Transactional
   @Override
-  public void assignMemberDepartment(SimpleResultBuilder<String> builder, Integer tenantId,
-      Integer memberId, AssignMemberDepartmentRequest assignMemberDepartmentRequest) {
-    TenantMemberEntity member = tenantMemberRepository.findById(memberId.longValue())
-        .orElseThrow(() -> HopeErrorDetailException.errorBuilder(TenantMemberErrorEnum.MEMBER_NOT_FOUND).build());
+  public void assignMemberDepartment(
+      SimpleResultBuilder<String> builder,
+      Integer tenantId,
+      Integer memberId,
+      AssignMemberDepartmentRequest assignMemberDepartmentRequest) {
+    TenantMemberEntity member =
+        tenantMemberRepository
+            .findById(memberId.longValue())
+            .orElseThrow(
+                () ->
+                    HopeErrorDetailException.errorBuilder(TenantMemberErrorEnum.MEMBER_NOT_FOUND)
+                        .build());
 
-    // 验证成员属于该租户
-    if (!member.getTenantId().equals(tenantId.longValue())) {
-      throw HopeErrorDetailException.errorBuilder(TenantMemberErrorEnum.MEMBER_NOT_FOUND).build();
-    }
+    validateMemberBelongsToTenant(member, tenantId.longValue());
 
     member.setDepartmentId(assignMemberDepartmentRequest.getDepartmentId());
     if (assignMemberDepartmentRequest.getPosition() != null) {
@@ -319,8 +363,8 @@ public class TenantMemberServiceImpl implements TenantMemberService {
 
   /**
    * @apiNote
-   * 	<p>{@code /api/tenant-members/tenants/{tenantId}/set-default}
-   * 	<p>{@code 将指定租户设为客户的默认租户}
+   *     <p>{@code /api/tenant-members/tenants/{tenantId}/set-default}
+   *     <p>{@code 将指定租户设为客户的默认租户}
    * @see TenantMemberService#setDefaultTenant
    */
   @Transactional
@@ -329,27 +373,32 @@ public class TenantMemberServiceImpl implements TenantMemberService {
     Long customerId = (Long) HopeContextHolder.customer().getId();
     Long tid = tenantId.longValue();
 
-    // 验证客户是该租户的成员
-    TenantMemberEntity member = tenantMemberRepository.findByCustomerIdAndTenantId(customerId, tid)
-        .orElseThrow(() -> HopeErrorDetailException.errorBuilder(TenantMemberErrorEnum.MEMBER_NOT_FOUND).build());
+    TenantMemberEntity member =
+        tenantMemberRepository
+            .findByCustomerIdAndTenantId(customerId, tid)
+            .orElseThrow(
+                () ->
+                    HopeErrorDetailException.errorBuilder(TenantMemberErrorEnum.MEMBER_NOT_FOUND)
+                        .build());
 
-    // 取消原来的默认租户
-    tenantMemberRepository.findByCustomerIdAndIsDefault(customerId, true)
-        .ifPresent(old -> {
-          old.setIsDefault(false);
-          tenantMemberRepository.save(old);
-        });
+    tenantMemberRepository
+        .findByCustomerIdAndIsDefault(customerId, true)
+        .ifPresent(
+            old -> {
+              old.setIsDefault(false);
+              tenantMemberRepository.save(old);
+            });
 
-    // 设置新的默认租户
     member.setIsDefault(true);
     tenantMemberRepository.save(member);
 
-    // 更新客户的 defaultTenantId
-    customerRepository.findById(customerId)
-        .ifPresent(c -> {
-          c.setDefaultTenantId(tid);
-          customerRepository.save(c);
-        });
+    customerRepository
+        .findById(customerId)
+        .ifPresent(
+            c -> {
+              c.setDefaultTenantId(tid);
+              customerRepository.save(c);
+            });
   }
 
   /**
@@ -357,158 +406,182 @@ public class TenantMemberServiceImpl implements TenantMemberService {
    * Authorization:
    *
    * <ul>
-   * 	<li>Authorities: [TENANT_MEMBER_VIEW]</li>
+   *   <li>Authorities: [TENANT_MEMBER_VIEW]</li>
    * </ul>
+   *
    * @apiNote
-   * 	<p>{@code /api/tenant-members/tenants/{tenantId}/members/{memberId}/detail}
-   * 	<p>{@code 获取租户成员详细信息（含客户账号信息和成员身份信息）}
+   *     <p>{@code
+   * /api/tenant-members/tenants/{tenantId}/members/{memberId}/detail}
+   *     <p>{@code 获取租户成员详细信息（含客户账号信息和成员身份信息）}
    * @see TenantMemberService#getMemberDetail
    */
   @Override
-  public void getMemberDetail(SimpleResultBuilder<TenantMemberDetail> builder, Integer tenantId,
+  public void getMemberDetail(
+      SimpleResultBuilder<TenantMemberDetail> builder,
+      Integer tenantId,
       Integer memberId) {
-    // 1. 查找成员关系
-    TenantMemberEntity member = tenantMemberRepository.findById(memberId.longValue())
-        .orElseThrow(() -> HopeErrorDetailException.errorBuilder(TenantMemberErrorEnum.MEMBER_NOT_FOUND).build());
+    TenantMemberEntity member =
+        tenantMemberRepository
+            .findById(memberId.longValue())
+            .orElseThrow(
+                () ->
+                    HopeErrorDetailException.errorBuilder(TenantMemberErrorEnum.MEMBER_NOT_FOUND)
+                        .build());
 
-    // 2. 验证成员属于该租户
-    if (!member.getTenantId().equals(tenantId.longValue())) {
-      throw HopeErrorDetailException.errorBuilder(TenantMemberErrorEnum.MEMBER_NOT_FOUND).build();
-    }
+    validateMemberBelongsToTenant(member, tenantId.longValue());
 
-    // 3. 构建详情
-    TenantMemberDetail detail = new TenantMemberDetail()
-        .setId(member.getId())
-        .setCustomerId(member.getCustomerId())
-        .setTenantId(member.getTenantId())
-        .setMemberType(member.getMemberType())
-        .setMemberRole(member.getMemberRole())
-        .setStatus(member.getStatus())
-        .setDepartmentId(member.getDepartmentId())
-        .setPosition(member.getPosition())
-        .setIsDefault(member.getIsDefault())
-        .setCreatedAt(member.getCreatedAt());
+    TenantMemberDetail detail =
+        new TenantMemberDetail()
+            .setId(member.getId())
+            .setCustomerId(member.getCustomerId())
+            .setTenantId(member.getTenantId())
+            .setMemberType(member.getMemberType())
+            .setMemberRole(member.getMemberRole())
+            .setStatus(member.getStatus())
+            .setDepartmentId(member.getDepartmentId())
+            .setPosition(member.getPosition())
+            .setIsDefault(member.getIsDefault())
+            .setCreatedAt(member.getCreatedAt());
 
-    // 4. 加载客户账号信息
-    customerRepository.findById(member.getCustomerId())
-        .ifPresent(c -> detail
-            .setCustomerUsername(c.getUsername())
-            .setCustomerEmail(c.getEmail())
-            .setCustomerStatus(c.getStatus()));
+    customerRepository
+        .findById(member.getCustomerId())
+        .ifPresent(
+            c ->
+                detail
+                    .setCustomerUsername(c.getUsername())
+                    .setCustomerEmail(c.getEmail())
+                    .setCustomerStatus(c.getStatus()));
 
-    // 5. 加载租户信息
-    tenantRepository.findById(member.getTenantId())
-        .ifPresent(t -> detail
-            .setTenantName(t.getTenantName())
-            .setTenantCode(t.getTenantCode()));
+    tenantRepository
+        .findById(member.getTenantId())
+        .ifPresent(
+            t ->
+                detail.setTenantName(t.getTenantName()).setTenantCode(t.getTenantCode()));
 
     builder.payload(detail);
   }
 
+  /**
+   *
+   * Authorization:
+   *
+   * <ul>
+   *   <li>Authorities: [TENANT_MEMBER_ASSIGN_ROLE]</li>
+   * </ul>
+   *
+   * @apiNote
+   *     <p>{@code
+   * /api/tenant-members/tenants/{tenantId}/members/{memberId}/roles}
+   *     <p>{@code 为租户成员分配 RBAC 角色（全量覆盖，替换已有角色）}
+   * @see TenantMemberService#assignRolesToMember
+   */
+  @Transactional
+  @Override
+  public void assignRolesToMember(
+      SimpleResultBuilder<String> builder,
+      Integer tenantId,
+      Integer memberId,
+      AssignRolesRequest assignRolesRequest) {
+    TenantMemberEntity member =
+        tenantMemberRepository
+            .findById(memberId.longValue())
+            .orElseThrow(
+                () ->
+                    HopeErrorDetailException.errorBuilder(TenantMemberErrorEnum.MEMBER_NOT_FOUND)
+                        .build());
 
-/**
- * Authorization:
- *
- * <ul>
- * 	<li>Authorities: [TENANT_MEMBER_ASSIGN_ROLE]</li>
- * </ul>
- * @apiNote
- * 	<p>{@code /api/tenant-members/tenants/{tenantId}/members/{memberId}/roles}
- * 	<p>{@code 为租户成员分配 RBAC 角色（全量覆盖，替换已有角色）}
- * @see TenantMemberService#assignRolesToMember
- */
-@Transactional
-@Override
-public void assignRolesToMember(SimpleResultBuilder<String> builder, Integer tenantId, Integer memberId, AssignRolesRequest assignRolesRequest) {
-    // 验证成员存在且属于该租户
-    TenantMemberEntity member = tenantMemberRepository.findById(memberId.longValue())
-        .orElseThrow(() -> HopeErrorDetailException.errorBuilder(TenantMemberErrorEnum.MEMBER_NOT_FOUND).build());
-    if (!member.getTenantId().equals(tenantId.longValue())) {
-      throw HopeErrorDetailException.errorBuilder(TenantMemberErrorEnum.MEMBER_NOT_FOUND).build();
-    }
+    validateMemberBelongsToTenant(member, tenantId.longValue());
 
-    // 全量覆盖：先删除旧关联
     memberRoleRepository.deleteByMemberId(member.getId());
 
-    // 批量插入新关联
-    if (assignRolesRequest.getRoleIds() != null && !assignRolesRequest.getRoleIds().isEmpty()) {
+    if (assignRolesRequest.getRoleIds() != null
+        && !assignRolesRequest.getRoleIds().isEmpty()) {
       List<MemberRoleEntity> memberRoles = new ArrayList<>();
       for (Long roleId : assignRolesRequest.getRoleIds()) {
-        MemberRoleEntity mr = new MemberRoleEntity()
-            .setMemberId(member.getId())
-            .setRoleId(roleId);
+        MemberRoleEntity mr = new MemberRoleEntity().setMemberId(member.getId()).setRoleId(roleId);
         memberRoles.add(mr);
       }
       memberRoleRepository.saveAll(memberRoles);
     }
-}
+  }
 
-	/**
- * Authorization:
- *
- * <ul>
- * 	<li>Authorities: [TENANT_MEMBER_VIEW]</li>
- * </ul>
- * @apiNote
- * 	<p>{@code /api/tenant-members/tenants/{tenantId}/members/{memberId}/roles}
- * 	<p>{@code 获取租户成员的 RBAC 角色列表}
- * @see TenantMemberService#getMemberRoles
- */
-@Override
-public void getMemberRoles(SimpleResultBuilder<MemberRoleSummary> builder, Integer tenantId, Integer memberId) {
-    // 验证成员存在且属于该租户
-    TenantMemberEntity member = tenantMemberRepository.findById(memberId.longValue())
-        .orElseThrow(() -> HopeErrorDetailException.errorBuilder(TenantMemberErrorEnum.MEMBER_NOT_FOUND).build());
-    if (!member.getTenantId().equals(tenantId.longValue())) {
-      throw HopeErrorDetailException.errorBuilder(TenantMemberErrorEnum.MEMBER_NOT_FOUND).build();
-    }
+  /**
+   *
+   * Authorization:
+   *
+   * <ul>
+   *   <li>Authorities: [TENANT_MEMBER_VIEW]</li>
+   * </ul>
+   *
+   * @apiNote
+   *     <p>{@code
+   * /api/tenant-members/tenants/{tenantId}/members/{memberId}/roles}
+   *     <p>{@code 获取租户成员的 RBAC 角色列表}
+   * @see TenantMemberService#getMemberRoles
+   */
+  @Override
+  public void getMemberRoles(
+      SimpleResultBuilder<MemberRoleSummary> builder, Integer tenantId, Integer memberId) {
+    TenantMemberEntity member =
+        tenantMemberRepository
+            .findById(memberId.longValue())
+            .orElseThrow(
+                () ->
+                    HopeErrorDetailException.errorBuilder(TenantMemberErrorEnum.MEMBER_NOT_FOUND)
+                        .build());
 
-    // 查找成员的角色关联
+    validateMemberBelongsToTenant(member, tenantId.longValue());
+
     List<MemberRoleEntity> memberRoles = memberRoleRepository.findByMemberId(member.getId());
 
     List<MemberRoleItem> roleItems = new ArrayList<>();
     if (!memberRoles.isEmpty()) {
-      List<Long> roleIds = memberRoles.stream()
-          .map(MemberRoleEntity::getRoleId)
-          .collect(Collectors.toList());
+      List<Long> roleIds =
+          memberRoles.stream().map(MemberRoleEntity::getRoleId).collect(Collectors.toList());
       List<RoleEntity> roles = roleRepository.findAllById(roleIds);
-      roleItems = roles.stream()
-          .map(r -> new MemberRoleItem()
-              .setId(r.getId())
-              .setRoleCode(r.getRoleCode())
-              .setRoleName(r.getRoleName()))
-          .collect(Collectors.toList());
+      roleItems =
+          roles.stream()
+              .map(
+                  r ->
+                      new MemberRoleItem()
+                          .setId(r.getId())
+                          .setRoleCode(r.getRoleCode())
+                          .setRoleName(r.getRoleName()))
+              .collect(Collectors.toList());
     }
 
-    MemberRoleSummary summary = new MemberRoleSummary()
-        .setMemberId(member.getId())
-        .setRoles(roleItems);
+    MemberRoleSummary summary = new MemberRoleSummary().setMemberId(member.getId()).setRoles(roleItems);
     builder.payload(summary);
-}
+  }
 
-	/**
- * Authorization:
- *
- * <ul>
- * 	<li>Authorities: [TENANT_MEMBER_ASSIGN_ROLE]</li>
- * </ul>
- * @apiNote
- * 	<p>{@code /api/tenant-members/tenants/{tenantId}/members/{memberId}/roles/{roleId}}
- * 	<p>{@code 移除租户成员的某个 RBAC 角色}
- * @see TenantMemberService#removeRoleFromMember
- */
-@Transactional
-@Override
-public void removeRoleFromMember(SimpleResultBuilder<String> builder, Integer tenantId, Integer memberId, Integer roleId) {
-    // 验证成员存在且属于该租户
-    TenantMemberEntity member = tenantMemberRepository.findById(memberId.longValue())
-        .orElseThrow(() -> HopeErrorDetailException.errorBuilder(TenantMemberErrorEnum.MEMBER_NOT_FOUND).build());
-    if (!member.getTenantId().equals(tenantId.longValue())) {
-      throw HopeErrorDetailException.errorBuilder(TenantMemberErrorEnum.MEMBER_NOT_FOUND).build();
-    }
+  /**
+   *
+   * Authorization:
+   *
+   * <ul>
+   *   <li>Authorities: [TENANT_MEMBER_ASSIGN_ROLE]</li>
+   * </ul>
+   *
+   * @apiNote
+   *     <p>{@code
+   * /api/tenant-members/tenants/{tenantId}/members/{memberId}/roles/{roleId}}
+   *     <p>{@code 移除租户成员的某个 RBAC 角色}
+   * @see TenantMemberService#removeRoleFromMember
+   */
+  @Transactional
+  @Override
+  public void removeRoleFromMember(
+      SimpleResultBuilder<String> builder, Integer tenantId, Integer memberId, Integer roleId) {
+    TenantMemberEntity member =
+        tenantMemberRepository
+            .findById(memberId.longValue())
+            .orElseThrow(
+                () ->
+                    HopeErrorDetailException.errorBuilder(TenantMemberErrorEnum.MEMBER_NOT_FOUND)
+                        .build());
+
+    validateMemberBelongsToTenant(member, tenantId.longValue());
 
     memberRoleRepository.deleteByMemberIdAndRoleId(member.getId(), roleId.longValue());
-}
-
-
+  }
 }

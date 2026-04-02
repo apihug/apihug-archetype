@@ -287,19 +287,19 @@ public class RoleController {
   }
 
   public interface Apis {
-    ServiceMethodContext CreateRole = new ServiceMethodContext("com.apihug.rad.api.role.RoleService", "CreateRole", "/api/roles/roles", Priority.LOW, ServiceMethod.HttpMethod.POST);
+    ServiceMethodContext CreateRole = new ServiceMethodContext("com.apihug.rad.api.role.RoleService", "CreateRole", "/api/roles/roles", Priority.MIDDLE, ServiceMethod.HttpMethod.POST);
 
     ServiceMethodContext GetRole = new ServiceMethodContext("com.apihug.rad.api.role.RoleService", "GetRole", "/api/roles/roles/{roleId}", Priority.LOW, ServiceMethod.HttpMethod.GET);
 
-    ServiceMethodContext UpdateRole = new ServiceMethodContext("com.apihug.rad.api.role.RoleService", "UpdateRole", "/api/roles/roles/{roleId}", Priority.LOW, ServiceMethod.HttpMethod.PUT);
+    ServiceMethodContext UpdateRole = new ServiceMethodContext("com.apihug.rad.api.role.RoleService", "UpdateRole", "/api/roles/roles/{roleId}", Priority.MIDDLE, ServiceMethod.HttpMethod.PUT);
 
-    ServiceMethodContext DeleteRole = new ServiceMethodContext("com.apihug.rad.api.role.RoleService", "DeleteRole", "/api/roles/roles/{roleId}", Priority.LOW, ServiceMethod.HttpMethod.DELETE);
+    ServiceMethodContext DeleteRole = new ServiceMethodContext("com.apihug.rad.api.role.RoleService", "DeleteRole", "/api/roles/roles/{roleId}", Priority.HIGH, ServiceMethod.HttpMethod.DELETE);
 
     ServiceMethodContext SearchRoles = new ServiceMethodContext("com.apihug.rad.api.role.RoleService", "SearchRoles", "/api/roles/roles/search", Priority.LOW, ServiceMethod.HttpMethod.POST);
 
-    ServiceMethodContext AssignMenusToRole = new ServiceMethodContext("com.apihug.rad.api.role.RoleService", "AssignMenusToRole", "/api/roles/roles/{roleId}/menus", Priority.LOW, ServiceMethod.HttpMethod.POST);
+    ServiceMethodContext AssignMenusToRole = new ServiceMethodContext("com.apihug.rad.api.role.RoleService", "AssignMenusToRole", "/api/roles/roles/{roleId}/menus", Priority.MIDDLE, ServiceMethod.HttpMethod.POST);
 
-    ServiceMethodContext RemoveMenuFromRole = new ServiceMethodContext("com.apihug.rad.api.role.RoleService", "RemoveMenuFromRole", "/api/roles/roles/{roleId}/menus/{menuId}", Priority.LOW, ServiceMethod.HttpMethod.DELETE);
+    ServiceMethodContext RemoveMenuFromRole = new ServiceMethodContext("com.apihug.rad.api.role.RoleService", "RemoveMenuFromRole", "/api/roles/roles/{roleId}/menus/{menuId}", Priority.HIGH, ServiceMethod.HttpMethod.DELETE);
 
     ServiceMethodContext GetRoleMenus = new ServiceMethodContext("com.apihug.rad.api.role.RoleService", "GetRoleMenus", "/api/roles/roles/{roleId}/menus", Priority.LOW, ServiceMethod.HttpMethod.GET);
   }

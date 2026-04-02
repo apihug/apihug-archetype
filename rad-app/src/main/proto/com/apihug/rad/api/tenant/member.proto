@@ -20,6 +20,8 @@ service TenantMemberService {
       description: "获取租户成员列表";
       summary: "获取租户成员";
       tags: "tenant-member";
+      priority: LOW;
+      group: TENANT
       authorization: {
         rbac: {
           authorities: ["TENANT_MEMBER_VIEW"];
@@ -45,6 +47,8 @@ service TenantMemberService {
       description: "添加客户为租户成员";
       summary: "添加租户成员";
       tags: "tenant-member";
+      priority: MIDDLE;
+      group: TENANT
       authorization: {
         rbac: {
           authorities: ["TENANT_MEMBER_ADD"];
@@ -69,6 +73,8 @@ service TenantMemberService {
       description: "从租户移除成员";
       summary: "移除租户成员";
       tags: "tenant-member";
+      priority: HIGH;
+      group: TENANT
       authorization: {
         rbac: {
           authorities: ["TENANT_MEMBER_REMOVE"];
@@ -101,6 +107,8 @@ service TenantMemberService {
       description: "锁定/解锁租户成员";
       summary: "切换成员锁定状态";
       tags: "tenant-member";
+      priority: MIDDLE;
+      group: TENANT
       authorization: {
         rbac: {
           authorities: ["TENANT_MEMBER_LOCK"];
@@ -133,6 +141,8 @@ service TenantMemberService {
       description: "更新成员在租户中的角色（拥有者/管理员/普通成员）";
       summary: "更新成员角色";
       tags: "tenant-member";
+      priority: MIDDLE;
+      group: TENANT
       authorization: {
         rbac: {
           authorities: ["TENANT_MEMBER_ASSIGN_ROLE"];
@@ -165,6 +175,8 @@ service TenantMemberService {
       description: "将成员分配到指定部门";
       summary: "分配成员部门";
       tags: "tenant-member";
+      priority: MIDDLE;
+      group: TENANT
       authorization: {
         rbac: {
           authorities: ["TENANT_MEMBER_ASSIGN_ROLE"];
@@ -197,6 +209,8 @@ service TenantMemberService {
       description: "获取租户成员详细信息（含客户账号信息和成员身份信息）";
       summary: "获取成员详情";
       tags: "tenant-member";
+      priority: LOW;
+      group: TENANT
       authorization: {
         rbac: {
           authorities: ["TENANT_MEMBER_VIEW"];
@@ -233,6 +247,8 @@ service TenantMemberService {
       description: "将指定租户设为客户的默认租户";
       summary: "设置默认租户";
       tags: "tenant-member";
+      priority: MIDDLE;
+      group: CUSTOMER
       authorization: {
         low_limit_risky_mode: LOGIN
       };
@@ -255,6 +271,8 @@ service TenantMemberService {
       description: "为租户成员分配 RBAC 角色（全量覆盖，替换已有角色）";
       summary: "分配成员角色";
       tags: "tenant-member";
+      priority: MIDDLE;
+      group: TENANT
       authorization: {
         rbac: {
           authorities: ["TENANT_MEMBER_ASSIGN_ROLE"];
@@ -287,6 +305,8 @@ service TenantMemberService {
       description: "获取租户成员的 RBAC 角色列表";
       summary: "获取成员角色";
       tags: "tenant-member";
+      priority: LOW;
+      group: TENANT
       authorization: {
         rbac: {
           authorities: ["TENANT_MEMBER_VIEW"];
@@ -319,6 +339,8 @@ service TenantMemberService {
       description: "移除租户成员的某个 RBAC 角色";
       summary: "移除成员角色";
       tags: "tenant-member";
+      priority: HIGH;
+      group: TENANT
       authorization: {
         rbac: {
           authorities: ["TENANT_MEMBER_ASSIGN_ROLE"];

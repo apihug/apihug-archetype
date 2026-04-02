@@ -18,6 +18,8 @@ service PermissionService {
       description: "获取当前客户的角色权限集合";
       summary: "获取角色权限";
       tags: "permission";
+      priority: LOW;
+      group: TENANT
       authorization: {
         low_limit_risky_mode: LOGIN
       };
@@ -31,6 +33,8 @@ service PermissionService {
       description: "获取当前客户的菜单权限集合";
       summary: "获取菜单权限";
       tags: "permission";
+      priority: LOW;
+      group: PLATFORM
       authorization: {
         low_limit_risky_mode: LOGIN
       };
@@ -44,6 +48,8 @@ service PermissionService {
       description: "获取当前客户的所有权限（聚合）";
       summary: "获取所有权限";
       tags: "permission";
+      priority: LOW;
+      group: PLATFORM
       authorization: {
         low_limit_risky_mode: LOGIN
       };

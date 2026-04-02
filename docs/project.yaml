@@ -1,5 +1,5 @@
 ---
-date: '2026-03-24 10:44:10'
+date: '2026-03-30 10:08:48'
 ---
 # Gradle project modules configuration.
 #
@@ -50,6 +50,6 @@ details:
     stubYamlPath: "src/main/resources/hope-stub.yaml"
     hasStubYaml: "true"
     hasWireJson: "true"
-updatedTime: "2026-03-24 10:44:10"
+updatedTime: "2026-03-30 10:08:48"
 projectName: "rad"
 gradleVersion: "8.14.4"

@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(./gradlew :rad-app:wire 2>&1)",
+      "Bash(./gradlew :rad-app:test --tests \"com.apihug.rad.api.platform.PlatformServiceImplTest\" 2>&1)",
+      "Bash(./gradlew :rad-app:test --tests \"com.apihug.rad.api.platform.PlatformServiceImplTest\")"
+    ]
+  }
+}

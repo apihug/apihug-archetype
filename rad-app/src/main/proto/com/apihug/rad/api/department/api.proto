@@ -19,6 +19,8 @@ service DepartmentService {
       description: "创建新部门";
       summary: "创建部门";
       tags: "department";
+      priority: MIDDLE;
+      group: TENANT
       authorization: {
         rbac: {
           authorities: ["DEPARTMENT_CREATE"];
@@ -33,6 +35,8 @@ service DepartmentService {
       description: "获取部门详情";
       summary: "获取部门详情";
       tags: "department";
+      priority: LOW;
+      group: TENANT
       authorization: {
         low_limit_risky_mode: LOGIN
       };
@@ -55,6 +59,8 @@ service DepartmentService {
       description: "更新部门信息";
       summary: "更新部门";
       tags: "department";
+      priority: MIDDLE;
+      group: TENANT
       authorization: {
         rbac: {
           authorities: ["DEPARTMENT_UPDATE"];
@@ -79,6 +85,8 @@ service DepartmentService {
       description: "删除部门（软删除）";
       summary: "删除部门";
       tags: "department";
+      priority: HIGH;
+      group: TENANT
       authorization: {
         rbac: {
           authorities: ["DEPARTMENT_DELETE"];
@@ -103,6 +111,8 @@ service DepartmentService {
       description: "获取部门树形结构";
       summary: "获取部门树";
       tags: "department";
+      priority: LOW;
+      group: TENANT
       authorization: {
         low_limit_risky_mode: LOGIN
       };

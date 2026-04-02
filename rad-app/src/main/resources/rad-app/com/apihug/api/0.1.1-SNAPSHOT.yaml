@@ -28,6 +28,7 @@ paths:
               $ref: "#/components/schemas/AddPlatformMemberRequest"
       x-hope-operation:
         requestClz: com.apihug.rad.api.platform.AddPlatformMemberRequest
+        priority: MIDDLE
         authorization:
           rbac:
             predefinedRoleChecker: PLATFORM
@@ -49,6 +50,7 @@ paths:
           format: int64
           minimum: 1.0
       x-hope-operation:
+        priority: HIGH
         authorization:
           rbac:
             predefinedRoleChecker: PLATFORM
@@ -70,6 +72,7 @@ paths:
           format: int64
           minimum: 1.0
       x-hope-operation:
+        priority: MIDDLE
         authorization:
           rbac:
             predefinedRoleChecker: PLATFORM
@@ -81,9 +84,7 @@ paths:
       tags:
       - platform-member
       summary: 更新平台成员角色
-      description: |-
-        更新平台成员角色
-        更新平台成员的平台角色（MEMBER/MANAGER/OWNER），并同步更新 CustomerEntity.platform_type
+      description: 更新平台成员的平台角色（MEMBER/MANAGER/OWNER），并同步更新 CustomerEntity.platform_type
       parameters:
       - name: memberId
         in: path
@@ -100,6 +101,7 @@ paths:
               $ref: "#/components/schemas/UpdatePlatformMemberRoleRequest"
       x-hope-operation:
         requestClz: com.apihug.rad.api.platform.UpdatePlatformMemberRoleRequest
+        priority: MIDDLE
         authorization:
           rbac:
             predefinedRoleChecker: PLATFORM
@@ -133,6 +135,7 @@ paths:
       x-hope-operation:
         requestClz: com.apihug.rad.api.department.CreateDepartmentRequest
         responseClz: com.apihug.rad.api.department.DepartmentSummary
+        priority: MIDDLE
         authorization:
           rbac:
             authorities:
@@ -152,6 +155,7 @@ paths:
           type: integer
           format: int32
       x-hope-operation:
+        priority: HIGH
         authorization:
           rbac:
             authorities:
@@ -176,6 +180,7 @@ paths:
                     $ref: "#/components/schemas/DepartmentTreeNode"
       x-hope-operation:
         responseClz: com.apihug.rad.api.department.DepartmentTreeNode
+        priority: LOW
         authorization:
           lowLimitRiskyMode: LOGIN
   /api/apihug/meta/apis:
@@ -251,6 +256,7 @@ paths:
       x-hope-operation:
         outputRepeated: true
         responseClz: com.apihug.rad.api.permission.PermissionInfo
+        priority: LOW
         authorization:
           lowLimitRiskyMode: LOGIN
   /api/permissions/menus:
@@ -276,6 +282,7 @@ paths:
       x-hope-operation:
         outputRepeated: true
         responseClz: com.apihug.rad.api.permission.PermissionInfo
+        priority: LOW
         authorization:
           lowLimitRiskyMode: LOGIN
   /api/permissions/all:
@@ -301,6 +308,7 @@ paths:
       x-hope-operation:
         outputRepeated: true
         responseClz: com.apihug.rad.api.permission.PermissionInfo
+        priority: LOW
         authorization:
           lowLimitRiskyMode: LOGIN
   /api/customer/info:
@@ -327,6 +335,7 @@ paths:
         - 当前登录客户信息？
         - 客户有哪些角色？
         - 客户有哪些授权？
+        priority: LOW
         authorization:
           lowLimitRiskyMode: LOGIN
   /api/customer/current-info:
@@ -353,6 +362,7 @@ paths:
         - 当前客户有哪些权限？
         - 当前客户有哪些角色？
         - 当前客户属于哪些部门？
+        priority: LOW
         authorization:
           lowLimitRiskyMode: LOGIN
   /api/customer/tenants:
@@ -375,6 +385,7 @@ paths:
                     $ref: "#/components/schemas/TenantList"
       x-hope-operation:
         responseClz: com.apihug.rad.api.customer.TenantList
+        priority: LOW
         authorization:
           lowLimitRiskyMode: LOGIN
   /api/customer/switch-tenant:
@@ -407,6 +418,7 @@ paths:
         questions:
         - 切换租户后返回什么？
         - 切换租户后权限如何变化？
+        priority: MIDDLE
         authorization:
           lowLimitRiskyMode: LOGIN
   /api/tenants/tenants:
@@ -436,6 +448,7 @@ paths:
       x-hope-operation:
         requestClz: com.apihug.rad.api.tenant.CreateTenantRequest
         responseClz: com.apihug.rad.api.tenant.TenantSummary
+        priority: HIGH
         authorization:
           rbac:
             predefinedRoleChecker: PLATFORM
@@ -464,6 +477,7 @@ paths:
               $ref: "#/components/schemas/UpdateTenantRequest"
       x-hope-operation:
         requestClz: com.apihug.rad.api.tenant.UpdateTenantRequest
+        priority: MIDDLE
         authorization:
           rbac:
             authorities:
@@ -483,6 +497,7 @@ paths:
           type: integer
           format: int32
       x-hope-operation:
+        priority: HIGH
         authorization:
           rbac:
             authorities:
@@ -509,6 +524,7 @@ paths:
               $ref: "#/components/schemas/ConfigureTenantRequest"
       x-hope-operation:
         requestClz: com.apihug.rad.api.tenant.ConfigureTenantRequest
+        priority: MIDDLE
         authorization:
           rbac:
             authorities:
@@ -552,6 +568,7 @@ paths:
       x-hope-operation:
         requestClz: com.apihug.rad.api.tenant.SearchTenantsRequest
         responseClz: com.apihug.rad.api.tenant.TenantSummary
+        priority: LOW
         authorization:
           rbac:
             authorities:
@@ -578,6 +595,7 @@ paths:
               $ref: "#/components/schemas/AddTenantMemberRequest"
       x-hope-operation:
         requestClz: com.apihug.rad.api.tenant.AddTenantMemberRequest
+        priority: MIDDLE
         authorization:
           rbac:
             authorities:
@@ -604,6 +622,7 @@ paths:
           type: integer
           format: int32
       x-hope-operation:
+        priority: HIGH
         authorization:
           rbac:
             authorities:
@@ -630,6 +649,7 @@ paths:
           type: integer
           format: int32
       x-hope-operation:
+        priority: MIDDLE
         authorization:
           rbac:
             authorities:
@@ -663,6 +683,7 @@ paths:
               $ref: "#/components/schemas/UpdateMemberRoleRequest"
       x-hope-operation:
         requestClz: com.apihug.rad.api.tenant.UpdateMemberRoleRequest
+        priority: MIDDLE
         authorization:
           rbac:
             authorities:
@@ -696,6 +717,7 @@ paths:
               $ref: "#/components/schemas/AssignMemberDepartmentRequest"
       x-hope-operation:
         requestClz: com.apihug.rad.api.tenant.AssignMemberDepartmentRequest
+        priority: MIDDLE
         authorization:
           rbac:
             authorities:
@@ -738,6 +760,7 @@ paths:
         questions:
         - 如何获取成员详情？
         - 成员详情包含哪些信息？
+        priority: LOW
         authorization:
           rbac:
             authorities:
@@ -757,6 +780,7 @@ paths:
           type: integer
           format: int32
       x-hope-operation:
+        priority: MIDDLE
         authorization:
           lowLimitRiskyMode: LOGIN
   /api/tenant-members/tenants/{tenantId}/members/{memberId}/roles:
@@ -794,6 +818,7 @@ paths:
                     $ref: "#/components/schemas/MemberRoleSummary"
       x-hope-operation:
         responseClz: com.apihug.rad.api.tenant.MemberRoleSummary
+        priority: LOW
         authorization:
           rbac:
             authorities:
@@ -827,6 +852,7 @@ paths:
           type: integer
           format: int32
       x-hope-operation:
+        priority: HIGH
         authorization:
           rbac:
             authorities:
@@ -869,6 +895,7 @@ paths:
       x-hope-operation:
         requestClz: com.apihug.rad.api.audit.SearchAccessLogsRequest
         responseClz: com.apihug.rad.api.audit.AccessLogInfo
+        priority: LOW
         authorization:
           lowLimitRiskyMode: LOGIN
   /api/access-logs/stats:
@@ -898,6 +925,7 @@ paths:
       x-hope-operation:
         requestClz: com.apihug.rad.api.audit.GetAccessLogStatsRequest
         responseClz: com.apihug.rad.api.audit.AccessLogStatsResponse
+        priority: LOW
         authorization:
           lowLimitRiskyMode: LOGIN
   /api/menus/menus:
@@ -931,6 +959,7 @@ paths:
         - 如何创建新菜单？
         - 创建菜单需要哪些信息？
         - 菜单代码是否需要唯一？
+        priority: MIDDLE
         authorization:
           rbac:
             authorities:
@@ -953,6 +982,7 @@ paths:
         questions:
         - 如何删除菜单？
         - 是物理删除还是软删除？
+        priority: HIGH
         authorization:
           rbac:
             authorities:
@@ -980,6 +1010,7 @@ paths:
         questions:
         - 如何获取菜单树？
         - 返回什么格式的树形结构？
+        priority: LOW
         authorization:
           lowLimitRiskyMode: LOGIN
   /api/menus/menus/search:
@@ -1025,6 +1056,7 @@ paths:
         - 如何搜索菜单？
         - 支持哪些筛选条件？
         - 如何分页？
+        priority: LOW
         authorization:
           rbac:
             authorities:
@@ -1060,6 +1092,7 @@ paths:
         - 如何进行客户登录认证？
         - 登录接口需要哪些参数？
         - 登录成功后返回什么信息？
+        priority: CRITICAL
         authorization:
           lowLimitRiskyMode: ANONYMOUS
   /api/auth/logout:
@@ -1073,6 +1106,7 @@ paths:
         - 如何退出当前登录？
         - 登出接口的作用是什么？
         - 登出后需要重新登录吗？
+        priority: CRITICAL
         authorization:
           lowLimitRiskyMode: LOGIN
   /api/customers/customers:
@@ -1106,6 +1140,7 @@ paths:
         - 如何创建新客户？
         - 创建客户需要哪些信息？
         - 客户邮箱是否需要唯一？
+        priority: HIGH
         authorization:
           rbac:
             authorities:
@@ -1127,6 +1162,7 @@ paths:
         questions:
         - 如何申请找回密码？
         - 重置邮件发送到哪里？
+        priority: MIDDLE
         authorization:
           lowLimitRiskyMode: ANONYMOUS
   /api/customers/auth/reset-password:
@@ -1146,6 +1182,7 @@ paths:
         questions:
         - 如何重置密码？
         - token 有效期多久？
+        priority: HIGH
         authorization:
           lowLimitRiskyMode: ANONYMOUS
   /api/roles/roles:
@@ -1179,6 +1216,7 @@ paths:
         - 如何创建新角色？
         - 创建角色需要哪些信息？
         - 角色代码是否需要唯一？
+        priority: MIDDLE
         authorization:
           rbac:
             authorities:
@@ -1201,6 +1239,7 @@ paths:
         questions:
         - 如何删除角色？
         - 是物理删除还是软删除？
+        priority: HIGH
         authorization:
           rbac:
             authorities:
@@ -1248,6 +1287,7 @@ paths:
         - 如何搜索角色？
         - 支持哪些筛选条件？
         - 如何分页？
+        priority: LOW
         authorization:
           rbac:
             authorities:
@@ -1280,6 +1320,7 @@ paths:
                     $ref: "#/components/schemas/RoleMenuSummary"
       x-hope-operation:
         responseClz: com.apihug.rad.api.role.RoleMenuSummary
+        priority: LOW
         authorization:
           lowLimitRiskyMode: LOGIN
   /api/roles/roles/{roleId}/menus/{menuId}:
@@ -1304,6 +1345,7 @@ paths:
           type: integer
           format: int32
       x-hope-operation:
+        priority: HIGH
         authorization:
           rbac:
             authorities:
@@ -2463,6 +2505,7 @@ components:
       - MEMBER_NOT_FOUND
       - MEMBER_ALREADY_EXISTS
       - MEMBER_LOCKED
+      - MEMBER_TENANT_ACCESS_DENIED
       x-hope-component:
         x-enum-extensions:
           MEMBER_NOT_FOUND:
@@ -2492,6 +2535,17 @@ components:
               severity: WARN
               phase: DOMAIN
               tips: Contact your tenant administrator
+          MEMBER_TENANT_ACCESS_DENIED:
+            name: MEMBER_TENANT_ACCESS_DENIED
+            code: 10007004
+            message: "Access denied: member does not belong to the specified tenant"
+            message2: 越权访问：该成员不属于当前租户
+            error:
+              severity: WARN
+              phase: DOMAIN
+              httpStatus: FORBIDDEN
+              tips: The member belongs to a different tenant and cannot be accessed
+                here
         compile:
           protoFile: com/apihug/rad/infra/tenant/member_constant.proto
           name: TenantMemberErrorEnum
@@ -2547,7 +2601,7 @@ components:
           - PM_INACTIVE
           x-hope-field:
             compile:
-              locationLine: 137
+              locationLine: 146
               locationColumn: 3
               name: status
               type: com.apihug.rad.infra.platform.PlatformMemberStatusEnum
@@ -2561,7 +2615,7 @@ components:
           - OWNER
           x-hope-field:
             compile:
-              locationLine: 142
+              locationLine: 151
               locationColumn: 3
               name: platform_role
               type: com.apihug.rad.infra.customer.CustomerPlatformTypeEnum
@@ -2571,7 +2625,7 @@ components:
           maxLength: 100
           x-hope-field:
             compile:
-              locationLine: 147
+              locationLine: 156
               locationColumn: 3
               name: keyword
               type: java.lang.String
@@ -2580,7 +2634,7 @@ components:
         compile:
           protoFile: com/apihug/rad/api/platform/api.proto
           name: GetPlatformMembersRequest
-          locationLine: 129
+          locationLine: 138
           locationColumn: 1
         clz: com.apihug.rad.api.platform.GetPlatformMembersRequest
     TenantMemberSummary:
@@ -2593,7 +2647,7 @@ components:
           description: 成员关系 ID
           x-hope-field:
             compile:
-              locationLine: 468
+              locationLine: 490
               locationColumn: 3
               name: id
               type: java.lang.Long
@@ -2603,7 +2657,7 @@ components:
           description: 客户 ID
           x-hope-field:
             compile:
-              locationLine: 473
+              locationLine: 495
               locationColumn: 3
               name: customer_id
               type: java.lang.Long
@@ -2612,7 +2666,7 @@ components:
           description: 客户用户名
           x-hope-field:
             compile:
-              locationLine: 478
+              locationLine: 500
               locationColumn: 3
               name: customer_username
               type: java.lang.String
@@ -2621,7 +2675,7 @@ components:
           description: 客户邮箱
           x-hope-field:
             compile:
-              locationLine: 483
+              locationLine: 505
               locationColumn: 3
               name: customer_email
               type: java.lang.String
@@ -2631,7 +2685,7 @@ components:
           description: 租户 ID
           x-hope-field:
             compile:
-              locationLine: 488
+              locationLine: 510
               locationColumn: 3
               name: tenant_id
               type: java.lang.Long
@@ -2640,7 +2694,7 @@ components:
           description: 租户名称
           x-hope-field:
             compile:
-              locationLine: 493
+              locationLine: 515
               locationColumn: 3
               name: tenant_name
               type: java.lang.String
@@ -2650,7 +2704,7 @@ components:
           description: 部门 ID
           x-hope-field:
             compile:
-              locationLine: 498
+              locationLine: 520
               locationColumn: 3
               name: department_id
               type: java.lang.Long
@@ -2659,7 +2713,7 @@ components:
           description: 职位
           x-hope-field:
             compile:
-              locationLine: 503
+              locationLine: 525
               locationColumn: 3
               name: position
               type: java.lang.String
@@ -2674,7 +2728,7 @@ components:
           - INTERN
           x-hope-field:
             compile:
-              locationLine: 508
+              locationLine: 530
               locationColumn: 3
               name: member_type
               type: com.apihug.rad.infra.tenant.MemberTypeEnum
@@ -2688,7 +2742,7 @@ components:
           - OWNER
           x-hope-field:
             compile:
-              locationLine: 513
+              locationLine: 535
               locationColumn: 3
               name: member_role
               type: com.apihug.rad.infra.tenant.MemberRoleEnum
@@ -2702,7 +2756,7 @@ components:
           - TM_LOCKED
           x-hope-field:
             compile:
-              locationLine: 518
+              locationLine: 540
               locationColumn: 3
               name: status
               type: com.apihug.rad.infra.tenant.TenantMemberStatusEnum
@@ -2711,7 +2765,7 @@ components:
           description: 是否默认租户
           x-hope-field:
             compile:
-              locationLine: 523
+              locationLine: 545
               locationColumn: 3
               name: is_default
               type: java.lang.Boolean
@@ -2720,7 +2774,7 @@ components:
         compile:
           protoFile: com/apihug/rad/api/tenant/member.proto
           name: TenantMemberSummary
-          locationLine: 460
+          locationLine: 482
           locationColumn: 1
         clz: com.apihug.rad.api.tenant.TenantMemberSummary
     UpdateMenuRequest:
@@ -2736,7 +2790,7 @@ components:
             mock:
               nature: NAME
             compile:
-              locationLine: 229
+              locationLine: 241
               locationColumn: 3
               name: menu_name
               type: java.lang.String
@@ -2748,7 +2802,7 @@ components:
             mock:
               nature: URL
             compile:
-              locationLine: 237
+              locationLine: 249
               locationColumn: 3
               name: path
               type: java.lang.String
@@ -2758,7 +2812,7 @@ components:
           maxLength: 100
           x-hope-field:
             compile:
-              locationLine: 244
+              locationLine: 256
               locationColumn: 3
               name: icon
               type: java.lang.String
@@ -2768,7 +2822,7 @@ components:
           description: 排序顺序
           x-hope-field:
             compile:
-              locationLine: 250
+              locationLine: 262
               locationColumn: 3
               name: sort_order
               type: java.lang.Integer
@@ -2782,7 +2836,7 @@ components:
           - BUTTON
           x-hope-field:
             compile:
-              locationLine: 255
+              locationLine: 267
               locationColumn: 3
               name: menu_type
               type: com.apihug.rad.infra.menu.MenuTypeEnum
@@ -2792,7 +2846,7 @@ components:
           maxLength: 100
           x-hope-field:
             compile:
-              locationLine: 261
+              locationLine: 273
               locationColumn: 3
               name: permission_code
               type: java.lang.String
@@ -2805,7 +2859,7 @@ components:
           - INACTIVE
           x-hope-field:
             compile:
-              locationLine: 267
+              locationLine: 279
               locationColumn: 3
               name: status
               type: com.apihug.rad.infra.menu.MenuStatusEnum
@@ -2814,7 +2868,7 @@ components:
         compile:
           protoFile: com/apihug/rad/api/menu/api.proto
           name: UpdateMenuRequest
-          locationLine: 221
+          locationLine: 233
           locationColumn: 1
         clz: com.apihug.rad.api.menu.UpdateMenuRequest
     AddTenantMemberRequest:
@@ -2828,7 +2882,7 @@ components:
           minimum: 1.0
           x-hope-field:
             compile:
-              locationLine: 389
+              locationLine: 411
               locationColumn: 3
               name: customer_id
               type: java.lang.Long
@@ -2838,7 +2892,7 @@ components:
           description: 部门 ID
           x-hope-field:
             compile:
-              locationLine: 396
+              locationLine: 418
               locationColumn: 3
               name: department_id
               type: java.lang.Long
@@ -2848,7 +2902,7 @@ components:
           maxLength: 100
           x-hope-field:
             compile:
-              locationLine: 401
+              locationLine: 423
               locationColumn: 3
               name: position
               type: java.lang.String
@@ -2863,7 +2917,7 @@ components:
           - INTERN
           x-hope-field:
             compile:
-              locationLine: 407
+              locationLine: 429
               locationColumn: 3
               name: member_type
               type: com.apihug.rad.infra.tenant.MemberTypeEnum
@@ -2877,7 +2931,7 @@ components:
           - OWNER
           x-hope-field:
             compile:
-              locationLine: 412
+              locationLine: 434
               locationColumn: 3
               name: member_role
               type: com.apihug.rad.infra.tenant.MemberRoleEnum
@@ -2886,7 +2940,7 @@ components:
           description: 是否设为默认租户
           x-hope-field:
             compile:
-              locationLine: 417
+              locationLine: 439
               locationColumn: 3
               name: is_default
               type: java.lang.Boolean
@@ -2895,7 +2949,7 @@ components:
         compile:
           protoFile: com/apihug/rad/api/tenant/member.proto
           name: AddTenantMemberRequest
-          locationLine: 381
+          locationLine: 403
           locationColumn: 1
         clz: com.apihug.rad.api.tenant.AddTenantMemberRequest
     SearchRolesRequest:
@@ -2907,7 +2961,7 @@ components:
           description: 搜索关键词（角色代码或名称）
           x-hope-field:
             compile:
-              locationLine: 386
+              locationLine: 402
               locationColumn: 3
               name: keyword
               type: java.lang.String
@@ -2921,7 +2975,7 @@ components:
           - DISABLED
           x-hope-field:
             compile:
-              locationLine: 391
+              locationLine: 407
               locationColumn: 3
               name: status
               type: com.apihug.rad.infra.role.RoleStatusEnum
@@ -2930,7 +2984,7 @@ components:
         compile:
           protoFile: com/apihug/rad/api/role/api.proto
           name: SearchRolesRequest
-          locationLine: 378
+          locationLine: 394
           locationColumn: 1
         clz: com.apihug.rad.api.role.SearchRolesRequest
     AccessLogInfo:
@@ -2943,7 +2997,7 @@ components:
           description: 日志ID
           x-hope-field:
             compile:
-              locationLine: 121
+              locationLine: 125
               locationColumn: 3
               name: id
               type: java.lang.Long
@@ -2952,7 +3006,7 @@ components:
           description: HTTP方法
           x-hope-field:
             compile:
-              locationLine: 126
+              locationLine: 130
               locationColumn: 3
               name: http_method
               type: java.lang.String
@@ -2961,7 +3015,7 @@ components:
           description: 请求路径
           x-hope-field:
             compile:
-              locationLine: 131
+              locationLine: 135
               locationColumn: 3
               name: request_path
               type: java.lang.String
@@ -2971,7 +3025,7 @@ components:
           description: 响应状态码
           x-hope-field:
             compile:
-              locationLine: 136
+              locationLine: 140
               locationColumn: 3
               name: response_status
               type: java.lang.Integer
@@ -2981,7 +3035,7 @@ components:
           description: 耗时毫秒
           x-hope-field:
             compile:
-              locationLine: 141
+              locationLine: 145
               locationColumn: 3
               name: duration_ms
               type: java.lang.Long
@@ -2991,7 +3045,7 @@ components:
           description: 客户ID
           x-hope-field:
             compile:
-              locationLine: 146
+              locationLine: 150
               locationColumn: 3
               name: customer_id
               type: java.lang.Long
@@ -3000,7 +3054,7 @@ components:
           description: IP地址
           x-hope-field:
             compile:
-              locationLine: 151
+              locationLine: 155
               locationColumn: 3
               name: ip_address
               type: java.lang.String
@@ -3009,7 +3063,7 @@ components:
           description: 用户代理
           x-hope-field:
             compile:
-              locationLine: 156
+              locationLine: 160
               locationColumn: 3
               name: user_agent
               type: java.lang.String
@@ -3018,7 +3072,7 @@ components:
           description: 服务名称
           x-hope-field:
             compile:
-              locationLine: 161
+              locationLine: 165
               locationColumn: 3
               name: service_name
               type: java.lang.String
@@ -3027,7 +3081,7 @@ components:
           description: 方法名称
           x-hope-field:
             compile:
-              locationLine: 166
+              locationLine: 170
               locationColumn: 3
               name: method_name
               type: java.lang.String
@@ -3036,7 +3090,7 @@ components:
           description: 错误码
           x-hope-field:
             compile:
-              locationLine: 171
+              locationLine: 175
               locationColumn: 3
               name: error_code
               type: java.lang.String
@@ -3045,7 +3099,7 @@ components:
           description: 错误信息
           x-hope-field:
             compile:
-              locationLine: 176
+              locationLine: 180
               locationColumn: 3
               name: error_message
               type: java.lang.String
@@ -3054,7 +3108,7 @@ components:
           description: 脱敏后的请求参数
           x-hope-field:
             compile:
-              locationLine: 181
+              locationLine: 185
               locationColumn: 3
               name: request_params
               type: java.lang.String
@@ -3065,7 +3119,7 @@ components:
           x-hope-field:
             dateFormat: ISO_LOCAL_DATE_TIME
             compile:
-              locationLine: 186
+              locationLine: 190
               locationColumn: 3
               name: created_at
               type: java.time.LocalDateTime
@@ -3075,7 +3129,7 @@ components:
           description: 租户ID
           x-hope-field:
             compile:
-              locationLine: 192
+              locationLine: 196
               locationColumn: 3
               name: tenant_id
               type: java.lang.Long
@@ -3084,7 +3138,7 @@ components:
           description: priority of this method
           x-hope-field:
             compile:
-              locationLine: 197
+              locationLine: 201
               locationColumn: 3
               name: priority
               type: java.lang.String
@@ -3093,7 +3147,7 @@ components:
         compile:
           protoFile: com/apihug/rad/api/audit/api.proto
           name: AccessLogInfo
-          locationLine: 113
+          locationLine: 117
           locationColumn: 1
         clz: com.apihug.rad.api.audit.AccessLogInfo
     MenuTreeNode:
@@ -3106,7 +3160,7 @@ components:
           description: 菜单信息
           x-hope-field:
             compile:
-              locationLine: 419
+              locationLine: 431
               locationColumn: 3
               name: menu
               type: com.apihug.rad.api.menu.MenuSummary
@@ -3118,7 +3172,7 @@ components:
             $ref: "#/components/schemas/MenuTreeNode"
           x-hope-field:
             compile:
-              locationLine: 423
+              locationLine: 435
               locationColumn: 3
               name: children
               type: com.apihug.rad.api.menu.MenuTreeNode
@@ -3127,7 +3181,7 @@ components:
         compile:
           protoFile: com/apihug/rad/api/menu/api.proto
           name: MenuTreeNode
-          locationLine: 411
+          locationLine: 423
           locationColumn: 1
         clz: com.apihug.rad.api.menu.MenuTreeNode
     UpdateRoleRequest:
@@ -3143,7 +3197,7 @@ components:
             mock:
               nature: NAME
             compile:
-              locationLine: 266
+              locationLine: 282
               locationColumn: 3
               name: role_name
               type: java.lang.String
@@ -3155,7 +3209,7 @@ components:
             mock:
               nature: BOOK
             compile:
-              locationLine: 274
+              locationLine: 290
               locationColumn: 3
               name: description
               type: java.lang.String
@@ -3169,7 +3223,7 @@ components:
           - DISABLED
           x-hope-field:
             compile:
-              locationLine: 281
+              locationLine: 297
               locationColumn: 3
               name: status
               type: com.apihug.rad.infra.role.RoleStatusEnum
@@ -3178,7 +3232,7 @@ components:
         compile:
           protoFile: com/apihug/rad/api/role/api.proto
           name: UpdateRoleRequest
-          locationLine: 258
+          locationLine: 274
           locationColumn: 1
         clz: com.apihug.rad.api.role.UpdateRoleRequest
     CreateDepartmentRequest:
@@ -3192,7 +3246,7 @@ components:
           minimum: 1.0
           x-hope-field:
             compile:
-              locationLine: 121
+              locationLine: 131
               locationColumn: 3
               name: tenant_id
               type: java.lang.Long
@@ -3203,7 +3257,7 @@ components:
           minimum: 0.0
           x-hope-field:
             compile:
-              locationLine: 127
+              locationLine: 137
               locationColumn: 3
               name: parent_id
               type: java.lang.Long
@@ -3216,7 +3270,7 @@ components:
             mock:
               nature: NAME
             compile:
-              locationLine: 133
+              locationLine: 143
               locationColumn: 3
               name: dept_code
               type: java.lang.String
@@ -3229,7 +3283,7 @@ components:
             mock:
               nature: NAME
             compile:
-              locationLine: 141
+              locationLine: 151
               locationColumn: 3
               name: dept_name
               type: java.lang.String
@@ -3239,7 +3293,7 @@ components:
           description: 排序顺序
           x-hope-field:
             compile:
-              locationLine: 149
+              locationLine: 159
               locationColumn: 3
               name: sort_order
               type: java.lang.Integer
@@ -3249,7 +3303,7 @@ components:
           maxLength: 50
           x-hope-field:
             compile:
-              locationLine: 154
+              locationLine: 164
               locationColumn: 3
               name: manager_id
               type: java.lang.String
@@ -3262,7 +3316,7 @@ components:
           - DISABLED
           x-hope-field:
             compile:
-              locationLine: 160
+              locationLine: 170
               locationColumn: 3
               name: status
               type: com.apihug.rad.infra.department.DeptStatusEnum
@@ -3271,7 +3325,7 @@ components:
         compile:
           protoFile: com/apihug/rad/api/department/api.proto
           name: CreateDepartmentRequest
-          locationLine: 113
+          locationLine: 123
           locationColumn: 1
         clz: com.apihug.rad.api.department.CreateDepartmentRequest
     TenantSummary:
@@ -3285,7 +3339,7 @@ components:
           minimum: 1.0
           x-hope-field:
             compile:
-              locationLine: 276
+              locationLine: 288
               locationColumn: 3
               name: id
               type: java.lang.Long
@@ -3297,7 +3351,7 @@ components:
             mock:
               nature: NAME
             compile:
-              locationLine: 283
+              locationLine: 295
               locationColumn: 3
               name: tenant_code
               type: java.lang.String
@@ -3309,7 +3363,7 @@ components:
             mock:
               nature: NAME
             compile:
-              locationLine: 290
+              locationLine: 302
               locationColumn: 3
               name: tenant_name
               type: java.lang.String
@@ -3323,7 +3377,7 @@ components:
           - EXPIRED
           x-hope-field:
             compile:
-              locationLine: 297
+              locationLine: 309
               locationColumn: 3
               name: status
               type: com.apihug.rad.infra.tenant.TenantStatusEnum
@@ -3332,7 +3386,7 @@ components:
         compile:
           protoFile: com/apihug/rad/api/tenant/api.proto
           name: TenantSummary
-          locationLine: 268
+          locationLine: 280
           locationColumn: 1
         clz: com.apihug.rad.api.tenant.TenantSummary
     DepartmentSummary:
@@ -3346,7 +3400,7 @@ components:
           minimum: 1.0
           x-hope-field:
             compile:
-              locationLine: 209
+              locationLine: 219
               locationColumn: 3
               name: id
               type: java.lang.Long
@@ -3356,7 +3410,7 @@ components:
           description: 父部门 ID
           x-hope-field:
             compile:
-              locationLine: 216
+              locationLine: 226
               locationColumn: 3
               name: parent_id
               type: java.lang.Long
@@ -3368,7 +3422,7 @@ components:
             mock:
               nature: NAME
             compile:
-              locationLine: 222
+              locationLine: 232
               locationColumn: 3
               name: dept_code
               type: java.lang.String
@@ -3380,7 +3434,7 @@ components:
             mock:
               nature: NAME
             compile:
-              locationLine: 229
+              locationLine: 239
               locationColumn: 3
               name: dept_name
               type: java.lang.String
@@ -3393,7 +3447,7 @@ components:
           - DISABLED
           x-hope-field:
             compile:
-              locationLine: 236
+              locationLine: 246
               locationColumn: 3
               name: status
               type: com.apihug.rad.infra.department.DeptStatusEnum
@@ -3402,7 +3456,7 @@ components:
         compile:
           protoFile: com/apihug/rad/api/department/api.proto
           name: DepartmentSummary
-          locationLine: 201
+          locationLine: 211
           locationColumn: 1
         clz: com.apihug.rad.api.department.DepartmentSummary
     CreateMenuRequest:
@@ -3416,7 +3470,7 @@ components:
           minimum: 0.0
           x-hope-field:
             compile:
-              locationLine: 162
+              locationLine: 174
               locationColumn: 3
               name: parent_id
               type: java.lang.Long
@@ -3429,7 +3483,7 @@ components:
             mock:
               nature: NAME
             compile:
-              locationLine: 168
+              locationLine: 180
               locationColumn: 3
               name: menu_code
               type: java.lang.String
@@ -3442,7 +3496,7 @@ components:
             mock:
               nature: NAME
             compile:
-              locationLine: 176
+              locationLine: 188
               locationColumn: 3
               name: menu_name
               type: java.lang.String
@@ -3454,7 +3508,7 @@ components:
             mock:
               nature: URL
             compile:
-              locationLine: 184
+              locationLine: 196
               locationColumn: 3
               name: path
               type: java.lang.String
@@ -3464,7 +3518,7 @@ components:
           maxLength: 100
           x-hope-field:
             compile:
-              locationLine: 191
+              locationLine: 203
               locationColumn: 3
               name: icon
               type: java.lang.String
@@ -3474,7 +3528,7 @@ components:
           description: 排序顺序（数字越小越靠前）
           x-hope-field:
             compile:
-              locationLine: 197
+              locationLine: 209
               locationColumn: 3
               name: sort_order
               type: java.lang.Integer
@@ -3488,7 +3542,7 @@ components:
           - BUTTON
           x-hope-field:
             compile:
-              locationLine: 202
+              locationLine: 214
               locationColumn: 3
               name: menu_type
               type: com.apihug.rad.infra.menu.MenuTypeEnum
@@ -3498,7 +3552,7 @@ components:
           maxLength: 100
           x-hope-field:
             compile:
-              locationLine: 208
+              locationLine: 220
               locationColumn: 3
               name: permission_code
               type: java.lang.String
@@ -3511,7 +3565,7 @@ components:
           - INACTIVE
           x-hope-field:
             compile:
-              locationLine: 214
+              locationLine: 226
               locationColumn: 3
               name: status
               type: com.apihug.rad.infra.menu.MenuStatusEnum
@@ -3520,7 +3574,7 @@ components:
         compile:
           protoFile: com/apihug/rad/api/menu/api.proto
           name: CreateMenuRequest
-          locationLine: 154
+          locationLine: 166
           locationColumn: 1
         clz: com.apihug.rad.api.menu.CreateMenuRequest
     AssignMemberDepartmentRequest:
@@ -3534,7 +3588,7 @@ components:
           minimum: 1.0
           x-hope-field:
             compile:
-              locationLine: 446
+              locationLine: 468
               locationColumn: 3
               name: department_id
               type: java.lang.Long
@@ -3544,7 +3598,7 @@ components:
           maxLength: 100
           x-hope-field:
             compile:
-              locationLine: 453
+              locationLine: 475
               locationColumn: 3
               name: position
               type: java.lang.String
@@ -3553,7 +3607,7 @@ components:
         compile:
           protoFile: com/apihug/rad/api/tenant/member.proto
           name: AssignMemberDepartmentRequest
-          locationLine: 438
+          locationLine: 460
           locationColumn: 1
         clz: com.apihug.rad.api.tenant.AssignMemberDepartmentRequest
     AssignMenusRequest:
@@ -3568,7 +3622,7 @@ components:
             format: int64
           x-hope-field:
             compile:
-              locationLine: 405
+              locationLine: 421
               locationColumn: 3
               name: menu_ids
               type: java.lang.Long
@@ -3577,7 +3631,7 @@ components:
         compile:
           protoFile: com/apihug/rad/api/role/api.proto
           name: AssignMenusRequest
-          locationLine: 397
+          locationLine: 413
           locationColumn: 1
         clz: com.apihug.rad.api.role.AssignMenusRequest
     DepartmentInfo:
@@ -3590,7 +3644,7 @@ components:
           description: 部门 ID
           x-hope-field:
             compile:
-              locationLine: 563
+              locationLine: 581
               locationColumn: 3
               name: id
               type: java.lang.Long
@@ -3602,7 +3656,7 @@ components:
             mock:
               nature: NAME
             compile:
-              locationLine: 569
+              locationLine: 587
               locationColumn: 3
               name: dept_code
               type: java.lang.String
@@ -3614,7 +3668,7 @@ components:
             mock:
               nature: NAME
             compile:
-              locationLine: 576
+              locationLine: 594
               locationColumn: 3
               name: dept_name
               type: java.lang.String
@@ -3624,7 +3678,7 @@ components:
           description: 父部门 ID
           x-hope-field:
             compile:
-              locationLine: 583
+              locationLine: 601
               locationColumn: 3
               name: parent_id
               type: java.lang.Long
@@ -3633,7 +3687,7 @@ components:
         compile:
           protoFile: com/apihug/rad/api/customer/api.proto
           name: DepartmentInfo
-          locationLine: 555
+          locationLine: 573
           locationColumn: 1
         clz: com.apihug.rad.api.customer.DepartmentInfo
     ForgotPasswordRequest:
@@ -3649,7 +3703,7 @@ components:
             mock:
               nature: EMAIL
             compile:
-              locationLine: 492
+              locationLine: 510
               locationColumn: 3
               name: email
               type: java.lang.String
@@ -3658,7 +3712,7 @@ components:
         compile:
           protoFile: com/apihug/rad/api/customer/api.proto
           name: ForgotPasswordRequest
-          locationLine: 484
+          locationLine: 502
           locationColumn: 1
         clz: com.apihug.rad.api.customer.ForgotPasswordRequest
     MenuDetail:
@@ -3672,7 +3726,7 @@ components:
           minimum: 1.0
           x-hope-field:
             compile:
-              locationLine: 336
+              locationLine: 348
               locationColumn: 3
               name: id
               type: java.lang.Long
@@ -3682,7 +3736,7 @@ components:
           description: 父菜单 ID
           x-hope-field:
             compile:
-              locationLine: 343
+              locationLine: 355
               locationColumn: 3
               name: parent_id
               type: java.lang.Long
@@ -3694,7 +3748,7 @@ components:
             mock:
               nature: NAME
             compile:
-              locationLine: 349
+              locationLine: 361
               locationColumn: 3
               name: menu_code
               type: java.lang.String
@@ -3706,7 +3760,7 @@ components:
             mock:
               nature: NAME
             compile:
-              locationLine: 356
+              locationLine: 368
               locationColumn: 3
               name: menu_name
               type: java.lang.String
@@ -3717,7 +3771,7 @@ components:
             mock:
               nature: URL
             compile:
-              locationLine: 363
+              locationLine: 375
               locationColumn: 3
               name: path
               type: java.lang.String
@@ -3728,7 +3782,7 @@ components:
             mock:
               nature: NAME
             compile:
-              locationLine: 369
+              locationLine: 381
               locationColumn: 3
               name: icon
               type: java.lang.String
@@ -3738,7 +3792,7 @@ components:
           description: 排序顺序
           x-hope-field:
             compile:
-              locationLine: 375
+              locationLine: 387
               locationColumn: 3
               name: sort_order
               type: java.lang.Integer
@@ -3752,7 +3806,7 @@ components:
           - BUTTON
           x-hope-field:
             compile:
-              locationLine: 380
+              locationLine: 392
               locationColumn: 3
               name: menu_type
               type: com.apihug.rad.infra.menu.MenuTypeEnum
@@ -3763,7 +3817,7 @@ components:
             mock:
               nature: NAME
             compile:
-              locationLine: 386
+              locationLine: 398
               locationColumn: 3
               name: permission_code
               type: java.lang.String
@@ -3776,7 +3830,7 @@ components:
           - INACTIVE
           x-hope-field:
             compile:
-              locationLine: 392
+              locationLine: 404
               locationColumn: 3
               name: status
               type: com.apihug.rad.infra.menu.MenuStatusEnum
@@ -3787,7 +3841,7 @@ components:
           x-hope-field:
             dateFormat: ISO_LOCAL_DATE_TIME
             compile:
-              locationLine: 398
+              locationLine: 410
               locationColumn: 3
               name: created_at
               type: java.time.LocalDateTime
@@ -3798,7 +3852,7 @@ components:
           x-hope-field:
             dateFormat: ISO_LOCAL_DATE_TIME
             compile:
-              locationLine: 404
+              locationLine: 416
               locationColumn: 3
               name: updated_at
               type: java.time.LocalDateTime
@@ -3807,14 +3861,12 @@ components:
         compile:
           protoFile: com/apihug/rad/api/menu/api.proto
           name: MenuDetail
-          locationLine: 328
+          locationLine: 340
           locationColumn: 1
         clz: com.apihug.rad.api.menu.MenuDetail
     UpdatePlatformMemberRoleRequest:
       type: object
-      description: |-
-        更新平台成员角色请求
-        更新平台成员角色请求
+      description: 更新平台成员角色请求
       properties:
         platformRole:
           type: object
@@ -3826,7 +3878,7 @@ components:
           - OWNER
           x-hope-field:
             compile:
-              locationLine: 191
+              locationLine: 199
               locationColumn: 3
               name: platform_role
               type: com.apihug.rad.infra.customer.CustomerPlatformTypeEnum
@@ -3835,7 +3887,7 @@ components:
         compile:
           protoFile: com/apihug/rad/api/platform/api.proto
           name: UpdatePlatformMemberRoleRequest
-          locationLine: 183
+          locationLine: 191
           locationColumn: 1
         clz: com.apihug.rad.api.platform.UpdatePlatformMemberRoleRequest
     SearchTenantsRequest:
@@ -3847,7 +3899,7 @@ components:
           description: 搜索关键词（租户名称或代码）
           x-hope-field:
             compile:
-              locationLine: 386
+              locationLine: 398
               locationColumn: 3
               name: keyword
               type: java.lang.String
@@ -3861,7 +3913,7 @@ components:
           - EXPIRED
           x-hope-field:
             compile:
-              locationLine: 391
+              locationLine: 403
               locationColumn: 3
               name: status
               type: com.apihug.rad.infra.tenant.TenantStatusEnum
@@ -3870,7 +3922,7 @@ components:
         compile:
           protoFile: com/apihug/rad/api/tenant/api.proto
           name: SearchTenantsRequest
-          locationLine: 378
+          locationLine: 390
           locationColumn: 1
         clz: com.apihug.rad.api.tenant.SearchTenantsRequest
     LoginRequest:
@@ -3886,7 +3938,7 @@ components:
             mock:
               nature: NAME
             compile:
-              locationLine: 190
+              locationLine: 208
               locationColumn: 3
               name: username
               type: java.lang.String
@@ -3897,7 +3949,7 @@ components:
           minLength: 6
           x-hope-field:
             compile:
-              locationLine: 198
+              locationLine: 216
               locationColumn: 3
               name: password
               type: java.lang.String
@@ -3906,7 +3958,7 @@ components:
           description: whether to remember me
           x-hope-field:
             compile:
-              locationLine: 206
+              locationLine: 224
               locationColumn: 3
               name: remember_me
               type: java.lang.Boolean
@@ -3915,7 +3967,7 @@ components:
         compile:
           protoFile: com/apihug/rad/api/customer/api.proto
           name: LoginRequest
-          locationLine: 182
+          locationLine: 200
           locationColumn: 1
         clz: com.apihug.rad.api.customer.LoginRequest
     SwitchTenantRequest:
@@ -3929,7 +3981,7 @@ components:
           minimum: 1.0
           x-hope-field:
             compile:
-              locationLine: 388
+              locationLine: 406
               locationColumn: 3
               name: tenant_id
               type: java.lang.Long
@@ -3938,7 +3990,7 @@ components:
         compile:
           protoFile: com/apihug/rad/api/customer/api.proto
           name: SwitchTenantRequest
-          locationLine: 380
+          locationLine: 398
           locationColumn: 1
         clz: com.apihug.rad.api.customer.SwitchTenantRequest
     MemberRoleSummary:
@@ -3951,7 +4003,7 @@ components:
           description: 成员 ID
           x-hope-field:
             compile:
-              locationLine: 637
+              locationLine: 659
               locationColumn: 3
               name: member_id
               type: java.lang.Long
@@ -3963,7 +4015,7 @@ components:
             $ref: "#/components/schemas/MemberRoleItem"
           x-hope-field:
             compile:
-              locationLine: 643
+              locationLine: 665
               locationColumn: 3
               name: roles
               type: com.apihug.rad.api.tenant.MemberRoleItem
@@ -3972,7 +4024,7 @@ components:
         compile:
           protoFile: com/apihug/rad/api/tenant/member.proto
           name: MemberRoleSummary
-          locationLine: 629
+          locationLine: 651
           locationColumn: 1
         clz: com.apihug.rad.api.tenant.MemberRoleSummary
     UpdateTenantRequest:
@@ -3988,7 +4040,7 @@ components:
             mock:
               nature: NAME
             compile:
-              locationLine: 206
+              locationLine: 218
               locationColumn: 3
               name: tenant_name
               type: java.lang.String
@@ -4001,7 +4053,7 @@ components:
             mock:
               nature: EMAIL
             compile:
-              locationLine: 214
+              locationLine: 226
               locationColumn: 3
               name: contact_email
               type: java.lang.String
@@ -4013,7 +4065,7 @@ components:
             mock:
               nature: PHONE
             compile:
-              locationLine: 222
+              locationLine: 234
               locationColumn: 3
               name: contact_phone
               type: java.lang.String
@@ -4027,7 +4079,7 @@ components:
           - EXPIRED
           x-hope-field:
             compile:
-              locationLine: 229
+              locationLine: 241
               locationColumn: 3
               name: status
               type: com.apihug.rad.infra.tenant.TenantStatusEnum
@@ -4036,7 +4088,7 @@ components:
         compile:
           protoFile: com/apihug/rad/api/tenant/api.proto
           name: UpdateTenantRequest
-          locationLine: 198
+          locationLine: 210
           locationColumn: 1
         clz: com.apihug.rad.api.tenant.UpdateTenantRequest
     TenantMemberDetail:
@@ -4049,7 +4101,7 @@ components:
           description: 成员关系 ID
           x-hope-field:
             compile:
-              locationLine: 537
+              locationLine: 559
               locationColumn: 3
               name: id
               type: java.lang.Long
@@ -4059,7 +4111,7 @@ components:
           description: 客户 ID
           x-hope-field:
             compile:
-              locationLine: 542
+              locationLine: 564
               locationColumn: 3
               name: customer_id
               type: java.lang.Long
@@ -4069,7 +4121,7 @@ components:
           description: 租户 ID
           x-hope-field:
             compile:
-              locationLine: 547
+              locationLine: 569
               locationColumn: 3
               name: tenant_id
               type: java.lang.Long
@@ -4078,7 +4130,7 @@ components:
           description: 客户用户名
           x-hope-field:
             compile:
-              locationLine: 552
+              locationLine: 574
               locationColumn: 3
               name: customer_username
               type: java.lang.String
@@ -4087,7 +4139,7 @@ components:
           description: 客户邮箱
           x-hope-field:
             compile:
-              locationLine: 557
+              locationLine: 579
               locationColumn: 3
               name: customer_email
               type: java.lang.String
@@ -4102,7 +4154,7 @@ components:
           - DISABLED
           x-hope-field:
             compile:
-              locationLine: 562
+              locationLine: 584
               locationColumn: 3
               name: customer_status
               type: com.apihug.rad.infra.customer.CustomerStatusEnum
@@ -4111,7 +4163,7 @@ components:
           description: 租户名称
           x-hope-field:
             compile:
-              locationLine: 567
+              locationLine: 589
               locationColumn: 3
               name: tenant_name
               type: java.lang.String
@@ -4120,7 +4172,7 @@ components:
           description: 租户代码
           x-hope-field:
             compile:
-              locationLine: 572
+              locationLine: 594
               locationColumn: 3
               name: tenant_code
               type: java.lang.String
@@ -4135,7 +4187,7 @@ components:
           - INTERN
           x-hope-field:
             compile:
-              locationLine: 577
+              locationLine: 599
               locationColumn: 3
               name: member_type
               type: com.apihug.rad.infra.tenant.MemberTypeEnum
@@ -4149,7 +4201,7 @@ components:
           - OWNER
           x-hope-field:
             compile:
-              locationLine: 582
+              locationLine: 604
               locationColumn: 3
               name: member_role
               type: com.apihug.rad.infra.tenant.MemberRoleEnum
@@ -4163,7 +4215,7 @@ components:
           - TM_LOCKED
           x-hope-field:
             compile:
-              locationLine: 587
+              locationLine: 609
               locationColumn: 3
               name: status
               type: com.apihug.rad.infra.tenant.TenantMemberStatusEnum
@@ -4173,7 +4225,7 @@ components:
           description: 部门 ID
           x-hope-field:
             compile:
-              locationLine: 592
+              locationLine: 614
               locationColumn: 3
               name: department_id
               type: java.lang.Long
@@ -4182,7 +4234,7 @@ components:
           description: 职位
           x-hope-field:
             compile:
-              locationLine: 597
+              locationLine: 619
               locationColumn: 3
               name: position
               type: java.lang.String
@@ -4191,7 +4243,7 @@ components:
           description: 是否默认租户
           x-hope-field:
             compile:
-              locationLine: 602
+              locationLine: 624
               locationColumn: 3
               name: is_default
               type: java.lang.Boolean
@@ -4202,7 +4254,7 @@ components:
           x-hope-field:
             dateFormat: ISO_LOCAL_DATE_TIME
             compile:
-              locationLine: 607
+              locationLine: 629
               locationColumn: 3
               name: created_at
               type: java.time.LocalDateTime
@@ -4211,7 +4263,7 @@ components:
         compile:
           protoFile: com/apihug/rad/api/tenant/member.proto
           name: TenantMemberDetail
-          locationLine: 529
+          locationLine: 551
           locationColumn: 1
         clz: com.apihug.rad.api.tenant.TenantMemberDetail
     ResetPasswordRequest:
@@ -4227,7 +4279,7 @@ components:
             mock:
               nature: GUID
             compile:
-              locationLine: 509
+              locationLine: 527
               locationColumn: 3
               name: token
               type: java.lang.String
@@ -4238,7 +4290,7 @@ components:
           minLength: 6
           x-hope-field:
             compile:
-              locationLine: 517
+              locationLine: 535
               locationColumn: 3
               name: password
               type: java.lang.String
@@ -4247,7 +4299,7 @@ components:
         compile:
           protoFile: com/apihug/rad/api/customer/api.proto
           name: ResetPasswordRequest
-          locationLine: 501
+          locationLine: 519
           locationColumn: 1
         clz: com.apihug.rad.api.customer.ResetPasswordRequest
     DepartmentDetail:
@@ -4261,7 +4313,7 @@ components:
           minimum: 1.0
           x-hope-field:
             compile:
-              locationLine: 251
+              locationLine: 261
               locationColumn: 3
               name: id
               type: java.lang.Long
@@ -4271,7 +4323,7 @@ components:
           description: 父部门 ID
           x-hope-field:
             compile:
-              locationLine: 258
+              locationLine: 268
               locationColumn: 3
               name: parent_id
               type: java.lang.Long
@@ -4283,7 +4335,7 @@ components:
             mock:
               nature: NAME
             compile:
-              locationLine: 264
+              locationLine: 274
               locationColumn: 3
               name: dept_code
               type: java.lang.String
@@ -4295,7 +4347,7 @@ components:
             mock:
               nature: NAME
             compile:
-              locationLine: 271
+              locationLine: 281
               locationColumn: 3
               name: dept_name
               type: java.lang.String
@@ -4305,7 +4357,7 @@ components:
           description: 排序顺序
           x-hope-field:
             compile:
-              locationLine: 278
+              locationLine: 288
               locationColumn: 3
               name: sort_order
               type: java.lang.Integer
@@ -4316,7 +4368,7 @@ components:
             mock:
               nature: NAME
             compile:
-              locationLine: 283
+              locationLine: 293
               locationColumn: 3
               name: manager_id
               type: java.lang.String
@@ -4329,7 +4381,7 @@ components:
           - DISABLED
           x-hope-field:
             compile:
-              locationLine: 289
+              locationLine: 299
               locationColumn: 3
               name: status
               type: com.apihug.rad.infra.department.DeptStatusEnum
@@ -4340,7 +4392,7 @@ components:
           x-hope-field:
             dateFormat: ISO_LOCAL_DATE_TIME
             compile:
-              locationLine: 295
+              locationLine: 305
               locationColumn: 3
               name: created_at
               type: java.time.LocalDateTime
@@ -4349,7 +4401,7 @@ components:
         compile:
           protoFile: com/apihug/rad/api/department/api.proto
           name: DepartmentDetail
-          locationLine: 243
+          locationLine: 253
           locationColumn: 1
         clz: com.apihug.rad.api.department.DepartmentDetail
     CreateTenantRequest:
@@ -4365,7 +4417,7 @@ components:
             mock:
               nature: NAME
             compile:
-              locationLine: 149
+              locationLine: 161
               locationColumn: 3
               name: tenant_code
               type: java.lang.String
@@ -4378,7 +4430,7 @@ components:
             mock:
               nature: NAME
             compile:
-              locationLine: 157
+              locationLine: 169
               locationColumn: 3
               name: tenant_name
               type: java.lang.String
@@ -4391,7 +4443,7 @@ components:
             mock:
               nature: EMAIL
             compile:
-              locationLine: 165
+              locationLine: 177
               locationColumn: 3
               name: contact_email
               type: java.lang.String
@@ -4403,7 +4455,7 @@ components:
             mock:
               nature: PHONE
             compile:
-              locationLine: 173
+              locationLine: 185
               locationColumn: 3
               name: contact_phone
               type: java.lang.String
@@ -4417,7 +4469,7 @@ components:
           - EXPIRED
           x-hope-field:
             compile:
-              locationLine: 180
+              locationLine: 192
               locationColumn: 3
               name: status
               type: com.apihug.rad.infra.tenant.TenantStatusEnum
@@ -4426,7 +4478,7 @@ components:
           description: 是否为平台租户
           x-hope-field:
             compile:
-              locationLine: 186
+              locationLine: 198
               locationColumn: 3
               name: is_platform
               type: java.lang.Boolean
@@ -4436,7 +4488,7 @@ components:
           maxLength: 500
           x-hope-field:
             compile:
-              locationLine: 191
+              locationLine: 203
               locationColumn: 3
               name: description
               type: java.lang.String
@@ -4445,7 +4497,7 @@ components:
         compile:
           protoFile: com/apihug/rad/api/tenant/api.proto
           name: CreateTenantRequest
-          locationLine: 141
+          locationLine: 153
           locationColumn: 1
         clz: com.apihug.rad.api.tenant.CreateTenantRequest
     RoleInfo:
@@ -4458,7 +4510,7 @@ components:
           description: 角色 ID
           x-hope-field:
             compile:
-              locationLine: 534
+              locationLine: 552
               locationColumn: 3
               name: id
               type: java.lang.Long
@@ -4470,7 +4522,7 @@ components:
             mock:
               nature: NAME
             compile:
-              locationLine: 540
+              locationLine: 558
               locationColumn: 3
               name: role_code
               type: java.lang.String
@@ -4482,7 +4534,7 @@ components:
             mock:
               nature: NAME
             compile:
-              locationLine: 547
+              locationLine: 565
               locationColumn: 3
               name: role_name
               type: java.lang.String
@@ -4491,7 +4543,7 @@ components:
         compile:
           protoFile: com/apihug/rad/api/customer/api.proto
           name: RoleInfo
-          locationLine: 526
+          locationLine: 544
           locationColumn: 1
         clz: com.apihug.rad.api.customer.RoleInfo
     DepartmentTreeNode:
@@ -4504,7 +4556,7 @@ components:
           description: 部门信息
           x-hope-field:
             compile:
-              locationLine: 310
+              locationLine: 320
               locationColumn: 3
               name: department
               type: com.apihug.rad.api.department.DepartmentSummary
@@ -4516,7 +4568,7 @@ components:
             $ref: "#/components/schemas/DepartmentTreeNode"
           x-hope-field:
             compile:
-              locationLine: 314
+              locationLine: 324
               locationColumn: 3
               name: children
               type: com.apihug.rad.api.department.DepartmentTreeNode
@@ -4525,7 +4577,7 @@ components:
         compile:
           protoFile: com/apihug/rad/api/department/api.proto
           name: DepartmentTreeNode
-          locationLine: 302
+          locationLine: 312
           locationColumn: 1
         clz: com.apihug.rad.api.department.DepartmentTreeNode
     RoleMenuItem:
@@ -4538,7 +4590,7 @@ components:
           description: 菜单 ID
           x-hope-field:
             compile:
-              locationLine: 439
+              locationLine: 455
               locationColumn: 3
               name: id
               type: java.lang.Long
@@ -4548,7 +4600,7 @@ components:
           minLength: 1
           x-hope-field:
             compile:
-              locationLine: 445
+              locationLine: 461
               locationColumn: 3
               name: menu_code
               type: java.lang.String
@@ -4558,7 +4610,7 @@ components:
           minLength: 1
           x-hope-field:
             compile:
-              locationLine: 451
+              locationLine: 467
               locationColumn: 3
               name: menu_name
               type: java.lang.String
@@ -4567,7 +4619,7 @@ components:
           description: 权限代码（BUTTON 类型菜单的原子权限）
           x-hope-field:
             compile:
-              locationLine: 457
+              locationLine: 473
               locationColumn: 3
               name: permission_code
               type: java.lang.String
@@ -4576,7 +4628,7 @@ components:
           description: 菜单类型（DIRECTORY/MENU/BUTTON）
           x-hope-field:
             compile:
-              locationLine: 462
+              locationLine: 478
               locationColumn: 3
               name: menu_type
               type: java.lang.String
@@ -4585,7 +4637,7 @@ components:
         compile:
           protoFile: com/apihug/rad/api/role/api.proto
           name: RoleMenuItem
-          locationLine: 431
+          locationLine: 447
           locationColumn: 1
         clz: com.apihug.rad.api.role.RoleMenuItem
     MenuSummary:
@@ -4599,7 +4651,7 @@ components:
           minimum: 1.0
           x-hope-field:
             compile:
-              locationLine: 282
+              locationLine: 294
               locationColumn: 3
               name: id
               type: java.lang.Long
@@ -4609,7 +4661,7 @@ components:
           description: 父菜单 ID
           x-hope-field:
             compile:
-              locationLine: 289
+              locationLine: 301
               locationColumn: 3
               name: parent_id
               type: java.lang.Long
@@ -4621,7 +4673,7 @@ components:
             mock:
               nature: NAME
             compile:
-              locationLine: 295
+              locationLine: 307
               locationColumn: 3
               name: menu_code
               type: java.lang.String
@@ -4633,7 +4685,7 @@ components:
             mock:
               nature: NAME
             compile:
-              locationLine: 302
+              locationLine: 314
               locationColumn: 3
               name: menu_name
               type: java.lang.String
@@ -4644,7 +4696,7 @@ components:
             mock:
               nature: URL
             compile:
-              locationLine: 309
+              locationLine: 321
               locationColumn: 3
               name: path
               type: java.lang.String
@@ -4658,7 +4710,7 @@ components:
           - BUTTON
           x-hope-field:
             compile:
-              locationLine: 315
+              locationLine: 327
               locationColumn: 3
               name: menu_type
               type: com.apihug.rad.infra.menu.MenuTypeEnum
@@ -4671,7 +4723,7 @@ components:
           - INACTIVE
           x-hope-field:
             compile:
-              locationLine: 321
+              locationLine: 333
               locationColumn: 3
               name: status
               type: com.apihug.rad.infra.menu.MenuStatusEnum
@@ -4680,7 +4732,7 @@ components:
         compile:
           protoFile: com/apihug/rad/api/menu/api.proto
           name: MenuSummary
-          locationLine: 274
+          locationLine: 286
           locationColumn: 1
         clz: com.apihug.rad.api.menu.MenuSummary
     TenantInfo:
@@ -4693,7 +4745,7 @@ components:
           description: 租户 ID
           x-hope-field:
             compile:
-              locationLine: 263
+              locationLine: 281
               locationColumn: 3
               name: id
               type: java.lang.Long
@@ -4705,7 +4757,7 @@ components:
             mock:
               nature: NAME
             compile:
-              locationLine: 269
+              locationLine: 287
               locationColumn: 3
               name: tenant_code
               type: java.lang.String
@@ -4717,7 +4769,7 @@ components:
             mock:
               nature: NAME
             compile:
-              locationLine: 276
+              locationLine: 294
               locationColumn: 3
               name: tenant_name
               type: java.lang.String
@@ -4726,7 +4778,7 @@ components:
           description: 是否默认租户
           x-hope-field:
             compile:
-              locationLine: 283
+              locationLine: 301
               locationColumn: 3
               name: is_default
               type: java.lang.Boolean
@@ -4735,7 +4787,7 @@ components:
           description: 是否平台租户
           x-hope-field:
             compile:
-              locationLine: 288
+              locationLine: 306
               locationColumn: 3
               name: is_platform
               type: java.lang.Boolean
@@ -4744,7 +4796,7 @@ components:
         compile:
           protoFile: com/apihug/rad/api/customer/api.proto
           name: TenantInfo
-          locationLine: 255
+          locationLine: 273
           locationColumn: 1
         clz: com.apihug.rad.api.customer.TenantInfo
     PermissionInfo:
@@ -4756,7 +4808,7 @@ components:
           description: 权限代码
           x-hope-field:
             compile:
-              locationLine: 63
+              locationLine: 69
               locationColumn: 3
               name: permission_code
               type: java.lang.String
@@ -4765,7 +4817,7 @@ components:
           description: 权限名称
           x-hope-field:
             compile:
-              locationLine: 68
+              locationLine: 74
               locationColumn: 3
               name: permission_name
               type: java.lang.String
@@ -4774,7 +4826,7 @@ components:
         compile:
           protoFile: com/apihug/rad/api/permission/api.proto
           name: PermissionInfo
-          locationLine: 55
+          locationLine: 61
           locationColumn: 1
         clz: com.apihug.rad.api.permission.PermissionInfo
     PathStats:
@@ -4786,7 +4838,7 @@ components:
           description: 请求路径
           x-hope-field:
             compile:
-              locationLine: 244
+              locationLine: 248
               locationColumn: 3
               name: path
               type: java.lang.String
@@ -4796,7 +4848,7 @@ components:
           description: 请求次数
           x-hope-field:
             compile:
-              locationLine: 249
+              locationLine: 253
               locationColumn: 3
               name: count
               type: java.lang.Long
@@ -4806,7 +4858,7 @@ components:
           description: 平均耗时毫秒
           x-hope-field:
             compile:
-              locationLine: 254
+              locationLine: 258
               locationColumn: 3
               name: avg_duration_ms
               type: java.lang.Long
@@ -4816,7 +4868,7 @@ components:
           description: 错误率(百分比*100)
           x-hope-field:
             compile:
-              locationLine: 259
+              locationLine: 263
               locationColumn: 3
               name: error_rate
               type: java.lang.Integer
@@ -4825,7 +4877,7 @@ components:
         compile:
           protoFile: com/apihug/rad/api/audit/api.proto
           name: PathStats
-          locationLine: 236
+          locationLine: 240
           locationColumn: 1
         clz: com.apihug.rad.api.audit.PathStats
     ConfigureTenantRequest:
@@ -4839,7 +4891,7 @@ components:
           minimum: 1.0
           x-hope-field:
             compile:
-              locationLine: 244
+              locationLine: 256
               locationColumn: 3
               name: max_members
               type: java.lang.Integer
@@ -4850,7 +4902,7 @@ components:
           minimum: 1.0
           x-hope-field:
             compile:
-              locationLine: 250
+              locationLine: 262
               locationColumn: 3
               name: max_storage_mb
               type: java.lang.Long
@@ -4861,7 +4913,7 @@ components:
             type: string
           x-hope-field:
             compile:
-              locationLine: 256
+              locationLine: 268
               locationColumn: 3
               name: enabled_modules
               type: java.lang.String
@@ -4872,7 +4924,7 @@ components:
           x-hope-field:
             dateFormat: ISO_LOCAL_DATE_TIME
             compile:
-              locationLine: 261
+              locationLine: 273
               locationColumn: 3
               name: expiry_date
               type: java.time.LocalDateTime
@@ -4881,7 +4933,7 @@ components:
         compile:
           protoFile: com/apihug/rad/api/tenant/api.proto
           name: ConfigureTenantRequest
-          locationLine: 236
+          locationLine: 248
           locationColumn: 1
         clz: com.apihug.rad.api.tenant.ConfigureTenantRequest
     CreateRoleRequest:
@@ -4897,7 +4949,7 @@ components:
             mock:
               nature: NAME
             compile:
-              locationLine: 228
+              locationLine: 244
               locationColumn: 3
               name: role_code
               type: java.lang.String
@@ -4910,7 +4962,7 @@ components:
             mock:
               nature: NAME
             compile:
-              locationLine: 236
+              locationLine: 252
               locationColumn: 3
               name: role_name
               type: java.lang.String
@@ -4922,7 +4974,7 @@ components:
             mock:
               nature: BOOK
             compile:
-              locationLine: 244
+              locationLine: 260
               locationColumn: 3
               name: description
               type: java.lang.String
@@ -4936,7 +4988,7 @@ components:
           - DISABLED
           x-hope-field:
             compile:
-              locationLine: 251
+              locationLine: 267
               locationColumn: 3
               name: status
               type: com.apihug.rad.infra.role.RoleStatusEnum
@@ -4945,7 +4997,7 @@ components:
         compile:
           protoFile: com/apihug/rad/api/role/api.proto
           name: CreateRoleRequest
-          locationLine: 220
+          locationLine: 236
           locationColumn: 1
         clz: com.apihug.rad.api.role.CreateRoleRequest
     UpdateMemberRoleRequest:
@@ -4962,7 +5014,7 @@ components:
           - OWNER
           x-hope-field:
             compile:
-              locationLine: 431
+              locationLine: 453
               locationColumn: 3
               name: member_role
               type: com.apihug.rad.infra.tenant.MemberRoleEnum
@@ -4971,7 +5023,7 @@ components:
         compile:
           protoFile: com/apihug/rad/api/tenant/member.proto
           name: UpdateMemberRoleRequest
-          locationLine: 423
+          locationLine: 445
           locationColumn: 1
         clz: com.apihug.rad.api.tenant.UpdateMemberRoleRequest
     CustomerInfo:
@@ -4989,7 +5041,7 @@ components:
                 min: 1036
                 max: 1000
             compile:
-              locationLine: 301
+              locationLine: 319
               locationColumn: 3
               name: customer_id
               type: java.lang.Long
@@ -5001,7 +5053,7 @@ components:
             mock:
               nature: NAME
             compile:
-              locationLine: 309
+              locationLine: 327
               locationColumn: 3
               name: username
               type: java.lang.String
@@ -5016,7 +5068,7 @@ components:
                 min: 1036
                 max: 1000
             compile:
-              locationLine: 316
+              locationLine: 334
               locationColumn: 3
               name: tenant_id
               type: java.lang.Long
@@ -5027,7 +5079,7 @@ components:
             type: string
           x-hope-field:
             compile:
-              locationLine: 324
+              locationLine: 342
               locationColumn: 3
               name: roles
               type: java.lang.String
@@ -5038,7 +5090,7 @@ components:
             type: string
           x-hope-field:
             compile:
-              locationLine: 328
+              locationLine: 346
               locationColumn: 3
               name: authorities
               type: java.lang.String
@@ -5046,7 +5098,7 @@ components:
         compile:
           protoFile: com/apihug/rad/api/customer/api.proto
           name: CustomerInfo
-          locationLine: 294
+          locationLine: 312
           locationColumn: 1
         clz: com.apihug.rad.api.customer.CustomerInfo
     MemberRoleItem:
@@ -5059,7 +5111,7 @@ components:
           description: 角色 ID
           x-hope-field:
             compile:
-              locationLine: 656
+              locationLine: 678
               locationColumn: 3
               name: id
               type: java.lang.Long
@@ -5069,7 +5121,7 @@ components:
           minLength: 1
           x-hope-field:
             compile:
-              locationLine: 662
+              locationLine: 684
               locationColumn: 3
               name: role_code
               type: java.lang.String
@@ -5079,7 +5131,7 @@ components:
           minLength: 1
           x-hope-field:
             compile:
-              locationLine: 668
+              locationLine: 690
               locationColumn: 3
               name: role_name
               type: java.lang.String
@@ -5088,7 +5140,7 @@ components:
         compile:
           protoFile: com/apihug/rad/api/tenant/member.proto
           name: MemberRoleItem
-          locationLine: 648
+          locationLine: 670
           locationColumn: 1
         clz: com.apihug.rad.api.tenant.MemberRoleItem
     TenantList:
@@ -5103,7 +5155,7 @@ components:
             $ref: "#/components/schemas/TenantInfo"
           x-hope-field:
             compile:
-              locationLine: 370
+              locationLine: 388
               locationColumn: 3
               name: tenants
               type: com.apihug.rad.api.customer.TenantInfo
@@ -5113,7 +5165,7 @@ components:
           description: 默认租户 ID
           x-hope-field:
             compile:
-              locationLine: 374
+              locationLine: 392
               locationColumn: 3
               name: default_tenant_id
               type: java.lang.Long
@@ -5122,7 +5174,7 @@ components:
         compile:
           protoFile: com/apihug/rad/api/customer/api.proto
           name: TenantList
-          locationLine: 362
+          locationLine: 380
           locationColumn: 1
         clz: com.apihug.rad.api.customer.TenantList
     RoleSummary:
@@ -5136,7 +5188,7 @@ components:
           minimum: 1.0
           x-hope-field:
             compile:
-              locationLine: 296
+              locationLine: 312
               locationColumn: 3
               name: id
               type: java.lang.Long
@@ -5148,7 +5200,7 @@ components:
             mock:
               nature: NAME
             compile:
-              locationLine: 303
+              locationLine: 319
               locationColumn: 3
               name: role_code
               type: java.lang.String
@@ -5160,7 +5212,7 @@ components:
             mock:
               nature: NAME
             compile:
-              locationLine: 310
+              locationLine: 326
               locationColumn: 3
               name: role_name
               type: java.lang.String
@@ -5174,7 +5226,7 @@ components:
           - DISABLED
           x-hope-field:
             compile:
-              locationLine: 317
+              locationLine: 333
               locationColumn: 3
               name: status
               type: com.apihug.rad.infra.role.RoleStatusEnum
@@ -5183,7 +5235,7 @@ components:
         compile:
           protoFile: com/apihug/rad/api/role/api.proto
           name: RoleSummary
-          locationLine: 288
+          locationLine: 304
           locationColumn: 1
         clz: com.apihug.rad.api.role.RoleSummary
     RoleDetail:
@@ -5197,7 +5249,7 @@ components:
           minimum: 1.0
           x-hope-field:
             compile:
-              locationLine: 332
+              locationLine: 348
               locationColumn: 3
               name: id
               type: java.lang.Long
@@ -5209,7 +5261,7 @@ components:
             mock:
               nature: NAME
             compile:
-              locationLine: 339
+              locationLine: 355
               locationColumn: 3
               name: role_code
               type: java.lang.String
@@ -5221,7 +5273,7 @@ components:
             mock:
               nature: NAME
             compile:
-              locationLine: 346
+              locationLine: 362
               locationColumn: 3
               name: role_name
               type: java.lang.String
@@ -5232,7 +5284,7 @@ components:
             mock:
               nature: BOOK
             compile:
-              locationLine: 353
+              locationLine: 369
               locationColumn: 3
               name: description
               type: java.lang.String
@@ -5246,7 +5298,7 @@ components:
           - DISABLED
           x-hope-field:
             compile:
-              locationLine: 359
+              locationLine: 375
               locationColumn: 3
               name: status
               type: com.apihug.rad.infra.role.RoleStatusEnum
@@ -5257,7 +5309,7 @@ components:
           x-hope-field:
             dateFormat: ISO_LOCAL_DATE_TIME
             compile:
-              locationLine: 365
+              locationLine: 381
               locationColumn: 3
               name: created_at
               type: java.time.LocalDateTime
@@ -5268,7 +5320,7 @@ components:
           x-hope-field:
             dateFormat: ISO_LOCAL_DATE_TIME
             compile:
-              locationLine: 371
+              locationLine: 387
               locationColumn: 3
               name: updated_at
               type: java.time.LocalDateTime
@@ -5277,7 +5329,7 @@ components:
         compile:
           protoFile: com/apihug/rad/api/role/api.proto
           name: RoleDetail
-          locationLine: 324
+          locationLine: 340
           locationColumn: 1
         clz: com.apihug.rad.api.role.RoleDetail
     AccessLogStatsResponse:
@@ -5290,7 +5342,7 @@ components:
           description: 总请求数
           x-hope-field:
             compile:
-              locationLine: 211
+              locationLine: 215
               locationColumn: 3
               name: total_requests
               type: java.lang.Long
@@ -5300,7 +5352,7 @@ components:
           description: 成功请求数(2xx)
           x-hope-field:
             compile:
-              locationLine: 216
+              locationLine: 220
               locationColumn: 3
               name: success_count
               type: java.lang.Long
@@ -5310,7 +5362,7 @@ components:
           description: 错误请求数(4xx+5xx)
           x-hope-field:
             compile:
-              locationLine: 221
+              locationLine: 225
               locationColumn: 3
               name: error_count
               type: java.lang.Long
@@ -5320,7 +5372,7 @@ components:
           description: 平均耗时毫秒
           x-hope-field:
             compile:
-              locationLine: 226
+              locationLine: 230
               locationColumn: 3
               name: avg_duration_ms
               type: java.lang.Long
@@ -5332,7 +5384,7 @@ components:
             $ref: "#/components/schemas/PathStats"
           x-hope-field:
             compile:
-              locationLine: 231
+              locationLine: 235
               locationColumn: 3
               name: top_paths
               type: com.apihug.rad.api.audit.PathStats
@@ -5341,7 +5393,7 @@ components:
         compile:
           protoFile: com/apihug/rad/api/audit/api.proto
           name: AccessLogStatsResponse
-          locationLine: 203
+          locationLine: 207
           locationColumn: 1
         clz: com.apihug.rad.api.audit.AccessLogStatsResponse
     PlatformMemberInfo:
@@ -5356,7 +5408,7 @@ components:
           description: 平台成员记录 ID
           x-hope-field:
             compile:
-              locationLine: 207
+              locationLine: 215
               locationColumn: 3
               name: id
               type: java.lang.Long
@@ -5366,7 +5418,7 @@ components:
           description: 客户 ID
           x-hope-field:
             compile:
-              locationLine: 212
+              locationLine: 220
               locationColumn: 3
               name: customer_id
               type: java.lang.Long
@@ -5375,7 +5427,7 @@ components:
           description: 客户用户名
           x-hope-field:
             compile:
-              locationLine: 217
+              locationLine: 225
               locationColumn: 3
               name: customer_username
               type: java.lang.String
@@ -5384,7 +5436,7 @@ components:
           description: 客户邮筱
           x-hope-field:
             compile:
-              locationLine: 222
+              locationLine: 230
               locationColumn: 3
               name: customer_email
               type: java.lang.String
@@ -5398,7 +5450,7 @@ components:
           - OWNER
           x-hope-field:
             compile:
-              locationLine: 227
+              locationLine: 235
               locationColumn: 3
               name: platform_role
               type: com.apihug.rad.infra.customer.CustomerPlatformTypeEnum
@@ -5412,7 +5464,7 @@ components:
           - PM_INACTIVE
           x-hope-field:
             compile:
-              locationLine: 232
+              locationLine: 240
               locationColumn: 3
               name: status
               type: com.apihug.rad.infra.platform.PlatformMemberStatusEnum
@@ -5423,7 +5475,7 @@ components:
           x-hope-field:
             dateFormat: YYYY_MM_DD_HH_MM_SS
             compile:
-              locationLine: 237
+              locationLine: 245
               locationColumn: 3
               name: created_at
               type: java.time.LocalDateTime
@@ -5432,7 +5484,7 @@ components:
         compile:
           protoFile: com/apihug/rad/api/platform/api.proto
           name: PlatformMemberInfo
-          locationLine: 199
+          locationLine: 207
           locationColumn: 1
         clz: com.apihug.rad.api.platform.PlatformMemberInfo
     CustomerSummary:
@@ -5446,7 +5498,7 @@ components:
           minimum: 1.0
           x-hope-field:
             compile:
-              locationLine: 449
+              locationLine: 467
               locationColumn: 3
               name: id
               type: java.lang.Long
@@ -5458,7 +5510,7 @@ components:
             mock:
               nature: NAME
             compile:
-              locationLine: 456
+              locationLine: 474
               locationColumn: 3
               name: username
               type: java.lang.String
@@ -5470,7 +5522,7 @@ components:
             mock:
               nature: EMAIL
             compile:
-              locationLine: 463
+              locationLine: 481
               locationColumn: 3
               name: email
               type: java.lang.String
@@ -5485,7 +5537,7 @@ components:
           - DISABLED
           x-hope-field:
             compile:
-              locationLine: 470
+              locationLine: 488
               locationColumn: 3
               name: status
               type: com.apihug.rad.infra.customer.CustomerStatusEnum
@@ -5495,7 +5547,7 @@ components:
           description: 租户 ID
           x-hope-field:
             compile:
-              locationLine: 476
+              locationLine: 494
               locationColumn: 3
               name: tenant_id
               type: java.lang.Long
@@ -5504,7 +5556,7 @@ components:
         compile:
           protoFile: com/apihug/rad/api/customer/api.proto
           name: CustomerSummary
-          locationLine: 441
+          locationLine: 459
           locationColumn: 1
         clz: com.apihug.rad.api.customer.CustomerSummary
     GetTenantMembersRequest:
@@ -5521,7 +5573,7 @@ components:
           - TM_LOCKED
           x-hope-field:
             compile:
-              locationLine: 366
+              locationLine: 388
               locationColumn: 3
               name: status
               type: com.apihug.rad.infra.tenant.TenantMemberStatusEnum
@@ -5535,7 +5587,7 @@ components:
           - OWNER
           x-hope-field:
             compile:
-              locationLine: 371
+              locationLine: 393
               locationColumn: 3
               name: member_role
               type: com.apihug.rad.infra.tenant.MemberRoleEnum
@@ -5544,7 +5596,7 @@ components:
           description: 搜索关键词（用户名或邮箱）
           x-hope-field:
             compile:
-              locationLine: 375
+              locationLine: 397
               locationColumn: 3
               name: keyword
               type: java.lang.String
@@ -5553,7 +5605,7 @@ components:
         compile:
           protoFile: com/apihug/rad/api/tenant/member.proto
           name: GetTenantMembersRequest
-          locationLine: 358
+          locationLine: 380
           locationColumn: 1
         clz: com.apihug.rad.api.tenant.GetTenantMembersRequest
     LoginResponse:
@@ -5568,7 +5620,7 @@ components:
             mock:
               nature: GUID
             compile:
-              locationLine: 219
+              locationLine: 237
               locationColumn: 3
               name: access_token
               type: java.lang.String
@@ -5583,7 +5635,7 @@ components:
                 min: 1036
                 max: 1000
             compile:
-              locationLine: 226
+              locationLine: 244
               locationColumn: 3
               name: customer_id
               type: java.lang.Long
@@ -5595,7 +5647,7 @@ components:
             mock:
               nature: NAME
             compile:
-              locationLine: 234
+              locationLine: 252
               locationColumn: 3
               name: username
               type: java.lang.String
@@ -5604,7 +5656,7 @@ components:
           description: 是否需要选择租户
           x-hope-field:
             compile:
-              locationLine: 241
+              locationLine: 259
               locationColumn: 3
               name: needs_tenant_selection
               type: java.lang.Boolean
@@ -5616,7 +5668,7 @@ components:
             $ref: "#/components/schemas/TenantInfo"
           x-hope-field:
             compile:
-              locationLine: 246
+              locationLine: 264
               locationColumn: 3
               name: tenants
               type: com.apihug.rad.api.customer.TenantInfo
@@ -5626,7 +5678,7 @@ components:
           description: 默认租户信息
           x-hope-field:
             compile:
-              locationLine: 250
+              locationLine: 268
               locationColumn: 3
               name: default_tenant
               type: com.apihug.rad.api.customer.TenantInfo
@@ -5635,7 +5687,7 @@ components:
         compile:
           protoFile: com/apihug/rad/api/customer/api.proto
           name: LoginResponse
-          locationLine: 211
+          locationLine: 229
           locationColumn: 1
         clz: com.apihug.rad.api.customer.LoginResponse
     AddPlatformMemberRequest:
@@ -5652,7 +5704,7 @@ components:
           minimum: 1.0
           x-hope-field:
             compile:
-              locationLine: 164
+              locationLine: 173
               locationColumn: 3
               name: customer_id
               type: java.lang.Long
@@ -5666,7 +5718,7 @@ components:
           - OWNER
           x-hope-field:
             compile:
-              locationLine: 171
+              locationLine: 180
               locationColumn: 3
               name: platform_role
               type: com.apihug.rad.infra.customer.CustomerPlatformTypeEnum
@@ -5676,7 +5728,7 @@ components:
           maxLength: 200
           x-hope-field:
             compile:
-              locationLine: 176
+              locationLine: 185
               locationColumn: 3
               name: remark
               type: java.lang.String
@@ -5685,7 +5737,7 @@ components:
         compile:
           protoFile: com/apihug/rad/api/platform/api.proto
           name: AddPlatformMemberRequest
-          locationLine: 156
+          locationLine: 165
           locationColumn: 1
         clz: com.apihug.rad.api.platform.AddPlatformMemberRequest
     CurrentCustomerInfo:
@@ -5698,7 +5750,7 @@ components:
           description: 客户基本信息
           x-hope-field:
             compile:
-              locationLine: 341
+              locationLine: 359
               locationColumn: 3
               name: customer
               type: com.apihug.rad.api.customer.CustomerInfo
@@ -5710,7 +5762,7 @@ components:
             $ref: "#/components/schemas/RoleInfo"
           x-hope-field:
             compile:
-              locationLine: 345
+              locationLine: 363
               locationColumn: 3
               name: roles
               type: com.apihug.rad.api.customer.RoleInfo
@@ -5721,7 +5773,7 @@ components:
             type: string
           x-hope-field:
             compile:
-              locationLine: 349
+              locationLine: 367
               locationColumn: 3
               name: authorities
               type: java.lang.String
@@ -5731,7 +5783,7 @@ components:
           description: 客户部门信息
           x-hope-field:
             compile:
-              locationLine: 353
+              locationLine: 371
               locationColumn: 3
               name: department
               type: com.apihug.rad.api.customer.DepartmentInfo
@@ -5741,7 +5793,7 @@ components:
           description: 当前租户信息
           x-hope-field:
             compile:
-              locationLine: 357
+              locationLine: 375
               locationColumn: 3
               name: current_tenant
               type: com.apihug.rad.api.customer.TenantInfo
@@ -5750,7 +5802,7 @@ components:
         compile:
           protoFile: com/apihug/rad/api/customer/api.proto
           name: CurrentCustomerInfo
-          locationLine: 333
+          locationLine: 351
           locationColumn: 1
         clz: com.apihug.rad.api.customer.CurrentCustomerInfo
     RoleMenuSummary:
@@ -5763,7 +5815,7 @@ components:
           description: 角色 ID
           x-hope-field:
             compile:
-              locationLine: 420
+              locationLine: 436
               locationColumn: 3
               name: role_id
               type: java.lang.Long
@@ -5775,7 +5827,7 @@ components:
             $ref: "#/components/schemas/RoleMenuItem"
           x-hope-field:
             compile:
-              locationLine: 426
+              locationLine: 442
               locationColumn: 3
               name: menus
               type: com.apihug.rad.api.role.RoleMenuItem
@@ -5784,7 +5836,7 @@ components:
         compile:
           protoFile: com/apihug/rad/api/role/api.proto
           name: RoleMenuSummary
-          locationLine: 412
+          locationLine: 428
           locationColumn: 1
         clz: com.apihug.rad.api.role.RoleMenuSummary
     UpdateDepartmentRequest:
@@ -5800,7 +5852,7 @@ components:
             mock:
               nature: NAME
             compile:
-              locationLine: 175
+              locationLine: 185
               locationColumn: 3
               name: dept_name
               type: java.lang.String
@@ -5810,7 +5862,7 @@ components:
           description: 排序顺序
           x-hope-field:
             compile:
-              locationLine: 183
+              locationLine: 193
               locationColumn: 3
               name: sort_order
               type: java.lang.Integer
@@ -5820,7 +5872,7 @@ components:
           maxLength: 50
           x-hope-field:
             compile:
-              locationLine: 188
+              locationLine: 198
               locationColumn: 3
               name: manager_id
               type: java.lang.String
@@ -5833,7 +5885,7 @@ components:
           - DISABLED
           x-hope-field:
             compile:
-              locationLine: 194
+              locationLine: 204
               locationColumn: 3
               name: status
               type: com.apihug.rad.infra.department.DeptStatusEnum
@@ -5842,7 +5894,7 @@ components:
         compile:
           protoFile: com/apihug/rad/api/department/api.proto
           name: UpdateDepartmentRequest
-          locationLine: 167
+          locationLine: 177
           locationColumn: 1
         clz: com.apihug.rad.api.department.UpdateDepartmentRequest
     SearchAccessLogsRequest:
@@ -5857,7 +5909,7 @@ components:
           description: 客户ID（可选）
           x-hope-field:
             compile:
-              locationLine: 59
+              locationLine: 63
               locationColumn: 3
               name: customer_id
               type: java.lang.Long
@@ -5866,7 +5918,7 @@ components:
           description: HTTP方法（可选）
           x-hope-field:
             compile:
-              locationLine: 64
+              locationLine: 68
               locationColumn: 3
               name: http_method
               type: java.lang.String
@@ -5875,7 +5927,7 @@ components:
           description: 请求路径（可选，模糊匹配）
           x-hope-field:
             compile:
-              locationLine: 69
+              locationLine: 73
               locationColumn: 3
               name: request_path
               type: java.lang.String
@@ -5885,7 +5937,7 @@ components:
           description: 响应状态码（可选）
           x-hope-field:
             compile:
-              locationLine: 74
+              locationLine: 78
               locationColumn: 3
               name: response_status
               type: java.lang.Integer
@@ -5896,7 +5948,7 @@ components:
           x-hope-field:
             dateFormat: ISO_LOCAL_DATE_TIME
             compile:
-              locationLine: 79
+              locationLine: 83
               locationColumn: 3
               name: start_time
               type: java.time.LocalDateTime
@@ -5907,7 +5959,7 @@ components:
           x-hope-field:
             dateFormat: ISO_LOCAL_DATE_TIME
             compile:
-              locationLine: 85
+              locationLine: 89
               locationColumn: 3
               name: end_time
               type: java.time.LocalDateTime
@@ -5915,7 +5967,7 @@ components:
         compile:
           protoFile: com/apihug/rad/api/audit/api.proto
           name: SearchAccessLogsRequest
-          locationLine: 52
+          locationLine: 56
           locationColumn: 1
         clz: com.apihug.rad.api.audit.SearchAccessLogsRequest
     TenantDetail:
@@ -5929,7 +5981,7 @@ components:
           minimum: 1.0
           x-hope-field:
             compile:
-              locationLine: 312
+              locationLine: 324
               locationColumn: 3
               name: id
               type: java.lang.Long
@@ -5941,7 +5993,7 @@ components:
             mock:
               nature: NAME
             compile:
-              locationLine: 319
+              locationLine: 331
               locationColumn: 3
               name: tenant_code
               type: java.lang.String
@@ -5953,7 +6005,7 @@ components:
             mock:
               nature: NAME
             compile:
-              locationLine: 326
+              locationLine: 338
               locationColumn: 3
               name: tenant_name
               type: java.lang.String
@@ -5964,7 +6016,7 @@ components:
             mock:
               nature: EMAIL
             compile:
-              locationLine: 333
+              locationLine: 345
               locationColumn: 3
               name: contact_email
               type: java.lang.String
@@ -5975,7 +6027,7 @@ components:
             mock:
               nature: PHONE
             compile:
-              locationLine: 339
+              locationLine: 351
               locationColumn: 3
               name: contact_phone
               type: java.lang.String
@@ -5989,7 +6041,7 @@ components:
           - EXPIRED
           x-hope-field:
             compile:
-              locationLine: 345
+              locationLine: 357
               locationColumn: 3
               name: status
               type: com.apihug.rad.infra.tenant.TenantStatusEnum
@@ -5999,7 +6051,7 @@ components:
           description: 最大成员数
           x-hope-field:
             compile:
-              locationLine: 351
+              locationLine: 363
               locationColumn: 3
               name: max_members
               type: java.lang.Integer
@@ -6009,7 +6061,7 @@ components:
           description: 最大存储空间（MB）
           x-hope-field:
             compile:
-              locationLine: 356
+              locationLine: 368
               locationColumn: 3
               name: max_storage_mb
               type: java.lang.Long
@@ -6018,7 +6070,7 @@ components:
           description: 是否为平台租户
           x-hope-field:
             compile:
-              locationLine: 361
+              locationLine: 373
               locationColumn: 3
               name: is_platform
               type: java.lang.Boolean
@@ -6027,7 +6079,7 @@ components:
           description: 租户描述
           x-hope-field:
             compile:
-              locationLine: 366
+              locationLine: 378
               locationColumn: 3
               name: description
               type: java.lang.String
@@ -6038,7 +6090,7 @@ components:
           x-hope-field:
             dateFormat: ISO_LOCAL_DATE_TIME
             compile:
-              locationLine: 371
+              locationLine: 383
               locationColumn: 3
               name: created_at
               type: java.time.LocalDateTime
@@ -6047,7 +6099,7 @@ components:
         compile:
           protoFile: com/apihug/rad/api/tenant/api.proto
           name: TenantDetail
-          locationLine: 304
+          locationLine: 316
           locationColumn: 1
         clz: com.apihug.rad.api.tenant.TenantDetail
     AssignRolesRequest:
@@ -6062,7 +6114,7 @@ components:
             format: int64
           x-hope-field:
             compile:
-              locationLine: 622
+              locationLine: 644
               locationColumn: 3
               name: role_ids
               type: java.lang.Long
@@ -6071,7 +6123,7 @@ components:
         compile:
           protoFile: com/apihug/rad/api/tenant/member.proto
           name: AssignRolesRequest
-          locationLine: 614
+          locationLine: 636
           locationColumn: 1
         clz: com.apihug.rad.api.tenant.AssignRolesRequest
     CreateCustomerRequest:
@@ -6087,7 +6139,7 @@ components:
             mock:
               nature: NAME
             compile:
-              locationLine: 404
+              locationLine: 422
               locationColumn: 3
               name: username
               type: java.lang.String
@@ -6098,7 +6150,7 @@ components:
           minLength: 6
           x-hope-field:
             compile:
-              locationLine: 412
+              locationLine: 430
               locationColumn: 3
               name: password
               type: java.lang.String
@@ -6111,7 +6163,7 @@ components:
             mock:
               nature: EMAIL
             compile:
-              locationLine: 420
+              locationLine: 438
               locationColumn: 3
               name: email
               type: java.lang.String
@@ -6126,7 +6178,7 @@ components:
           - DISABLED
           x-hope-field:
             compile:
-              locationLine: 428
+              locationLine: 446
               locationColumn: 3
               name: status
               type: com.apihug.rad.infra.customer.CustomerStatusEnum
@@ -6137,7 +6189,7 @@ components:
           minimum: 0.0
           x-hope-field:
             compile:
-              locationLine: 434
+              locationLine: 452
               locationColumn: 3
               name: default_tenant_id
               type: java.lang.Long
@@ -6146,7 +6198,7 @@ components:
         compile:
           protoFile: com/apihug/rad/api/customer/api.proto
           name: CreateCustomerRequest
-          locationLine: 396
+          locationLine: 414
           locationColumn: 1
         clz: com.apihug.rad.api.customer.CreateCustomerRequest
     GetAccessLogStatsRequest:
@@ -6160,7 +6212,7 @@ components:
           x-hope-field:
             dateFormat: YYYY_MM_DD_HH_MM_SS
             compile:
-              locationLine: 100
+              locationLine: 104
               locationColumn: 3
               name: start_time
               type: java.time.LocalDateTime
@@ -6171,7 +6223,7 @@ components:
           x-hope-field:
             dateFormat: YYYY_MM_DD_HH_MM_SS
             compile:
-              locationLine: 106
+              locationLine: 110
               locationColumn: 3
               name: end_time
               type: java.time.LocalDateTime
@@ -6180,7 +6232,7 @@ components:
         compile:
           protoFile: com/apihug/rad/api/audit/api.proto
           name: GetAccessLogStatsRequest
-          locationLine: 92
+          locationLine: 96
           locationColumn: 1
         clz: com.apihug.rad.api.audit.GetAccessLogStatsRequest
     SearchMenusRequest:
@@ -6192,7 +6244,7 @@ components:
           description: 搜索关键词（菜单代码或名称）
           x-hope-field:
             compile:
-              locationLine: 436
+              locationLine: 448
               locationColumn: 3
               name: keyword
               type: java.lang.String
@@ -6206,7 +6258,7 @@ components:
           - BUTTON
           x-hope-field:
             compile:
-              locationLine: 441
+              locationLine: 453
               locationColumn: 3
               name: menu_type
               type: com.apihug.rad.infra.menu.MenuTypeEnum
@@ -6219,7 +6271,7 @@ components:
           - INACTIVE
           x-hope-field:
             compile:
-              locationLine: 446
+              locationLine: 458
               locationColumn: 3
               name: status
               type: com.apihug.rad.infra.menu.MenuStatusEnum
@@ -6228,7 +6280,7 @@ components:
         compile:
           protoFile: com/apihug/rad/api/menu/api.proto
           name: SearchMenusRequest
-          locationLine: 428
+          locationLine: 440
           locationColumn: 1
         clz: com.apihug.rad.api.menu.SearchMenusRequest
   parameters:
@@ -6280,7 +6332,7 @@ x-hope-project:
   status:
     deprecated: false
     createdTimestamp: 2026-03-20
-    updatedTimestamp: 2026-03-26 20:21:42
+    updatedTimestamp: 2026-04-01 19:55:58
     createdBy: admin
   builder: {}
   persistence:

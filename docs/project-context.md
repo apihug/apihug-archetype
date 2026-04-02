@@ -1,6 +1,6 @@
 ---
-apihug_version: '2.4.9-RELEASE'
-date: '2026-03-24 10:44:10'
+apihug_version: '2.5.0-RELEASE'
+date: '2026-03-30 10:08:48'
 ---
 
 # Project Context for AI Agents

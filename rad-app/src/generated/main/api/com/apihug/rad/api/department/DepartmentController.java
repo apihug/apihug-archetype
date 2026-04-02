@@ -188,13 +188,13 @@ public class DepartmentController {
   }
 
   public interface Apis {
-    ServiceMethodContext CreateDepartment = new ServiceMethodContext("com.apihug.rad.api.department.DepartmentService", "CreateDepartment", "/api/departments/departments", Priority.LOW, ServiceMethod.HttpMethod.POST);
+    ServiceMethodContext CreateDepartment = new ServiceMethodContext("com.apihug.rad.api.department.DepartmentService", "CreateDepartment", "/api/departments/departments", Priority.MIDDLE, ServiceMethod.HttpMethod.POST);
 
     ServiceMethodContext GetDepartment = new ServiceMethodContext("com.apihug.rad.api.department.DepartmentService", "GetDepartment", "/api/departments/departments/{departmentId}", Priority.LOW, ServiceMethod.HttpMethod.GET);
 
-    ServiceMethodContext UpdateDepartment = new ServiceMethodContext("com.apihug.rad.api.department.DepartmentService", "UpdateDepartment", "/api/departments/departments/{departmentId}", Priority.LOW, ServiceMethod.HttpMethod.PUT);
+    ServiceMethodContext UpdateDepartment = new ServiceMethodContext("com.apihug.rad.api.department.DepartmentService", "UpdateDepartment", "/api/departments/departments/{departmentId}", Priority.MIDDLE, ServiceMethod.HttpMethod.PUT);
 
-    ServiceMethodContext DeleteDepartment = new ServiceMethodContext("com.apihug.rad.api.department.DepartmentService", "DeleteDepartment", "/api/departments/departments/{departmentId}", Priority.LOW, ServiceMethod.HttpMethod.DELETE);
+    ServiceMethodContext DeleteDepartment = new ServiceMethodContext("com.apihug.rad.api.department.DepartmentService", "DeleteDepartment", "/api/departments/departments/{departmentId}", Priority.HIGH, ServiceMethod.HttpMethod.DELETE);
 
     ServiceMethodContext GetDepartmentTree = new ServiceMethodContext("com.apihug.rad.api.department.DepartmentService", "GetDepartmentTree", "/api/departments/departments/tree", Priority.LOW, ServiceMethod.HttpMethod.GET);
   }

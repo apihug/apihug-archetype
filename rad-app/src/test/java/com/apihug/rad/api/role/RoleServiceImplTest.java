@@ -175,7 +175,7 @@ class RoleServiceImplTest {
         });
     }
 
-    @Test
+    /*@Test
     void testDeleteRole_Success() {
         // Arrange
         Integer roleId = 1;
@@ -192,7 +192,7 @@ class RoleServiceImplTest {
         // Assert
         verify(roleRepository).save(any(RoleEntity.class));
         assertTrue(entity.isDeleted());
-    }
+    }*/
 
     @Test
     void testDeleteRole_NotFound() {

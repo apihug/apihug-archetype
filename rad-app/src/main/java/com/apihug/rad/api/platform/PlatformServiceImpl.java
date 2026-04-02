@@ -226,14 +226,8 @@ public class PlatformServiceImpl implements PlatformService {
     member.setStatus(PlatformMemberStatusEnum.PM_INACTIVE);
     platformMemberRepository.save(member);
 
-    // 重置客户的 platformType 为 null（框架识别为 NA）
-    customerRepository
-        .findById(member.getCustomerId())
-        .ifPresent(
-            c -> {
-              c.setPlatformType(null);
-              customerRepository.save(c);
-            });
+    // 重置客户的 platformType 为 NA（ApiHug 枚举字段绝不为 null，使用 default_value）
+    customerRepository.updateCustomerPlatformType(member.getCustomerId(), CustomerPlatformTypeEnum.NA.title());
   }
 
   /**

@@ -3,6 +3,7 @@ package com.apihug.rad.infra.tenant;
 
 import hope.common.api.error.Error;
 import hope.common.api.error.Errors;
+import hope.common.api.error.HttpStatus;
 import hope.common.api.error.Phase;
 import hope.common.api.error.Severity;
 import hope.common.meta.annotation.Kind;
@@ -39,6 +40,8 @@ public enum TenantMemberErrorEnum implements Errors {
 
   public static final Error MEMBER_LOCKED = new Error();
 
+  public static final Error MEMBER_TENANT_ACCESS_DENIED = new Error();
+
   static {
     Map<String, Error> _ERRORS_MAP = new LinkedHashMap<>();
     MEMBER_NOT_FOUND.setDomain("rad");
@@ -68,6 +71,16 @@ public enum TenantMemberErrorEnum implements Errors {
     MEMBER_LOCKED.setSeverity(Severity.WARN);
     _ERRORS_MAP.put("MEMBER_LOCKED", MEMBER_LOCKED);
     ERRORS.add(MEMBER_LOCKED);
+    MEMBER_TENANT_ACCESS_DENIED.setDomain("rad");
+    MEMBER_TENANT_ACCESS_DENIED.setCode(10007004);
+    MEMBER_TENANT_ACCESS_DENIED.setDescription("Access denied: member does not belong to the specified tenant");
+    MEMBER_TENANT_ACCESS_DENIED.setDescription2("越权访问：该成员不属于当前租户");
+    MEMBER_TENANT_ACCESS_DENIED.setTips("The member belongs to a different tenant and cannot be accessed here");
+    MEMBER_TENANT_ACCESS_DENIED.setPhase(Phase.DOMAIN);
+    MEMBER_TENANT_ACCESS_DENIED.setSeverity(Severity.WARN);
+    MEMBER_TENANT_ACCESS_DENIED.setHttpStatus(HttpStatus.FORBIDDEN);
+    _ERRORS_MAP.put("MEMBER_TENANT_ACCESS_DENIED", MEMBER_TENANT_ACCESS_DENIED);
+    ERRORS.add(MEMBER_TENANT_ACCESS_DENIED);
     ERRORS_MAP = Collections.unmodifiableMap(_ERRORS_MAP);
   }
 

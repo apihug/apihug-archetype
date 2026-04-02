@@ -108,16 +108,15 @@ public interface CustomerEntityRepository extends HopeJdbc<CustomerEntity>,
 
   @Query
   default Page<CustomerEntity> searchUsers(
-      String keyword,
-      CustomerStatusEnum status,
-      hope.common.api.PageRequest pageParameter) {
+      String keyword, CustomerStatusEnum status, hope.common.api.PageRequest pageParameter) {
     var pageable = page(pageParameter);
     Criteria criteria = EasyCriteria.eq(_Deletable_.DELETED, false);
 
     if (keyword != null && !keyword.isBlank()) {
-      criteria = criteria.and(
-          EasyCriteria.like(Domain.Username, keyword)
-              .or(EasyCriteria.like(Domain.Email, keyword)));
+      criteria =
+          criteria.and(
+              EasyCriteria.like(Domain.Username, keyword)
+                  .or(EasyCriteria.like(Domain.Email, keyword)));
     }
 
     if (status != null) {
@@ -126,6 +125,10 @@ public interface CustomerEntityRepository extends HopeJdbc<CustomerEntity>,
 
     return this.findAll(criteria, pageable);
   }
+
+  @Modifying
+  @Query("UPDATE SYS_CUSTOMER SET PLATFORM_TYPE = :platformType WHERE ID = :customerId")
+  void updateCustomerPlatformType(final Long customerId, final String platformType);
 
 
   //==========TRAIT-END==========
@@ -168,10 +171,6 @@ public interface CustomerEntityRepository extends HopeJdbc<CustomerEntity>,
       }
     } );
   }
-
-    @Modifying
-    @Query("UPDATE SYS_CUSTOMER SET PLATFORM_TYPE = :platformType WHERE ID = :customerId")
-    void updateCustomerPlatformType(final Long customerId, final String platformType);
 
   @Override
   default <S extends CustomerEntity> S save(S entity) {

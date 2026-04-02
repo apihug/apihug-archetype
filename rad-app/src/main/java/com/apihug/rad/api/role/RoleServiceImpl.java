@@ -105,8 +105,8 @@ public class RoleServiceImpl implements RoleService {
   @Override
   public void createRole(SimpleResultBuilder<RoleSummary> builder,
       CreateRoleRequest createRoleRequest) {
-    RadCustomer customer = HopeContextHolder.customer();
-    Long tenantId = customer.getTenantId();
+    RadCustomer current = HopeContextHolder.customer();
+    Long tenantId = current.getTenantId();
     // 验证角色代码唯一性（租户内唯一）
     if (roleRepository.existsByRoleCodeAndTenantId(createRoleRequest.getRoleCode(), tenantId)) {
       throw HopeErrorDetailException.errorBuilder(RoleErrorEnum.ROLE_CODE_EXISTS).build();
@@ -142,8 +142,8 @@ public class RoleServiceImpl implements RoleService {
    */
   @Override
   public void getRole(SimpleResultBuilder<RoleDetail> builder, Integer roleId) {
-    RadCustomer customer = HopeContextHolder.customer();
-    Long tenantId = customer.getTenantId();
+    RadCustomer current = HopeContextHolder.customer();
+    Long tenantId = current.getTenantId();
     RoleEntity entity = roleRepository.findByIdAndTenantId(roleId.longValue(), tenantId)
         .orElseThrow(() -> HopeErrorDetailException.errorBuilder(RoleErrorEnum.ROLE_NOT_FOUND).build());
 
@@ -174,8 +174,8 @@ public class RoleServiceImpl implements RoleService {
   @Override
   public void updateRole(SimpleResultBuilder<String> builder, Integer roleId,
       UpdateRoleRequest updateRoleRequest) {
-    RadCustomer customer = HopeContextHolder.customer();
-    Long tenantId = customer.getTenantId();
+    RadCustomer current = HopeContextHolder.customer();
+    Long tenantId = current.getTenantId();
     RoleEntity entity = roleRepository.findByIdAndTenantId(roleId.longValue(), tenantId)
         .orElseThrow(() -> HopeErrorDetailException.errorBuilder(RoleErrorEnum.ROLE_NOT_FOUND).build());
 
@@ -198,26 +198,22 @@ public class RoleServiceImpl implements RoleService {
    * Authorization:
    *
    * <ul>
-   * 	<li>Authorities: [ROLE_DELETE]</li>
+   *   <li>Authorities: [ROLE_DELETE]</li>
    * </ul>
    * @apiNote
-   * 	<p>{@code /api/roles/roles/{roleId}}
-   * 	<p>{@code 删除角色（软删除）}
+   *   <p>{@code /api/roles/roles/{roleId}}
+   *   <p>{@code 删除角色（软删除）}
    * @see RoleService#deleteRole
    */
   @Override
   public void deleteRole(SimpleResultBuilder<String> builder, Integer roleId) {
-    RadCustomer customer = HopeContextHolder.customer();
-    Long tenantId = customer.getTenantId();
+    RadCustomer current = HopeContextHolder.customer();
+    Long tenantId = current.getTenantId();
     RoleEntity entity = roleRepository.findByIdAndTenantId(roleId.longValue(), tenantId)
         .orElseThrow(() -> HopeErrorDetailException.errorBuilder(RoleErrorEnum.ROLE_NOT_FOUND).build());
 
-    // 软删除
-    entity.setDeleted(true)
-        .setDeletedAt(LocalDateTime.now())
-        .setDeletedBy(((Long) HopeContextHolder.customer().getId()));
-
-    roleRepository.save(entity);
+    // 软删除由框架自动设置审计字段（createdAt/updatedAt 等），无需手动赋值
+    roleRepository.deleteById(entity.getId());
   }
 
   /**
@@ -235,8 +231,8 @@ public class RoleServiceImpl implements RoleService {
   @Override
   public void searchRoles(PageableResultBuilder<RoleSummary> builder,
       SearchRolesRequest searchRolesRequest, PageRequest pageParameter) {
-    RadCustomer customer = HopeContextHolder.customer();
-    Long tenantId = customer.getTenantId();
+    RadCustomer current = HopeContextHolder.customer();
+    Long tenantId = current.getTenantId();
     // 使用 Repository trait 中的搜索方法（租户隔离 + 数据库级分页）
     Page<RoleEntity> page =
         roleRepository.searchRoles(
@@ -246,7 +242,7 @@ public class RoleServiceImpl implements RoleService {
             pageParameter
         );
 
-    builder.setPageIndex(page.getNumber())
+    builder.setPageIndex(pageParameter.getPage())
            .setPageSize(pageParameter.getSize())
            .setTotalCount(page.getTotalElements())
            .setTotalPage(page.getTotalPages())
@@ -273,8 +269,8 @@ public class RoleServiceImpl implements RoleService {
   public void assignMenusToRole(SimpleResultBuilder<String> builder, Integer roleId,
       AssignMenusRequest assignMenusRequest) {
     // 验证角色存在（租户隔离）
-    RadCustomer customer = HopeContextHolder.customer();
-    Long tenantId = customer.getTenantId();
+    RadCustomer current = HopeContextHolder.customer();
+    Long tenantId = current.getTenantId();
     RoleEntity role = roleRepository.findByIdAndTenantId(roleId.longValue(), tenantId)
         .orElseThrow(() -> HopeErrorDetailException.errorBuilder(RoleErrorEnum.ROLE_NOT_FOUND).build());
 
@@ -308,8 +304,8 @@ public class RoleServiceImpl implements RoleService {
   public void removeMenuFromRole(SimpleResultBuilder<String> builder, Integer roleId,
       Integer menuId) {
     // 验证角色存在（租户隔离）
-    RadCustomer customer = HopeContextHolder.customer();
-    Long tenantId = customer.getTenantId();
+    RadCustomer current = HopeContextHolder.customer();
+    Long tenantId = current.getTenantId();
     roleRepository.findByIdAndTenantId(roleId.longValue(), tenantId)
         .orElseThrow(() -> HopeErrorDetailException.errorBuilder(RoleErrorEnum.ROLE_NOT_FOUND).build());
 
@@ -325,8 +321,8 @@ public class RoleServiceImpl implements RoleService {
   @Override
   public void getRoleMenus(SimpleResultBuilder<RoleMenuSummary> builder, Integer roleId) {
     // 验证角色存在（租户隔离）
-    RadCustomer customer = HopeContextHolder.customer();
-    Long tenantId = customer.getTenantId();
+    RadCustomer current = HopeContextHolder.customer();
+    Long tenantId = current.getTenantId();
     roleRepository.findByIdAndTenantId(roleId.longValue(), tenantId)
         .orElseThrow(() -> HopeErrorDetailException.errorBuilder(RoleErrorEnum.ROLE_NOT_FOUND).build());
 

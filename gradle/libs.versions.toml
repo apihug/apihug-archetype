@@ -635,10 +635,6 @@ jackson = [
 spring-boot = { id = "org.springframework.boot", version.ref = "springBootVersion" }
 spring-dependency = { id = "io.spring.dependency-management", version.ref = "springDependencyVersion" }
 #Hug plugin
-# Since 2026-01 those two plugin merger to one hope
-# hope-wire = { id = "com.apihug.wire", version.ref = "apihugVersion" }
-# hope-stub = { id = "com.apihug.stub", version.ref = "apihugVersion" }
-# introduced Since 2026-01
 hope = { id = "com.apihug.hope", version.ref = "apihugVersion" }
 hope-repl = { id = "com.apihug.repl", version.ref = "apihugVersion" }
 

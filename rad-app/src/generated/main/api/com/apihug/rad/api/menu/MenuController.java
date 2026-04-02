@@ -225,13 +225,13 @@ public class MenuController {
   }
 
   public interface Apis {
-    ServiceMethodContext CreateMenu = new ServiceMethodContext("com.apihug.rad.api.menu.MenuService", "CreateMenu", "/api/menus/menus", Priority.LOW, ServiceMethod.HttpMethod.POST);
+    ServiceMethodContext CreateMenu = new ServiceMethodContext("com.apihug.rad.api.menu.MenuService", "CreateMenu", "/api/menus/menus", Priority.MIDDLE, ServiceMethod.HttpMethod.POST);
 
     ServiceMethodContext GetMenu = new ServiceMethodContext("com.apihug.rad.api.menu.MenuService", "GetMenu", "/api/menus/menus/{menuId}", Priority.LOW, ServiceMethod.HttpMethod.GET);
 
-    ServiceMethodContext UpdateMenu = new ServiceMethodContext("com.apihug.rad.api.menu.MenuService", "UpdateMenu", "/api/menus/menus/{menuId}", Priority.LOW, ServiceMethod.HttpMethod.PUT);
+    ServiceMethodContext UpdateMenu = new ServiceMethodContext("com.apihug.rad.api.menu.MenuService", "UpdateMenu", "/api/menus/menus/{menuId}", Priority.MIDDLE, ServiceMethod.HttpMethod.PUT);
 
-    ServiceMethodContext DeleteMenu = new ServiceMethodContext("com.apihug.rad.api.menu.MenuService", "DeleteMenu", "/api/menus/menus/{menuId}", Priority.LOW, ServiceMethod.HttpMethod.DELETE);
+    ServiceMethodContext DeleteMenu = new ServiceMethodContext("com.apihug.rad.api.menu.MenuService", "DeleteMenu", "/api/menus/menus/{menuId}", Priority.HIGH, ServiceMethod.HttpMethod.DELETE);
 
     ServiceMethodContext GetMenuTree = new ServiceMethodContext("com.apihug.rad.api.menu.MenuService", "GetMenuTree", "/api/menus/menus/tree", Priority.LOW, ServiceMethod.HttpMethod.GET);
 

@@ -18,6 +18,8 @@ service TenantService {
       description: "创建新租户";
       summary: "创建租户";
       tags: "tenant";
+      priority: HIGH;
+      group: PLATFORM
       authorization: {
         rbac: {
           authorities: ["TENANT_CREATE"];
@@ -34,6 +36,8 @@ service TenantService {
       description: "获取租户详情";
       summary: "获取租户详情";
       tags: "tenant";
+      priority: LOW;
+      group: PLATFORM
       authorization: {
         low_limit_risky_mode: LOGIN
       };
@@ -56,6 +60,8 @@ service TenantService {
       description: "更新租户信息";
       summary: "更新租户";
       tags: "tenant";
+      priority: MIDDLE;
+      group: PLATFORM
       authorization: {
         rbac: {
           authorities: ["TENANT_UPDATE"];
@@ -80,6 +86,8 @@ service TenantService {
       description: "停用租户";
       summary: "停用租户";
       tags: "tenant";
+      priority: HIGH;
+      group: PLATFORM
       authorization: {
         rbac: {
           authorities: ["TENANT_DISABLE"];
@@ -104,6 +112,8 @@ service TenantService {
       description: "配置租户功能";
       summary: "配置租户";
       tags: "tenant";
+      priority: MIDDLE;
+      group: PLATFORM
       authorization: {
         rbac: {
           authorities: ["TENANT_CONFIGURE"];
@@ -128,6 +138,8 @@ service TenantService {
       description: "搜索租户（分页）";
       summary: "搜索租户";
       tags: "tenant";
+      priority: LOW;
+      group: PLATFORM
       authorization: {
         rbac: {
           authorities: ["TENANT_CREATE"];

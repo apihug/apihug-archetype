@@ -394,24 +394,24 @@ public class TenantMemberController {
   public interface Apis {
     ServiceMethodContext GetTenantMembers = new ServiceMethodContext("com.apihug.rad.api.tenant.TenantMemberService", "GetTenantMembers", "/api/tenant-members/tenants/{tenantId}/members", Priority.LOW, ServiceMethod.HttpMethod.GET);
 
-    ServiceMethodContext AddMemberToTenant = new ServiceMethodContext("com.apihug.rad.api.tenant.TenantMemberService", "AddMemberToTenant", "/api/tenant-members/tenants/{tenantId}/members", Priority.LOW, ServiceMethod.HttpMethod.POST);
+    ServiceMethodContext AddMemberToTenant = new ServiceMethodContext("com.apihug.rad.api.tenant.TenantMemberService", "AddMemberToTenant", "/api/tenant-members/tenants/{tenantId}/members", Priority.MIDDLE, ServiceMethod.HttpMethod.POST);
 
-    ServiceMethodContext RemoveMemberFromTenant = new ServiceMethodContext("com.apihug.rad.api.tenant.TenantMemberService", "RemoveMemberFromTenant", "/api/tenant-members/tenants/{tenantId}/members/{memberId}", Priority.LOW, ServiceMethod.HttpMethod.DELETE);
+    ServiceMethodContext RemoveMemberFromTenant = new ServiceMethodContext("com.apihug.rad.api.tenant.TenantMemberService", "RemoveMemberFromTenant", "/api/tenant-members/tenants/{tenantId}/members/{memberId}", Priority.HIGH, ServiceMethod.HttpMethod.DELETE);
 
-    ServiceMethodContext ToggleMemberLock = new ServiceMethodContext("com.apihug.rad.api.tenant.TenantMemberService", "ToggleMemberLock", "/api/tenant-members/tenants/{tenantId}/members/{memberId}/toggle-lock", Priority.LOW, ServiceMethod.HttpMethod.POST);
+    ServiceMethodContext ToggleMemberLock = new ServiceMethodContext("com.apihug.rad.api.tenant.TenantMemberService", "ToggleMemberLock", "/api/tenant-members/tenants/{tenantId}/members/{memberId}/toggle-lock", Priority.MIDDLE, ServiceMethod.HttpMethod.POST);
 
-    ServiceMethodContext UpdateMemberRole = new ServiceMethodContext("com.apihug.rad.api.tenant.TenantMemberService", "UpdateMemberRole", "/api/tenant-members/tenants/{tenantId}/members/{memberId}/role", Priority.LOW, ServiceMethod.HttpMethod.PUT);
+    ServiceMethodContext UpdateMemberRole = new ServiceMethodContext("com.apihug.rad.api.tenant.TenantMemberService", "UpdateMemberRole", "/api/tenant-members/tenants/{tenantId}/members/{memberId}/role", Priority.MIDDLE, ServiceMethod.HttpMethod.PUT);
 
-    ServiceMethodContext AssignMemberDepartment = new ServiceMethodContext("com.apihug.rad.api.tenant.TenantMemberService", "AssignMemberDepartment", "/api/tenant-members/tenants/{tenantId}/members/{memberId}/department", Priority.LOW, ServiceMethod.HttpMethod.PUT);
+    ServiceMethodContext AssignMemberDepartment = new ServiceMethodContext("com.apihug.rad.api.tenant.TenantMemberService", "AssignMemberDepartment", "/api/tenant-members/tenants/{tenantId}/members/{memberId}/department", Priority.MIDDLE, ServiceMethod.HttpMethod.PUT);
 
     ServiceMethodContext GetMemberDetail = new ServiceMethodContext("com.apihug.rad.api.tenant.TenantMemberService", "GetMemberDetail", "/api/tenant-members/tenants/{tenantId}/members/{memberId}/detail", Priority.LOW, ServiceMethod.HttpMethod.GET);
 
-    ServiceMethodContext SetDefaultTenant = new ServiceMethodContext("com.apihug.rad.api.tenant.TenantMemberService", "SetDefaultTenant", "/api/tenant-members/tenants/{tenantId}/set-default", Priority.LOW, ServiceMethod.HttpMethod.POST);
+    ServiceMethodContext SetDefaultTenant = new ServiceMethodContext("com.apihug.rad.api.tenant.TenantMemberService", "SetDefaultTenant", "/api/tenant-members/tenants/{tenantId}/set-default", Priority.MIDDLE, ServiceMethod.HttpMethod.POST);
 
-    ServiceMethodContext AssignRolesToMember = new ServiceMethodContext("com.apihug.rad.api.tenant.TenantMemberService", "AssignRolesToMember", "/api/tenant-members/tenants/{tenantId}/members/{memberId}/roles", Priority.LOW, ServiceMethod.HttpMethod.POST);
+    ServiceMethodContext AssignRolesToMember = new ServiceMethodContext("com.apihug.rad.api.tenant.TenantMemberService", "AssignRolesToMember", "/api/tenant-members/tenants/{tenantId}/members/{memberId}/roles", Priority.MIDDLE, ServiceMethod.HttpMethod.POST);
 
     ServiceMethodContext GetMemberRoles = new ServiceMethodContext("com.apihug.rad.api.tenant.TenantMemberService", "GetMemberRoles", "/api/tenant-members/tenants/{tenantId}/members/{memberId}/roles", Priority.LOW, ServiceMethod.HttpMethod.GET);
 
-    ServiceMethodContext RemoveRoleFromMember = new ServiceMethodContext("com.apihug.rad.api.tenant.TenantMemberService", "RemoveRoleFromMember", "/api/tenant-members/tenants/{tenantId}/members/{memberId}/roles/{roleId}", Priority.LOW, ServiceMethod.HttpMethod.DELETE);
+    ServiceMethodContext RemoveRoleFromMember = new ServiceMethodContext("com.apihug.rad.api.tenant.TenantMemberService", "RemoveRoleFromMember", "/api/tenant-members/tenants/{tenantId}/members/{memberId}/roles/{roleId}", Priority.HIGH, ServiceMethod.HttpMethod.DELETE);
   }
 }

@@ -28,7 +28,7 @@ import org.springframework.web.bind.annotation.RestController;
     value = "com/apihug/rad/api/customer/api.proto",
     entity = "CustomerManagementService",
     kind = Kind.RPC,
-    line = 122,
+    line = 134,
     column = 1
 )
 @Generated("H.O.P.E. Infra Team")
@@ -126,10 +126,10 @@ public class CustomerManagementController {
   }
 
   public interface Apis {
-    ServiceMethodContext CreateCustomer = new ServiceMethodContext("com.apihug.rad.api.customer.CustomerManagementService", "CreateCustomer", "/api/customers/customers", Priority.LOW, ServiceMethod.HttpMethod.POST);
+    ServiceMethodContext CreateCustomer = new ServiceMethodContext("com.apihug.rad.api.customer.CustomerManagementService", "CreateCustomer", "/api/customers/customers", Priority.HIGH, ServiceMethod.HttpMethod.POST);
 
-    ServiceMethodContext ForgotPassword = new ServiceMethodContext("com.apihug.rad.api.customer.CustomerManagementService", "ForgotPassword", "/api/customers/auth/forgot-password", Priority.LOW, ServiceMethod.HttpMethod.POST);
+    ServiceMethodContext ForgotPassword = new ServiceMethodContext("com.apihug.rad.api.customer.CustomerManagementService", "ForgotPassword", "/api/customers/auth/forgot-password", Priority.MIDDLE, ServiceMethod.HttpMethod.POST);
 
-    ServiceMethodContext ResetPassword = new ServiceMethodContext("com.apihug.rad.api.customer.CustomerManagementService", "ResetPassword", "/api/customers/auth/reset-password", Priority.LOW, ServiceMethod.HttpMethod.POST);
+    ServiceMethodContext ResetPassword = new ServiceMethodContext("com.apihug.rad.api.customer.CustomerManagementService", "ResetPassword", "/api/customers/auth/reset-password", Priority.HIGH, ServiceMethod.HttpMethod.POST);
   }
 }

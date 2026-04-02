@@ -67,10 +67,10 @@ dependencies {
     // This only for proto compile usage
 
 
-    implementation(libs.apihug.common.proto)
+    //implementation(libs.apihug.common.proto)
     //OpenApi 3 specification
-    implementation(libs.swagger.models)
-    implementation(libs.swagger.annotations)
+    //implementation(libs.swagger.models)
+    //implementation(libs.swagger.annotations)
     runtimeOnly 'jakarta.servlet:jakarta.servlet-api'
 
     //Others:
@@ -109,8 +109,6 @@ dependencies {
     implementation 'org.springframework.security:spring-security-oauth2-jose'
     // Password encoding (BCrypt, Argon2) and secure key generation utilities
     implementation 'org.springframework.security:spring-security-crypto'
-
-    implementation(libs.bundles.jwt)
 
     //Extra Test Helper Libs
     testImplementation(libs.awaitility)

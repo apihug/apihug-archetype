@@ -215,14 +215,14 @@ public class PlatformController {
   }
 
   public interface Apis {
-    ServiceMethodContext GetPlatformMembers = new ServiceMethodContext("com.apihug.rad.api.platform.PlatformService", "GetPlatformMembers", "/api/platforms/members", Priority.LOW, ServiceMethod.HttpMethod.GET);
+    ServiceMethodContext GetPlatformMembers = new ServiceMethodContext("com.apihug.rad.api.platform.PlatformService", "GetPlatformMembers", "/api/platforms/members", Priority.MIDDLE, ServiceMethod.HttpMethod.GET);
 
-    ServiceMethodContext AddPlatformMember = new ServiceMethodContext("com.apihug.rad.api.platform.PlatformService", "AddPlatformMember", "/api/platforms/members", Priority.LOW, ServiceMethod.HttpMethod.POST);
+    ServiceMethodContext AddPlatformMember = new ServiceMethodContext("com.apihug.rad.api.platform.PlatformService", "AddPlatformMember", "/api/platforms/members", Priority.MIDDLE, ServiceMethod.HttpMethod.POST);
 
-    ServiceMethodContext RemovePlatformMember = new ServiceMethodContext("com.apihug.rad.api.platform.PlatformService", "RemovePlatformMember", "/api/platforms/members/{memberId}", Priority.LOW, ServiceMethod.HttpMethod.DELETE);
+    ServiceMethodContext RemovePlatformMember = new ServiceMethodContext("com.apihug.rad.api.platform.PlatformService", "RemovePlatformMember", "/api/platforms/members/{memberId}", Priority.HIGH, ServiceMethod.HttpMethod.DELETE);
 
-    ServiceMethodContext TogglePlatformMemberFreeze = new ServiceMethodContext("com.apihug.rad.api.platform.PlatformService", "TogglePlatformMemberFreeze", "/api/platforms/members/{memberId}/toggle-freeze", Priority.LOW, ServiceMethod.HttpMethod.POST);
+    ServiceMethodContext TogglePlatformMemberFreeze = new ServiceMethodContext("com.apihug.rad.api.platform.PlatformService", "TogglePlatformMemberFreeze", "/api/platforms/members/{memberId}/toggle-freeze", Priority.MIDDLE, ServiceMethod.HttpMethod.POST);
 
-    ServiceMethodContext UpdatePlatformMemberRole = new ServiceMethodContext("com.apihug.rad.api.platform.PlatformService", "UpdatePlatformMemberRole", "/api/platforms/members/{memberId}/role", Priority.LOW, ServiceMethod.HttpMethod.PUT);
+    ServiceMethodContext UpdatePlatformMemberRole = new ServiceMethodContext("com.apihug.rad.api.platform.PlatformService", "UpdatePlatformMemberRole", "/api/platforms/members/{memberId}/role", Priority.MIDDLE, ServiceMethod.HttpMethod.PUT);
   }
 }

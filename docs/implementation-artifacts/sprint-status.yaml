@@ -22,7 +22,7 @@ last_updated: '2026-03-26'
 | 2-2-department-management | 部门管理 API | done | 2026-03-20 |
 | 2-3-department-employee | 部门员工管理 API | done | 2026-03-20 |
 | 4-1-multi-tenant-restructure | Customer+Tenant+TenantMember 三层架构重构 | done | 2026-03-24 |
-| 5-1-platform-member-management | 平台成员管理 API | review | 2026-03-26 |
+| 5-1-platform-member-management | 平台成员管理 API | done | 2026-03-30 |
 
 ### Epic Status
 

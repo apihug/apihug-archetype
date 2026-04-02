@@ -46,7 +46,7 @@
           "example" : "1"
         },
         "complex" : "NONE",
-        "protoLine" : 121,
+        "protoLine" : 125,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 1
@@ -59,7 +59,7 @@
           "example" : "GET"
         },
         "complex" : "NONE",
-        "protoLine" : 126,
+        "protoLine" : 130,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 2
@@ -72,7 +72,7 @@
           "example" : "/api/auth/login"
         },
         "complex" : "NONE",
-        "protoLine" : 131,
+        "protoLine" : 135,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 3
@@ -85,7 +85,7 @@
           "example" : "200"
         },
         "complex" : "NONE",
-        "protoLine" : 136,
+        "protoLine" : 140,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 4
@@ -98,7 +98,7 @@
           "example" : "42"
         },
         "complex" : "NONE",
-        "protoLine" : 141,
+        "protoLine" : 145,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 5
@@ -111,7 +111,7 @@
           "example" : "1"
         },
         "complex" : "NONE",
-        "protoLine" : 146,
+        "protoLine" : 150,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 6
@@ -124,7 +124,7 @@
           "example" : "192.168.1.100"
         },
         "complex" : "NONE",
-        "protoLine" : 151,
+        "protoLine" : 155,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 7
@@ -137,7 +137,7 @@
           "example" : "Mozilla/5.0"
         },
         "complex" : "NONE",
-        "protoLine" : 156,
+        "protoLine" : 160,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 8
@@ -150,7 +150,7 @@
           "example" : "AuthService"
         },
         "complex" : "NONE",
-        "protoLine" : 161,
+        "protoLine" : 165,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 9
@@ -163,7 +163,7 @@
           "example" : "Login"
         },
         "complex" : "NONE",
-        "protoLine" : 166,
+        "protoLine" : 170,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 10
@@ -176,7 +176,7 @@
           "example" : "AUTH_FAILED"
         },
         "complex" : "NONE",
-        "protoLine" : 171,
+        "protoLine" : 175,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 11
@@ -189,7 +189,7 @@
           "example" : "认证失败"
         },
         "complex" : "NONE",
-        "protoLine" : 176,
+        "protoLine" : 180,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 12
@@ -202,7 +202,7 @@
           "example" : "{\"username\":\"admin\",\"password\":\"***\"}"
         },
         "complex" : "NONE",
-        "protoLine" : 181,
+        "protoLine" : 185,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 13
@@ -216,7 +216,7 @@
           "dateFormat" : "ISO_LOCAL_DATE_TIME"
         },
         "complex" : "NONE",
-        "protoLine" : 186,
+        "protoLine" : 190,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 14
@@ -229,7 +229,7 @@
           "example" : "1"
         },
         "complex" : "NONE",
-        "protoLine" : 192,
+        "protoLine" : 196,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 15
@@ -242,7 +242,7 @@
           "example" : "LOW"
         },
         "complex" : "NONE",
-        "protoLine" : 197,
+        "protoLine" : 201,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 16
@@ -251,7 +251,7 @@
       "enumErrorClz" : false,
       "enumAuthorityClz" : false,
       "protoFrom" : "com/apihug/rad/api/audit/api.proto",
-      "protoLine" : 113,
+      "protoLine" : 117,
       "protoColumn" : 1,
       "protoEntity" : "AccessLogInfo"
     },
@@ -276,7 +276,7 @@
           "example" : "10000"
         },
         "complex" : "NONE",
-        "protoLine" : 211,
+        "protoLine" : 215,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 1
@@ -289,7 +289,7 @@
           "example" : "9500"
         },
         "complex" : "NONE",
-        "protoLine" : 216,
+        "protoLine" : 220,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 2
@@ -302,7 +302,7 @@
           "example" : "500"
         },
         "complex" : "NONE",
-        "protoLine" : 221,
+        "protoLine" : 225,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 3
@@ -315,7 +315,7 @@
           "example" : "120"
         },
         "complex" : "NONE",
-        "protoLine" : 226,
+        "protoLine" : 230,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 4
@@ -327,7 +327,7 @@
           "description" : "Top访问路径统计"
         },
         "complex" : "LIST",
-        "protoLine" : 231,
+        "protoLine" : 235,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 5
@@ -336,7 +336,7 @@
       "enumErrorClz" : false,
       "enumAuthorityClz" : false,
       "protoFrom" : "com/apihug/rad/api/audit/api.proto",
-      "protoLine" : 203,
+      "protoLine" : 207,
       "protoColumn" : 1,
       "protoEntity" : "AccessLogStatsResponse"
     },
@@ -362,7 +362,7 @@
           "dateFormat" : "YYYY_MM_DD_HH_MM_SS"
         },
         "complex" : "NONE",
-        "protoLine" : 100,
+        "protoLine" : 104,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 1
@@ -376,7 +376,7 @@
           "dateFormat" : "YYYY_MM_DD_HH_MM_SS"
         },
         "complex" : "NONE",
-        "protoLine" : 106,
+        "protoLine" : 110,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 2
@@ -385,7 +385,7 @@
       "enumErrorClz" : false,
       "enumAuthorityClz" : false,
       "protoFrom" : "com/apihug/rad/api/audit/api.proto",
-      "protoLine" : 92,
+      "protoLine" : 96,
       "protoColumn" : 1,
       "protoEntity" : "GetAccessLogStatsRequest"
     },
@@ -410,7 +410,7 @@
           "example" : "/api/auth/login"
         },
         "complex" : "NONE",
-        "protoLine" : 244,
+        "protoLine" : 248,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 1
@@ -423,7 +423,7 @@
           "example" : "1500"
         },
         "complex" : "NONE",
-        "protoLine" : 249,
+        "protoLine" : 253,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 2
@@ -436,7 +436,7 @@
           "example" : "85"
         },
         "complex" : "NONE",
-        "protoLine" : 254,
+        "protoLine" : 258,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 3
@@ -449,7 +449,7 @@
           "example" : "5"
         },
         "complex" : "NONE",
-        "protoLine" : 259,
+        "protoLine" : 263,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 4
@@ -458,7 +458,7 @@
       "enumErrorClz" : false,
       "enumAuthorityClz" : false,
       "protoFrom" : "com/apihug/rad/api/audit/api.proto",
-      "protoLine" : 236,
+      "protoLine" : 240,
       "protoColumn" : 1,
       "protoEntity" : "PathStats"
     },
@@ -482,7 +482,7 @@
           "example" : "1"
         },
         "complex" : "NONE",
-        "protoLine" : 59,
+        "protoLine" : 63,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 1
@@ -495,7 +495,7 @@
           "example" : "GET"
         },
         "complex" : "NONE",
-        "protoLine" : 64,
+        "protoLine" : 68,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 2
@@ -508,7 +508,7 @@
           "example" : "/api/auth"
         },
         "complex" : "NONE",
-        "protoLine" : 69,
+        "protoLine" : 73,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 3
@@ -521,7 +521,7 @@
           "example" : "200"
         },
         "complex" : "NONE",
-        "protoLine" : 74,
+        "protoLine" : 78,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 4
@@ -535,7 +535,7 @@
           "dateFormat" : "ISO_LOCAL_DATE_TIME"
         },
         "complex" : "NONE",
-        "protoLine" : 79,
+        "protoLine" : 83,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 5
@@ -549,7 +549,7 @@
           "dateFormat" : "ISO_LOCAL_DATE_TIME"
         },
         "complex" : "NONE",
-        "protoLine" : 85,
+        "protoLine" : 89,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 6
@@ -558,7 +558,7 @@
       "enumErrorClz" : false,
       "enumAuthorityClz" : false,
       "protoFrom" : "com/apihug/rad/api/audit/api.proto",
-      "protoLine" : 52,
+      "protoLine" : 56,
       "protoColumn" : 1,
       "protoEntity" : "SearchAccessLogsRequest"
     },
@@ -588,7 +588,7 @@
           }
         },
         "complex" : "NONE",
-        "protoLine" : 404,
+        "protoLine" : 422,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 1
@@ -604,7 +604,7 @@
           "empty" : false
         },
         "complex" : "NONE",
-        "protoLine" : 412,
+        "protoLine" : 430,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 2
@@ -622,7 +622,7 @@
           }
         },
         "complex" : "NONE",
-        "protoLine" : 420,
+        "protoLine" : 438,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 3
@@ -636,7 +636,7 @@
           "empty" : false
         },
         "complex" : "NONE",
-        "protoLine" : 428,
+        "protoLine" : 446,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 4
@@ -650,7 +650,7 @@
           "minimum" : 0.0
         },
         "complex" : "NONE",
-        "protoLine" : 434,
+        "protoLine" : 452,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 5
@@ -659,7 +659,7 @@
       "enumErrorClz" : false,
       "enumAuthorityClz" : false,
       "protoFrom" : "com/apihug/rad/api/customer/api.proto",
-      "protoLine" : 396,
+      "protoLine" : 414,
       "protoColumn" : 1,
       "protoEntity" : "CreateCustomerRequest"
     },
@@ -683,7 +683,7 @@
           "description" : "客户基本信息"
         },
         "complex" : "NONE",
-        "protoLine" : 341,
+        "protoLine" : 359,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 1
@@ -695,7 +695,7 @@
           "description" : "客户角色列表"
         },
         "complex" : "LIST",
-        "protoLine" : 345,
+        "protoLine" : 363,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 2
@@ -707,7 +707,7 @@
           "description" : "客户权限列表"
         },
         "complex" : "LIST",
-        "protoLine" : 349,
+        "protoLine" : 367,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 3
@@ -719,7 +719,7 @@
           "description" : "客户部门信息"
         },
         "complex" : "NONE",
-        "protoLine" : 353,
+        "protoLine" : 371,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 4
@@ -731,7 +731,7 @@
           "description" : "当前租户信息"
         },
         "complex" : "NONE",
-        "protoLine" : 357,
+        "protoLine" : 375,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 5
@@ -740,7 +740,7 @@
       "enumErrorClz" : false,
       "enumAuthorityClz" : false,
       "protoFrom" : "com/apihug/rad/api/customer/api.proto",
-      "protoLine" : 333,
+      "protoLine" : 351,
       "protoColumn" : 1,
       "protoEntity" : "CurrentCustomerInfo"
     },
@@ -772,7 +772,7 @@
           }
         },
         "complex" : "NONE",
-        "protoLine" : 301,
+        "protoLine" : 319,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 1
@@ -789,7 +789,7 @@
           }
         },
         "complex" : "NONE",
-        "protoLine" : 309,
+        "protoLine" : 327,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 3
@@ -810,7 +810,7 @@
           }
         },
         "complex" : "NONE",
-        "protoLine" : 316,
+        "protoLine" : 334,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 4
@@ -822,7 +822,7 @@
           "description" : "租户角色列表"
         },
         "complex" : "LIST",
-        "protoLine" : 324,
+        "protoLine" : 342,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 5
@@ -834,7 +834,7 @@
           "description" : "租户权限列表"
         },
         "complex" : "LIST",
-        "protoLine" : 328,
+        "protoLine" : 346,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 6
@@ -843,7 +843,7 @@
       "enumErrorClz" : false,
       "enumAuthorityClz" : false,
       "protoFrom" : "com/apihug/rad/api/customer/api.proto",
-      "protoLine" : 294,
+      "protoLine" : 312,
       "protoColumn" : 1,
       "protoEntity" : "CustomerInfo"
     },
@@ -870,7 +870,7 @@
           "empty" : false
         },
         "complex" : "NONE",
-        "protoLine" : 449,
+        "protoLine" : 467,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 1
@@ -887,7 +887,7 @@
           }
         },
         "complex" : "NONE",
-        "protoLine" : 456,
+        "protoLine" : 474,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 2
@@ -904,7 +904,7 @@
           }
         },
         "complex" : "NONE",
-        "protoLine" : 463,
+        "protoLine" : 481,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 3
@@ -918,7 +918,7 @@
           "empty" : false
         },
         "complex" : "NONE",
-        "protoLine" : 470,
+        "protoLine" : 488,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 4
@@ -932,7 +932,7 @@
           "empty" : false
         },
         "complex" : "NONE",
-        "protoLine" : 476,
+        "protoLine" : 494,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 5
@@ -941,7 +941,7 @@
       "enumErrorClz" : false,
       "enumAuthorityClz" : false,
       "protoFrom" : "com/apihug/rad/api/customer/api.proto",
-      "protoLine" : 441,
+      "protoLine" : 459,
       "protoColumn" : 1,
       "protoEntity" : "CustomerSummary"
     },
@@ -967,7 +967,7 @@
           "empty" : false
         },
         "complex" : "NONE",
-        "protoLine" : 563,
+        "protoLine" : 581,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 1
@@ -984,7 +984,7 @@
           }
         },
         "complex" : "NONE",
-        "protoLine" : 569,
+        "protoLine" : 587,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 2
@@ -1001,7 +1001,7 @@
           }
         },
         "complex" : "NONE",
-        "protoLine" : 576,
+        "protoLine" : 594,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 3
@@ -1014,7 +1014,7 @@
           "example" : "1"
         },
         "complex" : "NONE",
-        "protoLine" : 583,
+        "protoLine" : 601,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 4
@@ -1023,7 +1023,7 @@
       "enumErrorClz" : false,
       "enumAuthorityClz" : false,
       "protoFrom" : "com/apihug/rad/api/customer/api.proto",
-      "protoLine" : 555,
+      "protoLine" : 573,
       "protoColumn" : 1,
       "protoEntity" : "DepartmentInfo"
     },
@@ -1053,7 +1053,7 @@
           }
         },
         "complex" : "NONE",
-        "protoLine" : 492,
+        "protoLine" : 510,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 1
@@ -1062,7 +1062,7 @@
       "enumErrorClz" : false,
       "enumAuthorityClz" : false,
       "protoFrom" : "com/apihug/rad/api/customer/api.proto",
-      "protoLine" : 484,
+      "protoLine" : 502,
       "protoColumn" : 1,
       "protoEntity" : "ForgotPasswordRequest"
     },
@@ -1092,7 +1092,7 @@
           }
         },
         "complex" : "NONE",
-        "protoLine" : 190,
+        "protoLine" : 208,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 1
@@ -1108,7 +1108,7 @@
           "empty" : false
         },
         "complex" : "NONE",
-        "protoLine" : 198,
+        "protoLine" : 216,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 2
@@ -1120,7 +1120,7 @@
           "description" : "whether to remember me"
         },
         "complex" : "NONE",
-        "protoLine" : 206,
+        "protoLine" : 224,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 3
@@ -1129,7 +1129,7 @@
       "enumErrorClz" : false,
       "enumAuthorityClz" : false,
       "protoFrom" : "com/apihug/rad/api/customer/api.proto",
-      "protoLine" : 182,
+      "protoLine" : 200,
       "protoColumn" : 1,
       "protoEntity" : "LoginRequest"
     },
@@ -1158,7 +1158,7 @@
           }
         },
         "complex" : "NONE",
-        "protoLine" : 219,
+        "protoLine" : 237,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 1
@@ -1179,7 +1179,7 @@
           }
         },
         "complex" : "NONE",
-        "protoLine" : 226,
+        "protoLine" : 244,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 2
@@ -1196,7 +1196,7 @@
           }
         },
         "complex" : "NONE",
-        "protoLine" : 234,
+        "protoLine" : 252,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 3
@@ -1209,7 +1209,7 @@
           "example" : "false"
         },
         "complex" : "NONE",
-        "protoLine" : 241,
+        "protoLine" : 259,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 4
@@ -1221,7 +1221,7 @@
           "description" : "客户的租户列表"
         },
         "complex" : "LIST",
-        "protoLine" : 246,
+        "protoLine" : 264,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 5
@@ -1233,7 +1233,7 @@
           "description" : "默认租户信息"
         },
         "complex" : "NONE",
-        "protoLine" : 250,
+        "protoLine" : 268,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 6
@@ -1242,7 +1242,7 @@
       "enumErrorClz" : false,
       "enumAuthorityClz" : false,
       "protoFrom" : "com/apihug/rad/api/customer/api.proto",
-      "protoLine" : 211,
+      "protoLine" : 229,
       "protoColumn" : 1,
       "protoEntity" : "LoginResponse"
     },
@@ -1272,7 +1272,7 @@
           }
         },
         "complex" : "NONE",
-        "protoLine" : 509,
+        "protoLine" : 527,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 1
@@ -1288,7 +1288,7 @@
           "empty" : false
         },
         "complex" : "NONE",
-        "protoLine" : 517,
+        "protoLine" : 535,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 2
@@ -1297,7 +1297,7 @@
       "enumErrorClz" : false,
       "enumAuthorityClz" : false,
       "protoFrom" : "com/apihug/rad/api/customer/api.proto",
-      "protoLine" : 501,
+      "protoLine" : 519,
       "protoColumn" : 1,
       "protoEntity" : "ResetPasswordRequest"
     },
@@ -1323,7 +1323,7 @@
           "empty" : false
         },
         "complex" : "NONE",
-        "protoLine" : 534,
+        "protoLine" : 552,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 1
@@ -1340,7 +1340,7 @@
           }
         },
         "complex" : "NONE",
-        "protoLine" : 540,
+        "protoLine" : 558,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 2
@@ -1357,7 +1357,7 @@
           }
         },
         "complex" : "NONE",
-        "protoLine" : 547,
+        "protoLine" : 565,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 3
@@ -1366,7 +1366,7 @@
       "enumErrorClz" : false,
       "enumAuthorityClz" : false,
       "protoFrom" : "com/apihug/rad/api/customer/api.proto",
-      "protoLine" : 526,
+      "protoLine" : 544,
       "protoColumn" : 1,
       "protoEntity" : "RoleInfo"
     },
@@ -1393,7 +1393,7 @@
           "empty" : false
         },
         "complex" : "NONE",
-        "protoLine" : 388,
+        "protoLine" : 406,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 1
@@ -1402,7 +1402,7 @@
       "enumErrorClz" : false,
       "enumAuthorityClz" : false,
       "protoFrom" : "com/apihug/rad/api/customer/api.proto",
-      "protoLine" : 380,
+      "protoLine" : 398,
       "protoColumn" : 1,
       "protoEntity" : "SwitchTenantRequest"
     },
@@ -1428,7 +1428,7 @@
           "empty" : false
         },
         "complex" : "NONE",
-        "protoLine" : 263,
+        "protoLine" : 281,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 1
@@ -1445,7 +1445,7 @@
           }
         },
         "complex" : "NONE",
-        "protoLine" : 269,
+        "protoLine" : 287,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 2
@@ -1462,7 +1462,7 @@
           }
         },
         "complex" : "NONE",
-        "protoLine" : 276,
+        "protoLine" : 294,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 3
@@ -1475,7 +1475,7 @@
           "example" : "true"
         },
         "complex" : "NONE",
-        "protoLine" : 283,
+        "protoLine" : 301,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 4
@@ -1488,7 +1488,7 @@
           "example" : "false"
         },
         "complex" : "NONE",
-        "protoLine" : 288,
+        "protoLine" : 306,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 5
@@ -1497,7 +1497,7 @@
       "enumErrorClz" : false,
       "enumAuthorityClz" : false,
       "protoFrom" : "com/apihug/rad/api/customer/api.proto",
-      "protoLine" : 255,
+      "protoLine" : 273,
       "protoColumn" : 1,
       "protoEntity" : "TenantInfo"
     },
@@ -1521,7 +1521,7 @@
           "description" : "租户列表"
         },
         "complex" : "LIST",
-        "protoLine" : 370,
+        "protoLine" : 388,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 1
@@ -1534,7 +1534,7 @@
           "example" : "1"
         },
         "complex" : "NONE",
-        "protoLine" : 374,
+        "protoLine" : 392,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 2
@@ -1543,7 +1543,7 @@
       "enumErrorClz" : false,
       "enumAuthorityClz" : false,
       "protoFrom" : "com/apihug/rad/api/customer/api.proto",
-      "protoLine" : 362,
+      "protoLine" : 380,
       "protoColumn" : 1,
       "protoEntity" : "TenantList"
     },
@@ -1569,7 +1569,7 @@
           "minimum" : 1.0
         },
         "complex" : "NONE",
-        "protoLine" : 121,
+        "protoLine" : 131,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 1
@@ -1583,7 +1583,7 @@
           "minimum" : 0.0
         },
         "complex" : "NONE",
-        "protoLine" : 127,
+        "protoLine" : 137,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 2
@@ -1601,7 +1601,7 @@
           }
         },
         "complex" : "NONE",
-        "protoLine" : 133,
+        "protoLine" : 143,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 3
@@ -1619,7 +1619,7 @@
           }
         },
         "complex" : "NONE",
-        "protoLine" : 141,
+        "protoLine" : 151,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 4
@@ -1632,7 +1632,7 @@
           "example" : "10"
         },
         "complex" : "NONE",
-        "protoLine" : 149,
+        "protoLine" : 159,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 5
@@ -1646,7 +1646,7 @@
           "maxLength" : 50
         },
         "complex" : "NONE",
-        "protoLine" : 154,
+        "protoLine" : 164,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 6
@@ -1660,7 +1660,7 @@
           "empty" : false
         },
         "complex" : "NONE",
-        "protoLine" : 160,
+        "protoLine" : 170,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 7
@@ -1669,7 +1669,7 @@
       "enumErrorClz" : false,
       "enumAuthorityClz" : false,
       "protoFrom" : "com/apihug/rad/api/department/api.proto",
-      "protoLine" : 113,
+      "protoLine" : 123,
       "protoColumn" : 1,
       "protoEntity" : "CreateDepartmentRequest"
     },
@@ -1696,7 +1696,7 @@
           "empty" : false
         },
         "complex" : "NONE",
-        "protoLine" : 251,
+        "protoLine" : 261,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 1
@@ -1710,7 +1710,7 @@
           "empty" : false
         },
         "complex" : "NONE",
-        "protoLine" : 258,
+        "protoLine" : 268,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 2
@@ -1727,7 +1727,7 @@
           }
         },
         "complex" : "NONE",
-        "protoLine" : 264,
+        "protoLine" : 274,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 3
@@ -1744,7 +1744,7 @@
           }
         },
         "complex" : "NONE",
-        "protoLine" : 271,
+        "protoLine" : 281,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 4
@@ -1757,7 +1757,7 @@
           "example" : "10"
         },
         "complex" : "NONE",
-        "protoLine" : 278,
+        "protoLine" : 288,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 5
@@ -1773,7 +1773,7 @@
           }
         },
         "complex" : "NONE",
-        "protoLine" : 283,
+        "protoLine" : 293,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 6
@@ -1787,7 +1787,7 @@
           "empty" : false
         },
         "complex" : "NONE",
-        "protoLine" : 289,
+        "protoLine" : 299,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 7
@@ -1801,7 +1801,7 @@
           "dateFormat" : "ISO_LOCAL_DATE_TIME"
         },
         "complex" : "NONE",
-        "protoLine" : 295,
+        "protoLine" : 305,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 8
@@ -1810,7 +1810,7 @@
       "enumErrorClz" : false,
       "enumAuthorityClz" : false,
       "protoFrom" : "com/apihug/rad/api/department/api.proto",
-      "protoLine" : 243,
+      "protoLine" : 253,
       "protoColumn" : 1,
       "protoEntity" : "DepartmentDetail"
     },
@@ -1837,7 +1837,7 @@
           "empty" : false
         },
         "complex" : "NONE",
-        "protoLine" : 209,
+        "protoLine" : 219,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 1
@@ -1851,7 +1851,7 @@
           "empty" : false
         },
         "complex" : "NONE",
-        "protoLine" : 216,
+        "protoLine" : 226,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 2
@@ -1868,7 +1868,7 @@
           }
         },
         "complex" : "NONE",
-        "protoLine" : 222,
+        "protoLine" : 232,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 3
@@ -1885,7 +1885,7 @@
           }
         },
         "complex" : "NONE",
-        "protoLine" : 229,
+        "protoLine" : 239,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 4
@@ -1899,7 +1899,7 @@
           "empty" : false
         },
         "complex" : "NONE",
-        "protoLine" : 236,
+        "protoLine" : 246,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 5
@@ -1908,7 +1908,7 @@
       "enumErrorClz" : false,
       "enumAuthorityClz" : false,
       "protoFrom" : "com/apihug/rad/api/department/api.proto",
-      "protoLine" : 201,
+      "protoLine" : 211,
       "protoColumn" : 1,
       "protoEntity" : "DepartmentSummary"
     },
@@ -1932,7 +1932,7 @@
           "description" : "部门信息"
         },
         "complex" : "NONE",
-        "protoLine" : 310,
+        "protoLine" : 320,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 1
@@ -1944,7 +1944,7 @@
           "description" : "子部门列表"
         },
         "complex" : "LIST",
-        "protoLine" : 314,
+        "protoLine" : 324,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 2
@@ -1953,7 +1953,7 @@
       "enumErrorClz" : false,
       "enumAuthorityClz" : false,
       "protoFrom" : "com/apihug/rad/api/department/api.proto",
-      "protoLine" : 302,
+      "protoLine" : 312,
       "protoColumn" : 1,
       "protoEntity" : "DepartmentTreeNode"
     },
@@ -1983,7 +1983,7 @@
           }
         },
         "complex" : "NONE",
-        "protoLine" : 175,
+        "protoLine" : 185,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 1
@@ -1996,7 +1996,7 @@
           "example" : "10"
         },
         "complex" : "NONE",
-        "protoLine" : 183,
+        "protoLine" : 193,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 2
@@ -2010,7 +2010,7 @@
           "maxLength" : 50
         },
         "complex" : "NONE",
-        "protoLine" : 188,
+        "protoLine" : 198,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 3
@@ -2024,7 +2024,7 @@
           "empty" : false
         },
         "complex" : "NONE",
-        "protoLine" : 194,
+        "protoLine" : 204,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 4
@@ -2033,7 +2033,7 @@
       "enumErrorClz" : false,
       "enumAuthorityClz" : false,
       "protoFrom" : "com/apihug/rad/api/department/api.proto",
-      "protoLine" : 167,
+      "protoLine" : 177,
       "protoColumn" : 1,
       "protoEntity" : "UpdateDepartmentRequest"
     },
@@ -2059,7 +2059,7 @@
           "minimum" : 0.0
         },
         "complex" : "NONE",
-        "protoLine" : 162,
+        "protoLine" : 174,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 1
@@ -2077,7 +2077,7 @@
           }
         },
         "complex" : "NONE",
-        "protoLine" : 168,
+        "protoLine" : 180,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 2
@@ -2095,7 +2095,7 @@
           }
         },
         "complex" : "NONE",
-        "protoLine" : 176,
+        "protoLine" : 188,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 3
@@ -2112,7 +2112,7 @@
           }
         },
         "complex" : "NONE",
-        "protoLine" : 184,
+        "protoLine" : 196,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 4
@@ -2126,7 +2126,7 @@
           "maxLength" : 100
         },
         "complex" : "NONE",
-        "protoLine" : 191,
+        "protoLine" : 203,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 5
@@ -2139,7 +2139,7 @@
           "example" : "10"
         },
         "complex" : "NONE",
-        "protoLine" : 197,
+        "protoLine" : 209,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 6
@@ -2153,7 +2153,7 @@
           "empty" : false
         },
         "complex" : "NONE",
-        "protoLine" : 202,
+        "protoLine" : 214,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 7
@@ -2167,7 +2167,7 @@
           "maxLength" : 100
         },
         "complex" : "NONE",
-        "protoLine" : 208,
+        "protoLine" : 220,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 8
@@ -2181,7 +2181,7 @@
           "empty" : false
         },
         "complex" : "NONE",
-        "protoLine" : 214,
+        "protoLine" : 226,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 9
@@ -2190,7 +2190,7 @@
       "enumErrorClz" : false,
       "enumAuthorityClz" : false,
       "protoFrom" : "com/apihug/rad/api/menu/api.proto",
-      "protoLine" : 154,
+      "protoLine" : 166,
       "protoColumn" : 1,
       "protoEntity" : "CreateMenuRequest"
     },
@@ -2217,7 +2217,7 @@
           "empty" : false
         },
         "complex" : "NONE",
-        "protoLine" : 336,
+        "protoLine" : 348,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 1
@@ -2231,7 +2231,7 @@
           "empty" : false
         },
         "complex" : "NONE",
-        "protoLine" : 343,
+        "protoLine" : 355,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 2
@@ -2248,7 +2248,7 @@
           }
         },
         "complex" : "NONE",
-        "protoLine" : 349,
+        "protoLine" : 361,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 3
@@ -2265,7 +2265,7 @@
           }
         },
         "complex" : "NONE",
-        "protoLine" : 356,
+        "protoLine" : 368,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 4
@@ -2281,7 +2281,7 @@
           }
         },
         "complex" : "NONE",
-        "protoLine" : 363,
+        "protoLine" : 375,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 5
@@ -2297,7 +2297,7 @@
           }
         },
         "complex" : "NONE",
-        "protoLine" : 369,
+        "protoLine" : 381,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 6
@@ -2310,7 +2310,7 @@
           "example" : "10"
         },
         "complex" : "NONE",
-        "protoLine" : 375,
+        "protoLine" : 387,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 7
@@ -2324,7 +2324,7 @@
           "empty" : false
         },
         "complex" : "NONE",
-        "protoLine" : 380,
+        "protoLine" : 392,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 8
@@ -2340,7 +2340,7 @@
           }
         },
         "complex" : "NONE",
-        "protoLine" : 386,
+        "protoLine" : 398,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 9
@@ -2354,7 +2354,7 @@
           "empty" : false
         },
         "complex" : "NONE",
-        "protoLine" : 392,
+        "protoLine" : 404,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 10
@@ -2368,7 +2368,7 @@
           "dateFormat" : "ISO_LOCAL_DATE_TIME"
         },
         "complex" : "NONE",
-        "protoLine" : 398,
+        "protoLine" : 410,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 11
@@ -2382,7 +2382,7 @@
           "dateFormat" : "ISO_LOCAL_DATE_TIME"
         },
         "complex" : "NONE",
-        "protoLine" : 404,
+        "protoLine" : 416,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 12
@@ -2391,7 +2391,7 @@
       "enumErrorClz" : false,
       "enumAuthorityClz" : false,
       "protoFrom" : "com/apihug/rad/api/menu/api.proto",
-      "protoLine" : 328,
+      "protoLine" : 340,
       "protoColumn" : 1,
       "protoEntity" : "MenuDetail"
     },
@@ -2418,7 +2418,7 @@
           "empty" : false
         },
         "complex" : "NONE",
-        "protoLine" : 282,
+        "protoLine" : 294,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 1
@@ -2432,7 +2432,7 @@
           "empty" : false
         },
         "complex" : "NONE",
-        "protoLine" : 289,
+        "protoLine" : 301,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 2
@@ -2449,7 +2449,7 @@
           }
         },
         "complex" : "NONE",
-        "protoLine" : 295,
+        "protoLine" : 307,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 3
@@ -2466,7 +2466,7 @@
           }
         },
         "complex" : "NONE",
-        "protoLine" : 302,
+        "protoLine" : 314,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 4
@@ -2482,7 +2482,7 @@
           }
         },
         "complex" : "NONE",
-        "protoLine" : 309,
+        "protoLine" : 321,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 5
@@ -2496,7 +2496,7 @@
           "empty" : false
         },
         "complex" : "NONE",
-        "protoLine" : 315,
+        "protoLine" : 327,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 6
@@ -2510,7 +2510,7 @@
           "empty" : false
         },
         "complex" : "NONE",
-        "protoLine" : 321,
+        "protoLine" : 333,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 7
@@ -2519,7 +2519,7 @@
       "enumErrorClz" : false,
       "enumAuthorityClz" : false,
       "protoFrom" : "com/apihug/rad/api/menu/api.proto",
-      "protoLine" : 274,
+      "protoLine" : 286,
       "protoColumn" : 1,
       "protoEntity" : "MenuSummary"
     },
@@ -2543,7 +2543,7 @@
           "description" : "菜单信息"
         },
         "complex" : "NONE",
-        "protoLine" : 419,
+        "protoLine" : 431,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 1
@@ -2555,7 +2555,7 @@
           "description" : "子菜单列表"
         },
         "complex" : "LIST",
-        "protoLine" : 423,
+        "protoLine" : 435,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 2
@@ -2564,7 +2564,7 @@
       "enumErrorClz" : false,
       "enumAuthorityClz" : false,
       "protoFrom" : "com/apihug/rad/api/menu/api.proto",
-      "protoLine" : 411,
+      "protoLine" : 423,
       "protoColumn" : 1,
       "protoEntity" : "MenuTreeNode"
     },
@@ -2589,7 +2589,7 @@
           "example" : "user"
         },
         "complex" : "NONE",
-        "protoLine" : 436,
+        "protoLine" : 448,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 1
@@ -2602,7 +2602,7 @@
           "example" : "MENU"
         },
         "complex" : "NONE",
-        "protoLine" : 441,
+        "protoLine" : 453,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 2
@@ -2615,7 +2615,7 @@
           "example" : "ACTIVE"
         },
         "complex" : "NONE",
-        "protoLine" : 446,
+        "protoLine" : 458,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 3
@@ -2624,7 +2624,7 @@
       "enumErrorClz" : false,
       "enumAuthorityClz" : false,
       "protoFrom" : "com/apihug/rad/api/menu/api.proto",
-      "protoLine" : 428,
+      "protoLine" : 440,
       "protoColumn" : 1,
       "protoEntity" : "SearchMenusRequest"
     },
@@ -2654,7 +2654,7 @@
           }
         },
         "complex" : "NONE",
-        "protoLine" : 229,
+        "protoLine" : 241,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 1
@@ -2671,7 +2671,7 @@
           }
         },
         "complex" : "NONE",
-        "protoLine" : 237,
+        "protoLine" : 249,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 2
@@ -2685,7 +2685,7 @@
           "maxLength" : 100
         },
         "complex" : "NONE",
-        "protoLine" : 244,
+        "protoLine" : 256,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 3
@@ -2698,7 +2698,7 @@
           "example" : "10"
         },
         "complex" : "NONE",
-        "protoLine" : 250,
+        "protoLine" : 262,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 4
@@ -2712,7 +2712,7 @@
           "empty" : false
         },
         "complex" : "NONE",
-        "protoLine" : 255,
+        "protoLine" : 267,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 5
@@ -2726,7 +2726,7 @@
           "maxLength" : 100
         },
         "complex" : "NONE",
-        "protoLine" : 261,
+        "protoLine" : 273,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 6
@@ -2740,7 +2740,7 @@
           "empty" : false
         },
         "complex" : "NONE",
-        "protoLine" : 267,
+        "protoLine" : 279,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 7
@@ -2749,7 +2749,7 @@
       "enumErrorClz" : false,
       "enumAuthorityClz" : false,
       "protoFrom" : "com/apihug/rad/api/menu/api.proto",
-      "protoLine" : 221,
+      "protoLine" : 233,
       "protoColumn" : 1,
       "protoEntity" : "UpdateMenuRequest"
     },
@@ -2774,7 +2774,7 @@
           "example" : "customer:create"
         },
         "complex" : "NONE",
-        "protoLine" : 63,
+        "protoLine" : 69,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 1
@@ -2787,7 +2787,7 @@
           "example" : "创建客户"
         },
         "complex" : "NONE",
-        "protoLine" : 68,
+        "protoLine" : 74,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 2
@@ -2796,7 +2796,7 @@
       "enumErrorClz" : false,
       "enumAuthorityClz" : false,
       "protoFrom" : "com/apihug/rad/api/permission/api.proto",
-      "protoLine" : 55,
+      "protoLine" : 61,
       "protoColumn" : 1,
       "protoEntity" : "PermissionInfo"
     },
@@ -2823,7 +2823,7 @@
           "empty" : false
         },
         "complex" : "NONE",
-        "protoLine" : 164,
+        "protoLine" : 173,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 1
@@ -2836,7 +2836,7 @@
           "example" : "MEMBER"
         },
         "complex" : "NONE",
-        "protoLine" : 171,
+        "protoLine" : 180,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 2
@@ -2849,7 +2849,7 @@
           "maxLength" : 200
         },
         "complex" : "NONE",
-        "protoLine" : 176,
+        "protoLine" : 185,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 3
@@ -2858,7 +2858,7 @@
       "enumErrorClz" : false,
       "enumAuthorityClz" : false,
       "protoFrom" : "com/apihug/rad/api/platform/api.proto",
-      "protoLine" : 156,
+      "protoLine" : 165,
       "protoColumn" : 1,
       "protoEntity" : "AddPlatformMemberRequest"
     },
@@ -2883,7 +2883,7 @@
           "example" : "PM_ACTIVE"
         },
         "complex" : "NONE",
-        "protoLine" : 137,
+        "protoLine" : 146,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 1
@@ -2896,7 +2896,7 @@
           "example" : "MEMBER"
         },
         "complex" : "NONE",
-        "protoLine" : 142,
+        "protoLine" : 151,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 2
@@ -2910,7 +2910,7 @@
           "maxLength" : 100
         },
         "complex" : "NONE",
-        "protoLine" : 147,
+        "protoLine" : 156,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 3
@@ -2919,7 +2919,7 @@
       "enumErrorClz" : false,
       "enumAuthorityClz" : false,
       "protoFrom" : "com/apihug/rad/api/platform/api.proto",
-      "protoLine" : 129,
+      "protoLine" : 138,
       "protoColumn" : 1,
       "protoEntity" : "GetPlatformMembersRequest"
     },
@@ -2944,7 +2944,7 @@
           "example" : "1"
         },
         "complex" : "NONE",
-        "protoLine" : 207,
+        "protoLine" : 215,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 1
@@ -2957,7 +2957,7 @@
           "example" : "1"
         },
         "complex" : "NONE",
-        "protoLine" : 212,
+        "protoLine" : 220,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 2
@@ -2970,7 +2970,7 @@
           "example" : "zhangsan"
         },
         "complex" : "NONE",
-        "protoLine" : 217,
+        "protoLine" : 225,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 3
@@ -2983,7 +2983,7 @@
           "example" : "zhangsan@example.com"
         },
         "complex" : "NONE",
-        "protoLine" : 222,
+        "protoLine" : 230,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 4
@@ -2996,7 +2996,7 @@
           "example" : "MEMBER"
         },
         "complex" : "NONE",
-        "protoLine" : 227,
+        "protoLine" : 235,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 5
@@ -3009,7 +3009,7 @@
           "example" : "PM_ACTIVE"
         },
         "complex" : "NONE",
-        "protoLine" : 232,
+        "protoLine" : 240,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 6
@@ -3023,7 +3023,7 @@
           "dateFormat" : "YYYY_MM_DD_HH_MM_SS"
         },
         "complex" : "NONE",
-        "protoLine" : 237,
+        "protoLine" : 245,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 7
@@ -3032,14 +3032,14 @@
       "enumErrorClz" : false,
       "enumAuthorityClz" : false,
       "protoFrom" : "com/apihug/rad/api/platform/api.proto",
-      "protoLine" : 199,
+      "protoLine" : 207,
       "protoColumn" : 1,
       "protoEntity" : "PlatformMemberInfo"
     },
     "com.apihug.rad.api.platform.UpdatePlatformMemberRoleRequest" : {
       "clzName" : "com.apihug.rad.api.platform.UpdatePlatformMemberRoleRequest",
       "name" : "UpdatePlatformMemberRoleRequest",
-      "description" : "更新平台成员角色请求\n更新平台成员角色请求",
+      "description" : "更新平台成员角色请求",
       "deprecated" : false,
       "schema" : {
         "jsonSchema" : {
@@ -3058,7 +3058,7 @@
           "empty" : false
         },
         "complex" : "NONE",
-        "protoLine" : 191,
+        "protoLine" : 199,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 1
@@ -3067,7 +3067,7 @@
       "enumErrorClz" : false,
       "enumAuthorityClz" : false,
       "protoFrom" : "com/apihug/rad/api/platform/api.proto",
-      "protoLine" : 183,
+      "protoLine" : 191,
       "protoColumn" : 1,
       "protoEntity" : "UpdatePlatformMemberRoleRequest"
     },
@@ -3093,7 +3093,7 @@
           "empty" : false
         },
         "complex" : "LIST",
-        "protoLine" : 405,
+        "protoLine" : 421,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 1
@@ -3102,7 +3102,7 @@
       "enumErrorClz" : false,
       "enumAuthorityClz" : false,
       "protoFrom" : "com/apihug/rad/api/role/api.proto",
-      "protoLine" : 397,
+      "protoLine" : 413,
       "protoColumn" : 1,
       "protoEntity" : "AssignMenusRequest"
     },
@@ -3132,7 +3132,7 @@
           }
         },
         "complex" : "NONE",
-        "protoLine" : 228,
+        "protoLine" : 244,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 1
@@ -3150,7 +3150,7 @@
           }
         },
         "complex" : "NONE",
-        "protoLine" : 236,
+        "protoLine" : 252,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 2
@@ -3167,7 +3167,7 @@
           }
         },
         "complex" : "NONE",
-        "protoLine" : 244,
+        "protoLine" : 260,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 3
@@ -3181,7 +3181,7 @@
           "empty" : false
         },
         "complex" : "NONE",
-        "protoLine" : 251,
+        "protoLine" : 267,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 4
@@ -3190,7 +3190,7 @@
       "enumErrorClz" : false,
       "enumAuthorityClz" : false,
       "protoFrom" : "com/apihug/rad/api/role/api.proto",
-      "protoLine" : 220,
+      "protoLine" : 236,
       "protoColumn" : 1,
       "protoEntity" : "CreateRoleRequest"
     },
@@ -3217,7 +3217,7 @@
           "empty" : false
         },
         "complex" : "NONE",
-        "protoLine" : 332,
+        "protoLine" : 348,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 1
@@ -3234,7 +3234,7 @@
           }
         },
         "complex" : "NONE",
-        "protoLine" : 339,
+        "protoLine" : 355,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 2
@@ -3251,7 +3251,7 @@
           }
         },
         "complex" : "NONE",
-        "protoLine" : 346,
+        "protoLine" : 362,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 3
@@ -3267,7 +3267,7 @@
           }
         },
         "complex" : "NONE",
-        "protoLine" : 353,
+        "protoLine" : 369,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 4
@@ -3281,7 +3281,7 @@
           "empty" : false
         },
         "complex" : "NONE",
-        "protoLine" : 359,
+        "protoLine" : 375,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 5
@@ -3295,7 +3295,7 @@
           "dateFormat" : "ISO_LOCAL_DATE_TIME"
         },
         "complex" : "NONE",
-        "protoLine" : 365,
+        "protoLine" : 381,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 6
@@ -3309,7 +3309,7 @@
           "dateFormat" : "ISO_LOCAL_DATE_TIME"
         },
         "complex" : "NONE",
-        "protoLine" : 371,
+        "protoLine" : 387,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 7
@@ -3318,7 +3318,7 @@
       "enumErrorClz" : false,
       "enumAuthorityClz" : false,
       "protoFrom" : "com/apihug/rad/api/role/api.proto",
-      "protoLine" : 324,
+      "protoLine" : 340,
       "protoColumn" : 1,
       "protoEntity" : "RoleDetail"
     },
@@ -3344,7 +3344,7 @@
           "empty" : false
         },
         "complex" : "NONE",
-        "protoLine" : 439,
+        "protoLine" : 455,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 1
@@ -3358,7 +3358,7 @@
           "empty" : false
         },
         "complex" : "NONE",
-        "protoLine" : 445,
+        "protoLine" : 461,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 2
@@ -3372,7 +3372,7 @@
           "empty" : false
         },
         "complex" : "NONE",
-        "protoLine" : 451,
+        "protoLine" : 467,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 3
@@ -3385,7 +3385,7 @@
           "example" : "customer:create"
         },
         "complex" : "NONE",
-        "protoLine" : 457,
+        "protoLine" : 473,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 4
@@ -3398,7 +3398,7 @@
           "example" : "BUTTON"
         },
         "complex" : "NONE",
-        "protoLine" : 462,
+        "protoLine" : 478,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 5
@@ -3407,7 +3407,7 @@
       "enumErrorClz" : false,
       "enumAuthorityClz" : false,
       "protoFrom" : "com/apihug/rad/api/role/api.proto",
-      "protoLine" : 431,
+      "protoLine" : 447,
       "protoColumn" : 1,
       "protoEntity" : "RoleMenuItem"
     },
@@ -3433,7 +3433,7 @@
           "empty" : false
         },
         "complex" : "NONE",
-        "protoLine" : 420,
+        "protoLine" : 436,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 1
@@ -3445,7 +3445,7 @@
           "description" : "关联的菜单列表"
         },
         "complex" : "LIST",
-        "protoLine" : 426,
+        "protoLine" : 442,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 2
@@ -3454,7 +3454,7 @@
       "enumErrorClz" : false,
       "enumAuthorityClz" : false,
       "protoFrom" : "com/apihug/rad/api/role/api.proto",
-      "protoLine" : 412,
+      "protoLine" : 428,
       "protoColumn" : 1,
       "protoEntity" : "RoleMenuSummary"
     },
@@ -3481,7 +3481,7 @@
           "empty" : false
         },
         "complex" : "NONE",
-        "protoLine" : 296,
+        "protoLine" : 312,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 1
@@ -3498,7 +3498,7 @@
           }
         },
         "complex" : "NONE",
-        "protoLine" : 303,
+        "protoLine" : 319,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 2
@@ -3515,7 +3515,7 @@
           }
         },
         "complex" : "NONE",
-        "protoLine" : 310,
+        "protoLine" : 326,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 3
@@ -3529,7 +3529,7 @@
           "empty" : false
         },
         "complex" : "NONE",
-        "protoLine" : 317,
+        "protoLine" : 333,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 4
@@ -3538,7 +3538,7 @@
       "enumErrorClz" : false,
       "enumAuthorityClz" : false,
       "protoFrom" : "com/apihug/rad/api/role/api.proto",
-      "protoLine" : 288,
+      "protoLine" : 304,
       "protoColumn" : 1,
       "protoEntity" : "RoleSummary"
     },
@@ -3563,7 +3563,7 @@
           "example" : "admin"
         },
         "complex" : "NONE",
-        "protoLine" : 386,
+        "protoLine" : 402,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 1
@@ -3576,7 +3576,7 @@
           "example" : "ACTIVE"
         },
         "complex" : "NONE",
-        "protoLine" : 391,
+        "protoLine" : 407,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 2
@@ -3585,7 +3585,7 @@
       "enumErrorClz" : false,
       "enumAuthorityClz" : false,
       "protoFrom" : "com/apihug/rad/api/role/api.proto",
-      "protoLine" : 378,
+      "protoLine" : 394,
       "protoColumn" : 1,
       "protoEntity" : "SearchRolesRequest"
     },
@@ -3615,7 +3615,7 @@
           }
         },
         "complex" : "NONE",
-        "protoLine" : 266,
+        "protoLine" : 282,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 1
@@ -3632,7 +3632,7 @@
           }
         },
         "complex" : "NONE",
-        "protoLine" : 274,
+        "protoLine" : 290,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 2
@@ -3646,7 +3646,7 @@
           "empty" : false
         },
         "complex" : "NONE",
-        "protoLine" : 281,
+        "protoLine" : 297,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 3
@@ -3655,7 +3655,7 @@
       "enumErrorClz" : false,
       "enumAuthorityClz" : false,
       "protoFrom" : "com/apihug/rad/api/role/api.proto",
-      "protoLine" : 258,
+      "protoLine" : 274,
       "protoColumn" : 1,
       "protoEntity" : "UpdateRoleRequest"
     },
@@ -3681,7 +3681,7 @@
           "minimum" : 1.0
         },
         "complex" : "NONE",
-        "protoLine" : 244,
+        "protoLine" : 256,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 1
@@ -3695,7 +3695,7 @@
           "minimum" : 1.0
         },
         "complex" : "NONE",
-        "protoLine" : 250,
+        "protoLine" : 262,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 2
@@ -3708,7 +3708,7 @@
           "example" : "[\"user\", \"role\", \"menu\", \"department\"]"
         },
         "complex" : "LIST",
-        "protoLine" : 256,
+        "protoLine" : 268,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 3
@@ -3722,7 +3722,7 @@
           "dateFormat" : "ISO_LOCAL_DATE_TIME"
         },
         "complex" : "NONE",
-        "protoLine" : 261,
+        "protoLine" : 273,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 4
@@ -3731,7 +3731,7 @@
       "enumErrorClz" : false,
       "enumAuthorityClz" : false,
       "protoFrom" : "com/apihug/rad/api/tenant/api.proto",
-      "protoLine" : 236,
+      "protoLine" : 248,
       "protoColumn" : 1,
       "protoEntity" : "ConfigureTenantRequest"
     },
@@ -3761,7 +3761,7 @@
           }
         },
         "complex" : "NONE",
-        "protoLine" : 149,
+        "protoLine" : 161,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 1
@@ -3779,7 +3779,7 @@
           }
         },
         "complex" : "NONE",
-        "protoLine" : 157,
+        "protoLine" : 169,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 2
@@ -3797,7 +3797,7 @@
           }
         },
         "complex" : "NONE",
-        "protoLine" : 165,
+        "protoLine" : 177,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 3
@@ -3814,7 +3814,7 @@
           }
         },
         "complex" : "NONE",
-        "protoLine" : 173,
+        "protoLine" : 185,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 4
@@ -3828,7 +3828,7 @@
           "empty" : false
         },
         "complex" : "NONE",
-        "protoLine" : 180,
+        "protoLine" : 192,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 5
@@ -3841,7 +3841,7 @@
           "example" : "false"
         },
         "complex" : "NONE",
-        "protoLine" : 186,
+        "protoLine" : 198,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 6
@@ -3855,7 +3855,7 @@
           "maxLength" : 500
         },
         "complex" : "NONE",
-        "protoLine" : 191,
+        "protoLine" : 203,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 7
@@ -3864,7 +3864,7 @@
       "enumErrorClz" : false,
       "enumAuthorityClz" : false,
       "protoFrom" : "com/apihug/rad/api/tenant/api.proto",
-      "protoLine" : 141,
+      "protoLine" : 153,
       "protoColumn" : 1,
       "protoEntity" : "CreateTenantRequest"
     },
@@ -3889,7 +3889,7 @@
           "example" : "acme"
         },
         "complex" : "NONE",
-        "protoLine" : 386,
+        "protoLine" : 398,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 1
@@ -3902,7 +3902,7 @@
           "example" : "ACTIVE"
         },
         "complex" : "NONE",
-        "protoLine" : 391,
+        "protoLine" : 403,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 2
@@ -3911,7 +3911,7 @@
       "enumErrorClz" : false,
       "enumAuthorityClz" : false,
       "protoFrom" : "com/apihug/rad/api/tenant/api.proto",
-      "protoLine" : 378,
+      "protoLine" : 390,
       "protoColumn" : 1,
       "protoEntity" : "SearchTenantsRequest"
     },
@@ -3938,7 +3938,7 @@
           "empty" : false
         },
         "complex" : "NONE",
-        "protoLine" : 312,
+        "protoLine" : 324,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 1
@@ -3955,7 +3955,7 @@
           }
         },
         "complex" : "NONE",
-        "protoLine" : 319,
+        "protoLine" : 331,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 2
@@ -3972,7 +3972,7 @@
           }
         },
         "complex" : "NONE",
-        "protoLine" : 326,
+        "protoLine" : 338,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 3
@@ -3988,7 +3988,7 @@
           }
         },
         "complex" : "NONE",
-        "protoLine" : 333,
+        "protoLine" : 345,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 4
@@ -4004,7 +4004,7 @@
           }
         },
         "complex" : "NONE",
-        "protoLine" : 339,
+        "protoLine" : 351,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 5
@@ -4018,7 +4018,7 @@
           "empty" : false
         },
         "complex" : "NONE",
-        "protoLine" : 345,
+        "protoLine" : 357,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 6
@@ -4031,7 +4031,7 @@
           "example" : "100"
         },
         "complex" : "NONE",
-        "protoLine" : 351,
+        "protoLine" : 363,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 7
@@ -4044,7 +4044,7 @@
           "example" : "10240"
         },
         "complex" : "NONE",
-        "protoLine" : 356,
+        "protoLine" : 368,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 8
@@ -4057,7 +4057,7 @@
           "example" : "false"
         },
         "complex" : "NONE",
-        "protoLine" : 361,
+        "protoLine" : 373,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 9
@@ -4070,7 +4070,7 @@
           "example" : "企业管理平台"
         },
         "complex" : "NONE",
-        "protoLine" : 366,
+        "protoLine" : 378,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 10
@@ -4084,7 +4084,7 @@
           "dateFormat" : "ISO_LOCAL_DATE_TIME"
         },
         "complex" : "NONE",
-        "protoLine" : 371,
+        "protoLine" : 383,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 11
@@ -4093,7 +4093,7 @@
       "enumErrorClz" : false,
       "enumAuthorityClz" : false,
       "protoFrom" : "com/apihug/rad/api/tenant/api.proto",
-      "protoLine" : 304,
+      "protoLine" : 316,
       "protoColumn" : 1,
       "protoEntity" : "TenantDetail"
     },
@@ -4120,7 +4120,7 @@
           "empty" : false
         },
         "complex" : "NONE",
-        "protoLine" : 276,
+        "protoLine" : 288,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 1
@@ -4137,7 +4137,7 @@
           }
         },
         "complex" : "NONE",
-        "protoLine" : 283,
+        "protoLine" : 295,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 2
@@ -4154,7 +4154,7 @@
           }
         },
         "complex" : "NONE",
-        "protoLine" : 290,
+        "protoLine" : 302,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 3
@@ -4168,7 +4168,7 @@
           "empty" : false
         },
         "complex" : "NONE",
-        "protoLine" : 297,
+        "protoLine" : 309,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 4
@@ -4177,7 +4177,7 @@
       "enumErrorClz" : false,
       "enumAuthorityClz" : false,
       "protoFrom" : "com/apihug/rad/api/tenant/api.proto",
-      "protoLine" : 268,
+      "protoLine" : 280,
       "protoColumn" : 1,
       "protoEntity" : "TenantSummary"
     },
@@ -4207,7 +4207,7 @@
           }
         },
         "complex" : "NONE",
-        "protoLine" : 206,
+        "protoLine" : 218,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 1
@@ -4225,7 +4225,7 @@
           }
         },
         "complex" : "NONE",
-        "protoLine" : 214,
+        "protoLine" : 226,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 2
@@ -4242,7 +4242,7 @@
           }
         },
         "complex" : "NONE",
-        "protoLine" : 222,
+        "protoLine" : 234,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 3
@@ -4256,7 +4256,7 @@
           "empty" : false
         },
         "complex" : "NONE",
-        "protoLine" : 229,
+        "protoLine" : 241,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 4
@@ -4265,7 +4265,7 @@
       "enumErrorClz" : false,
       "enumAuthorityClz" : false,
       "protoFrom" : "com/apihug/rad/api/tenant/api.proto",
-      "protoLine" : 198,
+      "protoLine" : 210,
       "protoColumn" : 1,
       "protoEntity" : "UpdateTenantRequest"
     },
@@ -4292,7 +4292,7 @@
           "empty" : false
         },
         "complex" : "NONE",
-        "protoLine" : 389,
+        "protoLine" : 411,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 1
@@ -4305,7 +4305,7 @@
           "example" : "1"
         },
         "complex" : "NONE",
-        "protoLine" : 396,
+        "protoLine" : 418,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 2
@@ -4319,7 +4319,7 @@
           "maxLength" : 100
         },
         "complex" : "NONE",
-        "protoLine" : 401,
+        "protoLine" : 423,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 3
@@ -4332,7 +4332,7 @@
           "example" : "FULL_TIME"
         },
         "complex" : "NONE",
-        "protoLine" : 407,
+        "protoLine" : 429,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 4
@@ -4345,7 +4345,7 @@
           "example" : "MEMBER"
         },
         "complex" : "NONE",
-        "protoLine" : 412,
+        "protoLine" : 434,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 5
@@ -4358,7 +4358,7 @@
           "example" : "false"
         },
         "complex" : "NONE",
-        "protoLine" : 417,
+        "protoLine" : 439,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 6
@@ -4367,7 +4367,7 @@
       "enumErrorClz" : false,
       "enumAuthorityClz" : false,
       "protoFrom" : "com/apihug/rad/api/tenant/member.proto",
-      "protoLine" : 381,
+      "protoLine" : 403,
       "protoColumn" : 1,
       "protoEntity" : "AddTenantMemberRequest"
     },
@@ -4394,7 +4394,7 @@
           "empty" : false
         },
         "complex" : "NONE",
-        "protoLine" : 446,
+        "protoLine" : 468,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 1
@@ -4408,7 +4408,7 @@
           "maxLength" : 100
         },
         "complex" : "NONE",
-        "protoLine" : 453,
+        "protoLine" : 475,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 2
@@ -4417,7 +4417,7 @@
       "enumErrorClz" : false,
       "enumAuthorityClz" : false,
       "protoFrom" : "com/apihug/rad/api/tenant/member.proto",
-      "protoLine" : 438,
+      "protoLine" : 460,
       "protoColumn" : 1,
       "protoEntity" : "AssignMemberDepartmentRequest"
     },
@@ -4443,7 +4443,7 @@
           "empty" : false
         },
         "complex" : "LIST",
-        "protoLine" : 622,
+        "protoLine" : 644,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 1
@@ -4452,7 +4452,7 @@
       "enumErrorClz" : false,
       "enumAuthorityClz" : false,
       "protoFrom" : "com/apihug/rad/api/tenant/member.proto",
-      "protoLine" : 614,
+      "protoLine" : 636,
       "protoColumn" : 1,
       "protoEntity" : "AssignRolesRequest"
     },
@@ -4477,7 +4477,7 @@
           "example" : "ACTIVE"
         },
         "complex" : "NONE",
-        "protoLine" : 366,
+        "protoLine" : 388,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 1
@@ -4489,7 +4489,7 @@
           "description" : "成员角色筛选"
         },
         "complex" : "NONE",
-        "protoLine" : 371,
+        "protoLine" : 393,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 2
@@ -4502,7 +4502,7 @@
           "example" : "zhangsan"
         },
         "complex" : "NONE",
-        "protoLine" : 375,
+        "protoLine" : 397,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 3
@@ -4511,7 +4511,7 @@
       "enumErrorClz" : false,
       "enumAuthorityClz" : false,
       "protoFrom" : "com/apihug/rad/api/tenant/member.proto",
-      "protoLine" : 358,
+      "protoLine" : 380,
       "protoColumn" : 1,
       "protoEntity" : "GetTenantMembersRequest"
     },
@@ -4537,7 +4537,7 @@
           "empty" : false
         },
         "complex" : "NONE",
-        "protoLine" : 656,
+        "protoLine" : 678,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 1
@@ -4551,7 +4551,7 @@
           "empty" : false
         },
         "complex" : "NONE",
-        "protoLine" : 662,
+        "protoLine" : 684,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 2
@@ -4565,7 +4565,7 @@
           "empty" : false
         },
         "complex" : "NONE",
-        "protoLine" : 668,
+        "protoLine" : 690,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 3
@@ -4574,7 +4574,7 @@
       "enumErrorClz" : false,
       "enumAuthorityClz" : false,
       "protoFrom" : "com/apihug/rad/api/tenant/member.proto",
-      "protoLine" : 648,
+      "protoLine" : 670,
       "protoColumn" : 1,
       "protoEntity" : "MemberRoleItem"
     },
@@ -4600,7 +4600,7 @@
           "empty" : false
         },
         "complex" : "NONE",
-        "protoLine" : 637,
+        "protoLine" : 659,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 1
@@ -4612,7 +4612,7 @@
           "description" : "RBAC 角色列表"
         },
         "complex" : "LIST",
-        "protoLine" : 643,
+        "protoLine" : 665,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 2
@@ -4621,7 +4621,7 @@
       "enumErrorClz" : false,
       "enumAuthorityClz" : false,
       "protoFrom" : "com/apihug/rad/api/tenant/member.proto",
-      "protoLine" : 629,
+      "protoLine" : 651,
       "protoColumn" : 1,
       "protoEntity" : "MemberRoleSummary"
     },
@@ -4646,7 +4646,7 @@
           "example" : "1"
         },
         "complex" : "NONE",
-        "protoLine" : 537,
+        "protoLine" : 559,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 1
@@ -4659,7 +4659,7 @@
           "example" : "1"
         },
         "complex" : "NONE",
-        "protoLine" : 542,
+        "protoLine" : 564,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 2
@@ -4672,7 +4672,7 @@
           "example" : "1"
         },
         "complex" : "NONE",
-        "protoLine" : 547,
+        "protoLine" : 569,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 3
@@ -4685,7 +4685,7 @@
           "example" : "zhangsan"
         },
         "complex" : "NONE",
-        "protoLine" : 552,
+        "protoLine" : 574,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 4
@@ -4698,7 +4698,7 @@
           "example" : "zhangsan@example.com"
         },
         "complex" : "NONE",
-        "protoLine" : 557,
+        "protoLine" : 579,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 5
@@ -4711,7 +4711,7 @@
           "example" : "ACTIVE"
         },
         "complex" : "NONE",
-        "protoLine" : 562,
+        "protoLine" : 584,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 6
@@ -4724,7 +4724,7 @@
           "example" : "Acme 公司"
         },
         "complex" : "NONE",
-        "protoLine" : 567,
+        "protoLine" : 589,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 7
@@ -4737,7 +4737,7 @@
           "example" : "acme_corp"
         },
         "complex" : "NONE",
-        "protoLine" : 572,
+        "protoLine" : 594,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 8
@@ -4750,7 +4750,7 @@
           "example" : "FULL_TIME"
         },
         "complex" : "NONE",
-        "protoLine" : 577,
+        "protoLine" : 599,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 9
@@ -4763,7 +4763,7 @@
           "example" : "MEMBER"
         },
         "complex" : "NONE",
-        "protoLine" : 582,
+        "protoLine" : 604,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 10
@@ -4776,7 +4776,7 @@
           "example" : "ACTIVE"
         },
         "complex" : "NONE",
-        "protoLine" : 587,
+        "protoLine" : 609,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 11
@@ -4789,7 +4789,7 @@
           "example" : "1"
         },
         "complex" : "NONE",
-        "protoLine" : 592,
+        "protoLine" : 614,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 12
@@ -4802,7 +4802,7 @@
           "example" : "软件工程师"
         },
         "complex" : "NONE",
-        "protoLine" : 597,
+        "protoLine" : 619,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 13
@@ -4815,7 +4815,7 @@
           "example" : "false"
         },
         "complex" : "NONE",
-        "protoLine" : 602,
+        "protoLine" : 624,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 14
@@ -4829,7 +4829,7 @@
           "dateFormat" : "ISO_LOCAL_DATE_TIME"
         },
         "complex" : "NONE",
-        "protoLine" : 607,
+        "protoLine" : 629,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 15
@@ -4838,7 +4838,7 @@
       "enumErrorClz" : false,
       "enumAuthorityClz" : false,
       "protoFrom" : "com/apihug/rad/api/tenant/member.proto",
-      "protoLine" : 529,
+      "protoLine" : 551,
       "protoColumn" : 1,
       "protoEntity" : "TenantMemberDetail"
     },
@@ -4863,7 +4863,7 @@
           "example" : "1"
         },
         "complex" : "NONE",
-        "protoLine" : 468,
+        "protoLine" : 490,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 1
@@ -4876,7 +4876,7 @@
           "example" : "1"
         },
         "complex" : "NONE",
-        "protoLine" : 473,
+        "protoLine" : 495,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 2
@@ -4889,7 +4889,7 @@
           "example" : "zhangsan"
         },
         "complex" : "NONE",
-        "protoLine" : 478,
+        "protoLine" : 500,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 3
@@ -4902,7 +4902,7 @@
           "example" : "zhangsan@example.com"
         },
         "complex" : "NONE",
-        "protoLine" : 483,
+        "protoLine" : 505,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 4
@@ -4915,7 +4915,7 @@
           "example" : "1"
         },
         "complex" : "NONE",
-        "protoLine" : 488,
+        "protoLine" : 510,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 5
@@ -4928,7 +4928,7 @@
           "example" : "Acme 公司"
         },
         "complex" : "NONE",
-        "protoLine" : 493,
+        "protoLine" : 515,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 6
@@ -4941,7 +4941,7 @@
           "example" : "1"
         },
         "complex" : "NONE",
-        "protoLine" : 498,
+        "protoLine" : 520,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 7
@@ -4954,7 +4954,7 @@
           "example" : "软件工程师"
         },
         "complex" : "NONE",
-        "protoLine" : 503,
+        "protoLine" : 525,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 8
@@ -4967,7 +4967,7 @@
           "example" : "FULL_TIME"
         },
         "complex" : "NONE",
-        "protoLine" : 508,
+        "protoLine" : 530,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 9
@@ -4980,7 +4980,7 @@
           "example" : "MEMBER"
         },
         "complex" : "NONE",
-        "protoLine" : 513,
+        "protoLine" : 535,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 10
@@ -4993,7 +4993,7 @@
           "example" : "ACTIVE"
         },
         "complex" : "NONE",
-        "protoLine" : 518,
+        "protoLine" : 540,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 11
@@ -5006,7 +5006,7 @@
           "example" : "false"
         },
         "complex" : "NONE",
-        "protoLine" : 523,
+        "protoLine" : 545,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 12
@@ -5015,7 +5015,7 @@
       "enumErrorClz" : false,
       "enumAuthorityClz" : false,
       "protoFrom" : "com/apihug/rad/api/tenant/member.proto",
-      "protoLine" : 460,
+      "protoLine" : 482,
       "protoColumn" : 1,
       "protoEntity" : "TenantMemberSummary"
     },
@@ -5041,7 +5041,7 @@
           "empty" : false
         },
         "complex" : "NONE",
-        "protoLine" : 431,
+        "protoLine" : 453,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 1
@@ -5050,7 +5050,7 @@
       "enumErrorClz" : false,
       "enumAuthorityClz" : false,
       "protoFrom" : "com/apihug/rad/api/tenant/member.proto",
-      "protoLine" : 423,
+      "protoLine" : 445,
       "protoColumn" : 1,
       "protoEntity" : "UpdateMemberRoleRequest"
     },
@@ -6054,6 +6054,18 @@
           "severity" : "WARN"
         },
         "deprecated" : false
+      }, {
+        "title" : "MEMBER_TENANT_ACCESS_DENIED",
+        "code" : 10007004,
+        "message" : "Access denied: member does not belong to the specified tenant",
+        "message2" : "越权访问：该成员不属于当前租户",
+        "error" : {
+          "tips" : "The member belongs to a different tenant and cannot be accessed here",
+          "httpStatus" : "FORBIDDEN",
+          "phase" : "DOMAIN",
+          "severity" : "WARN"
+        },
+        "deprecated" : false
       } ],
       "enumClz" : true,
       "enumErrorClz" : true,
@@ -6107,6 +6119,7 @@
           "summary" : "分页查询HTTP访问审计日志",
           "description" : "查询访问日志",
           "deprecated" : false,
+          "priority" : "LOW",
           "pageable" : true,
           "raw" : false,
           "request" : false,
@@ -6118,6 +6131,7 @@
           "authorization" : {
             "lowLimitRiskyMode" : "LOGIN"
           },
+          "group" : "PLATFORM",
           "responseEmpty" : false,
           "multipart" : false,
           "internal" : false,
@@ -6141,6 +6155,7 @@
           "summary" : "获取访问日志统计概览",
           "description" : "获取访问统计",
           "deprecated" : false,
+          "priority" : "LOW",
           "pageable" : false,
           "raw" : false,
           "request" : false,
@@ -6152,6 +6167,7 @@
           "authorization" : {
             "lowLimitRiskyMode" : "LOGIN"
           },
+          "group" : "PLATFORM",
           "responseEmpty" : false,
           "multipart" : false,
           "internal" : false,
@@ -6162,7 +6178,7 @@
         "responseStreaming" : false,
         "requestRef" : "com.apihug.rad.api.audit.GetAccessLogStatsRequest",
         "responseRef" : "com.apihug.rad.api.audit.AccessLogStatsResponse",
-        "protoLine" : 34,
+        "protoLine" : 36,
         "protoColumn" : 3,
         "name" : "GetAccessLogStats",
         "httpMethod" : "GET",
@@ -6187,6 +6203,7 @@
           "summary" : "客户登录认证",
           "description" : "客户登录认证接口，验证用户名和密码，成功后返回访问令牌",
           "deprecated" : false,
+          "priority" : "CRITICAL",
           "pageable" : false,
           "raw" : false,
           "request" : false,
@@ -6198,6 +6215,7 @@
           "authorization" : {
             "lowLimitRiskyMode" : "ANONYMOUS"
           },
+          "group" : "CUSTOMER",
           "responseEmpty" : false,
           "questions" : [ "如何进行客户登录认证？", "登录接口需要哪些参数？", "登录成功后返回什么信息？" ],
           "multipart" : false,
@@ -6215,13 +6233,14 @@
         "httpMethod" : "POST",
         "path" : "/api/auth/login",
         "description" : "客户登录认证接口，验证用户名和密码，成功后返回访问令牌",
-        "priority" : "LOW"
+        "priority" : "CRITICAL"
       }, {
         "schema" : {
           "tags" : [ "auth" ],
           "summary" : "退出登录",
           "description" : "客户退出登录接口，清除当前客户的会话信息",
           "deprecated" : false,
+          "priority" : "CRITICAL",
           "pageable" : false,
           "raw" : false,
           "request" : false,
@@ -6233,6 +6252,7 @@
           "authorization" : {
             "lowLimitRiskyMode" : "LOGIN"
           },
+          "group" : "CUSTOMER",
           "responseEmpty" : false,
           "questions" : [ "如何退出当前登录？", "登出接口的作用是什么？", "登出后需要重新登录吗？" ],
           "multipart" : false,
@@ -6244,13 +6264,13 @@
         "responseStreaming" : false,
         "requestRef" : "hope.common.adaptor.Empty",
         "responseRef" : "hope.common.adaptor.Empty",
-        "protoLine" : 33,
+        "protoLine" : 35,
         "protoColumn" : 3,
         "name" : "Logout",
         "httpMethod" : "POST",
         "path" : "/api/auth/logout",
         "description" : "客户退出登录接口，清除当前客户的会话信息",
-        "priority" : "LOW"
+        "priority" : "CRITICAL"
       } ],
       "protoFrom" : "com/apihug/rad/api/customer/api.proto",
       "protoLine" : 10,
@@ -6269,6 +6289,7 @@
           "summary" : "当前客户信息查询",
           "description" : "查询当前客户信息",
           "deprecated" : false,
+          "priority" : "LOW",
           "pageable" : false,
           "raw" : false,
           "request" : false,
@@ -6280,6 +6301,7 @@
           "authorization" : {
             "lowLimitRiskyMode" : "LOGIN"
           },
+          "group" : "CUSTOMER",
           "responseEmpty" : false,
           "questions" : [ "当前登录客户信息？", "客户有哪些角色？", "客户有哪些授权？" ],
           "multipart" : false,
@@ -6291,7 +6313,7 @@
         "responseStreaming" : false,
         "requestRef" : "hope.common.adaptor.Empty",
         "responseRef" : "com.apihug.rad.api.customer.CustomerInfo",
-        "protoLine" : 58,
+        "protoLine" : 62,
         "protoColumn" : 3,
         "name" : "Info",
         "httpMethod" : "GET",
@@ -6304,6 +6326,7 @@
           "summary" : "获取当前客户完整信息",
           "description" : "获取当前客户完整信息（包含权限、角色、部门、当前租户）",
           "deprecated" : false,
+          "priority" : "LOW",
           "pageable" : false,
           "raw" : false,
           "request" : false,
@@ -6315,6 +6338,7 @@
           "authorization" : {
             "lowLimitRiskyMode" : "LOGIN"
           },
+          "group" : "CUSTOMER",
           "responseEmpty" : false,
           "questions" : [ "当前客户有哪些权限？", "当前客户有哪些角色？", "当前客户属于哪些部门？" ],
           "multipart" : false,
@@ -6326,7 +6350,7 @@
         "responseStreaming" : false,
         "requestRef" : "hope.common.adaptor.Empty",
         "responseRef" : "com.apihug.rad.api.customer.CurrentCustomerInfo",
-        "protoLine" : 75,
+        "protoLine" : 81,
         "protoColumn" : 3,
         "name" : "GetCurrentCustomerInfo",
         "httpMethod" : "GET",
@@ -6339,6 +6363,7 @@
           "summary" : "获取客户租户列表",
           "description" : "获取客户加入的所有租户列表",
           "deprecated" : false,
+          "priority" : "LOW",
           "pageable" : false,
           "raw" : false,
           "request" : false,
@@ -6350,6 +6375,7 @@
           "authorization" : {
             "lowLimitRiskyMode" : "LOGIN"
           },
+          "group" : "CUSTOMER",
           "responseEmpty" : false,
           "multipart" : false,
           "internal" : false,
@@ -6360,7 +6386,7 @@
         "responseStreaming" : false,
         "requestRef" : "hope.common.adaptor.Empty",
         "responseRef" : "com.apihug.rad.api.customer.TenantList",
-        "protoLine" : 92,
+        "protoLine" : 100,
         "protoColumn" : 3,
         "name" : "GetCustomerTenants",
         "httpMethod" : "GET",
@@ -6373,6 +6399,7 @@
           "summary" : "切换租户",
           "description" : "切换到指定租户，重新签发 Token",
           "deprecated" : false,
+          "priority" : "MIDDLE",
           "pageable" : false,
           "raw" : false,
           "request" : false,
@@ -6384,6 +6411,7 @@
           "authorization" : {
             "lowLimitRiskyMode" : "LOGIN"
           },
+          "group" : "CUSTOMER",
           "responseEmpty" : false,
           "questions" : [ "切换租户后返回什么？", "切换租户后权限如何变化？" ],
           "multipart" : false,
@@ -6395,16 +6423,16 @@
         "responseStreaming" : false,
         "requestRef" : "com.apihug.rad.api.customer.SwitchTenantRequest",
         "responseRef" : "com.apihug.rad.api.customer.LoginResponse",
-        "protoLine" : 104,
+        "protoLine" : 114,
         "protoColumn" : 3,
         "name" : "SwitchTenant",
         "httpMethod" : "POST",
         "path" : "/api/customer/switch-tenant",
         "description" : "切换到指定租户，重新签发 Token",
-        "priority" : "LOW"
+        "priority" : "MIDDLE"
       } ],
       "protoFrom" : "com/apihug/rad/api/customer/api.proto",
-      "protoLine" : 52,
+      "protoLine" : 56,
       "protoColumn" : 1,
       "protoEntity" : "CustomerService",
       "deprecated" : false
@@ -6420,6 +6448,7 @@
           "summary" : "创建客户",
           "description" : "创建新客户",
           "deprecated" : false,
+          "priority" : "HIGH",
           "pageable" : false,
           "raw" : false,
           "request" : false,
@@ -6433,6 +6462,7 @@
               "authorities" : [ "CUSTOMER_CREATE" ]
             }
           },
+          "group" : "PLATFORM",
           "responseEmpty" : false,
           "questions" : [ "如何创建新客户？", "创建客户需要哪些信息？", "客户邮箱是否需要唯一？" ],
           "multipart" : false,
@@ -6444,19 +6474,20 @@
         "responseStreaming" : false,
         "requestRef" : "com.apihug.rad.api.customer.CreateCustomerRequest",
         "responseRef" : "com.apihug.rad.api.customer.CustomerSummary",
-        "protoLine" : 128,
+        "protoLine" : 140,
         "protoColumn" : 3,
         "name" : "CreateCustomer",
         "httpMethod" : "POST",
         "path" : "/api/customers/customers",
         "description" : "创建新客户",
-        "priority" : "LOW"
+        "priority" : "HIGH"
       }, {
         "schema" : {
           "tags" : [ "auth" ],
           "summary" : "找回密码",
           "description" : "申请找回密码（发送重置邮件）",
           "deprecated" : false,
+          "priority" : "MIDDLE",
           "pageable" : false,
           "raw" : false,
           "request" : false,
@@ -6468,6 +6499,7 @@
           "authorization" : {
             "lowLimitRiskyMode" : "ANONYMOUS"
           },
+          "group" : "CUSTOMER",
           "responseEmpty" : false,
           "questions" : [ "如何申请找回密码？", "重置邮件发送到哪里？" ],
           "multipart" : false,
@@ -6479,19 +6511,20 @@
         "responseStreaming" : false,
         "requestRef" : "com.apihug.rad.api.customer.ForgotPasswordRequest",
         "responseRef" : "hope.common.adaptor.Empty",
-        "protoLine" : 148,
+        "protoLine" : 162,
         "protoColumn" : 3,
         "name" : "ForgotPassword",
         "httpMethod" : "POST",
         "path" : "/api/customers/auth/forgot-password",
         "description" : "申请找回密码（发送重置邮件）",
-        "priority" : "LOW"
+        "priority" : "MIDDLE"
       }, {
         "schema" : {
           "tags" : [ "auth" ],
           "summary" : "重置密码",
           "description" : "重置密码（使用 token）",
           "deprecated" : false,
+          "priority" : "HIGH",
           "pageable" : false,
           "raw" : false,
           "request" : false,
@@ -6503,6 +6536,7 @@
           "authorization" : {
             "lowLimitRiskyMode" : "ANONYMOUS"
           },
+          "group" : "CUSTOMER",
           "responseEmpty" : false,
           "questions" : [ "如何重置密码？", "token 有效期多久？" ],
           "multipart" : false,
@@ -6514,16 +6548,16 @@
         "responseStreaming" : false,
         "requestRef" : "com.apihug.rad.api.customer.ResetPasswordRequest",
         "responseRef" : "hope.common.adaptor.Empty",
-        "protoLine" : 164,
+        "protoLine" : 180,
         "protoColumn" : 3,
         "name" : "ResetPassword",
         "httpMethod" : "POST",
         "path" : "/api/customers/auth/reset-password",
         "description" : "重置密码（使用 token）",
-        "priority" : "LOW"
+        "priority" : "HIGH"
       } ],
       "protoFrom" : "com/apihug/rad/api/customer/api.proto",
-      "protoLine" : 122,
+      "protoLine" : 134,
       "protoColumn" : 1,
       "protoEntity" : "CustomerManagementService",
       "deprecated" : false
@@ -6539,6 +6573,7 @@
           "summary" : "创建部门",
           "description" : "创建新部门",
           "deprecated" : false,
+          "priority" : "MIDDLE",
           "pageable" : false,
           "raw" : false,
           "request" : false,
@@ -6552,6 +6587,7 @@
               "authorities" : [ "DEPARTMENT_CREATE" ]
             }
           },
+          "group" : "TENANT",
           "responseEmpty" : false,
           "multipart" : false,
           "internal" : false,
@@ -6568,13 +6604,14 @@
         "httpMethod" : "POST",
         "path" : "/api/departments/departments",
         "description" : "创建新部门",
-        "priority" : "LOW"
+        "priority" : "MIDDLE"
       }, {
         "schema" : {
           "tags" : [ "department" ],
           "summary" : "获取部门详情",
           "description" : "获取部门详情",
           "deprecated" : false,
+          "priority" : "LOW",
           "pageable" : false,
           "raw" : false,
           "request" : false,
@@ -6595,6 +6632,7 @@
           "authorization" : {
             "lowLimitRiskyMode" : "LOGIN"
           },
+          "group" : "TENANT",
           "responseEmpty" : false,
           "multipart" : false,
           "internal" : false,
@@ -6605,7 +6643,7 @@
         "responseStreaming" : false,
         "requestRef" : "hope.common.adaptor.Empty",
         "responseRef" : "com.apihug.rad.api.department.DepartmentDetail",
-        "protoLine" : 30,
+        "protoLine" : 32,
         "protoColumn" : 3,
         "name" : "GetDepartment",
         "httpMethod" : "GET",
@@ -6618,6 +6656,7 @@
           "summary" : "更新部门",
           "description" : "更新部门信息",
           "deprecated" : false,
+          "priority" : "MIDDLE",
           "pageable" : false,
           "raw" : false,
           "request" : false,
@@ -6640,6 +6679,7 @@
               "authorities" : [ "DEPARTMENT_UPDATE" ]
             }
           },
+          "group" : "TENANT",
           "responseEmpty" : false,
           "multipart" : false,
           "internal" : false,
@@ -6650,19 +6690,20 @@
         "responseStreaming" : false,
         "requestRef" : "com.apihug.rad.api.department.UpdateDepartmentRequest",
         "responseRef" : "hope.common.adaptor.Empty",
-        "protoLine" : 52,
+        "protoLine" : 56,
         "protoColumn" : 3,
         "name" : "UpdateDepartment",
         "httpMethod" : "PUT",
         "path" : "/api/departments/departments/{departmentId}",
         "description" : "更新部门信息",
-        "priority" : "LOW"
+        "priority" : "MIDDLE"
       }, {
         "schema" : {
           "tags" : [ "department" ],
           "summary" : "删除部门",
           "description" : "删除部门（软删除）",
           "deprecated" : false,
+          "priority" : "HIGH",
           "pageable" : false,
           "raw" : false,
           "request" : false,
@@ -6685,6 +6726,7 @@
               "authorities" : [ "DEPARTMENT_DELETE" ]
             }
           },
+          "group" : "TENANT",
           "responseEmpty" : false,
           "multipart" : false,
           "internal" : false,
@@ -6695,19 +6737,20 @@
         "responseStreaming" : false,
         "requestRef" : "hope.common.adaptor.Empty",
         "responseRef" : "hope.common.adaptor.Empty",
-        "protoLine" : 76,
+        "protoLine" : 82,
         "protoColumn" : 3,
         "name" : "DeleteDepartment",
         "httpMethod" : "DELETE",
         "path" : "/api/departments/departments/{departmentId}",
         "description" : "删除部门（软删除）",
-        "priority" : "LOW"
+        "priority" : "HIGH"
       }, {
         "schema" : {
           "tags" : [ "department" ],
           "summary" : "获取部门树",
           "description" : "获取部门树形结构",
           "deprecated" : false,
+          "priority" : "LOW",
           "pageable" : false,
           "raw" : false,
           "request" : false,
@@ -6719,6 +6762,7 @@
           "authorization" : {
             "lowLimitRiskyMode" : "LOGIN"
           },
+          "group" : "TENANT",
           "responseEmpty" : false,
           "multipart" : false,
           "internal" : false,
@@ -6729,7 +6773,7 @@
         "responseStreaming" : false,
         "requestRef" : "hope.common.adaptor.Empty",
         "responseRef" : "com.apihug.rad.api.department.DepartmentTreeNode",
-        "protoLine" : 100,
+        "protoLine" : 108,
         "protoColumn" : 3,
         "name" : "GetDepartmentTree",
         "httpMethod" : "GET",
@@ -6754,6 +6798,7 @@
           "summary" : "创建菜单",
           "description" : "创建新菜单",
           "deprecated" : false,
+          "priority" : "MIDDLE",
           "pageable" : false,
           "raw" : false,
           "request" : false,
@@ -6767,6 +6812,7 @@
               "authorities" : [ "MENU_CREATE" ]
             }
           },
+          "group" : "PLATFORM",
           "responseEmpty" : false,
           "questions" : [ "如何创建新菜单？", "创建菜单需要哪些信息？", "菜单代码是否需要唯一？" ],
           "multipart" : false,
@@ -6784,13 +6830,14 @@
         "httpMethod" : "POST",
         "path" : "/api/menus/menus",
         "description" : "创建新菜单",
-        "priority" : "LOW"
+        "priority" : "MIDDLE"
       }, {
         "schema" : {
           "tags" : [ "menu" ],
           "summary" : "获取菜单详情",
           "description" : "获取菜单详情",
           "deprecated" : false,
+          "priority" : "LOW",
           "pageable" : false,
           "raw" : false,
           "request" : false,
@@ -6811,6 +6858,7 @@
           "authorization" : {
             "lowLimitRiskyMode" : "LOGIN"
           },
+          "group" : "PLATFORM",
           "responseEmpty" : false,
           "questions" : [ "如何获取菜单详情？", "菜单详情包含哪些信息？" ],
           "multipart" : false,
@@ -6822,7 +6870,7 @@
         "responseStreaming" : false,
         "requestRef" : "hope.common.adaptor.Empty",
         "responseRef" : "com.apihug.rad.api.menu.MenuDetail",
-        "protoLine" : 35,
+        "protoLine" : 37,
         "protoColumn" : 3,
         "name" : "GetMenu",
         "httpMethod" : "GET",
@@ -6835,6 +6883,7 @@
           "summary" : "更新菜单",
           "description" : "更新菜单信息",
           "deprecated" : false,
+          "priority" : "MIDDLE",
           "pageable" : false,
           "raw" : false,
           "request" : false,
@@ -6857,6 +6906,7 @@
               "authorities" : [ "MENU_UPDATE" ]
             }
           },
+          "group" : "PLATFORM",
           "responseEmpty" : false,
           "questions" : [ "如何更新菜单信息？", "哪些字段可以更新？" ],
           "multipart" : false,
@@ -6868,19 +6918,20 @@
         "responseStreaming" : false,
         "requestRef" : "com.apihug.rad.api.menu.UpdateMenuRequest",
         "responseRef" : "hope.common.adaptor.Empty",
-        "protoLine" : 61,
+        "protoLine" : 65,
         "protoColumn" : 3,
         "name" : "UpdateMenu",
         "httpMethod" : "PUT",
         "path" : "/api/menus/menus/{menuId}",
         "description" : "更新菜单信息",
-        "priority" : "LOW"
+        "priority" : "MIDDLE"
       }, {
         "schema" : {
           "tags" : [ "menu" ],
           "summary" : "删除菜单",
           "description" : "删除菜单（软删除）",
           "deprecated" : false,
+          "priority" : "HIGH",
           "pageable" : false,
           "raw" : false,
           "request" : false,
@@ -6903,6 +6954,7 @@
               "authorities" : [ "MENU_DELETE" ]
             }
           },
+          "group" : "PLATFORM",
           "responseEmpty" : false,
           "questions" : [ "如何删除菜单？", "是物理删除还是软删除？" ],
           "multipart" : false,
@@ -6914,19 +6966,20 @@
         "responseStreaming" : false,
         "requestRef" : "hope.common.adaptor.Empty",
         "responseRef" : "hope.common.adaptor.Empty",
-        "protoLine" : 89,
+        "protoLine" : 95,
         "protoColumn" : 3,
         "name" : "DeleteMenu",
         "httpMethod" : "DELETE",
         "path" : "/api/menus/menus/{menuId}",
         "description" : "删除菜单（软删除）",
-        "priority" : "LOW"
+        "priority" : "HIGH"
       }, {
         "schema" : {
           "tags" : [ "menu" ],
           "summary" : "获取菜单树",
           "description" : "获取菜单树形结构",
           "deprecated" : false,
+          "priority" : "LOW",
           "pageable" : false,
           "raw" : false,
           "request" : false,
@@ -6938,6 +6991,7 @@
           "authorization" : {
             "lowLimitRiskyMode" : "LOGIN"
           },
+          "group" : "PLATFORM",
           "responseEmpty" : false,
           "questions" : [ "如何获取菜单树？", "返回什么格式的树形结构？" ],
           "multipart" : false,
@@ -6949,7 +7003,7 @@
         "responseStreaming" : false,
         "requestRef" : "hope.common.adaptor.Empty",
         "responseRef" : "com.apihug.rad.api.menu.MenuTreeNode",
-        "protoLine" : 117,
+        "protoLine" : 125,
         "protoColumn" : 3,
         "name" : "GetMenuTree",
         "httpMethod" : "GET",
@@ -6962,6 +7016,7 @@
           "summary" : "搜索菜单",
           "description" : "搜索菜单（分页）",
           "deprecated" : false,
+          "priority" : "LOW",
           "pageable" : true,
           "raw" : false,
           "request" : false,
@@ -6975,6 +7030,7 @@
               "authorities" : [ "MENU_VIEW" ]
             }
           },
+          "group" : "PLATFORM",
           "responseEmpty" : false,
           "questions" : [ "如何搜索菜单？", "支持哪些筛选条件？", "如何分页？" ],
           "multipart" : false,
@@ -6986,7 +7042,7 @@
         "responseStreaming" : false,
         "requestRef" : "com.apihug.rad.api.menu.SearchMenusRequest",
         "responseRef" : "com.apihug.rad.api.menu.MenuSummary",
-        "protoLine" : 133,
+        "protoLine" : 143,
         "protoColumn" : 3,
         "name" : "SearchMenus",
         "httpMethod" : "POST",
@@ -7203,6 +7259,7 @@
           "summary" : "获取角色权限",
           "description" : "获取当前客户的角色权限集合",
           "deprecated" : false,
+          "priority" : "LOW",
           "pageable" : false,
           "raw" : false,
           "request" : false,
@@ -7214,6 +7271,7 @@
           "authorization" : {
             "lowLimitRiskyMode" : "LOGIN"
           },
+          "group" : "TENANT",
           "responseEmpty" : false,
           "multipart" : false,
           "internal" : false,
@@ -7237,6 +7295,7 @@
           "summary" : "获取菜单权限",
           "description" : "获取当前客户的菜单权限集合",
           "deprecated" : false,
+          "priority" : "LOW",
           "pageable" : false,
           "raw" : false,
           "request" : false,
@@ -7248,6 +7307,7 @@
           "authorization" : {
             "lowLimitRiskyMode" : "LOGIN"
           },
+          "group" : "PLATFORM",
           "responseEmpty" : false,
           "multipart" : false,
           "internal" : false,
@@ -7258,7 +7318,7 @@
         "responseStreaming" : false,
         "requestRef" : "hope.common.adaptor.Empty",
         "responseRef" : "com.apihug.rad.api.permission.PermissionInfo",
-        "protoLine" : 28,
+        "protoLine" : 30,
         "protoColumn" : 3,
         "name" : "GetMenuPermissions",
         "httpMethod" : "GET",
@@ -7271,6 +7331,7 @@
           "summary" : "获取所有权限",
           "description" : "获取当前客户的所有权限（聚合）",
           "deprecated" : false,
+          "priority" : "LOW",
           "pageable" : false,
           "raw" : false,
           "request" : false,
@@ -7282,6 +7343,7 @@
           "authorization" : {
             "lowLimitRiskyMode" : "LOGIN"
           },
+          "group" : "PLATFORM",
           "responseEmpty" : false,
           "multipart" : false,
           "internal" : false,
@@ -7292,7 +7354,7 @@
         "responseStreaming" : false,
         "requestRef" : "hope.common.adaptor.Empty",
         "responseRef" : "com.apihug.rad.api.permission.PermissionInfo",
-        "protoLine" : 41,
+        "protoLine" : 45,
         "protoColumn" : 3,
         "name" : "GetAllPermissions",
         "httpMethod" : "GET",
@@ -7317,6 +7379,7 @@
           "summary" : "获取平台成员列表",
           "description" : "获取平台成员列表，支持状态筛选和关键词搜索",
           "deprecated" : false,
+          "priority" : "MIDDLE",
           "pageable" : true,
           "raw" : false,
           "request" : false,
@@ -7332,6 +7395,7 @@
               "combinator" : "AND"
             }
           },
+          "group" : "PLATFORM",
           "responseEmpty" : false,
           "multipart" : false,
           "internal" : false,
@@ -7348,13 +7412,14 @@
         "httpMethod" : "GET",
         "path" : "/api/platforms/members",
         "description" : "获取平台成员列表，支持状态筛选和关键词搜索",
-        "priority" : "LOW"
+        "priority" : "MIDDLE"
       }, {
         "schema" : {
           "tags" : [ "platform-member" ],
           "summary" : "添加平台成员",
           "description" : "将指定客户添加为平台成员，并设置平台角色",
           "deprecated" : false,
+          "priority" : "MIDDLE",
           "pageable" : false,
           "raw" : false,
           "request" : false,
@@ -7370,6 +7435,7 @@
               "combinator" : "AND"
             }
           },
+          "group" : "PLATFORM",
           "responseEmpty" : false,
           "multipart" : false,
           "internal" : false,
@@ -7380,19 +7446,20 @@
         "responseStreaming" : false,
         "requestRef" : "com.apihug.rad.api.platform.AddPlatformMemberRequest",
         "responseRef" : "hope.common.adaptor.Empty",
-        "protoLine" : 33,
+        "protoLine" : 35,
         "protoColumn" : 3,
         "name" : "AddPlatformMember",
         "httpMethod" : "POST",
         "path" : "/api/platforms/members",
         "description" : "将指定客户添加为平台成员，并设置平台角色",
-        "priority" : "LOW"
+        "priority" : "MIDDLE"
       }, {
         "schema" : {
           "tags" : [ "platform-member" ],
           "summary" : "移除平台成员",
           "description" : "移除平台成员，同时重置客户的 platform_type 为 NA。OWNER 角色不允许被移除",
           "deprecated" : false,
+          "priority" : "HIGH",
           "pageable" : false,
           "raw" : false,
           "request" : false,
@@ -7417,6 +7484,7 @@
               "combinator" : "AND"
             }
           },
+          "group" : "PLATFORM",
           "responseEmpty" : false,
           "multipart" : false,
           "internal" : false,
@@ -7427,19 +7495,20 @@
         "responseStreaming" : false,
         "requestRef" : "hope.common.adaptor.Empty",
         "responseRef" : "hope.common.adaptor.Empty",
-        "protoLine" : 49,
+        "protoLine" : 53,
         "protoColumn" : 3,
         "name" : "RemovePlatformMember",
         "httpMethod" : "DELETE",
         "path" : "/api/platforms/members/{memberId}",
         "description" : "移除平台成员，同时重置客户的 platform_type 为 NA。OWNER 角色不允许被移除",
-        "priority" : "LOW"
+        "priority" : "HIGH"
       }, {
         "schema" : {
           "tags" : [ "platform-member" ],
           "summary" : "冻结/解冻平台成员",
           "description" : "切换平台成员冻结状态：PM_ACTIVE ↔ PM_LOCKED",
           "deprecated" : false,
+          "priority" : "MIDDLE",
           "pageable" : false,
           "raw" : false,
           "request" : false,
@@ -7464,6 +7533,7 @@
               "combinator" : "AND"
             }
           },
+          "group" : "PLATFORM",
           "responseEmpty" : false,
           "multipart" : false,
           "internal" : false,
@@ -7474,19 +7544,20 @@
         "responseStreaming" : false,
         "requestRef" : "hope.common.adaptor.Empty",
         "responseRef" : "hope.common.adaptor.Empty",
-        "protoLine" : 75,
+        "protoLine" : 81,
         "protoColumn" : 3,
         "name" : "TogglePlatformMemberFreeze",
         "httpMethod" : "POST",
         "path" : "/api/platforms/members/{memberId}/toggle-freeze",
         "description" : "切换平台成员冻结状态：PM_ACTIVE ↔ PM_LOCKED",
-        "priority" : "LOW"
+        "priority" : "MIDDLE"
       }, {
         "schema" : {
           "tags" : [ "platform-member" ],
           "summary" : "更新平台成员角色",
           "description" : "更新平台成员的平台角色（MEMBER/MANAGER/OWNER），并同步更新 CustomerEntity.platform_type",
           "deprecated" : false,
+          "priority" : "MIDDLE",
           "pageable" : false,
           "raw" : false,
           "request" : false,
@@ -7511,6 +7582,7 @@
               "combinator" : "AND"
             }
           },
+          "group" : "PLATFORM",
           "responseEmpty" : false,
           "multipart" : false,
           "internal" : false,
@@ -7521,13 +7593,13 @@
         "responseStreaming" : false,
         "requestRef" : "com.apihug.rad.api.platform.UpdatePlatformMemberRoleRequest",
         "responseRef" : "hope.common.adaptor.Empty",
-        "protoLine" : 102,
+        "protoLine" : 109,
         "protoColumn" : 3,
         "name" : "UpdatePlatformMemberRole",
         "httpMethod" : "PUT",
         "path" : "/api/platforms/members/{memberId}/role",
         "description" : "更新平台成员的平台角色（MEMBER/MANAGER/OWNER），并同步更新 CustomerEntity.platform_type",
-        "priority" : "LOW"
+        "priority" : "MIDDLE"
       } ],
       "protoFrom" : "com/apihug/rad/api/platform/api.proto",
       "protoLine" : 10,
@@ -7546,6 +7618,7 @@
           "summary" : "创建角色",
           "description" : "创建新角色",
           "deprecated" : false,
+          "priority" : "MIDDLE",
           "pageable" : false,
           "raw" : false,
           "request" : false,
@@ -7559,6 +7632,7 @@
               "authorities" : [ "ROLE_CREATE" ]
             }
           },
+          "group" : "TENANT",
           "responseEmpty" : false,
           "questions" : [ "如何创建新角色？", "创建角色需要哪些信息？", "角色代码是否需要唯一？" ],
           "multipart" : false,
@@ -7576,13 +7650,14 @@
         "httpMethod" : "POST",
         "path" : "/api/roles/roles",
         "description" : "创建新角色",
-        "priority" : "LOW"
+        "priority" : "MIDDLE"
       }, {
         "schema" : {
           "tags" : [ "role" ],
           "summary" : "获取角色详情",
           "description" : "获取角色详情",
           "deprecated" : false,
+          "priority" : "LOW",
           "pageable" : false,
           "raw" : false,
           "request" : false,
@@ -7603,6 +7678,7 @@
           "authorization" : {
             "lowLimitRiskyMode" : "LOGIN"
           },
+          "group" : "TENANT",
           "responseEmpty" : false,
           "questions" : [ "如何获取角色详情？", "角色详情包含哪些信息？" ],
           "multipart" : false,
@@ -7614,7 +7690,7 @@
         "responseStreaming" : false,
         "requestRef" : "hope.common.adaptor.Empty",
         "responseRef" : "com.apihug.rad.api.role.RoleDetail",
-        "protoLine" : 35,
+        "protoLine" : 37,
         "protoColumn" : 3,
         "name" : "GetRole",
         "httpMethod" : "GET",
@@ -7627,6 +7703,7 @@
           "summary" : "更新角色",
           "description" : "更新角色信息",
           "deprecated" : false,
+          "priority" : "MIDDLE",
           "pageable" : false,
           "raw" : false,
           "request" : false,
@@ -7649,6 +7726,7 @@
               "authorities" : [ "ROLE_UPDATE" ]
             }
           },
+          "group" : "TENANT",
           "responseEmpty" : false,
           "questions" : [ "如何更新角色信息？", "哪些字段可以更新？" ],
           "multipart" : false,
@@ -7660,19 +7738,20 @@
         "responseStreaming" : false,
         "requestRef" : "com.apihug.rad.api.role.UpdateRoleRequest",
         "responseRef" : "hope.common.adaptor.Empty",
-        "protoLine" : 61,
+        "protoLine" : 65,
         "protoColumn" : 3,
         "name" : "UpdateRole",
         "httpMethod" : "PUT",
         "path" : "/api/roles/roles/{roleId}",
         "description" : "更新角色信息",
-        "priority" : "LOW"
+        "priority" : "MIDDLE"
       }, {
         "schema" : {
           "tags" : [ "role" ],
           "summary" : "删除角色",
           "description" : "删除角色（软删除）",
           "deprecated" : false,
+          "priority" : "HIGH",
           "pageable" : false,
           "raw" : false,
           "request" : false,
@@ -7695,6 +7774,7 @@
               "authorities" : [ "ROLE_DELETE" ]
             }
           },
+          "group" : "TENANT",
           "responseEmpty" : false,
           "questions" : [ "如何删除角色？", "是物理删除还是软删除？" ],
           "multipart" : false,
@@ -7706,19 +7786,20 @@
         "responseStreaming" : false,
         "requestRef" : "hope.common.adaptor.Empty",
         "responseRef" : "hope.common.adaptor.Empty",
-        "protoLine" : 89,
+        "protoLine" : 95,
         "protoColumn" : 3,
         "name" : "DeleteRole",
         "httpMethod" : "DELETE",
         "path" : "/api/roles/roles/{roleId}",
         "description" : "删除角色（软删除）",
-        "priority" : "LOW"
+        "priority" : "HIGH"
       }, {
         "schema" : {
           "tags" : [ "role" ],
           "summary" : "搜索角色",
           "description" : "搜索角色（分页）",
           "deprecated" : false,
+          "priority" : "LOW",
           "pageable" : true,
           "raw" : false,
           "request" : false,
@@ -7732,6 +7813,7 @@
               "authorities" : [ "ROLE_VIEW" ]
             }
           },
+          "group" : "TENANT",
           "responseEmpty" : false,
           "questions" : [ "如何搜索角色？", "支持哪些筛选条件？", "如何分页？" ],
           "multipart" : false,
@@ -7743,7 +7825,7 @@
         "responseStreaming" : false,
         "requestRef" : "com.apihug.rad.api.role.SearchRolesRequest",
         "responseRef" : "com.apihug.rad.api.role.RoleSummary",
-        "protoLine" : 117,
+        "protoLine" : 125,
         "protoColumn" : 3,
         "name" : "SearchRoles",
         "httpMethod" : "POST",
@@ -7756,6 +7838,7 @@
           "summary" : "分配菜单给角色",
           "description" : "为角色分配菜单（全量覆盖，菜单中 BUTTON 类型的 permission_code 即为权限）",
           "deprecated" : false,
+          "priority" : "MIDDLE",
           "pageable" : false,
           "raw" : false,
           "request" : false,
@@ -7778,6 +7861,7 @@
               "authorities" : [ "ROLE_ASSIGN_PERMISSION" ]
             }
           },
+          "group" : "TENANT",
           "responseEmpty" : false,
           "questions" : [ "如何为角色分配菜单？", "分配菜单后权限如何生效？" ],
           "multipart" : false,
@@ -7789,19 +7873,20 @@
         "responseStreaming" : false,
         "requestRef" : "com.apihug.rad.api.role.AssignMenusRequest",
         "responseRef" : "hope.common.adaptor.Empty",
-        "protoLine" : 137,
+        "protoLine" : 147,
         "protoColumn" : 3,
         "name" : "AssignMenusToRole",
         "httpMethod" : "POST",
         "path" : "/api/roles/roles/{roleId}/menus",
         "description" : "为角色分配菜单（全量覆盖，菜单中 BUTTON 类型的 permission_code 即为权限）",
-        "priority" : "LOW"
+        "priority" : "MIDDLE"
       }, {
         "schema" : {
           "tags" : [ "role" ],
           "summary" : "移除角色菜单",
           "description" : "移除角色的某个菜单关联",
           "deprecated" : false,
+          "priority" : "HIGH",
           "pageable" : false,
           "raw" : false,
           "request" : false,
@@ -7832,6 +7917,7 @@
               "authorities" : [ "ROLE_ASSIGN_PERMISSION" ]
             }
           },
+          "group" : "TENANT",
           "responseEmpty" : false,
           "multipart" : false,
           "internal" : false,
@@ -7842,19 +7928,20 @@
         "responseStreaming" : false,
         "requestRef" : "hope.common.adaptor.Empty",
         "responseRef" : "hope.common.adaptor.Empty",
-        "protoLine" : 165,
+        "protoLine" : 177,
         "protoColumn" : 3,
         "name" : "RemoveMenuFromRole",
         "httpMethod" : "DELETE",
         "path" : "/api/roles/roles/{roleId}/menus/{menuId}",
         "description" : "移除角色的某个菜单关联",
-        "priority" : "LOW"
+        "priority" : "HIGH"
       }, {
         "schema" : {
           "tags" : [ "role" ],
           "summary" : "获取角色菜单",
           "description" : "获取角色关联的菜单列表（含权限代码）",
           "deprecated" : false,
+          "priority" : "LOW",
           "pageable" : false,
           "raw" : false,
           "request" : false,
@@ -7875,6 +7962,7 @@
           "authorization" : {
             "lowLimitRiskyMode" : "LOGIN"
           },
+          "group" : "TENANT",
           "responseEmpty" : false,
           "multipart" : false,
           "internal" : false,
@@ -7885,7 +7973,7 @@
         "responseStreaming" : false,
         "requestRef" : "hope.common.adaptor.Empty",
         "responseRef" : "com.apihug.rad.api.role.RoleMenuSummary",
-        "protoLine" : 197,
+        "protoLine" : 211,
         "protoColumn" : 3,
         "name" : "GetRoleMenus",
         "httpMethod" : "GET",
@@ -7910,6 +7998,7 @@
           "summary" : "创建租户",
           "description" : "创建新租户",
           "deprecated" : false,
+          "priority" : "HIGH",
           "pageable" : false,
           "raw" : false,
           "request" : false,
@@ -7925,6 +8014,7 @@
               "combinator" : "AND"
             }
           },
+          "group" : "PLATFORM",
           "responseEmpty" : false,
           "multipart" : false,
           "internal" : false,
@@ -7941,13 +8031,14 @@
         "httpMethod" : "POST",
         "path" : "/api/tenants/tenants",
         "description" : "创建新租户",
-        "priority" : "LOW"
+        "priority" : "HIGH"
       }, {
         "schema" : {
           "tags" : [ "tenant" ],
           "summary" : "获取租户详情",
           "description" : "获取租户详情",
           "deprecated" : false,
+          "priority" : "LOW",
           "pageable" : false,
           "raw" : false,
           "request" : false,
@@ -7968,6 +8059,7 @@
           "authorization" : {
             "lowLimitRiskyMode" : "LOGIN"
           },
+          "group" : "PLATFORM",
           "responseEmpty" : false,
           "multipart" : false,
           "internal" : false,
@@ -7978,7 +8070,7 @@
         "responseStreaming" : false,
         "requestRef" : "hope.common.adaptor.Empty",
         "responseRef" : "com.apihug.rad.api.tenant.TenantDetail",
-        "protoLine" : 31,
+        "protoLine" : 33,
         "protoColumn" : 3,
         "name" : "GetTenant",
         "httpMethod" : "GET",
@@ -7991,6 +8083,7 @@
           "summary" : "更新租户",
           "description" : "更新租户信息",
           "deprecated" : false,
+          "priority" : "MIDDLE",
           "pageable" : false,
           "raw" : false,
           "request" : false,
@@ -8013,6 +8106,7 @@
               "authorities" : [ "TENANT_UPDATE" ]
             }
           },
+          "group" : "PLATFORM",
           "responseEmpty" : false,
           "multipart" : false,
           "internal" : false,
@@ -8023,19 +8117,20 @@
         "responseStreaming" : false,
         "requestRef" : "com.apihug.rad.api.tenant.UpdateTenantRequest",
         "responseRef" : "hope.common.adaptor.Empty",
-        "protoLine" : 53,
+        "protoLine" : 57,
         "protoColumn" : 3,
         "name" : "UpdateTenant",
         "httpMethod" : "PUT",
         "path" : "/api/tenants/tenants/{tenantId}",
         "description" : "更新租户信息",
-        "priority" : "LOW"
+        "priority" : "MIDDLE"
       }, {
         "schema" : {
           "tags" : [ "tenant" ],
           "summary" : "停用租户",
           "description" : "停用租户",
           "deprecated" : false,
+          "priority" : "HIGH",
           "pageable" : false,
           "raw" : false,
           "request" : false,
@@ -8058,6 +8153,7 @@
               "authorities" : [ "TENANT_DISABLE" ]
             }
           },
+          "group" : "PLATFORM",
           "responseEmpty" : false,
           "multipart" : false,
           "internal" : false,
@@ -8068,19 +8164,20 @@
         "responseStreaming" : false,
         "requestRef" : "hope.common.adaptor.Empty",
         "responseRef" : "hope.common.adaptor.Empty",
-        "protoLine" : 77,
+        "protoLine" : 83,
         "protoColumn" : 3,
         "name" : "DisableTenant",
         "httpMethod" : "DELETE",
         "path" : "/api/tenants/tenants/{tenantId}/disable",
         "description" : "停用租户",
-        "priority" : "LOW"
+        "priority" : "HIGH"
       }, {
         "schema" : {
           "tags" : [ "tenant" ],
           "summary" : "配置租户",
           "description" : "配置租户功能",
           "deprecated" : false,
+          "priority" : "MIDDLE",
           "pageable" : false,
           "raw" : false,
           "request" : false,
@@ -8103,6 +8200,7 @@
               "authorities" : [ "TENANT_CONFIGURE" ]
             }
           },
+          "group" : "PLATFORM",
           "responseEmpty" : false,
           "multipart" : false,
           "internal" : false,
@@ -8113,19 +8211,20 @@
         "responseStreaming" : false,
         "requestRef" : "com.apihug.rad.api.tenant.ConfigureTenantRequest",
         "responseRef" : "hope.common.adaptor.Empty",
-        "protoLine" : 101,
+        "protoLine" : 109,
         "protoColumn" : 3,
         "name" : "ConfigureTenant",
         "httpMethod" : "POST",
         "path" : "/api/tenants/tenants/{tenantId}/configure",
         "description" : "配置租户功能",
-        "priority" : "LOW"
+        "priority" : "MIDDLE"
       }, {
         "schema" : {
           "tags" : [ "tenant" ],
           "summary" : "搜索租户",
           "description" : "搜索租户（分页）",
           "deprecated" : false,
+          "priority" : "LOW",
           "pageable" : true,
           "raw" : false,
           "request" : false,
@@ -8139,6 +8238,7 @@
               "authorities" : [ "TENANT_CREATE" ]
             }
           },
+          "group" : "PLATFORM",
           "responseEmpty" : false,
           "multipart" : false,
           "internal" : false,
@@ -8149,7 +8249,7 @@
         "responseStreaming" : false,
         "requestRef" : "com.apihug.rad.api.tenant.SearchTenantsRequest",
         "responseRef" : "com.apihug.rad.api.tenant.TenantSummary",
-        "protoLine" : 125,
+        "protoLine" : 135,
         "protoColumn" : 3,
         "name" : "SearchTenants",
         "httpMethod" : "POST",
@@ -8174,6 +8274,7 @@
           "summary" : "获取租户成员",
           "description" : "获取租户成员列表",
           "deprecated" : false,
+          "priority" : "LOW",
           "pageable" : true,
           "raw" : false,
           "request" : false,
@@ -8196,6 +8297,7 @@
               "authorities" : [ "TENANT_MEMBER_VIEW" ]
             }
           },
+          "group" : "TENANT",
           "responseEmpty" : false,
           "multipart" : false,
           "internal" : false,
@@ -8219,6 +8321,7 @@
           "summary" : "添加租户成员",
           "description" : "添加客户为租户成员",
           "deprecated" : false,
+          "priority" : "MIDDLE",
           "pageable" : false,
           "raw" : false,
           "request" : false,
@@ -8241,6 +8344,7 @@
               "authorities" : [ "TENANT_MEMBER_ADD" ]
             }
           },
+          "group" : "TENANT",
           "responseEmpty" : false,
           "multipart" : false,
           "internal" : false,
@@ -8251,19 +8355,20 @@
         "responseStreaming" : false,
         "requestRef" : "com.apihug.rad.api.tenant.AddTenantMemberRequest",
         "responseRef" : "hope.common.adaptor.Empty",
-        "protoLine" : 42,
+        "protoLine" : 44,
         "protoColumn" : 3,
         "name" : "AddMemberToTenant",
         "httpMethod" : "POST",
         "path" : "/api/tenant-members/tenants/{tenantId}/members",
         "description" : "添加客户为租户成员",
-        "priority" : "LOW"
+        "priority" : "MIDDLE"
       }, {
         "schema" : {
           "tags" : [ "tenant-member" ],
           "summary" : "移除租户成员",
           "description" : "从租户移除成员",
           "deprecated" : false,
+          "priority" : "HIGH",
           "pageable" : false,
           "raw" : false,
           "request" : false,
@@ -8294,6 +8399,7 @@
               "authorities" : [ "TENANT_MEMBER_REMOVE" ]
             }
           },
+          "group" : "TENANT",
           "responseEmpty" : false,
           "multipart" : false,
           "internal" : false,
@@ -8304,19 +8410,20 @@
         "responseStreaming" : false,
         "requestRef" : "hope.common.adaptor.Empty",
         "responseRef" : "hope.common.adaptor.Empty",
-        "protoLine" : 66,
+        "protoLine" : 70,
         "protoColumn" : 3,
         "name" : "RemoveMemberFromTenant",
         "httpMethod" : "DELETE",
         "path" : "/api/tenant-members/tenants/{tenantId}/members/{memberId}",
         "description" : "从租户移除成员",
-        "priority" : "LOW"
+        "priority" : "HIGH"
       }, {
         "schema" : {
           "tags" : [ "tenant-member" ],
           "summary" : "切换成员锁定状态",
           "description" : "锁定/解锁租户成员",
           "deprecated" : false,
+          "priority" : "MIDDLE",
           "pageable" : false,
           "raw" : false,
           "request" : false,
@@ -8347,6 +8454,7 @@
               "authorities" : [ "TENANT_MEMBER_LOCK" ]
             }
           },
+          "group" : "TENANT",
           "responseEmpty" : false,
           "multipart" : false,
           "internal" : false,
@@ -8357,19 +8465,20 @@
         "responseStreaming" : false,
         "requestRef" : "hope.common.adaptor.Empty",
         "responseRef" : "hope.common.adaptor.Empty",
-        "protoLine" : 98,
+        "protoLine" : 104,
         "protoColumn" : 3,
         "name" : "ToggleMemberLock",
         "httpMethod" : "POST",
         "path" : "/api/tenant-members/tenants/{tenantId}/members/{memberId}/toggle-lock",
         "description" : "锁定/解锁租户成员",
-        "priority" : "LOW"
+        "priority" : "MIDDLE"
       }, {
         "schema" : {
           "tags" : [ "tenant-member" ],
           "summary" : "更新成员角色",
           "description" : "更新成员在租户中的角色（拥有者/管理员/普通成员）",
           "deprecated" : false,
+          "priority" : "MIDDLE",
           "pageable" : false,
           "raw" : false,
           "request" : false,
@@ -8400,6 +8509,7 @@
               "authorities" : [ "TENANT_MEMBER_ASSIGN_ROLE" ]
             }
           },
+          "group" : "TENANT",
           "responseEmpty" : false,
           "multipart" : false,
           "internal" : false,
@@ -8410,19 +8520,20 @@
         "responseStreaming" : false,
         "requestRef" : "com.apihug.rad.api.tenant.UpdateMemberRoleRequest",
         "responseRef" : "hope.common.adaptor.Empty",
-        "protoLine" : 130,
+        "protoLine" : 138,
         "protoColumn" : 3,
         "name" : "UpdateMemberRole",
         "httpMethod" : "PUT",
         "path" : "/api/tenant-members/tenants/{tenantId}/members/{memberId}/role",
         "description" : "更新成员在租户中的角色（拥有者/管理员/普通成员）",
-        "priority" : "LOW"
+        "priority" : "MIDDLE"
       }, {
         "schema" : {
           "tags" : [ "tenant-member" ],
           "summary" : "分配成员部门",
           "description" : "将成员分配到指定部门",
           "deprecated" : false,
+          "priority" : "MIDDLE",
           "pageable" : false,
           "raw" : false,
           "request" : false,
@@ -8453,6 +8564,7 @@
               "authorities" : [ "TENANT_MEMBER_ASSIGN_ROLE" ]
             }
           },
+          "group" : "TENANT",
           "responseEmpty" : false,
           "multipart" : false,
           "internal" : false,
@@ -8463,19 +8575,20 @@
         "responseStreaming" : false,
         "requestRef" : "com.apihug.rad.api.tenant.AssignMemberDepartmentRequest",
         "responseRef" : "hope.common.adaptor.Empty",
-        "protoLine" : 162,
+        "protoLine" : 172,
         "protoColumn" : 3,
         "name" : "AssignMemberDepartment",
         "httpMethod" : "PUT",
         "path" : "/api/tenant-members/tenants/{tenantId}/members/{memberId}/department",
         "description" : "将成员分配到指定部门",
-        "priority" : "LOW"
+        "priority" : "MIDDLE"
       }, {
         "schema" : {
           "tags" : [ "tenant-member" ],
           "summary" : "获取成员详情",
           "description" : "获取租户成员详细信息（含客户账号信息和成员身份信息）",
           "deprecated" : false,
+          "priority" : "LOW",
           "pageable" : false,
           "raw" : false,
           "request" : false,
@@ -8506,6 +8619,7 @@
               "authorities" : [ "TENANT_MEMBER_VIEW" ]
             }
           },
+          "group" : "TENANT",
           "responseEmpty" : false,
           "questions" : [ "如何获取成员详情？", "成员详情包含哪些信息？" ],
           "multipart" : false,
@@ -8517,7 +8631,7 @@
         "responseStreaming" : false,
         "requestRef" : "hope.common.adaptor.Empty",
         "responseRef" : "com.apihug.rad.api.tenant.TenantMemberDetail",
-        "protoLine" : 194,
+        "protoLine" : 206,
         "protoColumn" : 3,
         "name" : "GetMemberDetail",
         "httpMethod" : "GET",
@@ -8530,6 +8644,7 @@
           "summary" : "设置默认租户",
           "description" : "将指定租户设为客户的默认租户",
           "deprecated" : false,
+          "priority" : "MIDDLE",
           "pageable" : false,
           "raw" : false,
           "request" : false,
@@ -8550,6 +8665,7 @@
           "authorization" : {
             "lowLimitRiskyMode" : "LOGIN"
           },
+          "group" : "CUSTOMER",
           "responseEmpty" : false,
           "multipart" : false,
           "internal" : false,
@@ -8560,19 +8676,20 @@
         "responseStreaming" : false,
         "requestRef" : "hope.common.adaptor.Empty",
         "responseRef" : "hope.common.adaptor.Empty",
-        "protoLine" : 230,
+        "protoLine" : 244,
         "protoColumn" : 3,
         "name" : "SetDefaultTenant",
         "httpMethod" : "POST",
         "path" : "/api/tenant-members/tenants/{tenantId}/set-default",
         "description" : "将指定租户设为客户的默认租户",
-        "priority" : "LOW"
+        "priority" : "MIDDLE"
       }, {
         "schema" : {
           "tags" : [ "tenant-member" ],
           "summary" : "分配成员角色",
           "description" : "为租户成员分配 RBAC 角色（全量覆盖，替换已有角色）",
           "deprecated" : false,
+          "priority" : "MIDDLE",
           "pageable" : false,
           "raw" : false,
           "request" : false,
@@ -8603,6 +8720,7 @@
               "authorities" : [ "TENANT_MEMBER_ASSIGN_ROLE" ]
             }
           },
+          "group" : "TENANT",
           "responseEmpty" : false,
           "multipart" : false,
           "internal" : false,
@@ -8613,19 +8731,20 @@
         "responseStreaming" : false,
         "requestRef" : "com.apihug.rad.api.tenant.AssignRolesRequest",
         "responseRef" : "hope.common.adaptor.Empty",
-        "protoLine" : 252,
+        "protoLine" : 268,
         "protoColumn" : 3,
         "name" : "AssignRolesToMember",
         "httpMethod" : "POST",
         "path" : "/api/tenant-members/tenants/{tenantId}/members/{memberId}/roles",
         "description" : "为租户成员分配 RBAC 角色（全量覆盖，替换已有角色）",
-        "priority" : "LOW"
+        "priority" : "MIDDLE"
       }, {
         "schema" : {
           "tags" : [ "tenant-member" ],
           "summary" : "获取成员角色",
           "description" : "获取租户成员的 RBAC 角色列表",
           "deprecated" : false,
+          "priority" : "LOW",
           "pageable" : false,
           "raw" : false,
           "request" : false,
@@ -8656,6 +8775,7 @@
               "authorities" : [ "TENANT_MEMBER_VIEW" ]
             }
           },
+          "group" : "TENANT",
           "responseEmpty" : false,
           "multipart" : false,
           "internal" : false,
@@ -8666,7 +8786,7 @@
         "responseStreaming" : false,
         "requestRef" : "hope.common.adaptor.Empty",
         "responseRef" : "com.apihug.rad.api.tenant.MemberRoleSummary",
-        "protoLine" : 284,
+        "protoLine" : 302,
         "protoColumn" : 3,
         "name" : "GetMemberRoles",
         "httpMethod" : "GET",
@@ -8679,6 +8799,7 @@
           "summary" : "移除成员角色",
           "description" : "移除租户成员的某个 RBAC 角色",
           "deprecated" : false,
+          "priority" : "HIGH",
           "pageable" : false,
           "raw" : false,
           "request" : false,
@@ -8717,6 +8838,7 @@
               "authorities" : [ "TENANT_MEMBER_ASSIGN_ROLE" ]
             }
           },
+          "group" : "TENANT",
           "responseEmpty" : false,
           "multipart" : false,
           "internal" : false,
@@ -8727,13 +8849,13 @@
         "responseStreaming" : false,
         "requestRef" : "hope.common.adaptor.Empty",
         "responseRef" : "hope.common.adaptor.Empty",
-        "protoLine" : 316,
+        "protoLine" : 336,
         "protoColumn" : 3,
         "name" : "RemoveRoleFromMember",
         "httpMethod" : "DELETE",
         "path" : "/api/tenant-members/tenants/{tenantId}/members/{memberId}/roles/{roleId}",
         "description" : "移除租户成员的某个 RBAC 角色",
-        "priority" : "LOW"
+        "priority" : "HIGH"
       } ],
       "protoFrom" : "com/apihug/rad/api/tenant/member.proto",
       "protoLine" : 11,

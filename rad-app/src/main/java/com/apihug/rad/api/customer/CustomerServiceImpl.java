@@ -107,11 +107,8 @@ public class CustomerServiceImpl implements CustomerService {
    */
   @Override
   public void getCurrentCustomerInfo(SimpleResultBuilder<CurrentCustomerInfo> builder) {
-
-    // TODO this is current customer:
-    RadCustomer contextCustomer = HopeContextHolder.customer();
-
-    Long customerId = contextCustomer.getId();
+    RadCustomer current = HopeContextHolder.customer();
+    Long customerId = current.getId();
 
     CustomerEntity customer =
         customerRepository
@@ -143,7 +140,7 @@ public class CustomerServiceImpl implements CustomerService {
     List<String> authorityList = new ArrayList<>();
     DepartmentInfo departmentInfo = null;
 
-    Long currentTenantId = contextCustomer.getTenantId();
+    Long currentTenantId = current.getTenantId();
 
     if (customer.getDefaultTenantId() != null && customer.getDefaultTenantId() > 0) {
       java.util.Optional<TenantMemberEntity> memberOpt =
@@ -305,7 +302,6 @@ public class CustomerServiceImpl implements CustomerService {
     customer.setDefaultTenantId(targetTenantId);
     customerRepository.save(customer);
 
-    // TODO no need to pick here
     // 4. 解析权限并重新生成 JWT Token（包含新租户 ID + 新权限）
     Set<String> roles = permissionResolver.resolveRoles(customer.getId(), targetTenantId);
     Set<String> authorities =

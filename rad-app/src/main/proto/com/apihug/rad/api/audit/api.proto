@@ -18,6 +18,8 @@ service AccessLogService {
       description: "查询访问日志";
       summary: "分页查询HTTP访问审计日志";
       tags: "access-log";
+      priority: LOW;
+      group: PLATFORM
       authorization: {
         low_limit_risky_mode: LOGIN
       };
@@ -37,6 +39,8 @@ service AccessLogService {
       description: "获取访问统计";
       summary: "获取访问日志统计概览";
       tags: "access-log";
+      priority: LOW;
+      group: PLATFORM
       authorization: {
         low_limit_risky_mode: LOGIN
       };

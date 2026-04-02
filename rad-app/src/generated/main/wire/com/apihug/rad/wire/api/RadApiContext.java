@@ -913,7 +913,7 @@ public class RadApiContext extends ApiContext<RadApiContext> {
       }
 
       /**
-       * Include UpdatePlatformMemberRole : 更新平台成员角色
+       * Include UpdatePlatformMemberRole
        */
       public final PlatformService UpdatePlatformMemberRole() {
         PlatformService.this.include("UpdatePlatformMemberRole");
@@ -921,7 +921,7 @@ public class RadApiContext extends ApiContext<RadApiContext> {
       }
 
       /**
-       * Exclude UpdatePlatformMemberRole : 更新平台成员角色
+       * Exclude UpdatePlatformMemberRole
        */
       public final PlatformService _UpdatePlatformMemberRole() {
         PlatformService.this.exclude("UpdatePlatformMemberRole");

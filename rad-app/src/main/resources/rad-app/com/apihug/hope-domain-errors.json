@@ -1,7 +1,7 @@
 {
   "domain" : "rad",
   "version" : "0.1.1-SNAPSHOT",
-  "lastBuildTime" : "2026-03-26 20:21:43",
+  "lastBuildTime" : "2026-04-01 19:55:58",
   "errors" : [ {
     "name" : "AuthErrorEnum",
     "javaClass" : "com.apihug.rad.infra.auth.AuthErrorEnum",
@@ -380,6 +380,16 @@
       "tips" : "Contact your tenant administrator",
       "phase" : "DOMAIN",
       "severity" : "WARN"
+    }, {
+      "code" : 10007004,
+      "title" : "MEMBER_TENANT_ACCESS_DENIED",
+      "description" : "Access denied: member does not belong to the specified tenant",
+      "description2" : "越权访问：该成员不属于当前租户",
+      "deprecated" : false,
+      "tips" : "The member belongs to a different tenant and cannot be accessed here",
+      "phase" : "DOMAIN",
+      "severity" : "WARN",
+      "httpStatus" : "FORBIDDEN"
     } ]
   } ]
 }

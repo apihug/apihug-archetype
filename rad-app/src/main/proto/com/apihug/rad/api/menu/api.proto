@@ -19,6 +19,8 @@ service MenuService {
       description: "创建新菜单";
       summary: "创建菜单";
       tags: "menu";
+      priority: MIDDLE;
+      group: PLATFORM
       authorization: {
         rbac: {
           authorities: ["MENU_CREATE"];
@@ -38,6 +40,8 @@ service MenuService {
       description: "获取菜单详情";
       summary: "获取菜单详情";
       tags: "menu";
+      priority: LOW;
+      group: PLATFORM
       authorization: {
         low_limit_risky_mode: LOGIN
       };
@@ -64,6 +68,8 @@ service MenuService {
       description: "更新菜单信息";
       summary: "更新菜单";
       tags: "menu";
+      priority: MIDDLE;
+      group: PLATFORM
       authorization: {
         rbac: {
           authorities: ["MENU_UPDATE"];
@@ -92,6 +98,8 @@ service MenuService {
       description: "删除菜单（软删除）";
       summary: "删除菜单";
       tags: "menu";
+      priority: HIGH;
+      group: PLATFORM
       authorization: {
         rbac: {
           authorities: ["MENU_DELETE"];
@@ -120,6 +128,8 @@ service MenuService {
       description: "获取菜单树形结构";
       summary: "获取菜单树";
       tags: "menu";
+      priority: LOW;
+      group: PLATFORM
       authorization: {
         low_limit_risky_mode: LOGIN
       };
@@ -136,6 +146,8 @@ service MenuService {
       description: "搜索菜单（分页）";
       summary: "搜索菜单";
       tags: "menu";
+      priority: LOW;
+      group: PLATFORM
       authorization: {
         rbac: {
           authorities: ["MENU_VIEW"];

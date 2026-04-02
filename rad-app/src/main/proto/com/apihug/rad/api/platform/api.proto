@@ -20,6 +20,8 @@ service PlatformService {
       summary: "获取平台成员列表";
       tags: "platform-member";
       pageable: true;
+      priority: MIDDLE;
+      group: PLATFORM
       authorization: {
         rbac: {
           authorities: ["PLATFORM_MEMBER_VIEW"];
@@ -36,6 +38,8 @@ service PlatformService {
       description: "将指定客户添加为平台成员，并设置平台角色";
       summary: "添加平台成员";
       tags: "platform-member";
+      priority: MIDDLE;
+      group: PLATFORM
       authorization: {
         rbac: {
           authorities: ["PLATFORM_MEMBER_ADD"];
@@ -52,6 +56,8 @@ service PlatformService {
       description: "移除平台成员，同时重置客户的 platform_type 为 NA。OWNER 角色不允许被移除";
       summary: "移除平台成员";
       tags: "platform-member";
+      priority: HIGH;
+      group: PLATFORM
       authorization: {
         rbac: {
           authorities: ["PLATFORM_MEMBER_REMOVE"];
@@ -78,6 +84,8 @@ service PlatformService {
       description: "切换平台成员冻结状态：PM_ACTIVE ↔ PM_LOCKED";
       summary: "冻结/解冻平台成员";
       tags: "platform-member";
+      priority: MIDDLE;
+      group: PLATFORM
       authorization: {
         rbac: {
           authorities: ["PLATFORM_MEMBER_FREEZE"];
@@ -104,6 +112,8 @@ service PlatformService {
       description: "更新平台成员的平台角色（MEMBER/MANAGER/OWNER），并同步更新 CustomerEntity.platform_type";
       summary: "更新平台成员角色";
       tags: "platform-member";
+      priority: MIDDLE;
+      group: PLATFORM
       authorization: {
         rbac: {
           authorities: ["PLATFORM_MEMBER_UPDATE_ROLE"];

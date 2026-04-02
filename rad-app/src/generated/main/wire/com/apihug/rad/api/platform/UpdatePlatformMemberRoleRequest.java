@@ -11,7 +11,6 @@ import javax.annotation.Generated;
 
 /**
  * 更新平台成员角色请求
- * 更新平台成员角色请求
  */
 @Generated("H.O.P.E. Infra Team")
 @ProtoFrom(

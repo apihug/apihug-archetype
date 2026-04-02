@@ -125,4 +125,16 @@ enum TenantMemberErrorEnum {
       severity: WARN
     }
   }];
+
+  MEMBER_TENANT_ACCESS_DENIED = 3 [(hope.constant.field) = {
+    code: 10007004,
+    message: "Access denied: member does not belong to the specified tenant",
+    message2: "越权访问：该成员不属于当前租户",
+    error: {
+      tips: "The member belongs to a different tenant and cannot be accessed here",
+      http_status: FORBIDDEN,
+      phase: DOMAIN,
+      severity: WARN
+    }
+  }];
 }
