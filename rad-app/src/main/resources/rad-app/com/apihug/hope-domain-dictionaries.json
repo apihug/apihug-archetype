@@ -1,7 +1,7 @@
 {
   "domain" : "rad",
   "version" : "0.1.1-SNAPSHOT",
-  "lastBuildTime" : "2026-04-02 08:56:22",
+  "lastBuildTime" : "2026-04-02 10:22:28",
   "dictionaries" : [ {
     "name" : "CustomerPlatformTypeEnum",
     "javaClass" : "com.apihug.rad.infra.customer.CustomerPlatformTypeEnum",

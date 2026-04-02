@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
  */
 @Template(type = Template.Type.SERVICE, usage = "In-memory reset token store for dev environment", percentage = 100)
 @Component
-@Profile("dev")
+@Profile({"dev", "test"})
 public class InMemoryResetTokenStore implements ResetTokenStore {
 
   private final ConcurrentHashMap<String, TokenEntry> store = new ConcurrentHashMap<>();
