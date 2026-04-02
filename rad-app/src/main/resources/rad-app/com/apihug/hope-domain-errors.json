@@ -1,7 +1,7 @@
 {
   "domain" : "rad",
   "version" : "0.1.1-SNAPSHOT",
-  "lastBuildTime" : "2026-04-01 19:55:58",
+  "lastBuildTime" : "2026-04-02 08:56:22",
   "errors" : [ {
     "name" : "AuthErrorEnum",
     "javaClass" : "com.apihug.rad.infra.auth.AuthErrorEnum",
