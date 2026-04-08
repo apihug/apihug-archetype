@@ -27,6 +27,7 @@ import org.mockito.MockedStatic;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -74,13 +75,15 @@ class CustomerServiceImplTest {
     private SimpleResultBuilder<LoginResponse> loginResponseBuilder;
 
     private CustomerServiceImpl service;
+    @Mock
+    private SimpleResultBuilder<String> stringBuilder;
+
+    // ========== info ==========
 
     @BeforeEach
     void setUp() {
         service = new CustomerServiceImpl(customerRepository, tenantMemberRepository, tenantRepository, jwtCustomizer, permissionResolver, memberRoleRepository, roleRepository, departmentRepository);
     }
-
-    // ========== info ==========
 
     @Test
     @DisplayName("查询当前客户信息 - 成功")
@@ -108,6 +111,8 @@ class CustomerServiceImplTest {
         }
     }
 
+    // ========== getCurrentCustomerInfo ==========
+
     @Test
     @DisplayName("查询当前客户信息 - 客户不存在")
     void testInfo_NotFound() {
@@ -122,8 +127,6 @@ class CustomerServiceImplTest {
                 service.info(customerInfoBuilder));
         }
     }
-
-    // ========== getCurrentCustomerInfo ==========
 
     @Test
     @DisplayName("获取客户完整信息 - 含租户信息")
@@ -161,6 +164,8 @@ class CustomerServiceImplTest {
         }
     }
 
+    // ========== getCustomerTenants ==========
+
     @Test
     @DisplayName("获取客户完整信息 - 无租户")
     void testGetCurrentCustomerInfo_NoTenant() {
@@ -185,8 +190,6 @@ class CustomerServiceImplTest {
             assertNull(info.getCurrentTenant());
         }
     }
-
-    // ========== getCustomerTenants ==========
 
     @Test
     @DisplayName("获取客户租户列表 - 成功")
@@ -221,6 +224,8 @@ class CustomerServiceImplTest {
         }
     }
 
+    // ========== switchTenant ==========
+
     @Test
     @DisplayName("获取客户租户列表 - 空列表")
     void testGetCustomerTenants_Empty() {
@@ -229,7 +234,7 @@ class CustomerServiceImplTest {
             when(mockCustomer.getId()).thenReturn(100L);
             holderMock.when(HopeContextHolder::customer).thenReturn(mockCustomer);
 
-            when(tenantMemberRepository.findByCustomerId(100L)).thenReturn(Arrays.asList());
+            when(tenantMemberRepository.findByCustomerId(100L)).thenReturn(List.of());
 
             service.getCustomerTenants(tenantListBuilder);
 
@@ -240,8 +245,6 @@ class CustomerServiceImplTest {
             assertEquals(0L, list.getDefaultTenantId());
         }
     }
-
-    // ========== switchTenant ==========
 
     @Test
     @DisplayName("切换租户 - 成功")
@@ -361,6 +364,70 @@ class CustomerServiceImplTest {
             assertThrows(HopeErrorDetailException.class, () ->
                 service.switchTenant(loginResponseBuilder, request));
             verify(jwtCustomizer, never()).encode(any());
+        }
+    }
+
+    // ========== setDefaultTenant ==========
+
+    @Test
+    @DisplayName("设置默认租户 - 成功")
+    void testSetDefaultTenant_Success() {
+        Integer tenantId = 2;
+
+        TenantMemberEntity currentDefault = new TenantMemberEntity()
+                .setId(1L)
+                .setCustomerId(100L)
+                .setTenantId(1L)
+                .setIsDefault(true);
+
+        TenantMemberEntity targetMember = new TenantMemberEntity()
+                .setId(2L)
+                .setCustomerId(100L)
+                .setTenantId(2L)
+                .setIsDefault(false);
+
+        CustomerEntity customer = new CustomerEntity()
+                .setId(100L)
+                .setDefaultTenantId(1L);
+
+        try (MockedStatic<HopeContextHolder> holderMock = mockStatic(HopeContextHolder.class)) {
+            Customer mockCustomer = mock(Customer.class);
+            when(mockCustomer.getId()).thenReturn(100L);
+            holderMock.when(HopeContextHolder::customer).thenReturn(mockCustomer);
+
+            when(tenantMemberRepository.findByCustomerIdAndTenantId(100L, 2L))
+                    .thenReturn(Optional.of(targetMember));
+            when(tenantMemberRepository.findByCustomerIdAndIsDefault(100L, true))
+                    .thenReturn(Optional.of(currentDefault));
+            when(tenantMemberRepository.save(any(TenantMemberEntity.class)))
+                    .thenAnswer(inv -> inv.getArgument(0));
+            when(customerRepository.findById(100L)).thenReturn(Optional.of(customer));
+            when(customerRepository.save(any(CustomerEntity.class)))
+                    .thenAnswer(inv -> inv.getArgument(0));
+
+            service.setDefaultTenant(stringBuilder, tenantId);
+
+            assertFalse(currentDefault.getIsDefault());
+            assertTrue(targetMember.getIsDefault());
+            assertEquals(2L, customer.getDefaultTenantId());
+        }
+    }
+
+    @Test
+    @DisplayName("设置默认租户 - 不是该租户成员")
+    void testSetDefaultTenant_NotMember() {
+        Integer tenantId = 999;
+
+        try (MockedStatic<HopeContextHolder> holderMock = mockStatic(HopeContextHolder.class)) {
+            Customer mockCustomer = mock(Customer.class);
+            when(mockCustomer.getId()).thenReturn(100L);
+            holderMock.when(HopeContextHolder::customer).thenReturn(mockCustomer);
+
+            when(tenantMemberRepository.findByCustomerIdAndTenantId(100L, 999L))
+                    .thenReturn(Optional.empty());
+
+            assertThrows(HopeErrorDetailException.class, () ->
+                    service.setDefaultTenant(stringBuilder, tenantId));
         }
     }
 }

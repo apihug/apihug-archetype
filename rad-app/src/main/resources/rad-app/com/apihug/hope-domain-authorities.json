@@ -1,7 +1,7 @@
 {
   "domain" : "rad",
   "version" : "0.1.1-SNAPSHOT",
-  "lastBuildTime" : "2026-04-02 20:54:00",
+  "lastBuildTime" : "2026-04-08 17:37:44",
   "codeOffset" : 10240000,
   "javaClass" : "com.apihug.rad.infra.settings.RadAuthorityEnum",
   "deprecated" : false,

@@ -1,5 +1,5 @@
 // @formatter:off
-package com.apihug.rad.api.tenant;
+package com.apihug.rad.api.platform;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import hope.common.meta.annotation.Kind;
@@ -19,7 +19,7 @@ import javax.annotation.Generated;
  */
 @Generated("H.O.P.E. Infra Team")
 @ProtoFrom(
-    value = "com/apihug/rad/api/tenant/api.proto",
+    value = "com/apihug/rad/api/platform/tenant.proto",
     entity = "ConfigureTenantRequest",
     kind = Kind.MESSAGE
 )

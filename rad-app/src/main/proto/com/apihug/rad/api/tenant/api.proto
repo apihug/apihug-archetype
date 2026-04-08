@@ -4,67 +4,29 @@ package com.apihug.rad.api.tenant;
 
 import "apihug/protobuf/swagger/annotations.proto";
 import "google/protobuf/empty.proto";
-import "com/apihug/rad/infra/tenant/constant.proto";
+import "com/apihug/rad/infra/tenant/member_constant.proto";
+import "com/apihug/rad/infra/customer/constant.proto";
 
-service TenantService {
+
+service TenantMemberService {
   option (hope.swagger.svc) = {
     path: "/tenants",
-    description: "租户管理服务，提供租户 CRUD 和配置功能"
+    description: "租户成员管理服务，提供成员与租户关系管理功能"
   };
 
-  rpc CreateTenant (CreateTenantRequest) returns (TenantSummary) {
+  rpc GetTenantMembers (GetTenantMembersRequest) returns (TenantMemberSummary) {
     option (hope.swagger.operation) = {
-      post: "/tenants";
-      description: "创建新租户";
-      summary: "创建租户";
-      tags: "tenant";
-      priority: HIGH;
-      group: PLATFORM
-      authorization: {
-        rbac: {
-          authorities: ["TENANT_CREATE"];
-          combinator: AND
-          predefined_role_checker: PLATFORM
-        }
-      };
-    };
-  }
-
-  rpc GetTenant (google.protobuf.Empty) returns (TenantDetail) {
-    option (hope.swagger.operation) = {
-      get: "/tenants/{tenantId}";
-      description: "获取租户详情";
-      summary: "获取租户详情";
-      tags: "tenant";
+      get: "/tenants/{tenantId}/members";
+      description: "获取租户成员列表";
+      summary: "获取租户成员";
+      tags: "tenant-member";
       priority: LOW;
-      group: PLATFORM
-      authorization: {
-        low_limit_risky_mode: LOGIN
-      };
-      parameters: {
-        parameter: {
-          name: "tenantId";
-          in: PATH;
-          schema: {
-            format: LONG;
-            empty: false;
-          };
-        };
-      };
-    };
-  }
-
-  rpc UpdateTenant (UpdateTenantRequest) returns (google.protobuf.Empty) {
-    option (hope.swagger.operation) = {
-      put: "/tenants/{tenantId}";
-      description: "更新租户信息";
-      summary: "更新租户";
-      tags: "tenant";
-      priority: MIDDLE;
-      group: PLATFORM
+      group: TENANT
       authorization: {
         rbac: {
-          authorities: ["TENANT_UPDATE"];
+          authorities: ["TENANT_MEMBER_VIEW"];
+          combinator: OR
+          predefined_role_checker: TENANT_MANAGER
         }
       };
       parameters: {
@@ -76,332 +38,655 @@ service TenantService {
             empty: false;
           };
         };
-      };
-    };
-  }
-
-  rpc DisableTenant (google.protobuf.Empty) returns (google.protobuf.Empty) {
-    option (hope.swagger.operation) = {
-      delete: "/tenants/{tenantId}/disable";
-      description: "停用租户";
-      summary: "停用租户";
-      tags: "tenant";
-      priority: HIGH;
-      group: PLATFORM
-      authorization: {
-        rbac: {
-          authorities: ["TENANT_DISABLE"];
-        }
-      };
-      parameters: {
-        parameter: {
-          name: "tenantId";
-          in: PATH;
-          schema: {
-            format: INTEGER;
-            empty: false;
-          };
-        };
-      };
-    };
-  }
-
-  rpc ConfigureTenant (ConfigureTenantRequest) returns (google.protobuf.Empty) {
-    option (hope.swagger.operation) = {
-      post: "/tenants/{tenantId}/configure";
-      description: "配置租户功能";
-      summary: "配置租户";
-      tags: "tenant";
-      priority: MIDDLE;
-      group: PLATFORM
-      authorization: {
-        rbac: {
-          authorities: ["TENANT_CONFIGURE"];
-        }
-      };
-      parameters: {
-        parameter: {
-          name: "tenantId";
-          in: PATH;
-          schema: {
-            format: INTEGER;
-            empty: false;
-          };
-        };
-      };
-    };
-  }
-
-  rpc SearchTenants (SearchTenantsRequest) returns (TenantSummary) {
-    option (hope.swagger.operation) = {
-      post: "/tenants/search";
-      description: "搜索租户（分页）";
-      summary: "搜索租户";
-      tags: "tenant";
-      priority: LOW;
-      group: PLATFORM
-      authorization: {
-        rbac: {
-          authorities: ["TENANT_CREATE"];
-        }
       };
       pageable: true;
     };
   }
+
+  rpc AddMemberToTenant (AddTenantMemberRequest) returns (google.protobuf.Empty) {
+    option (hope.swagger.operation) = {
+      post: "/tenants/{tenantId}/members";
+      description: "添加客户为租户成员";
+      summary: "添加租户成员";
+      tags: "tenant-member";
+      priority: MIDDLE;
+      group: TENANT
+      authorization: {
+        rbac: {
+          authorities: ["TENANT_MEMBER_ADD"];
+          combinator: OR
+          predefined_role_checker: TENANT_MANAGER
+        }
+      };
+      parameters: {
+        parameter: {
+          name: "tenantId";
+          in: PATH;
+          schema: {
+            format: INTEGER;
+            empty: false;
+          };
+        };
+      };
+    };
+  }
+
+  rpc RemoveMemberFromTenant (google.protobuf.Empty) returns (google.protobuf.Empty) {
+    option (hope.swagger.operation) = {
+      delete: "/tenants/{tenantId}/members/{memberId}";
+      description: "从租户移除成员";
+      summary: "移除租户成员";
+      tags: "tenant-member";
+      priority: HIGH;
+      group: TENANT
+      authorization: {
+        rbac: {
+          authorities: ["TENANT_MEMBER_REMOVE"];
+          combinator: OR
+          predefined_role_checker: TENANT_MANAGER
+        }
+      };
+      parameters: {
+        parameter: {
+          name: "tenantId";
+          in: PATH;
+          schema: {
+            format: INTEGER;
+            empty: false;
+          };
+        };
+        parameter: {
+          name: "memberId";
+          in: PATH;
+          schema: {
+            format: INTEGER;
+            empty: false;
+          };
+        };
+      };
+    };
+  }
+
+  rpc ToggleMemberLock (google.protobuf.Empty) returns (google.protobuf.Empty) {
+    option (hope.swagger.operation) = {
+      post: "/tenants/{tenantId}/members/{memberId}/toggle-lock";
+      description: "锁定/解锁租户成员";
+      summary: "切换成员锁定状态";
+      tags: "tenant-member";
+      priority: MIDDLE;
+      group: TENANT
+      authorization: {
+        rbac: {
+          authorities: ["TENANT_MEMBER_LOCK"];
+          combinator: OR
+          predefined_role_checker: TENANT_MANAGER
+        }
+      };
+      parameters: {
+        parameter: {
+          name: "tenantId";
+          in: PATH;
+          schema: {
+            format: INTEGER;
+            empty: false;
+          };
+        };
+        parameter: {
+          name: "memberId";
+          in: PATH;
+          schema: {
+            format: INTEGER;
+            empty: false;
+          };
+        };
+      };
+    };
+  }
+
+  rpc UpdateMemberRole (UpdateMemberRoleRequest) returns (google.protobuf.Empty) {
+    option (hope.swagger.operation) = {
+      put: "/tenants/{tenantId}/members/{memberId}/role";
+      description: "更新成员在租户中的角色（拥有者/管理员/普通成员）";
+      summary: "更新成员角色";
+      tags: "tenant-member";
+      priority: MIDDLE;
+      group: TENANT
+      authorization: {
+        rbac: {
+          authorities: ["TENANT_MEMBER_ASSIGN_ROLE"];
+          combinator: OR
+          predefined_role_checker: TENANT_MANAGER
+        }
+      };
+      parameters: {
+        parameter: {
+          name: "tenantId";
+          in: PATH;
+          schema: {
+            format: INTEGER;
+            empty: false;
+          };
+        };
+        parameter: {
+          name: "memberId";
+          in: PATH;
+          schema: {
+            format: INTEGER;
+            empty: false;
+          };
+        };
+      };
+    };
+  }
+
+  rpc AssignMemberDepartment (AssignMemberDepartmentRequest) returns (google.protobuf.Empty) {
+    option (hope.swagger.operation) = {
+      put: "/tenants/{tenantId}/members/{memberId}/department";
+      description: "将成员分配到指定部门";
+      summary: "分配成员部门";
+      tags: "tenant-member";
+      priority: MIDDLE;
+      group: TENANT
+      authorization: {
+        rbac: {
+          authorities: ["TENANT_MEMBER_ASSIGN_ROLE"];
+          combinator: OR
+          predefined_role_checker: TENANT_MANAGER
+        }
+      };
+      parameters: {
+        parameter: {
+          name: "tenantId";
+          in: PATH;
+          schema: {
+            format: INTEGER;
+            empty: false;
+          };
+        };
+        parameter: {
+          name: "memberId";
+          in: PATH;
+          schema: {
+            format: INTEGER;
+            empty: false;
+          };
+        };
+      };
+    };
+  }
+
+  rpc GetMemberDetail (google.protobuf.Empty) returns (TenantMemberDetail) {
+    option (hope.swagger.operation) = {
+      get: "/tenants/{tenantId}/members/{memberId}/detail";
+      description: "获取租户成员详细信息（含客户账号信息和成员身份信息）";
+      summary: "获取成员详情";
+      tags: "tenant-member";
+      priority: LOW;
+      group: TENANT
+      authorization: {
+        rbac: {
+          authorities: ["TENANT_MEMBER_VIEW"];
+          combinator: OR
+          predefined_role_checker: TENANT_MANAGER
+        }
+      };
+      parameters: {
+        parameter: {
+          name: "tenantId";
+          in: PATH;
+          schema: {
+            format: INTEGER;
+            empty: false;
+          };
+        };
+        parameter: {
+          name: "memberId";
+          in: PATH;
+          schema: {
+            format: INTEGER;
+            empty: false;
+          };
+        };
+      };
+      questions: [
+        "如何获取成员详情？",
+        "成员详情包含哪些信息？"
+      ];
+    };
+  }
+
+
+  rpc AssignRolesToMember (AssignRolesRequest) returns (google.protobuf.Empty) {
+    option (hope.swagger.operation) = {
+      post: "/tenants/{tenantId}/members/{memberId}/roles";
+      description: "为租户成员分配 RBAC 角色（全量覆盖，替换已有角色）";
+      summary: "分配成员角色";
+      tags: "tenant-member";
+      priority: MIDDLE;
+      group: TENANT
+      authorization: {
+        rbac: {
+          authorities: ["TENANT_MEMBER_ASSIGN_ROLE"];
+          combinator: OR
+          predefined_role_checker: TENANT_MANAGER
+        }
+      };
+      parameters: {
+        parameter: {
+          name: "tenantId";
+          in: PATH;
+          schema: {
+            format: INTEGER;
+            empty: false;
+          };
+        };
+        parameter: {
+          name: "memberId";
+          in: PATH;
+          schema: {
+            format: INTEGER;
+            empty: false;
+          };
+        };
+      };
+    };
+  }
+
+  rpc GetMemberRoles (google.protobuf.Empty) returns (MemberRoleSummary) {
+    option (hope.swagger.operation) = {
+      get: "/tenants/{tenantId}/members/{memberId}/roles";
+      description: "获取租户成员的 RBAC 角色列表";
+      summary: "获取成员角色";
+      tags: "tenant-member";
+      priority: LOW;
+      group: TENANT
+      authorization: {
+        rbac: {
+          authorities: ["TENANT_MEMBER_VIEW"];
+          combinator: OR
+          predefined_role_checker: TENANT_MANAGER
+        }
+      };
+      parameters: {
+        parameter: {
+          name: "tenantId";
+          in: PATH;
+          schema: {
+            format: INTEGER;
+            empty: false;
+          };
+        };
+        parameter: {
+          name: "memberId";
+          in: PATH;
+          schema: {
+            format: INTEGER;
+            empty: false;
+          };
+        };
+      };
+    };
+  }
+
+  rpc RemoveRoleFromMember (google.protobuf.Empty) returns (google.protobuf.Empty) {
+    option (hope.swagger.operation) = {
+      delete: "/tenants/{tenantId}/members/{memberId}/roles/{roleId}";
+      description: "移除租户成员的某个 RBAC 角色";
+      summary: "移除成员角色";
+      tags: "tenant-member";
+      priority: HIGH;
+      group: TENANT
+      authorization: {
+        rbac: {
+          authorities: ["TENANT_MEMBER_ASSIGN_ROLE"];
+          combinator: OR
+          predefined_role_checker: TENANT_MANAGER
+        }
+      };
+      parameters: {
+        parameter: {
+          name: "tenantId";
+          in: PATH;
+          schema: {
+            format: INTEGER;
+            empty: false;
+          };
+        };
+        parameter: {
+          name: "memberId";
+          in: PATH;
+          schema: {
+            format: INTEGER;
+            empty: false;
+          };
+        };
+        parameter: {
+          name: "roleId";
+          in: PATH;
+          schema: {
+            format: INTEGER;
+            empty: false;
+          };
+        };
+      };
+    };
+  }
 }
 
-message CreateTenantRequest {
+
+message GetTenantMembersRequest {
   option (hope.swagger.schema) = {
     json_schema: {
-      title: "CreateTenantRequest";
-      description: "创建租户请求";
+      title: "GetTenantMembersRequest";
+      description: "获取租户成员列表请求";
     };
   };
 
-  string tenant_code = 1 [(hope.swagger.field) = {
-    description: "租户代码";
-    example: "acme_corp";
-    empty: false;
-    max_length: 50;
-    mock: {nature: NAME};
-  }];
-
-  string tenant_name = 2 [(hope.swagger.field) = {
-    description: "租户名称";
-    example: "Acme 公司";
-    empty: false;
-    max_length: 100;
-    mock: {nature: NAME};
-  }];
-
-  string contact_email = 3 [(hope.swagger.field) = {
-    description: "联系人邮箱";
-    example: "contact@acme.com";
-    empty: false;
-    max_length: 100;
-    mock: {nature: EMAIL};
-  }];
-
-  string contact_phone = 4 [(hope.swagger.field) = {
-    description: "联系人电话";
-    example: "13800138000";
-    max_length: 20;
-    mock: {nature: PHONE};
-  }];
-
-  com.apihug.rad.infra.tenant.TenantStatusEnum status = 5 [(hope.swagger.field) = {
-    description: "租户状态";
+  com.apihug.rad.infra.tenant.TenantMemberStatusEnum status = 1 [(hope.swagger.field) = {
+    description: "成员状态筛选";
     example: "ACTIVE";
-    empty: false;
   }];
 
-  bool is_platform = 6 [(hope.swagger.field) = {
-    description: "是否为平台租户";
-    example: "false";
+  com.apihug.rad.infra.tenant.MemberRoleEnum member_role = 2 [(hope.swagger.field) = {
+    description: "成员角色筛选";
   }];
 
-  string description = 7 [(hope.swagger.field) = {
-    description: "租户描述";
-    example: "企业管理平台";
-    max_length: 500;
+  string keyword = 3 [(hope.swagger.field) = {
+    description: "搜索关键词（用户名或邮箱）";
+    example: "zhangsan";
   }];
 }
 
-message UpdateTenantRequest {
+message AddTenantMemberRequest {
   option (hope.swagger.schema) = {
     json_schema: {
-      title: "UpdateTenantRequest";
-      description: "更新租户请求";
+      title: "AddTenantMemberRequest";
+      description: "添加租户成员请求";
     };
   };
 
-  string tenant_name = 1 [(hope.swagger.field) = {
-    description: "租户名称";
-    example: "Acme 公司";
-    empty: false;
-    max_length: 100;
-    mock: {nature: NAME};
-  }];
-
-  string contact_email = 2 [(hope.swagger.field) = {
-    description: "联系人邮箱";
-    example: "contact@acme.com";
-    empty: false;
-    max_length: 100;
-    mock: {nature: EMAIL};
-  }];
-
-  string contact_phone = 3 [(hope.swagger.field) = {
-    description: "联系人电话";
-    example: "13800138000";
-    max_length: 20;
-    mock: {nature: PHONE};
-  }];
-
-  com.apihug.rad.infra.tenant.TenantStatusEnum status = 4 [(hope.swagger.field) = {
-    description: "租户状态";
-    example: "ACTIVE";
-    empty: false;
-  }];
-}
-
-message ConfigureTenantRequest {
-  option (hope.swagger.schema) = {
-    json_schema: {
-      title: "ConfigureTenantRequest";
-      description: "配置租户请求";
-    };
-  };
-
-  int32 max_members = 1 [(hope.swagger.field) = {
-    description: "最大成员数";
-    example: "100";
-    minimum: 1;
-  }];
-
-  int64 max_storage_mb = 2 [(hope.swagger.field) = {
-    description: "最大存储空间（MB）";
-    example: "10240";
-    minimum: 1;
-  }];
-
-  repeated string enabled_modules = 3 [(hope.swagger.field) = {
-    description: "启用的功能模块";
-    example: "[\"user\", \"role\", \"menu\", \"department\"]";
-  }];
-
-  string expiry_date = 4 [(hope.swagger.field) = {
-    description: "到期时间";
-    example: "2025-12-31T23:59:59";
-    date_format: ISO_LOCAL_DATE_TIME;
-  }];
-}
-
-message TenantSummary {
-  option (hope.swagger.schema) = {
-    json_schema: {
-      title: "TenantSummary";
-      description: "租户摘要信息";
-    };
-  };
-
-  int64 id = 1 [(hope.swagger.field) = {
-    description: "租户 ID";
+  int64 customer_id = 1 [(hope.swagger.field) = {
+    description: "客户 ID";
     example: "1";
     empty: false;
     minimum: 1;
   }];
 
-  string tenant_code = 2 [(hope.swagger.field) = {
-    description: "租户代码";
-    example: "acme_corp";
-    empty: false;
-    mock: {nature: NAME};
+  int64 department_id = 2 [(hope.swagger.field) = {
+    description: "部门 ID";
+    example: "1";
   }];
 
-  string tenant_name = 3 [(hope.swagger.field) = {
-    description: "租户名称";
-    example: "Acme 公司";
-    empty: false;
-    mock: {nature: NAME};
+  string position = 3 [(hope.swagger.field) = {
+    description: "职位";
+    example: "软件工程师";
+    max_length: 100;
   }];
 
-  com.apihug.rad.infra.tenant.TenantStatusEnum status = 4 [(hope.swagger.field) = {
-    description: "租户状态";
-    example: "ACTIVE";
+  com.apihug.rad.infra.tenant.MemberTypeEnum member_type = 4 [(hope.swagger.field) = {
+    description: "成员类型";
+    example: "FULL_TIME";
+  }];
+
+  com.apihug.rad.infra.tenant.MemberRoleEnum member_role = 5 [(hope.swagger.field) = {
+    description: "成员角色";
+    example: "MEMBER";
+  }];
+
+  bool is_default = 6 [(hope.swagger.field) = {
+    description: "是否设为默认租户";
+    example: "false";
+  }];
+}
+
+message UpdateMemberRoleRequest {
+  option (hope.swagger.schema) = {
+    json_schema: {
+      title: "UpdateMemberRoleRequest";
+      description: "更新成员角色请求";
+    };
+  };
+
+  com.apihug.rad.infra.tenant.MemberRoleEnum member_role = 1 [(hope.swagger.field) = {
+    description: "新角色";
+    example: "ADMIN";
     empty: false;
   }];
 }
 
-message TenantDetail {
+message AssignMemberDepartmentRequest {
   option (hope.swagger.schema) = {
     json_schema: {
-      title: "TenantDetail";
-      description: "租户详情信息";
+      title: "AssignMemberDepartmentRequest";
+      description: "分配成员部门请求";
     };
   };
 
-  int64 id = 1 [(hope.swagger.field) = {
-    description: "租户 ID";
+  int64 department_id = 1 [(hope.swagger.field) = {
+    description: "部门 ID";
     example: "1";
     empty: false;
     minimum: 1;
   }];
 
-  string tenant_code = 2 [(hope.swagger.field) = {
-    description: "租户代码";
-    example: "acme_corp";
-    empty: false;
-    mock: {nature: NAME};
+  string position = 2 [(hope.swagger.field) = {
+    description: "新职位";
+    example: "技术经理";
+    max_length: 100;
+  }];
+}
+
+message TenantMemberSummary {
+  option (hope.swagger.schema) = {
+    json_schema: {
+      title: "TenantMemberSummary";
+      description: "租户成员摘要";
+    };
+  };
+
+  int64 id = 1 [(hope.swagger.field) = {
+    description: "成员关系 ID";
+    example: "1";
   }];
 
-  string tenant_name = 3 [(hope.swagger.field) = {
+  int64 customer_id = 2 [(hope.swagger.field) = {
+    description: "客户 ID";
+    example: "1";
+  }];
+
+  string customer_username = 3 [(hope.swagger.field) = {
+    description: "客户用户名";
+    example: "zhangsan";
+  }];
+
+  string customer_email = 4 [(hope.swagger.field) = {
+    description: "客户邮箱";
+    example: "zhangsan@example.com";
+  }];
+
+  int64 tenant_id = 5 [(hope.swagger.field) = {
+    description: "租户 ID";
+    example: "1";
+  }];
+
+  string tenant_name = 6 [(hope.swagger.field) = {
     description: "租户名称";
     example: "Acme 公司";
-    empty: false;
-    mock: {nature: NAME};
   }];
 
-  string contact_email = 4 [(hope.swagger.field) = {
-    description: "联系人邮箱";
-    example: "contact@acme.com";
-    mock: {nature: EMAIL};
+  int64 department_id = 7 [(hope.swagger.field) = {
+    description: "部门 ID";
+    example: "1";
   }];
 
-  string contact_phone = 5 [(hope.swagger.field) = {
-    description: "联系人电话";
-    example: "13800138000";
-    mock: {nature: PHONE};
+  string position = 8 [(hope.swagger.field) = {
+    description: "职位";
+    example: "软件工程师";
   }];
 
-  com.apihug.rad.infra.tenant.TenantStatusEnum status = 6 [(hope.swagger.field) = {
-    description: "租户状态";
+  com.apihug.rad.infra.tenant.MemberTypeEnum member_type = 9 [(hope.swagger.field) = {
+    description: "成员类型";
+    example: "FULL_TIME";
+  }];
+
+  com.apihug.rad.infra.tenant.MemberRoleEnum member_role = 10 [(hope.swagger.field) = {
+    description: "成员角色";
+    example: "MEMBER";
+  }];
+
+  com.apihug.rad.infra.tenant.TenantMemberStatusEnum status = 11 [(hope.swagger.field) = {
+    description: "成员状态";
     example: "ACTIVE";
-    empty: false;
   }];
 
-  int32 max_members = 7 [(hope.swagger.field) = {
-    description: "最大成员数";
-    example: "100";
+  bool is_default = 12 [(hope.swagger.field) = {
+    description: "是否默认租户";
+    example: "false";
+  }];
+}
+
+message TenantMemberDetail {
+  option (hope.swagger.schema) = {
+    json_schema: {
+      title: "TenantMemberDetail";
+      description: "租户成员详情信息";
+    };
+  };
+
+  int64 id = 1 [(hope.swagger.field) = {
+    description: "成员关系 ID";
+    example: "1";
   }];
 
-  int64 max_storage_mb = 8 [(hope.swagger.field) = {
-    description: "最大存储空间（MB）";
-    example: "10240";
+  int64 customer_id = 2 [(hope.swagger.field) = {
+    description: "客户 ID";
+    example: "1";
   }];
 
-  bool is_platform = 9 [(hope.swagger.field) = {
-    description: "是否为平台租户";
+  int64 tenant_id = 3 [(hope.swagger.field) = {
+    description: "租户 ID";
+    example: "1";
+  }];
+
+  string customer_username = 4 [(hope.swagger.field) = {
+    description: "客户用户名";
+    example: "zhangsan";
+  }];
+
+  string customer_email = 5 [(hope.swagger.field) = {
+    description: "客户邮箱";
+    example: "zhangsan@example.com";
+  }];
+
+  com.apihug.rad.infra.customer.CustomerStatusEnum customer_status = 6 [(hope.swagger.field) = {
+    description: "客户账号状态";
+    example: "ACTIVE";
+  }];
+
+  string tenant_name = 7 [(hope.swagger.field) = {
+    description: "租户名称";
+    example: "Acme 公司";
+  }];
+
+  string tenant_code = 8 [(hope.swagger.field) = {
+    description: "租户代码";
+    example: "acme_corp";
+  }];
+
+  com.apihug.rad.infra.tenant.MemberTypeEnum member_type = 9 [(hope.swagger.field) = {
+    description: "成员类型";
+    example: "FULL_TIME";
+  }];
+
+  com.apihug.rad.infra.tenant.MemberRoleEnum member_role = 10 [(hope.swagger.field) = {
+    description: "成员角色";
+    example: "MEMBER";
+  }];
+
+  com.apihug.rad.infra.tenant.TenantMemberStatusEnum status = 11 [(hope.swagger.field) = {
+    description: "成员状态";
+    example: "ACTIVE";
+  }];
+
+  int64 department_id = 12 [(hope.swagger.field) = {
+    description: "部门 ID";
+    example: "1";
+  }];
+
+  string position = 13 [(hope.swagger.field) = {
+    description: "职位";
+    example: "软件工程师";
+  }];
+
+  bool is_default = 14 [(hope.swagger.field) = {
+    description: "是否默认租户";
     example: "false";
   }];
 
-  string description = 10 [(hope.swagger.field) = {
-    description: "租户描述";
-    example: "企业管理平台";
-  }];
-
-  string created_at = 11 [(hope.swagger.field) = {
-    description: "创建时间";
+  string created_at = 15 [(hope.swagger.field) = {
+    description: "加入时间";
     example: "2024-01-15T10:30:00";
     date_format: ISO_LOCAL_DATE_TIME;
   }];
 }
 
-message SearchTenantsRequest {
+message AssignRolesRequest {
   option (hope.swagger.schema) = {
     json_schema: {
-      title: "SearchTenantsRequest";
-      description: "搜索租户请求";
+      title: "AssignRolesRequest";
+      description: "分配 RBAC 角色请求（全量覆盖）";
     };
   };
 
-  string keyword = 1 [(hope.swagger.field) = {
-    description: "搜索关键词（租户名称或代码）";
-    example: "acme";
+  repeated int64 role_ids = 1 [(hope.swagger.field) = {
+    description: "RBAC 角色 ID 列表";
+    example: "[1, 2, 3]";
+    empty: false;
+  }];
+}
+
+message MemberRoleSummary {
+  option (hope.swagger.schema) = {
+    json_schema: {
+      title: "MemberRoleSummary";
+      description: "成员角色摘要";
+    };
+  };
+
+  int64 member_id = 1 [(hope.swagger.field) = {
+    description: "成员 ID";
+    example: "1";
+    empty: false;
   }];
 
-  com.apihug.rad.infra.tenant.TenantStatusEnum status = 2 [(hope.swagger.field) = {
-    description: "租户状态筛选";
-    example: "ACTIVE";
+  repeated MemberRoleItem roles = 2 [(hope.swagger.field) = {
+    description: "RBAC 角色列表";
+  }];
+}
+
+message MemberRoleItem {
+  option (hope.swagger.schema) = {
+    json_schema: {
+      title: "MemberRoleItem";
+      description: "成员的 RBAC 角色信息";
+    };
+  };
+
+  int64 id = 1 [(hope.swagger.field) = {
+    description: "角色 ID";
+    example: "1";
+    empty: false;
+  }];
+
+  string role_code = 2 [(hope.swagger.field) = {
+    description: "角色代码";
+    example: "finance_manager";
+    empty: false;
+  }];
+
+  string role_name = 3 [(hope.swagger.field) = {
+    description: "角色名称";
+    example: "财务经理";
+    empty: false;
   }];
 }

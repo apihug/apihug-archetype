@@ -1,4 +1,4 @@
-package com.apihug.rad.api.tenant;
+package com.apihug.rad.api.platform;
 
 import com.apihug.rad.domain.platform.repository.PlatformMemberEntityRepository;
 import com.apihug.rad.domain.platform.PlatformMemberEntity;
@@ -79,8 +79,8 @@ class TenantServiceImplTest {
      */
     private void mockPlatformLeader() {
         PlatformMemberEntity pm = mock(PlatformMemberEntity.class);
-        when(pm.getPlatformRole()).thenReturn(CustomerPlatformTypeEnum.OWNER);
-        when(platformMemberRepository.findByCustomerIdAndStatus(eq(100L), eq(PlatformMemberStatusEnum.PM_ACTIVE)))
+        lenient().when(pm.getPlatformRole()).thenReturn(CustomerPlatformTypeEnum.OWNER);
+        lenient().when(platformMemberRepository.findByCustomerIdAndStatus(eq(100L), eq(PlatformMemberStatusEnum.PM_ACTIVE)))
             .thenReturn(Optional.of(pm));
     }
 

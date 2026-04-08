@@ -18,7 +18,7 @@ import javax.annotation.Generated;
  */
 @Generated("H.O.P.E. Infra Team")
 @ProtoFrom(
-    value = "com/apihug/rad/api/tenant/member.proto",
+    value = "com/apihug/rad/api/tenant/api.proto",
     entity = "TenantMemberSummary",
     kind = Kind.MESSAGE
 )

@@ -1,0 +1,417 @@
+syntax = "proto3";
+
+package com.apihug.rad.api.platform;
+
+import "apihug/protobuf/swagger/annotations.proto";
+import "google/protobuf/empty.proto";
+import "com/apihug/rad/infra/tenant/constant.proto";
+
+service TenantService {
+  option (hope.swagger.svc) = {
+    path: "/platforms/tenants",
+    description: "租户管理服务，提供租户 CRUD 和配置功能（平台级管理）"
+  };
+
+  rpc CreateTenant (CreateTenantRequest) returns (TenantSummary) {
+    option (hope.swagger.operation) = {
+      post: "/create";
+      description: "创建新租户";
+      summary: "创建租户";
+      tags: "tenant";
+      priority: HIGH;
+      group: PLATFORM
+      authorization: {
+        rbac: {
+          authorities: ["TENANT_CREATE"];
+          combinator: AND
+          predefined_role_checker: PLATFORM_MANAGER
+        }
+      };
+    };
+  }
+
+  rpc GetTenant (google.protobuf.Empty) returns (TenantDetail) {
+    option (hope.swagger.operation) = {
+      get: "/get/{tenantId}";
+      description: "获取租户详情";
+      summary: "获取租户详情";
+      tags: "tenant";
+      priority: LOW;
+      group: PLATFORM
+      authorization: {
+        rbac:{
+          predefined_role_checker: PLATFORM
+        }
+      };
+      parameters: {
+        parameter: {
+          name: "tenantId";
+          in: PATH;
+          schema: {
+            format: LONG;
+            empty: false;
+          };
+        };
+      };
+    };
+  }
+
+  rpc UpdateTenant (UpdateTenantRequest) returns (google.protobuf.Empty) {
+    option (hope.swagger.operation) = {
+      put: "/update/{tenantId}";
+      description: "更新租户信息";
+      summary: "更新租户";
+      tags: "tenant";
+      priority: MIDDLE;
+      group: PLATFORM
+      authorization: {
+        rbac: {
+          authorities: ["TENANT_UPDATE"];
+          combinator: AND
+          predefined_role_checker: PLATFORM_MANAGER
+        }
+      };
+      parameters: {
+        parameter: {
+          name: "tenantId";
+          in: PATH;
+          schema: {
+            format: INTEGER;
+            empty: false;
+          };
+        };
+      };
+    };
+  }
+
+  rpc DisableTenant (google.protobuf.Empty) returns (google.protobuf.Empty) {
+    option (hope.swagger.operation) = {
+      delete: "/{tenantId}/disable";
+      description: "停用租户";
+      summary: "停用租户";
+      tags: "tenant";
+      priority: HIGH;
+      group: PLATFORM
+      authorization: {
+        rbac: {
+          authorities: ["TENANT_DISABLE"];
+          combinator: AND
+          predefined_role_checker: PLATFORM
+        }
+      };
+      parameters: {
+        parameter: {
+          name: "tenantId";
+          in: PATH;
+          schema: {
+            format: INTEGER;
+            empty: false;
+          };
+        };
+      };
+    };
+  }
+
+  rpc ConfigureTenant (ConfigureTenantRequest) returns (google.protobuf.Empty) {
+    option (hope.swagger.operation) = {
+      post: "/{tenantId}/configure";
+      description: "配置租户功能";
+      summary: "配置租户";
+      tags: "tenant";
+      priority: MIDDLE;
+      group: PLATFORM
+      authorization: {
+        rbac: {
+          authorities: ["TENANT_CONFIGURE"];
+          combinator: AND
+          predefined_role_checker: PLATFORM
+        }
+      };
+      parameters: {
+        parameter: {
+          name: "tenantId";
+          in: PATH;
+          schema: {
+            format: INTEGER;
+            empty: false;
+          };
+        };
+      };
+    };
+  }
+
+  rpc SearchTenants (SearchTenantsRequest) returns (TenantSummary) {
+    option (hope.swagger.operation) = {
+      post: "/search";
+      description: "搜索租户（分页）";
+      summary: "搜索租户";
+      tags: "tenant";
+      priority: LOW;
+      group: PLATFORM
+      authorization: {
+        rbac: {
+          authorities: ["TENANT_CREATE"];
+          combinator: AND
+          predefined_role_checker: PLATFORM
+        }
+      };
+      pageable: true;
+    };
+  }
+}
+
+message CreateTenantRequest {
+  option (hope.swagger.schema) = {
+    json_schema: {
+      title: "CreateTenantRequest";
+      description: "创建租户请求";
+    };
+  };
+
+  string tenant_code = 1 [(hope.swagger.field) = {
+    description: "租户代码";
+    example: "acme_corp";
+    empty: false;
+    max_length: 50;
+    mock: {nature: NAME};
+  }];
+
+  string tenant_name = 2 [(hope.swagger.field) = {
+    description: "租户名称";
+    example: "Acme 公司";
+    empty: false;
+    max_length: 100;
+    mock: {nature: NAME};
+  }];
+
+  string contact_email = 3 [(hope.swagger.field) = {
+    description: "联系人邮箱";
+    example: "contact@acme.com";
+    empty: false;
+    max_length: 100;
+    mock: {nature: EMAIL};
+  }];
+
+  string contact_phone = 4 [(hope.swagger.field) = {
+    description: "联系人电话";
+    example: "13800138000";
+    max_length: 20;
+    mock: {nature: PHONE};
+  }];
+
+  com.apihug.rad.infra.tenant.TenantStatusEnum status = 5 [(hope.swagger.field) = {
+    description: "租户状态";
+    example: "ACTIVE";
+    empty: false;
+  }];
+
+  bool is_platform = 6 [(hope.swagger.field) = {
+    description: "是否为平台租户";
+    example: "false";
+  }];
+
+  string description = 7 [(hope.swagger.field) = {
+    description: "租户描述";
+    example: "企业管理平台";
+    max_length: 500;
+  }];
+}
+
+message UpdateTenantRequest {
+  option (hope.swagger.schema) = {
+    json_schema: {
+      title: "UpdateTenantRequest";
+      description: "更新租户请求";
+    };
+  };
+
+  string tenant_name = 1 [(hope.swagger.field) = {
+    description: "租户名称";
+    example: "Acme 公司";
+    empty: false;
+    max_length: 100;
+    mock: {nature: NAME};
+  }];
+
+  string contact_email = 2 [(hope.swagger.field) = {
+    description: "联系人邮箱";
+    example: "contact@acme.com";
+    empty: false;
+    max_length: 100;
+    mock: {nature: EMAIL};
+  }];
+
+  string contact_phone = 3 [(hope.swagger.field) = {
+    description: "联系人电话";
+    example: "13800138000";
+    max_length: 20;
+    mock: {nature: PHONE};
+  }];
+
+  com.apihug.rad.infra.tenant.TenantStatusEnum status = 4 [(hope.swagger.field) = {
+    description: "租户状态";
+    example: "ACTIVE";
+    empty: false;
+  }];
+}
+
+message ConfigureTenantRequest {
+  option (hope.swagger.schema) = {
+    json_schema: {
+      title: "ConfigureTenantRequest";
+      description: "配置租户请求";
+    };
+  };
+
+  int32 max_members = 1 [(hope.swagger.field) = {
+    description: "最大成员数";
+    example: "100";
+    minimum: 1;
+  }];
+
+  int64 max_storage_mb = 2 [(hope.swagger.field) = {
+    description: "最大存储空间（MB）";
+    example: "10240";
+    minimum: 1;
+  }];
+
+  repeated string enabled_modules = 3 [(hope.swagger.field) = {
+    description: "启用的功能模块";
+    example: "[\"user\", \"role\", \"menu\", \"department\"]";
+  }];
+
+  string expiry_date = 4 [(hope.swagger.field) = {
+    description: "到期时间";
+    example: "2025-12-31T23:59:59";
+    date_format: ISO_LOCAL_DATE_TIME;
+  }];
+}
+
+message TenantSummary {
+  option (hope.swagger.schema) = {
+    json_schema: {
+      title: "TenantSummary";
+      description: "租户摘要信息";
+    };
+  };
+
+  int64 id = 1 [(hope.swagger.field) = {
+    description: "租户 ID";
+    example: "1";
+    empty: false;
+    minimum: 1;
+  }];
+
+  string tenant_code = 2 [(hope.swagger.field) = {
+    description: "租户代码";
+    example: "acme_corp";
+    empty: false;
+    mock: {nature: NAME};
+  }];
+
+  string tenant_name = 3 [(hope.swagger.field) = {
+    description: "租户名称";
+    example: "Acme 公司";
+    empty: false;
+    mock: {nature: NAME};
+  }];
+
+  com.apihug.rad.infra.tenant.TenantStatusEnum status = 4 [(hope.swagger.field) = {
+    description: "租户状态";
+    example: "ACTIVE";
+    empty: false;
+  }];
+}
+
+message TenantDetail {
+  option (hope.swagger.schema) = {
+    json_schema: {
+      title: "TenantDetail";
+      description: "租户详情信息";
+    };
+  };
+
+  int64 id = 1 [(hope.swagger.field) = {
+    description: "租户 ID";
+    example: "1";
+    empty: false;
+    minimum: 1;
+  }];
+
+  string tenant_code = 2 [(hope.swagger.field) = {
+    description: "租户代码";
+    example: "acme_corp";
+    empty: false;
+    mock: {nature: NAME};
+  }];
+
+  string tenant_name = 3 [(hope.swagger.field) = {
+    description: "租户名称";
+    example: "Acme 公司";
+    empty: false;
+    mock: {nature: NAME};
+  }];
+
+  string contact_email = 4 [(hope.swagger.field) = {
+    description: "联系人邮箱";
+    example: "contact@acme.com";
+    mock: {nature: EMAIL};
+  }];
+
+  string contact_phone = 5 [(hope.swagger.field) = {
+    description: "联系人电话";
+    example: "13800138000";
+    mock: {nature: PHONE};
+  }];
+
+  com.apihug.rad.infra.tenant.TenantStatusEnum status = 6 [(hope.swagger.field) = {
+    description: "租户状态";
+    example: "ACTIVE";
+    empty: false;
+  }];
+
+  int32 max_members = 7 [(hope.swagger.field) = {
+    description: "最大成员数";
+    example: "100";
+  }];
+
+  int64 max_storage_mb = 8 [(hope.swagger.field) = {
+    description: "最大存储空间（MB）";
+    example: "10240";
+  }];
+
+  bool is_platform = 9 [(hope.swagger.field) = {
+    description: "是否为平台租户";
+    example: "false";
+  }];
+
+  string description = 10 [(hope.swagger.field) = {
+    description: "租户描述";
+    example: "企业管理平台";
+  }];
+
+  string created_at = 11 [(hope.swagger.field) = {
+    description: "创建时间";
+    example: "2024-01-15T10:30:00";
+    date_format: ISO_LOCAL_DATE_TIME;
+  }];
+}
+
+message SearchTenantsRequest {
+  option (hope.swagger.schema) = {
+    json_schema: {
+      title: "SearchTenantsRequest";
+      description: "搜索租户请求";
+    };
+  };
+
+  string keyword = 1 [(hope.swagger.field) = {
+    description: "搜索关键词（租户名称或代码）";
+    example: "acme";
+  }];
+
+  com.apihug.rad.infra.tenant.TenantStatusEnum status = 2 [(hope.swagger.field) = {
+    description: "租户状态筛选";
+    example: "ACTIVE";
+  }];
+}

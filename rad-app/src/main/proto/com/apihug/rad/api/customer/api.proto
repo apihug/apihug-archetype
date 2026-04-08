@@ -128,6 +128,35 @@ service CustomerService {
       ];
     };
   }
+
+
+  rpc SetDefaultTenant (google.protobuf.Empty) returns (google.protobuf.Empty) {
+    option (hope.swagger.operation) = {
+      post: "/set-default/{tenantId}";
+      description: "将指定租户设为客户的默认租户";
+      summary: "设置默认租户";
+      tags: "customer";
+      priority: MIDDLE;
+      group: CUSTOMER
+      authorization: {
+        low_limit_risky_mode: LOGIN
+      };
+      parameters: {
+        parameter: {
+          name: "tenantId";
+          in: PATH;
+          schema: {
+            format: LONG;
+            empty: false;
+          };
+        };
+      };
+      questions: [
+        "如何设置默认登录租户？",
+        "不想切换租户？"
+      ];
+    };
+  }
 }
 
 

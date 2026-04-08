@@ -588,7 +588,7 @@
           }
         },
         "complex" : "NONE",
-        "protoLine" : 422,
+        "protoLine" : 451,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 1
@@ -604,7 +604,7 @@
           "empty" : false
         },
         "complex" : "NONE",
-        "protoLine" : 430,
+        "protoLine" : 459,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 2
@@ -622,7 +622,7 @@
           }
         },
         "complex" : "NONE",
-        "protoLine" : 438,
+        "protoLine" : 467,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 3
@@ -636,7 +636,7 @@
           "empty" : false
         },
         "complex" : "NONE",
-        "protoLine" : 446,
+        "protoLine" : 475,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 4
@@ -650,7 +650,7 @@
           "minimum" : 0.0
         },
         "complex" : "NONE",
-        "protoLine" : 452,
+        "protoLine" : 481,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 5
@@ -659,7 +659,7 @@
       "enumErrorClz" : false,
       "enumAuthorityClz" : false,
       "protoFrom" : "com/apihug/rad/api/customer/api.proto",
-      "protoLine" : 414,
+      "protoLine" : 443,
       "protoColumn" : 1,
       "protoEntity" : "CreateCustomerRequest"
     },
@@ -683,7 +683,7 @@
           "description" : "客户基本信息"
         },
         "complex" : "NONE",
-        "protoLine" : 359,
+        "protoLine" : 388,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 1
@@ -695,7 +695,7 @@
           "description" : "客户角色列表"
         },
         "complex" : "LIST",
-        "protoLine" : 363,
+        "protoLine" : 392,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 2
@@ -707,7 +707,7 @@
           "description" : "客户权限列表"
         },
         "complex" : "LIST",
-        "protoLine" : 367,
+        "protoLine" : 396,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 3
@@ -719,7 +719,7 @@
           "description" : "客户部门信息"
         },
         "complex" : "NONE",
-        "protoLine" : 371,
+        "protoLine" : 400,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 4
@@ -731,7 +731,7 @@
           "description" : "当前租户信息"
         },
         "complex" : "NONE",
-        "protoLine" : 375,
+        "protoLine" : 404,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 5
@@ -740,7 +740,7 @@
       "enumErrorClz" : false,
       "enumAuthorityClz" : false,
       "protoFrom" : "com/apihug/rad/api/customer/api.proto",
-      "protoLine" : 351,
+      "protoLine" : 380,
       "protoColumn" : 1,
       "protoEntity" : "CurrentCustomerInfo"
     },
@@ -772,7 +772,7 @@
           }
         },
         "complex" : "NONE",
-        "protoLine" : 319,
+        "protoLine" : 348,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 1
@@ -789,7 +789,7 @@
           }
         },
         "complex" : "NONE",
-        "protoLine" : 327,
+        "protoLine" : 356,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 3
@@ -810,7 +810,7 @@
           }
         },
         "complex" : "NONE",
-        "protoLine" : 334,
+        "protoLine" : 363,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 4
@@ -822,7 +822,7 @@
           "description" : "租户角色列表"
         },
         "complex" : "LIST",
-        "protoLine" : 342,
+        "protoLine" : 371,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 5
@@ -834,7 +834,7 @@
           "description" : "租户权限列表"
         },
         "complex" : "LIST",
-        "protoLine" : 346,
+        "protoLine" : 375,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 6
@@ -843,7 +843,7 @@
       "enumErrorClz" : false,
       "enumAuthorityClz" : false,
       "protoFrom" : "com/apihug/rad/api/customer/api.proto",
-      "protoLine" : 312,
+      "protoLine" : 341,
       "protoColumn" : 1,
       "protoEntity" : "CustomerInfo"
     },
@@ -870,7 +870,7 @@
           "empty" : false
         },
         "complex" : "NONE",
-        "protoLine" : 467,
+        "protoLine" : 496,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 1
@@ -887,7 +887,7 @@
           }
         },
         "complex" : "NONE",
-        "protoLine" : 474,
+        "protoLine" : 503,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 2
@@ -904,7 +904,7 @@
           }
         },
         "complex" : "NONE",
-        "protoLine" : 481,
+        "protoLine" : 510,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 3
@@ -918,7 +918,7 @@
           "empty" : false
         },
         "complex" : "NONE",
-        "protoLine" : 488,
+        "protoLine" : 517,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 4
@@ -932,7 +932,7 @@
           "empty" : false
         },
         "complex" : "NONE",
-        "protoLine" : 494,
+        "protoLine" : 523,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 5
@@ -941,7 +941,7 @@
       "enumErrorClz" : false,
       "enumAuthorityClz" : false,
       "protoFrom" : "com/apihug/rad/api/customer/api.proto",
-      "protoLine" : 459,
+      "protoLine" : 488,
       "protoColumn" : 1,
       "protoEntity" : "CustomerSummary"
     },
@@ -967,7 +967,7 @@
           "empty" : false
         },
         "complex" : "NONE",
-        "protoLine" : 581,
+        "protoLine" : 610,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 1
@@ -984,7 +984,7 @@
           }
         },
         "complex" : "NONE",
-        "protoLine" : 587,
+        "protoLine" : 616,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 2
@@ -1001,7 +1001,7 @@
           }
         },
         "complex" : "NONE",
-        "protoLine" : 594,
+        "protoLine" : 623,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 3
@@ -1014,7 +1014,7 @@
           "example" : "1"
         },
         "complex" : "NONE",
-        "protoLine" : 601,
+        "protoLine" : 630,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 4
@@ -1023,7 +1023,7 @@
       "enumErrorClz" : false,
       "enumAuthorityClz" : false,
       "protoFrom" : "com/apihug/rad/api/customer/api.proto",
-      "protoLine" : 573,
+      "protoLine" : 602,
       "protoColumn" : 1,
       "protoEntity" : "DepartmentInfo"
     },
@@ -1053,7 +1053,7 @@
           }
         },
         "complex" : "NONE",
-        "protoLine" : 510,
+        "protoLine" : 539,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 1
@@ -1062,7 +1062,7 @@
       "enumErrorClz" : false,
       "enumAuthorityClz" : false,
       "protoFrom" : "com/apihug/rad/api/customer/api.proto",
-      "protoLine" : 502,
+      "protoLine" : 531,
       "protoColumn" : 1,
       "protoEntity" : "ForgotPasswordRequest"
     },
@@ -1092,7 +1092,7 @@
           }
         },
         "complex" : "NONE",
-        "protoLine" : 208,
+        "protoLine" : 237,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 1
@@ -1108,7 +1108,7 @@
           "empty" : false
         },
         "complex" : "NONE",
-        "protoLine" : 216,
+        "protoLine" : 245,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 2
@@ -1120,7 +1120,7 @@
           "description" : "whether to remember me"
         },
         "complex" : "NONE",
-        "protoLine" : 224,
+        "protoLine" : 253,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 3
@@ -1129,7 +1129,7 @@
       "enumErrorClz" : false,
       "enumAuthorityClz" : false,
       "protoFrom" : "com/apihug/rad/api/customer/api.proto",
-      "protoLine" : 200,
+      "protoLine" : 229,
       "protoColumn" : 1,
       "protoEntity" : "LoginRequest"
     },
@@ -1158,7 +1158,7 @@
           }
         },
         "complex" : "NONE",
-        "protoLine" : 237,
+        "protoLine" : 266,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 1
@@ -1179,7 +1179,7 @@
           }
         },
         "complex" : "NONE",
-        "protoLine" : 244,
+        "protoLine" : 273,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 2
@@ -1196,7 +1196,7 @@
           }
         },
         "complex" : "NONE",
-        "protoLine" : 252,
+        "protoLine" : 281,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 3
@@ -1209,7 +1209,7 @@
           "example" : "false"
         },
         "complex" : "NONE",
-        "protoLine" : 259,
+        "protoLine" : 288,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 4
@@ -1221,7 +1221,7 @@
           "description" : "客户的租户列表"
         },
         "complex" : "LIST",
-        "protoLine" : 264,
+        "protoLine" : 293,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 5
@@ -1233,7 +1233,7 @@
           "description" : "默认租户信息"
         },
         "complex" : "NONE",
-        "protoLine" : 268,
+        "protoLine" : 297,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 6
@@ -1242,7 +1242,7 @@
       "enumErrorClz" : false,
       "enumAuthorityClz" : false,
       "protoFrom" : "com/apihug/rad/api/customer/api.proto",
-      "protoLine" : 229,
+      "protoLine" : 258,
       "protoColumn" : 1,
       "protoEntity" : "LoginResponse"
     },
@@ -1272,7 +1272,7 @@
           }
         },
         "complex" : "NONE",
-        "protoLine" : 527,
+        "protoLine" : 556,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 1
@@ -1288,7 +1288,7 @@
           "empty" : false
         },
         "complex" : "NONE",
-        "protoLine" : 535,
+        "protoLine" : 564,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 2
@@ -1297,7 +1297,7 @@
       "enumErrorClz" : false,
       "enumAuthorityClz" : false,
       "protoFrom" : "com/apihug/rad/api/customer/api.proto",
-      "protoLine" : 519,
+      "protoLine" : 548,
       "protoColumn" : 1,
       "protoEntity" : "ResetPasswordRequest"
     },
@@ -1323,7 +1323,7 @@
           "empty" : false
         },
         "complex" : "NONE",
-        "protoLine" : 552,
+        "protoLine" : 581,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 1
@@ -1340,7 +1340,7 @@
           }
         },
         "complex" : "NONE",
-        "protoLine" : 558,
+        "protoLine" : 587,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 2
@@ -1357,7 +1357,7 @@
           }
         },
         "complex" : "NONE",
-        "protoLine" : 565,
+        "protoLine" : 594,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 3
@@ -1366,7 +1366,7 @@
       "enumErrorClz" : false,
       "enumAuthorityClz" : false,
       "protoFrom" : "com/apihug/rad/api/customer/api.proto",
-      "protoLine" : 544,
+      "protoLine" : 573,
       "protoColumn" : 1,
       "protoEntity" : "RoleInfo"
     },
@@ -1393,7 +1393,7 @@
           "empty" : false
         },
         "complex" : "NONE",
-        "protoLine" : 406,
+        "protoLine" : 435,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 1
@@ -1402,7 +1402,7 @@
       "enumErrorClz" : false,
       "enumAuthorityClz" : false,
       "protoFrom" : "com/apihug/rad/api/customer/api.proto",
-      "protoLine" : 398,
+      "protoLine" : 427,
       "protoColumn" : 1,
       "protoEntity" : "SwitchTenantRequest"
     },
@@ -1428,7 +1428,7 @@
           "empty" : false
         },
         "complex" : "NONE",
-        "protoLine" : 281,
+        "protoLine" : 310,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 1
@@ -1445,7 +1445,7 @@
           }
         },
         "complex" : "NONE",
-        "protoLine" : 287,
+        "protoLine" : 316,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 2
@@ -1462,7 +1462,7 @@
           }
         },
         "complex" : "NONE",
-        "protoLine" : 294,
+        "protoLine" : 323,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 3
@@ -1475,7 +1475,7 @@
           "example" : "true"
         },
         "complex" : "NONE",
-        "protoLine" : 301,
+        "protoLine" : 330,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 4
@@ -1488,7 +1488,7 @@
           "example" : "false"
         },
         "complex" : "NONE",
-        "protoLine" : 306,
+        "protoLine" : 335,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 5
@@ -1497,7 +1497,7 @@
       "enumErrorClz" : false,
       "enumAuthorityClz" : false,
       "protoFrom" : "com/apihug/rad/api/customer/api.proto",
-      "protoLine" : 273,
+      "protoLine" : 302,
       "protoColumn" : 1,
       "protoEntity" : "TenantInfo"
     },
@@ -1521,7 +1521,7 @@
           "description" : "租户列表"
         },
         "complex" : "LIST",
-        "protoLine" : 388,
+        "protoLine" : 417,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 1
@@ -1534,7 +1534,7 @@
           "example" : "1"
         },
         "complex" : "NONE",
-        "protoLine" : 392,
+        "protoLine" : 421,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 2
@@ -1543,7 +1543,7 @@
       "enumErrorClz" : false,
       "enumAuthorityClz" : false,
       "protoFrom" : "com/apihug/rad/api/customer/api.proto",
-      "protoLine" : 380,
+      "protoLine" : 409,
       "protoColumn" : 1,
       "protoEntity" : "TenantList"
     },
@@ -3071,6 +3071,616 @@
       "protoColumn" : 1,
       "protoEntity" : "UpdatePlatformMemberRoleRequest"
     },
+    "com.apihug.rad.api.platform.ConfigureTenantRequest" : {
+      "clzName" : "com.apihug.rad.api.platform.ConfigureTenantRequest",
+      "name" : "ConfigureTenantRequest",
+      "description" : "配置租户请求",
+      "deprecated" : false,
+      "schema" : {
+        "jsonSchema" : {
+          "title" : "ConfigureTenantRequest",
+          "description" : "配置租户请求"
+        },
+        "readOnly" : false
+      },
+      "items" : [ {
+        "name" : "max_members",
+        "fieldName" : "maxMembers",
+        "clzName" : "java.lang.Integer",
+        "schema" : {
+          "description" : "最大成员数",
+          "example" : "100",
+          "minimum" : 1.0
+        },
+        "complex" : "NONE",
+        "protoLine" : 266,
+        "protoColumn" : 3,
+        "deprecated" : false,
+        "tag" : 1
+      }, {
+        "name" : "max_storage_mb",
+        "fieldName" : "maxStorageMb",
+        "clzName" : "java.lang.Long",
+        "schema" : {
+          "description" : "最大存储空间（MB）",
+          "example" : "10240",
+          "minimum" : 1.0
+        },
+        "complex" : "NONE",
+        "protoLine" : 272,
+        "protoColumn" : 3,
+        "deprecated" : false,
+        "tag" : 2
+      }, {
+        "name" : "enabled_modules",
+        "fieldName" : "enabledModules",
+        "clzName" : "java.lang.String",
+        "schema" : {
+          "description" : "启用的功能模块",
+          "example" : "[\"user\", \"role\", \"menu\", \"department\"]"
+        },
+        "complex" : "LIST",
+        "protoLine" : 278,
+        "protoColumn" : 3,
+        "deprecated" : false,
+        "tag" : 3
+      }, {
+        "name" : "expiry_date",
+        "fieldName" : "expiryDate",
+        "clzName" : "java.time.LocalDateTime",
+        "schema" : {
+          "description" : "到期时间",
+          "example" : "2025-12-31T23:59:59",
+          "dateFormat" : "ISO_LOCAL_DATE_TIME"
+        },
+        "complex" : "NONE",
+        "protoLine" : 283,
+        "protoColumn" : 3,
+        "deprecated" : false,
+        "tag" : 4
+      } ],
+      "enumClz" : false,
+      "enumErrorClz" : false,
+      "enumAuthorityClz" : false,
+      "protoFrom" : "com/apihug/rad/api/platform/tenant.proto",
+      "protoLine" : 258,
+      "protoColumn" : 1,
+      "protoEntity" : "ConfigureTenantRequest"
+    },
+    "com.apihug.rad.api.platform.CreateTenantRequest" : {
+      "clzName" : "com.apihug.rad.api.platform.CreateTenantRequest",
+      "name" : "CreateTenantRequest",
+      "description" : "创建租户请求",
+      "deprecated" : false,
+      "schema" : {
+        "jsonSchema" : {
+          "title" : "CreateTenantRequest",
+          "description" : "创建租户请求"
+        },
+        "readOnly" : false
+      },
+      "items" : [ {
+        "name" : "tenant_code",
+        "fieldName" : "tenantCode",
+        "clzName" : "java.lang.String",
+        "schema" : {
+          "description" : "租户代码",
+          "example" : "acme_corp",
+          "maxLength" : 50,
+          "empty" : false,
+          "mock" : {
+            "nature" : "NAME"
+          }
+        },
+        "complex" : "NONE",
+        "protoLine" : 171,
+        "protoColumn" : 3,
+        "deprecated" : false,
+        "tag" : 1
+      }, {
+        "name" : "tenant_name",
+        "fieldName" : "tenantName",
+        "clzName" : "java.lang.String",
+        "schema" : {
+          "description" : "租户名称",
+          "example" : "Acme 公司",
+          "maxLength" : 100,
+          "empty" : false,
+          "mock" : {
+            "nature" : "NAME"
+          }
+        },
+        "complex" : "NONE",
+        "protoLine" : 179,
+        "protoColumn" : 3,
+        "deprecated" : false,
+        "tag" : 2
+      }, {
+        "name" : "contact_email",
+        "fieldName" : "contactEmail",
+        "clzName" : "java.lang.String",
+        "schema" : {
+          "description" : "联系人邮箱",
+          "example" : "contact@acme.com",
+          "maxLength" : 100,
+          "empty" : false,
+          "mock" : {
+            "nature" : "EMAIL"
+          }
+        },
+        "complex" : "NONE",
+        "protoLine" : 187,
+        "protoColumn" : 3,
+        "deprecated" : false,
+        "tag" : 3
+      }, {
+        "name" : "contact_phone",
+        "fieldName" : "contactPhone",
+        "clzName" : "java.lang.String",
+        "schema" : {
+          "description" : "联系人电话",
+          "example" : "13800138000",
+          "maxLength" : 20,
+          "mock" : {
+            "nature" : "PHONE"
+          }
+        },
+        "complex" : "NONE",
+        "protoLine" : 195,
+        "protoColumn" : 3,
+        "deprecated" : false,
+        "tag" : 4
+      }, {
+        "name" : "status",
+        "fieldName" : "status",
+        "clzName" : "com.apihug.rad.infra.tenant.TenantStatusEnum",
+        "schema" : {
+          "description" : "租户状态",
+          "example" : "ACTIVE",
+          "empty" : false
+        },
+        "complex" : "NONE",
+        "protoLine" : 202,
+        "protoColumn" : 3,
+        "deprecated" : false,
+        "tag" : 5
+      }, {
+        "name" : "is_platform",
+        "fieldName" : "isPlatform",
+        "clzName" : "java.lang.Boolean",
+        "schema" : {
+          "description" : "是否为平台租户",
+          "example" : "false"
+        },
+        "complex" : "NONE",
+        "protoLine" : 208,
+        "protoColumn" : 3,
+        "deprecated" : false,
+        "tag" : 6
+      }, {
+        "name" : "description",
+        "fieldName" : "description",
+        "clzName" : "java.lang.String",
+        "schema" : {
+          "description" : "租户描述",
+          "example" : "企业管理平台",
+          "maxLength" : 500
+        },
+        "complex" : "NONE",
+        "protoLine" : 213,
+        "protoColumn" : 3,
+        "deprecated" : false,
+        "tag" : 7
+      } ],
+      "enumClz" : false,
+      "enumErrorClz" : false,
+      "enumAuthorityClz" : false,
+      "protoFrom" : "com/apihug/rad/api/platform/tenant.proto",
+      "protoLine" : 163,
+      "protoColumn" : 1,
+      "protoEntity" : "CreateTenantRequest"
+    },
+    "com.apihug.rad.api.platform.SearchTenantsRequest" : {
+      "clzName" : "com.apihug.rad.api.platform.SearchTenantsRequest",
+      "name" : "SearchTenantsRequest",
+      "description" : "搜索租户请求",
+      "deprecated" : false,
+      "schema" : {
+        "jsonSchema" : {
+          "title" : "SearchTenantsRequest",
+          "description" : "搜索租户请求"
+        },
+        "readOnly" : false
+      },
+      "items" : [ {
+        "name" : "keyword",
+        "fieldName" : "keyword",
+        "clzName" : "java.lang.String",
+        "schema" : {
+          "description" : "搜索关键词（租户名称或代码）",
+          "example" : "acme"
+        },
+        "complex" : "NONE",
+        "protoLine" : 408,
+        "protoColumn" : 3,
+        "deprecated" : false,
+        "tag" : 1
+      }, {
+        "name" : "status",
+        "fieldName" : "status",
+        "clzName" : "com.apihug.rad.infra.tenant.TenantStatusEnum",
+        "schema" : {
+          "description" : "租户状态筛选",
+          "example" : "ACTIVE"
+        },
+        "complex" : "NONE",
+        "protoLine" : 413,
+        "protoColumn" : 3,
+        "deprecated" : false,
+        "tag" : 2
+      } ],
+      "enumClz" : false,
+      "enumErrorClz" : false,
+      "enumAuthorityClz" : false,
+      "protoFrom" : "com/apihug/rad/api/platform/tenant.proto",
+      "protoLine" : 400,
+      "protoColumn" : 1,
+      "protoEntity" : "SearchTenantsRequest"
+    },
+    "com.apihug.rad.api.platform.TenantDetail" : {
+      "clzName" : "com.apihug.rad.api.platform.TenantDetail",
+      "name" : "TenantDetail",
+      "description" : "租户详情信息",
+      "deprecated" : false,
+      "schema" : {
+        "jsonSchema" : {
+          "title" : "TenantDetail",
+          "description" : "租户详情信息"
+        },
+        "readOnly" : false
+      },
+      "items" : [ {
+        "name" : "id",
+        "fieldName" : "id",
+        "clzName" : "java.lang.Long",
+        "schema" : {
+          "description" : "租户 ID",
+          "example" : "1",
+          "minimum" : 1.0,
+          "empty" : false
+        },
+        "complex" : "NONE",
+        "protoLine" : 334,
+        "protoColumn" : 3,
+        "deprecated" : false,
+        "tag" : 1
+      }, {
+        "name" : "tenant_code",
+        "fieldName" : "tenantCode",
+        "clzName" : "java.lang.String",
+        "schema" : {
+          "description" : "租户代码",
+          "example" : "acme_corp",
+          "empty" : false,
+          "mock" : {
+            "nature" : "NAME"
+          }
+        },
+        "complex" : "NONE",
+        "protoLine" : 341,
+        "protoColumn" : 3,
+        "deprecated" : false,
+        "tag" : 2
+      }, {
+        "name" : "tenant_name",
+        "fieldName" : "tenantName",
+        "clzName" : "java.lang.String",
+        "schema" : {
+          "description" : "租户名称",
+          "example" : "Acme 公司",
+          "empty" : false,
+          "mock" : {
+            "nature" : "NAME"
+          }
+        },
+        "complex" : "NONE",
+        "protoLine" : 348,
+        "protoColumn" : 3,
+        "deprecated" : false,
+        "tag" : 3
+      }, {
+        "name" : "contact_email",
+        "fieldName" : "contactEmail",
+        "clzName" : "java.lang.String",
+        "schema" : {
+          "description" : "联系人邮箱",
+          "example" : "contact@acme.com",
+          "mock" : {
+            "nature" : "EMAIL"
+          }
+        },
+        "complex" : "NONE",
+        "protoLine" : 355,
+        "protoColumn" : 3,
+        "deprecated" : false,
+        "tag" : 4
+      }, {
+        "name" : "contact_phone",
+        "fieldName" : "contactPhone",
+        "clzName" : "java.lang.String",
+        "schema" : {
+          "description" : "联系人电话",
+          "example" : "13800138000",
+          "mock" : {
+            "nature" : "PHONE"
+          }
+        },
+        "complex" : "NONE",
+        "protoLine" : 361,
+        "protoColumn" : 3,
+        "deprecated" : false,
+        "tag" : 5
+      }, {
+        "name" : "status",
+        "fieldName" : "status",
+        "clzName" : "com.apihug.rad.infra.tenant.TenantStatusEnum",
+        "schema" : {
+          "description" : "租户状态",
+          "example" : "ACTIVE",
+          "empty" : false
+        },
+        "complex" : "NONE",
+        "protoLine" : 367,
+        "protoColumn" : 3,
+        "deprecated" : false,
+        "tag" : 6
+      }, {
+        "name" : "max_members",
+        "fieldName" : "maxMembers",
+        "clzName" : "java.lang.Integer",
+        "schema" : {
+          "description" : "最大成员数",
+          "example" : "100"
+        },
+        "complex" : "NONE",
+        "protoLine" : 373,
+        "protoColumn" : 3,
+        "deprecated" : false,
+        "tag" : 7
+      }, {
+        "name" : "max_storage_mb",
+        "fieldName" : "maxStorageMb",
+        "clzName" : "java.lang.Long",
+        "schema" : {
+          "description" : "最大存储空间（MB）",
+          "example" : "10240"
+        },
+        "complex" : "NONE",
+        "protoLine" : 378,
+        "protoColumn" : 3,
+        "deprecated" : false,
+        "tag" : 8
+      }, {
+        "name" : "is_platform",
+        "fieldName" : "isPlatform",
+        "clzName" : "java.lang.Boolean",
+        "schema" : {
+          "description" : "是否为平台租户",
+          "example" : "false"
+        },
+        "complex" : "NONE",
+        "protoLine" : 383,
+        "protoColumn" : 3,
+        "deprecated" : false,
+        "tag" : 9
+      }, {
+        "name" : "description",
+        "fieldName" : "description",
+        "clzName" : "java.lang.String",
+        "schema" : {
+          "description" : "租户描述",
+          "example" : "企业管理平台"
+        },
+        "complex" : "NONE",
+        "protoLine" : 388,
+        "protoColumn" : 3,
+        "deprecated" : false,
+        "tag" : 10
+      }, {
+        "name" : "created_at",
+        "fieldName" : "createdAt",
+        "clzName" : "java.time.LocalDateTime",
+        "schema" : {
+          "description" : "创建时间",
+          "example" : "2024-01-15T10:30:00",
+          "dateFormat" : "ISO_LOCAL_DATE_TIME"
+        },
+        "complex" : "NONE",
+        "protoLine" : 393,
+        "protoColumn" : 3,
+        "deprecated" : false,
+        "tag" : 11
+      } ],
+      "enumClz" : false,
+      "enumErrorClz" : false,
+      "enumAuthorityClz" : false,
+      "protoFrom" : "com/apihug/rad/api/platform/tenant.proto",
+      "protoLine" : 326,
+      "protoColumn" : 1,
+      "protoEntity" : "TenantDetail"
+    },
+    "com.apihug.rad.api.platform.TenantSummary" : {
+      "clzName" : "com.apihug.rad.api.platform.TenantSummary",
+      "name" : "TenantSummary",
+      "description" : "租户摘要信息",
+      "deprecated" : false,
+      "schema" : {
+        "jsonSchema" : {
+          "title" : "TenantSummary",
+          "description" : "租户摘要信息"
+        },
+        "readOnly" : false
+      },
+      "items" : [ {
+        "name" : "id",
+        "fieldName" : "id",
+        "clzName" : "java.lang.Long",
+        "schema" : {
+          "description" : "租户 ID",
+          "example" : "1",
+          "minimum" : 1.0,
+          "empty" : false
+        },
+        "complex" : "NONE",
+        "protoLine" : 298,
+        "protoColumn" : 3,
+        "deprecated" : false,
+        "tag" : 1
+      }, {
+        "name" : "tenant_code",
+        "fieldName" : "tenantCode",
+        "clzName" : "java.lang.String",
+        "schema" : {
+          "description" : "租户代码",
+          "example" : "acme_corp",
+          "empty" : false,
+          "mock" : {
+            "nature" : "NAME"
+          }
+        },
+        "complex" : "NONE",
+        "protoLine" : 305,
+        "protoColumn" : 3,
+        "deprecated" : false,
+        "tag" : 2
+      }, {
+        "name" : "tenant_name",
+        "fieldName" : "tenantName",
+        "clzName" : "java.lang.String",
+        "schema" : {
+          "description" : "租户名称",
+          "example" : "Acme 公司",
+          "empty" : false,
+          "mock" : {
+            "nature" : "NAME"
+          }
+        },
+        "complex" : "NONE",
+        "protoLine" : 312,
+        "protoColumn" : 3,
+        "deprecated" : false,
+        "tag" : 3
+      }, {
+        "name" : "status",
+        "fieldName" : "status",
+        "clzName" : "com.apihug.rad.infra.tenant.TenantStatusEnum",
+        "schema" : {
+          "description" : "租户状态",
+          "example" : "ACTIVE",
+          "empty" : false
+        },
+        "complex" : "NONE",
+        "protoLine" : 319,
+        "protoColumn" : 3,
+        "deprecated" : false,
+        "tag" : 4
+      } ],
+      "enumClz" : false,
+      "enumErrorClz" : false,
+      "enumAuthorityClz" : false,
+      "protoFrom" : "com/apihug/rad/api/platform/tenant.proto",
+      "protoLine" : 290,
+      "protoColumn" : 1,
+      "protoEntity" : "TenantSummary"
+    },
+    "com.apihug.rad.api.platform.UpdateTenantRequest" : {
+      "clzName" : "com.apihug.rad.api.platform.UpdateTenantRequest",
+      "name" : "UpdateTenantRequest",
+      "description" : "更新租户请求",
+      "deprecated" : false,
+      "schema" : {
+        "jsonSchema" : {
+          "title" : "UpdateTenantRequest",
+          "description" : "更新租户请求"
+        },
+        "readOnly" : false
+      },
+      "items" : [ {
+        "name" : "tenant_name",
+        "fieldName" : "tenantName",
+        "clzName" : "java.lang.String",
+        "schema" : {
+          "description" : "租户名称",
+          "example" : "Acme 公司",
+          "maxLength" : 100,
+          "empty" : false,
+          "mock" : {
+            "nature" : "NAME"
+          }
+        },
+        "complex" : "NONE",
+        "protoLine" : 228,
+        "protoColumn" : 3,
+        "deprecated" : false,
+        "tag" : 1
+      }, {
+        "name" : "contact_email",
+        "fieldName" : "contactEmail",
+        "clzName" : "java.lang.String",
+        "schema" : {
+          "description" : "联系人邮箱",
+          "example" : "contact@acme.com",
+          "maxLength" : 100,
+          "empty" : false,
+          "mock" : {
+            "nature" : "EMAIL"
+          }
+        },
+        "complex" : "NONE",
+        "protoLine" : 236,
+        "protoColumn" : 3,
+        "deprecated" : false,
+        "tag" : 2
+      }, {
+        "name" : "contact_phone",
+        "fieldName" : "contactPhone",
+        "clzName" : "java.lang.String",
+        "schema" : {
+          "description" : "联系人电话",
+          "example" : "13800138000",
+          "maxLength" : 20,
+          "mock" : {
+            "nature" : "PHONE"
+          }
+        },
+        "complex" : "NONE",
+        "protoLine" : 244,
+        "protoColumn" : 3,
+        "deprecated" : false,
+        "tag" : 3
+      }, {
+        "name" : "status",
+        "fieldName" : "status",
+        "clzName" : "com.apihug.rad.infra.tenant.TenantStatusEnum",
+        "schema" : {
+          "description" : "租户状态",
+          "example" : "ACTIVE",
+          "empty" : false
+        },
+        "complex" : "NONE",
+        "protoLine" : 251,
+        "protoColumn" : 3,
+        "deprecated" : false,
+        "tag" : 4
+      } ],
+      "enumClz" : false,
+      "enumErrorClz" : false,
+      "enumAuthorityClz" : false,
+      "protoFrom" : "com/apihug/rad/api/platform/tenant.proto",
+      "protoLine" : 220,
+      "protoColumn" : 1,
+      "protoEntity" : "UpdateTenantRequest"
+    },
     "com.apihug.rad.api.role.AssignMenusRequest" : {
       "clzName" : "com.apihug.rad.api.role.AssignMenusRequest",
       "name" : "AssignMenusRequest",
@@ -3659,616 +4269,6 @@
       "protoColumn" : 1,
       "protoEntity" : "UpdateRoleRequest"
     },
-    "com.apihug.rad.api.tenant.ConfigureTenantRequest" : {
-      "clzName" : "com.apihug.rad.api.tenant.ConfigureTenantRequest",
-      "name" : "ConfigureTenantRequest",
-      "description" : "配置租户请求",
-      "deprecated" : false,
-      "schema" : {
-        "jsonSchema" : {
-          "title" : "ConfigureTenantRequest",
-          "description" : "配置租户请求"
-        },
-        "readOnly" : false
-      },
-      "items" : [ {
-        "name" : "max_members",
-        "fieldName" : "maxMembers",
-        "clzName" : "java.lang.Integer",
-        "schema" : {
-          "description" : "最大成员数",
-          "example" : "100",
-          "minimum" : 1.0
-        },
-        "complex" : "NONE",
-        "protoLine" : 256,
-        "protoColumn" : 3,
-        "deprecated" : false,
-        "tag" : 1
-      }, {
-        "name" : "max_storage_mb",
-        "fieldName" : "maxStorageMb",
-        "clzName" : "java.lang.Long",
-        "schema" : {
-          "description" : "最大存储空间（MB）",
-          "example" : "10240",
-          "minimum" : 1.0
-        },
-        "complex" : "NONE",
-        "protoLine" : 262,
-        "protoColumn" : 3,
-        "deprecated" : false,
-        "tag" : 2
-      }, {
-        "name" : "enabled_modules",
-        "fieldName" : "enabledModules",
-        "clzName" : "java.lang.String",
-        "schema" : {
-          "description" : "启用的功能模块",
-          "example" : "[\"user\", \"role\", \"menu\", \"department\"]"
-        },
-        "complex" : "LIST",
-        "protoLine" : 268,
-        "protoColumn" : 3,
-        "deprecated" : false,
-        "tag" : 3
-      }, {
-        "name" : "expiry_date",
-        "fieldName" : "expiryDate",
-        "clzName" : "java.time.LocalDateTime",
-        "schema" : {
-          "description" : "到期时间",
-          "example" : "2025-12-31T23:59:59",
-          "dateFormat" : "ISO_LOCAL_DATE_TIME"
-        },
-        "complex" : "NONE",
-        "protoLine" : 273,
-        "protoColumn" : 3,
-        "deprecated" : false,
-        "tag" : 4
-      } ],
-      "enumClz" : false,
-      "enumErrorClz" : false,
-      "enumAuthorityClz" : false,
-      "protoFrom" : "com/apihug/rad/api/tenant/api.proto",
-      "protoLine" : 248,
-      "protoColumn" : 1,
-      "protoEntity" : "ConfigureTenantRequest"
-    },
-    "com.apihug.rad.api.tenant.CreateTenantRequest" : {
-      "clzName" : "com.apihug.rad.api.tenant.CreateTenantRequest",
-      "name" : "CreateTenantRequest",
-      "description" : "创建租户请求",
-      "deprecated" : false,
-      "schema" : {
-        "jsonSchema" : {
-          "title" : "CreateTenantRequest",
-          "description" : "创建租户请求"
-        },
-        "readOnly" : false
-      },
-      "items" : [ {
-        "name" : "tenant_code",
-        "fieldName" : "tenantCode",
-        "clzName" : "java.lang.String",
-        "schema" : {
-          "description" : "租户代码",
-          "example" : "acme_corp",
-          "maxLength" : 50,
-          "empty" : false,
-          "mock" : {
-            "nature" : "NAME"
-          }
-        },
-        "complex" : "NONE",
-        "protoLine" : 161,
-        "protoColumn" : 3,
-        "deprecated" : false,
-        "tag" : 1
-      }, {
-        "name" : "tenant_name",
-        "fieldName" : "tenantName",
-        "clzName" : "java.lang.String",
-        "schema" : {
-          "description" : "租户名称",
-          "example" : "Acme 公司",
-          "maxLength" : 100,
-          "empty" : false,
-          "mock" : {
-            "nature" : "NAME"
-          }
-        },
-        "complex" : "NONE",
-        "protoLine" : 169,
-        "protoColumn" : 3,
-        "deprecated" : false,
-        "tag" : 2
-      }, {
-        "name" : "contact_email",
-        "fieldName" : "contactEmail",
-        "clzName" : "java.lang.String",
-        "schema" : {
-          "description" : "联系人邮箱",
-          "example" : "contact@acme.com",
-          "maxLength" : 100,
-          "empty" : false,
-          "mock" : {
-            "nature" : "EMAIL"
-          }
-        },
-        "complex" : "NONE",
-        "protoLine" : 177,
-        "protoColumn" : 3,
-        "deprecated" : false,
-        "tag" : 3
-      }, {
-        "name" : "contact_phone",
-        "fieldName" : "contactPhone",
-        "clzName" : "java.lang.String",
-        "schema" : {
-          "description" : "联系人电话",
-          "example" : "13800138000",
-          "maxLength" : 20,
-          "mock" : {
-            "nature" : "PHONE"
-          }
-        },
-        "complex" : "NONE",
-        "protoLine" : 185,
-        "protoColumn" : 3,
-        "deprecated" : false,
-        "tag" : 4
-      }, {
-        "name" : "status",
-        "fieldName" : "status",
-        "clzName" : "com.apihug.rad.infra.tenant.TenantStatusEnum",
-        "schema" : {
-          "description" : "租户状态",
-          "example" : "ACTIVE",
-          "empty" : false
-        },
-        "complex" : "NONE",
-        "protoLine" : 192,
-        "protoColumn" : 3,
-        "deprecated" : false,
-        "tag" : 5
-      }, {
-        "name" : "is_platform",
-        "fieldName" : "isPlatform",
-        "clzName" : "java.lang.Boolean",
-        "schema" : {
-          "description" : "是否为平台租户",
-          "example" : "false"
-        },
-        "complex" : "NONE",
-        "protoLine" : 198,
-        "protoColumn" : 3,
-        "deprecated" : false,
-        "tag" : 6
-      }, {
-        "name" : "description",
-        "fieldName" : "description",
-        "clzName" : "java.lang.String",
-        "schema" : {
-          "description" : "租户描述",
-          "example" : "企业管理平台",
-          "maxLength" : 500
-        },
-        "complex" : "NONE",
-        "protoLine" : 203,
-        "protoColumn" : 3,
-        "deprecated" : false,
-        "tag" : 7
-      } ],
-      "enumClz" : false,
-      "enumErrorClz" : false,
-      "enumAuthorityClz" : false,
-      "protoFrom" : "com/apihug/rad/api/tenant/api.proto",
-      "protoLine" : 153,
-      "protoColumn" : 1,
-      "protoEntity" : "CreateTenantRequest"
-    },
-    "com.apihug.rad.api.tenant.SearchTenantsRequest" : {
-      "clzName" : "com.apihug.rad.api.tenant.SearchTenantsRequest",
-      "name" : "SearchTenantsRequest",
-      "description" : "搜索租户请求",
-      "deprecated" : false,
-      "schema" : {
-        "jsonSchema" : {
-          "title" : "SearchTenantsRequest",
-          "description" : "搜索租户请求"
-        },
-        "readOnly" : false
-      },
-      "items" : [ {
-        "name" : "keyword",
-        "fieldName" : "keyword",
-        "clzName" : "java.lang.String",
-        "schema" : {
-          "description" : "搜索关键词（租户名称或代码）",
-          "example" : "acme"
-        },
-        "complex" : "NONE",
-        "protoLine" : 398,
-        "protoColumn" : 3,
-        "deprecated" : false,
-        "tag" : 1
-      }, {
-        "name" : "status",
-        "fieldName" : "status",
-        "clzName" : "com.apihug.rad.infra.tenant.TenantStatusEnum",
-        "schema" : {
-          "description" : "租户状态筛选",
-          "example" : "ACTIVE"
-        },
-        "complex" : "NONE",
-        "protoLine" : 403,
-        "protoColumn" : 3,
-        "deprecated" : false,
-        "tag" : 2
-      } ],
-      "enumClz" : false,
-      "enumErrorClz" : false,
-      "enumAuthorityClz" : false,
-      "protoFrom" : "com/apihug/rad/api/tenant/api.proto",
-      "protoLine" : 390,
-      "protoColumn" : 1,
-      "protoEntity" : "SearchTenantsRequest"
-    },
-    "com.apihug.rad.api.tenant.TenantDetail" : {
-      "clzName" : "com.apihug.rad.api.tenant.TenantDetail",
-      "name" : "TenantDetail",
-      "description" : "租户详情信息",
-      "deprecated" : false,
-      "schema" : {
-        "jsonSchema" : {
-          "title" : "TenantDetail",
-          "description" : "租户详情信息"
-        },
-        "readOnly" : false
-      },
-      "items" : [ {
-        "name" : "id",
-        "fieldName" : "id",
-        "clzName" : "java.lang.Long",
-        "schema" : {
-          "description" : "租户 ID",
-          "example" : "1",
-          "minimum" : 1.0,
-          "empty" : false
-        },
-        "complex" : "NONE",
-        "protoLine" : 324,
-        "protoColumn" : 3,
-        "deprecated" : false,
-        "tag" : 1
-      }, {
-        "name" : "tenant_code",
-        "fieldName" : "tenantCode",
-        "clzName" : "java.lang.String",
-        "schema" : {
-          "description" : "租户代码",
-          "example" : "acme_corp",
-          "empty" : false,
-          "mock" : {
-            "nature" : "NAME"
-          }
-        },
-        "complex" : "NONE",
-        "protoLine" : 331,
-        "protoColumn" : 3,
-        "deprecated" : false,
-        "tag" : 2
-      }, {
-        "name" : "tenant_name",
-        "fieldName" : "tenantName",
-        "clzName" : "java.lang.String",
-        "schema" : {
-          "description" : "租户名称",
-          "example" : "Acme 公司",
-          "empty" : false,
-          "mock" : {
-            "nature" : "NAME"
-          }
-        },
-        "complex" : "NONE",
-        "protoLine" : 338,
-        "protoColumn" : 3,
-        "deprecated" : false,
-        "tag" : 3
-      }, {
-        "name" : "contact_email",
-        "fieldName" : "contactEmail",
-        "clzName" : "java.lang.String",
-        "schema" : {
-          "description" : "联系人邮箱",
-          "example" : "contact@acme.com",
-          "mock" : {
-            "nature" : "EMAIL"
-          }
-        },
-        "complex" : "NONE",
-        "protoLine" : 345,
-        "protoColumn" : 3,
-        "deprecated" : false,
-        "tag" : 4
-      }, {
-        "name" : "contact_phone",
-        "fieldName" : "contactPhone",
-        "clzName" : "java.lang.String",
-        "schema" : {
-          "description" : "联系人电话",
-          "example" : "13800138000",
-          "mock" : {
-            "nature" : "PHONE"
-          }
-        },
-        "complex" : "NONE",
-        "protoLine" : 351,
-        "protoColumn" : 3,
-        "deprecated" : false,
-        "tag" : 5
-      }, {
-        "name" : "status",
-        "fieldName" : "status",
-        "clzName" : "com.apihug.rad.infra.tenant.TenantStatusEnum",
-        "schema" : {
-          "description" : "租户状态",
-          "example" : "ACTIVE",
-          "empty" : false
-        },
-        "complex" : "NONE",
-        "protoLine" : 357,
-        "protoColumn" : 3,
-        "deprecated" : false,
-        "tag" : 6
-      }, {
-        "name" : "max_members",
-        "fieldName" : "maxMembers",
-        "clzName" : "java.lang.Integer",
-        "schema" : {
-          "description" : "最大成员数",
-          "example" : "100"
-        },
-        "complex" : "NONE",
-        "protoLine" : 363,
-        "protoColumn" : 3,
-        "deprecated" : false,
-        "tag" : 7
-      }, {
-        "name" : "max_storage_mb",
-        "fieldName" : "maxStorageMb",
-        "clzName" : "java.lang.Long",
-        "schema" : {
-          "description" : "最大存储空间（MB）",
-          "example" : "10240"
-        },
-        "complex" : "NONE",
-        "protoLine" : 368,
-        "protoColumn" : 3,
-        "deprecated" : false,
-        "tag" : 8
-      }, {
-        "name" : "is_platform",
-        "fieldName" : "isPlatform",
-        "clzName" : "java.lang.Boolean",
-        "schema" : {
-          "description" : "是否为平台租户",
-          "example" : "false"
-        },
-        "complex" : "NONE",
-        "protoLine" : 373,
-        "protoColumn" : 3,
-        "deprecated" : false,
-        "tag" : 9
-      }, {
-        "name" : "description",
-        "fieldName" : "description",
-        "clzName" : "java.lang.String",
-        "schema" : {
-          "description" : "租户描述",
-          "example" : "企业管理平台"
-        },
-        "complex" : "NONE",
-        "protoLine" : 378,
-        "protoColumn" : 3,
-        "deprecated" : false,
-        "tag" : 10
-      }, {
-        "name" : "created_at",
-        "fieldName" : "createdAt",
-        "clzName" : "java.time.LocalDateTime",
-        "schema" : {
-          "description" : "创建时间",
-          "example" : "2024-01-15T10:30:00",
-          "dateFormat" : "ISO_LOCAL_DATE_TIME"
-        },
-        "complex" : "NONE",
-        "protoLine" : 383,
-        "protoColumn" : 3,
-        "deprecated" : false,
-        "tag" : 11
-      } ],
-      "enumClz" : false,
-      "enumErrorClz" : false,
-      "enumAuthorityClz" : false,
-      "protoFrom" : "com/apihug/rad/api/tenant/api.proto",
-      "protoLine" : 316,
-      "protoColumn" : 1,
-      "protoEntity" : "TenantDetail"
-    },
-    "com.apihug.rad.api.tenant.TenantSummary" : {
-      "clzName" : "com.apihug.rad.api.tenant.TenantSummary",
-      "name" : "TenantSummary",
-      "description" : "租户摘要信息",
-      "deprecated" : false,
-      "schema" : {
-        "jsonSchema" : {
-          "title" : "TenantSummary",
-          "description" : "租户摘要信息"
-        },
-        "readOnly" : false
-      },
-      "items" : [ {
-        "name" : "id",
-        "fieldName" : "id",
-        "clzName" : "java.lang.Long",
-        "schema" : {
-          "description" : "租户 ID",
-          "example" : "1",
-          "minimum" : 1.0,
-          "empty" : false
-        },
-        "complex" : "NONE",
-        "protoLine" : 288,
-        "protoColumn" : 3,
-        "deprecated" : false,
-        "tag" : 1
-      }, {
-        "name" : "tenant_code",
-        "fieldName" : "tenantCode",
-        "clzName" : "java.lang.String",
-        "schema" : {
-          "description" : "租户代码",
-          "example" : "acme_corp",
-          "empty" : false,
-          "mock" : {
-            "nature" : "NAME"
-          }
-        },
-        "complex" : "NONE",
-        "protoLine" : 295,
-        "protoColumn" : 3,
-        "deprecated" : false,
-        "tag" : 2
-      }, {
-        "name" : "tenant_name",
-        "fieldName" : "tenantName",
-        "clzName" : "java.lang.String",
-        "schema" : {
-          "description" : "租户名称",
-          "example" : "Acme 公司",
-          "empty" : false,
-          "mock" : {
-            "nature" : "NAME"
-          }
-        },
-        "complex" : "NONE",
-        "protoLine" : 302,
-        "protoColumn" : 3,
-        "deprecated" : false,
-        "tag" : 3
-      }, {
-        "name" : "status",
-        "fieldName" : "status",
-        "clzName" : "com.apihug.rad.infra.tenant.TenantStatusEnum",
-        "schema" : {
-          "description" : "租户状态",
-          "example" : "ACTIVE",
-          "empty" : false
-        },
-        "complex" : "NONE",
-        "protoLine" : 309,
-        "protoColumn" : 3,
-        "deprecated" : false,
-        "tag" : 4
-      } ],
-      "enumClz" : false,
-      "enumErrorClz" : false,
-      "enumAuthorityClz" : false,
-      "protoFrom" : "com/apihug/rad/api/tenant/api.proto",
-      "protoLine" : 280,
-      "protoColumn" : 1,
-      "protoEntity" : "TenantSummary"
-    },
-    "com.apihug.rad.api.tenant.UpdateTenantRequest" : {
-      "clzName" : "com.apihug.rad.api.tenant.UpdateTenantRequest",
-      "name" : "UpdateTenantRequest",
-      "description" : "更新租户请求",
-      "deprecated" : false,
-      "schema" : {
-        "jsonSchema" : {
-          "title" : "UpdateTenantRequest",
-          "description" : "更新租户请求"
-        },
-        "readOnly" : false
-      },
-      "items" : [ {
-        "name" : "tenant_name",
-        "fieldName" : "tenantName",
-        "clzName" : "java.lang.String",
-        "schema" : {
-          "description" : "租户名称",
-          "example" : "Acme 公司",
-          "maxLength" : 100,
-          "empty" : false,
-          "mock" : {
-            "nature" : "NAME"
-          }
-        },
-        "complex" : "NONE",
-        "protoLine" : 218,
-        "protoColumn" : 3,
-        "deprecated" : false,
-        "tag" : 1
-      }, {
-        "name" : "contact_email",
-        "fieldName" : "contactEmail",
-        "clzName" : "java.lang.String",
-        "schema" : {
-          "description" : "联系人邮箱",
-          "example" : "contact@acme.com",
-          "maxLength" : 100,
-          "empty" : false,
-          "mock" : {
-            "nature" : "EMAIL"
-          }
-        },
-        "complex" : "NONE",
-        "protoLine" : 226,
-        "protoColumn" : 3,
-        "deprecated" : false,
-        "tag" : 2
-      }, {
-        "name" : "contact_phone",
-        "fieldName" : "contactPhone",
-        "clzName" : "java.lang.String",
-        "schema" : {
-          "description" : "联系人电话",
-          "example" : "13800138000",
-          "maxLength" : 20,
-          "mock" : {
-            "nature" : "PHONE"
-          }
-        },
-        "complex" : "NONE",
-        "protoLine" : 234,
-        "protoColumn" : 3,
-        "deprecated" : false,
-        "tag" : 3
-      }, {
-        "name" : "status",
-        "fieldName" : "status",
-        "clzName" : "com.apihug.rad.infra.tenant.TenantStatusEnum",
-        "schema" : {
-          "description" : "租户状态",
-          "example" : "ACTIVE",
-          "empty" : false
-        },
-        "complex" : "NONE",
-        "protoLine" : 241,
-        "protoColumn" : 3,
-        "deprecated" : false,
-        "tag" : 4
-      } ],
-      "enumClz" : false,
-      "enumErrorClz" : false,
-      "enumAuthorityClz" : false,
-      "protoFrom" : "com/apihug/rad/api/tenant/api.proto",
-      "protoLine" : 210,
-      "protoColumn" : 1,
-      "protoEntity" : "UpdateTenantRequest"
-    },
     "com.apihug.rad.api.tenant.AddTenantMemberRequest" : {
       "clzName" : "com.apihug.rad.api.tenant.AddTenantMemberRequest",
       "name" : "AddTenantMemberRequest",
@@ -4292,7 +4292,7 @@
           "empty" : false
         },
         "complex" : "NONE",
-        "protoLine" : 411,
+        "protoLine" : 408,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 1
@@ -4305,7 +4305,7 @@
           "example" : "1"
         },
         "complex" : "NONE",
-        "protoLine" : 418,
+        "protoLine" : 415,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 2
@@ -4319,7 +4319,7 @@
           "maxLength" : 100
         },
         "complex" : "NONE",
-        "protoLine" : 423,
+        "protoLine" : 420,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 3
@@ -4332,7 +4332,7 @@
           "example" : "FULL_TIME"
         },
         "complex" : "NONE",
-        "protoLine" : 429,
+        "protoLine" : 426,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 4
@@ -4345,7 +4345,7 @@
           "example" : "MEMBER"
         },
         "complex" : "NONE",
-        "protoLine" : 434,
+        "protoLine" : 431,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 5
@@ -4358,7 +4358,7 @@
           "example" : "false"
         },
         "complex" : "NONE",
-        "protoLine" : 439,
+        "protoLine" : 436,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 6
@@ -4366,8 +4366,8 @@
       "enumClz" : false,
       "enumErrorClz" : false,
       "enumAuthorityClz" : false,
-      "protoFrom" : "com/apihug/rad/api/tenant/member.proto",
-      "protoLine" : 403,
+      "protoFrom" : "com/apihug/rad/api/tenant/api.proto",
+      "protoLine" : 400,
       "protoColumn" : 1,
       "protoEntity" : "AddTenantMemberRequest"
     },
@@ -4394,7 +4394,7 @@
           "empty" : false
         },
         "complex" : "NONE",
-        "protoLine" : 468,
+        "protoLine" : 465,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 1
@@ -4408,7 +4408,7 @@
           "maxLength" : 100
         },
         "complex" : "NONE",
-        "protoLine" : 475,
+        "protoLine" : 472,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 2
@@ -4416,8 +4416,8 @@
       "enumClz" : false,
       "enumErrorClz" : false,
       "enumAuthorityClz" : false,
-      "protoFrom" : "com/apihug/rad/api/tenant/member.proto",
-      "protoLine" : 460,
+      "protoFrom" : "com/apihug/rad/api/tenant/api.proto",
+      "protoLine" : 457,
       "protoColumn" : 1,
       "protoEntity" : "AssignMemberDepartmentRequest"
     },
@@ -4443,7 +4443,7 @@
           "empty" : false
         },
         "complex" : "LIST",
-        "protoLine" : 644,
+        "protoLine" : 641,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 1
@@ -4451,8 +4451,8 @@
       "enumClz" : false,
       "enumErrorClz" : false,
       "enumAuthorityClz" : false,
-      "protoFrom" : "com/apihug/rad/api/tenant/member.proto",
-      "protoLine" : 636,
+      "protoFrom" : "com/apihug/rad/api/tenant/api.proto",
+      "protoLine" : 633,
       "protoColumn" : 1,
       "protoEntity" : "AssignRolesRequest"
     },
@@ -4477,7 +4477,7 @@
           "example" : "ACTIVE"
         },
         "complex" : "NONE",
-        "protoLine" : 388,
+        "protoLine" : 385,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 1
@@ -4489,7 +4489,7 @@
           "description" : "成员角色筛选"
         },
         "complex" : "NONE",
-        "protoLine" : 393,
+        "protoLine" : 390,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 2
@@ -4502,7 +4502,7 @@
           "example" : "zhangsan"
         },
         "complex" : "NONE",
-        "protoLine" : 397,
+        "protoLine" : 394,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 3
@@ -4510,8 +4510,8 @@
       "enumClz" : false,
       "enumErrorClz" : false,
       "enumAuthorityClz" : false,
-      "protoFrom" : "com/apihug/rad/api/tenant/member.proto",
-      "protoLine" : 380,
+      "protoFrom" : "com/apihug/rad/api/tenant/api.proto",
+      "protoLine" : 377,
       "protoColumn" : 1,
       "protoEntity" : "GetTenantMembersRequest"
     },
@@ -4537,7 +4537,7 @@
           "empty" : false
         },
         "complex" : "NONE",
-        "protoLine" : 678,
+        "protoLine" : 675,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 1
@@ -4551,7 +4551,7 @@
           "empty" : false
         },
         "complex" : "NONE",
-        "protoLine" : 684,
+        "protoLine" : 681,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 2
@@ -4565,7 +4565,7 @@
           "empty" : false
         },
         "complex" : "NONE",
-        "protoLine" : 690,
+        "protoLine" : 687,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 3
@@ -4573,8 +4573,8 @@
       "enumClz" : false,
       "enumErrorClz" : false,
       "enumAuthorityClz" : false,
-      "protoFrom" : "com/apihug/rad/api/tenant/member.proto",
-      "protoLine" : 670,
+      "protoFrom" : "com/apihug/rad/api/tenant/api.proto",
+      "protoLine" : 667,
       "protoColumn" : 1,
       "protoEntity" : "MemberRoleItem"
     },
@@ -4600,7 +4600,7 @@
           "empty" : false
         },
         "complex" : "NONE",
-        "protoLine" : 659,
+        "protoLine" : 656,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 1
@@ -4612,7 +4612,7 @@
           "description" : "RBAC 角色列表"
         },
         "complex" : "LIST",
-        "protoLine" : 665,
+        "protoLine" : 662,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 2
@@ -4620,8 +4620,8 @@
       "enumClz" : false,
       "enumErrorClz" : false,
       "enumAuthorityClz" : false,
-      "protoFrom" : "com/apihug/rad/api/tenant/member.proto",
-      "protoLine" : 651,
+      "protoFrom" : "com/apihug/rad/api/tenant/api.proto",
+      "protoLine" : 648,
       "protoColumn" : 1,
       "protoEntity" : "MemberRoleSummary"
     },
@@ -4646,7 +4646,7 @@
           "example" : "1"
         },
         "complex" : "NONE",
-        "protoLine" : 559,
+        "protoLine" : 556,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 1
@@ -4659,7 +4659,7 @@
           "example" : "1"
         },
         "complex" : "NONE",
-        "protoLine" : 564,
+        "protoLine" : 561,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 2
@@ -4672,7 +4672,7 @@
           "example" : "1"
         },
         "complex" : "NONE",
-        "protoLine" : 569,
+        "protoLine" : 566,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 3
@@ -4685,7 +4685,7 @@
           "example" : "zhangsan"
         },
         "complex" : "NONE",
-        "protoLine" : 574,
+        "protoLine" : 571,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 4
@@ -4698,7 +4698,7 @@
           "example" : "zhangsan@example.com"
         },
         "complex" : "NONE",
-        "protoLine" : 579,
+        "protoLine" : 576,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 5
@@ -4711,7 +4711,7 @@
           "example" : "ACTIVE"
         },
         "complex" : "NONE",
-        "protoLine" : 584,
+        "protoLine" : 581,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 6
@@ -4724,7 +4724,7 @@
           "example" : "Acme 公司"
         },
         "complex" : "NONE",
-        "protoLine" : 589,
+        "protoLine" : 586,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 7
@@ -4737,7 +4737,7 @@
           "example" : "acme_corp"
         },
         "complex" : "NONE",
-        "protoLine" : 594,
+        "protoLine" : 591,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 8
@@ -4750,7 +4750,7 @@
           "example" : "FULL_TIME"
         },
         "complex" : "NONE",
-        "protoLine" : 599,
+        "protoLine" : 596,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 9
@@ -4763,7 +4763,7 @@
           "example" : "MEMBER"
         },
         "complex" : "NONE",
-        "protoLine" : 604,
+        "protoLine" : 601,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 10
@@ -4776,7 +4776,7 @@
           "example" : "ACTIVE"
         },
         "complex" : "NONE",
-        "protoLine" : 609,
+        "protoLine" : 606,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 11
@@ -4789,7 +4789,7 @@
           "example" : "1"
         },
         "complex" : "NONE",
-        "protoLine" : 614,
+        "protoLine" : 611,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 12
@@ -4802,7 +4802,7 @@
           "example" : "软件工程师"
         },
         "complex" : "NONE",
-        "protoLine" : 619,
+        "protoLine" : 616,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 13
@@ -4815,7 +4815,7 @@
           "example" : "false"
         },
         "complex" : "NONE",
-        "protoLine" : 624,
+        "protoLine" : 621,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 14
@@ -4829,7 +4829,7 @@
           "dateFormat" : "ISO_LOCAL_DATE_TIME"
         },
         "complex" : "NONE",
-        "protoLine" : 629,
+        "protoLine" : 626,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 15
@@ -4837,8 +4837,8 @@
       "enumClz" : false,
       "enumErrorClz" : false,
       "enumAuthorityClz" : false,
-      "protoFrom" : "com/apihug/rad/api/tenant/member.proto",
-      "protoLine" : 551,
+      "protoFrom" : "com/apihug/rad/api/tenant/api.proto",
+      "protoLine" : 548,
       "protoColumn" : 1,
       "protoEntity" : "TenantMemberDetail"
     },
@@ -4863,7 +4863,7 @@
           "example" : "1"
         },
         "complex" : "NONE",
-        "protoLine" : 490,
+        "protoLine" : 487,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 1
@@ -4876,7 +4876,7 @@
           "example" : "1"
         },
         "complex" : "NONE",
-        "protoLine" : 495,
+        "protoLine" : 492,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 2
@@ -4889,7 +4889,7 @@
           "example" : "zhangsan"
         },
         "complex" : "NONE",
-        "protoLine" : 500,
+        "protoLine" : 497,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 3
@@ -4902,7 +4902,7 @@
           "example" : "zhangsan@example.com"
         },
         "complex" : "NONE",
-        "protoLine" : 505,
+        "protoLine" : 502,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 4
@@ -4915,7 +4915,7 @@
           "example" : "1"
         },
         "complex" : "NONE",
-        "protoLine" : 510,
+        "protoLine" : 507,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 5
@@ -4928,7 +4928,7 @@
           "example" : "Acme 公司"
         },
         "complex" : "NONE",
-        "protoLine" : 515,
+        "protoLine" : 512,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 6
@@ -4941,7 +4941,7 @@
           "example" : "1"
         },
         "complex" : "NONE",
-        "protoLine" : 520,
+        "protoLine" : 517,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 7
@@ -4954,7 +4954,7 @@
           "example" : "软件工程师"
         },
         "complex" : "NONE",
-        "protoLine" : 525,
+        "protoLine" : 522,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 8
@@ -4967,7 +4967,7 @@
           "example" : "FULL_TIME"
         },
         "complex" : "NONE",
-        "protoLine" : 530,
+        "protoLine" : 527,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 9
@@ -4980,7 +4980,7 @@
           "example" : "MEMBER"
         },
         "complex" : "NONE",
-        "protoLine" : 535,
+        "protoLine" : 532,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 10
@@ -4993,7 +4993,7 @@
           "example" : "ACTIVE"
         },
         "complex" : "NONE",
-        "protoLine" : 540,
+        "protoLine" : 537,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 11
@@ -5006,7 +5006,7 @@
           "example" : "false"
         },
         "complex" : "NONE",
-        "protoLine" : 545,
+        "protoLine" : 542,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 12
@@ -5014,8 +5014,8 @@
       "enumClz" : false,
       "enumErrorClz" : false,
       "enumAuthorityClz" : false,
-      "protoFrom" : "com/apihug/rad/api/tenant/member.proto",
-      "protoLine" : 482,
+      "protoFrom" : "com/apihug/rad/api/tenant/api.proto",
+      "protoLine" : 479,
       "protoColumn" : 1,
       "protoEntity" : "TenantMemberSummary"
     },
@@ -5041,7 +5041,7 @@
           "empty" : false
         },
         "complex" : "NONE",
-        "protoLine" : 453,
+        "protoLine" : 450,
         "protoColumn" : 3,
         "deprecated" : false,
         "tag" : 1
@@ -5049,8 +5049,8 @@
       "enumClz" : false,
       "enumErrorClz" : false,
       "enumAuthorityClz" : false,
-      "protoFrom" : "com/apihug/rad/api/tenant/member.proto",
-      "protoLine" : 445,
+      "protoFrom" : "com/apihug/rad/api/tenant/api.proto",
+      "protoLine" : 442,
       "protoColumn" : 1,
       "protoEntity" : "UpdateMemberRoleRequest"
     },
@@ -6430,6 +6430,52 @@
         "path" : "/api/customer/switch-tenant",
         "description" : "切换到指定租户，重新签发 Token",
         "priority" : "MIDDLE"
+      }, {
+        "schema" : {
+          "tags" : [ "customer" ],
+          "summary" : "设置默认租户",
+          "description" : "将指定租户设为客户的默认租户",
+          "deprecated" : false,
+          "priority" : "MIDDLE",
+          "pageable" : false,
+          "raw" : false,
+          "request" : false,
+          "response" : false,
+          "session" : false,
+          "inputPlural" : false,
+          "outputPlural" : false,
+          "parameters" : [ {
+            "name" : "tenantId",
+            "in" : "PATH",
+            "schema" : {
+              "format" : "LONG",
+              "empty" : false
+            },
+            "plural" : false
+          } ],
+          "post" : "/set-default/{tenantId}",
+          "authorization" : {
+            "lowLimitRiskyMode" : "LOGIN"
+          },
+          "group" : "CUSTOMER",
+          "responseEmpty" : false,
+          "questions" : [ "如何设置默认登录租户？", "不想切换租户？" ],
+          "multipart" : false,
+          "internal" : false,
+          "hide" : false
+        },
+        "deprecated" : false,
+        "requestStreaming" : false,
+        "responseStreaming" : false,
+        "requestRef" : "hope.common.adaptor.Empty",
+        "responseRef" : "hope.common.adaptor.Empty",
+        "protoLine" : 133,
+        "protoColumn" : 3,
+        "name" : "SetDefaultTenant",
+        "httpMethod" : "POST",
+        "path" : "/api/customer/set-default/{tenantId}",
+        "description" : "将指定租户设为客户的默认租户",
+        "priority" : "MIDDLE"
       } ],
       "protoFrom" : "com/apihug/rad/api/customer/api.proto",
       "protoLine" : 56,
@@ -6474,7 +6520,7 @@
         "responseStreaming" : false,
         "requestRef" : "com.apihug.rad.api.customer.CreateCustomerRequest",
         "responseRef" : "com.apihug.rad.api.customer.CustomerSummary",
-        "protoLine" : 140,
+        "protoLine" : 169,
         "protoColumn" : 3,
         "name" : "CreateCustomer",
         "httpMethod" : "POST",
@@ -6511,7 +6557,7 @@
         "responseStreaming" : false,
         "requestRef" : "com.apihug.rad.api.customer.ForgotPasswordRequest",
         "responseRef" : "hope.common.adaptor.Empty",
-        "protoLine" : 162,
+        "protoLine" : 191,
         "protoColumn" : 3,
         "name" : "ForgotPassword",
         "httpMethod" : "POST",
@@ -6548,7 +6594,7 @@
         "responseStreaming" : false,
         "requestRef" : "com.apihug.rad.api.customer.ResetPasswordRequest",
         "responseRef" : "hope.common.adaptor.Empty",
-        "protoLine" : 180,
+        "protoLine" : 209,
         "protoColumn" : 3,
         "name" : "ResetPassword",
         "httpMethod" : "POST",
@@ -6557,7 +6603,7 @@
         "priority" : "HIGH"
       } ],
       "protoFrom" : "com/apihug/rad/api/customer/api.proto",
-      "protoLine" : 134,
+      "protoLine" : 163,
       "protoColumn" : 1,
       "protoEntity" : "CustomerManagementService",
       "deprecated" : false
@@ -7607,6 +7653,292 @@
       "protoEntity" : "PlatformService",
       "deprecated" : false
     },
+    "com.apihug.rad.api.platform.TenantService" : {
+      "path" : "/platforms/tenants",
+      "description" : "租户管理服务，提供租户 CRUD 和配置功能（平台级管理）",
+      "clzName" : "com.apihug.rad.api.platform.TenantService",
+      "name" : "TenantService",
+      "items" : [ {
+        "schema" : {
+          "tags" : [ "tenant" ],
+          "summary" : "创建租户",
+          "description" : "创建新租户",
+          "deprecated" : false,
+          "priority" : "HIGH",
+          "pageable" : false,
+          "raw" : false,
+          "request" : false,
+          "response" : false,
+          "session" : false,
+          "inputPlural" : false,
+          "outputPlural" : false,
+          "post" : "/create",
+          "authorization" : {
+            "rbac" : {
+              "predefinedRoleChecker" : "PLATFORM_MANAGER",
+              "authorities" : [ "TENANT_CREATE" ],
+              "combinator" : "AND"
+            }
+          },
+          "group" : "PLATFORM",
+          "responseEmpty" : false,
+          "multipart" : false,
+          "internal" : false,
+          "hide" : false
+        },
+        "deprecated" : false,
+        "requestStreaming" : false,
+        "responseStreaming" : false,
+        "requestRef" : "com.apihug.rad.api.platform.CreateTenantRequest",
+        "responseRef" : "com.apihug.rad.api.platform.TenantSummary",
+        "protoLine" : 15,
+        "protoColumn" : 3,
+        "name" : "CreateTenant",
+        "httpMethod" : "POST",
+        "path" : "/api/platforms/tenants/create",
+        "description" : "创建新租户",
+        "priority" : "HIGH"
+      }, {
+        "schema" : {
+          "tags" : [ "tenant" ],
+          "summary" : "获取租户详情",
+          "description" : "获取租户详情",
+          "deprecated" : false,
+          "priority" : "LOW",
+          "pageable" : false,
+          "raw" : false,
+          "request" : false,
+          "response" : false,
+          "session" : false,
+          "inputPlural" : false,
+          "outputPlural" : false,
+          "parameters" : [ {
+            "name" : "tenantId",
+            "in" : "PATH",
+            "schema" : {
+              "format" : "LONG",
+              "empty" : false
+            },
+            "plural" : false
+          } ],
+          "get" : "/get/{tenantId}",
+          "authorization" : {
+            "rbac" : {
+              "predefinedRoleChecker" : "PLATFORM"
+            }
+          },
+          "group" : "PLATFORM",
+          "responseEmpty" : false,
+          "multipart" : false,
+          "internal" : false,
+          "hide" : false
+        },
+        "deprecated" : false,
+        "requestStreaming" : false,
+        "responseStreaming" : false,
+        "requestRef" : "hope.common.adaptor.Empty",
+        "responseRef" : "com.apihug.rad.api.platform.TenantDetail",
+        "protoLine" : 33,
+        "protoColumn" : 3,
+        "name" : "GetTenant",
+        "httpMethod" : "GET",
+        "path" : "/api/platforms/tenants/get/{tenantId}",
+        "description" : "获取租户详情",
+        "priority" : "LOW"
+      }, {
+        "schema" : {
+          "tags" : [ "tenant" ],
+          "summary" : "更新租户",
+          "description" : "更新租户信息",
+          "deprecated" : false,
+          "priority" : "MIDDLE",
+          "pageable" : false,
+          "raw" : false,
+          "request" : false,
+          "response" : false,
+          "session" : false,
+          "inputPlural" : false,
+          "outputPlural" : false,
+          "parameters" : [ {
+            "name" : "tenantId",
+            "in" : "PATH",
+            "schema" : {
+              "format" : "INTEGER",
+              "empty" : false
+            },
+            "plural" : false
+          } ],
+          "put" : "/update/{tenantId}",
+          "authorization" : {
+            "rbac" : {
+              "predefinedRoleChecker" : "PLATFORM_MANAGER",
+              "authorities" : [ "TENANT_UPDATE" ],
+              "combinator" : "AND"
+            }
+          },
+          "group" : "PLATFORM",
+          "responseEmpty" : false,
+          "multipart" : false,
+          "internal" : false,
+          "hide" : false
+        },
+        "deprecated" : false,
+        "requestStreaming" : false,
+        "responseStreaming" : false,
+        "requestRef" : "com.apihug.rad.api.platform.UpdateTenantRequest",
+        "responseRef" : "hope.common.adaptor.Empty",
+        "protoLine" : 59,
+        "protoColumn" : 3,
+        "name" : "UpdateTenant",
+        "httpMethod" : "PUT",
+        "path" : "/api/platforms/tenants/update/{tenantId}",
+        "description" : "更新租户信息",
+        "priority" : "MIDDLE"
+      }, {
+        "schema" : {
+          "tags" : [ "tenant" ],
+          "summary" : "停用租户",
+          "description" : "停用租户",
+          "deprecated" : false,
+          "priority" : "HIGH",
+          "pageable" : false,
+          "raw" : false,
+          "request" : false,
+          "response" : false,
+          "session" : false,
+          "inputPlural" : false,
+          "outputPlural" : false,
+          "parameters" : [ {
+            "name" : "tenantId",
+            "in" : "PATH",
+            "schema" : {
+              "format" : "INTEGER",
+              "empty" : false
+            },
+            "plural" : false
+          } ],
+          "delete" : "/{tenantId}/disable",
+          "authorization" : {
+            "rbac" : {
+              "predefinedRoleChecker" : "PLATFORM",
+              "authorities" : [ "TENANT_DISABLE" ],
+              "combinator" : "AND"
+            }
+          },
+          "group" : "PLATFORM",
+          "responseEmpty" : false,
+          "multipart" : false,
+          "internal" : false,
+          "hide" : false
+        },
+        "deprecated" : false,
+        "requestStreaming" : false,
+        "responseStreaming" : false,
+        "requestRef" : "hope.common.adaptor.Empty",
+        "responseRef" : "hope.common.adaptor.Empty",
+        "protoLine" : 87,
+        "protoColumn" : 3,
+        "name" : "DisableTenant",
+        "httpMethod" : "DELETE",
+        "path" : "/api/platforms/tenants/{tenantId}/disable",
+        "description" : "停用租户",
+        "priority" : "HIGH"
+      }, {
+        "schema" : {
+          "tags" : [ "tenant" ],
+          "summary" : "配置租户",
+          "description" : "配置租户功能",
+          "deprecated" : false,
+          "priority" : "MIDDLE",
+          "pageable" : false,
+          "raw" : false,
+          "request" : false,
+          "response" : false,
+          "session" : false,
+          "inputPlural" : false,
+          "outputPlural" : false,
+          "parameters" : [ {
+            "name" : "tenantId",
+            "in" : "PATH",
+            "schema" : {
+              "format" : "INTEGER",
+              "empty" : false
+            },
+            "plural" : false
+          } ],
+          "post" : "/{tenantId}/configure",
+          "authorization" : {
+            "rbac" : {
+              "predefinedRoleChecker" : "PLATFORM",
+              "authorities" : [ "TENANT_CONFIGURE" ],
+              "combinator" : "AND"
+            }
+          },
+          "group" : "PLATFORM",
+          "responseEmpty" : false,
+          "multipart" : false,
+          "internal" : false,
+          "hide" : false
+        },
+        "deprecated" : false,
+        "requestStreaming" : false,
+        "responseStreaming" : false,
+        "requestRef" : "com.apihug.rad.api.platform.ConfigureTenantRequest",
+        "responseRef" : "hope.common.adaptor.Empty",
+        "protoLine" : 115,
+        "protoColumn" : 3,
+        "name" : "ConfigureTenant",
+        "httpMethod" : "POST",
+        "path" : "/api/platforms/tenants/{tenantId}/configure",
+        "description" : "配置租户功能",
+        "priority" : "MIDDLE"
+      }, {
+        "schema" : {
+          "tags" : [ "tenant" ],
+          "summary" : "搜索租户",
+          "description" : "搜索租户（分页）",
+          "deprecated" : false,
+          "priority" : "LOW",
+          "pageable" : true,
+          "raw" : false,
+          "request" : false,
+          "response" : false,
+          "session" : false,
+          "inputPlural" : false,
+          "outputPlural" : false,
+          "post" : "/search",
+          "authorization" : {
+            "rbac" : {
+              "predefinedRoleChecker" : "PLATFORM",
+              "authorities" : [ "TENANT_CREATE" ],
+              "combinator" : "AND"
+            }
+          },
+          "group" : "PLATFORM",
+          "responseEmpty" : false,
+          "multipart" : false,
+          "internal" : false,
+          "hide" : false
+        },
+        "deprecated" : false,
+        "requestStreaming" : false,
+        "responseStreaming" : false,
+        "requestRef" : "com.apihug.rad.api.platform.SearchTenantsRequest",
+        "responseRef" : "com.apihug.rad.api.platform.TenantSummary",
+        "protoLine" : 143,
+        "protoColumn" : 3,
+        "name" : "SearchTenants",
+        "httpMethod" : "POST",
+        "path" : "/api/platforms/tenants/search",
+        "description" : "搜索租户（分页）",
+        "priority" : "LOW"
+      } ],
+      "protoFrom" : "com/apihug/rad/api/platform/tenant.proto",
+      "protoLine" : 9,
+      "protoColumn" : 1,
+      "protoEntity" : "TenantService",
+      "deprecated" : false
+    },
     "com.apihug.rad.api.role.RoleService" : {
       "path" : "/roles",
       "description" : "角色管理服务，提供角色 CRUD 和权限分配功能",
@@ -7987,284 +8319,8 @@
       "protoEntity" : "RoleService",
       "deprecated" : false
     },
-    "com.apihug.rad.api.tenant.TenantService" : {
-      "path" : "/tenants",
-      "description" : "租户管理服务，提供租户 CRUD 和配置功能",
-      "clzName" : "com.apihug.rad.api.tenant.TenantService",
-      "name" : "TenantService",
-      "items" : [ {
-        "schema" : {
-          "tags" : [ "tenant" ],
-          "summary" : "创建租户",
-          "description" : "创建新租户",
-          "deprecated" : false,
-          "priority" : "HIGH",
-          "pageable" : false,
-          "raw" : false,
-          "request" : false,
-          "response" : false,
-          "session" : false,
-          "inputPlural" : false,
-          "outputPlural" : false,
-          "post" : "/tenants",
-          "authorization" : {
-            "rbac" : {
-              "predefinedRoleChecker" : "PLATFORM",
-              "authorities" : [ "TENANT_CREATE" ],
-              "combinator" : "AND"
-            }
-          },
-          "group" : "PLATFORM",
-          "responseEmpty" : false,
-          "multipart" : false,
-          "internal" : false,
-          "hide" : false
-        },
-        "deprecated" : false,
-        "requestStreaming" : false,
-        "responseStreaming" : false,
-        "requestRef" : "com.apihug.rad.api.tenant.CreateTenantRequest",
-        "responseRef" : "com.apihug.rad.api.tenant.TenantSummary",
-        "protoLine" : 15,
-        "protoColumn" : 3,
-        "name" : "CreateTenant",
-        "httpMethod" : "POST",
-        "path" : "/api/tenants/tenants",
-        "description" : "创建新租户",
-        "priority" : "HIGH"
-      }, {
-        "schema" : {
-          "tags" : [ "tenant" ],
-          "summary" : "获取租户详情",
-          "description" : "获取租户详情",
-          "deprecated" : false,
-          "priority" : "LOW",
-          "pageable" : false,
-          "raw" : false,
-          "request" : false,
-          "response" : false,
-          "session" : false,
-          "inputPlural" : false,
-          "outputPlural" : false,
-          "parameters" : [ {
-            "name" : "tenantId",
-            "in" : "PATH",
-            "schema" : {
-              "format" : "LONG",
-              "empty" : false
-            },
-            "plural" : false
-          } ],
-          "get" : "/tenants/{tenantId}",
-          "authorization" : {
-            "lowLimitRiskyMode" : "LOGIN"
-          },
-          "group" : "PLATFORM",
-          "responseEmpty" : false,
-          "multipart" : false,
-          "internal" : false,
-          "hide" : false
-        },
-        "deprecated" : false,
-        "requestStreaming" : false,
-        "responseStreaming" : false,
-        "requestRef" : "hope.common.adaptor.Empty",
-        "responseRef" : "com.apihug.rad.api.tenant.TenantDetail",
-        "protoLine" : 33,
-        "protoColumn" : 3,
-        "name" : "GetTenant",
-        "httpMethod" : "GET",
-        "path" : "/api/tenants/tenants/{tenantId}",
-        "description" : "获取租户详情",
-        "priority" : "LOW"
-      }, {
-        "schema" : {
-          "tags" : [ "tenant" ],
-          "summary" : "更新租户",
-          "description" : "更新租户信息",
-          "deprecated" : false,
-          "priority" : "MIDDLE",
-          "pageable" : false,
-          "raw" : false,
-          "request" : false,
-          "response" : false,
-          "session" : false,
-          "inputPlural" : false,
-          "outputPlural" : false,
-          "parameters" : [ {
-            "name" : "tenantId",
-            "in" : "PATH",
-            "schema" : {
-              "format" : "INTEGER",
-              "empty" : false
-            },
-            "plural" : false
-          } ],
-          "put" : "/tenants/{tenantId}",
-          "authorization" : {
-            "rbac" : {
-              "authorities" : [ "TENANT_UPDATE" ]
-            }
-          },
-          "group" : "PLATFORM",
-          "responseEmpty" : false,
-          "multipart" : false,
-          "internal" : false,
-          "hide" : false
-        },
-        "deprecated" : false,
-        "requestStreaming" : false,
-        "responseStreaming" : false,
-        "requestRef" : "com.apihug.rad.api.tenant.UpdateTenantRequest",
-        "responseRef" : "hope.common.adaptor.Empty",
-        "protoLine" : 57,
-        "protoColumn" : 3,
-        "name" : "UpdateTenant",
-        "httpMethod" : "PUT",
-        "path" : "/api/tenants/tenants/{tenantId}",
-        "description" : "更新租户信息",
-        "priority" : "MIDDLE"
-      }, {
-        "schema" : {
-          "tags" : [ "tenant" ],
-          "summary" : "停用租户",
-          "description" : "停用租户",
-          "deprecated" : false,
-          "priority" : "HIGH",
-          "pageable" : false,
-          "raw" : false,
-          "request" : false,
-          "response" : false,
-          "session" : false,
-          "inputPlural" : false,
-          "outputPlural" : false,
-          "parameters" : [ {
-            "name" : "tenantId",
-            "in" : "PATH",
-            "schema" : {
-              "format" : "INTEGER",
-              "empty" : false
-            },
-            "plural" : false
-          } ],
-          "delete" : "/tenants/{tenantId}/disable",
-          "authorization" : {
-            "rbac" : {
-              "authorities" : [ "TENANT_DISABLE" ]
-            }
-          },
-          "group" : "PLATFORM",
-          "responseEmpty" : false,
-          "multipart" : false,
-          "internal" : false,
-          "hide" : false
-        },
-        "deprecated" : false,
-        "requestStreaming" : false,
-        "responseStreaming" : false,
-        "requestRef" : "hope.common.adaptor.Empty",
-        "responseRef" : "hope.common.adaptor.Empty",
-        "protoLine" : 83,
-        "protoColumn" : 3,
-        "name" : "DisableTenant",
-        "httpMethod" : "DELETE",
-        "path" : "/api/tenants/tenants/{tenantId}/disable",
-        "description" : "停用租户",
-        "priority" : "HIGH"
-      }, {
-        "schema" : {
-          "tags" : [ "tenant" ],
-          "summary" : "配置租户",
-          "description" : "配置租户功能",
-          "deprecated" : false,
-          "priority" : "MIDDLE",
-          "pageable" : false,
-          "raw" : false,
-          "request" : false,
-          "response" : false,
-          "session" : false,
-          "inputPlural" : false,
-          "outputPlural" : false,
-          "parameters" : [ {
-            "name" : "tenantId",
-            "in" : "PATH",
-            "schema" : {
-              "format" : "INTEGER",
-              "empty" : false
-            },
-            "plural" : false
-          } ],
-          "post" : "/tenants/{tenantId}/configure",
-          "authorization" : {
-            "rbac" : {
-              "authorities" : [ "TENANT_CONFIGURE" ]
-            }
-          },
-          "group" : "PLATFORM",
-          "responseEmpty" : false,
-          "multipart" : false,
-          "internal" : false,
-          "hide" : false
-        },
-        "deprecated" : false,
-        "requestStreaming" : false,
-        "responseStreaming" : false,
-        "requestRef" : "com.apihug.rad.api.tenant.ConfigureTenantRequest",
-        "responseRef" : "hope.common.adaptor.Empty",
-        "protoLine" : 109,
-        "protoColumn" : 3,
-        "name" : "ConfigureTenant",
-        "httpMethod" : "POST",
-        "path" : "/api/tenants/tenants/{tenantId}/configure",
-        "description" : "配置租户功能",
-        "priority" : "MIDDLE"
-      }, {
-        "schema" : {
-          "tags" : [ "tenant" ],
-          "summary" : "搜索租户",
-          "description" : "搜索租户（分页）",
-          "deprecated" : false,
-          "priority" : "LOW",
-          "pageable" : true,
-          "raw" : false,
-          "request" : false,
-          "response" : false,
-          "session" : false,
-          "inputPlural" : false,
-          "outputPlural" : false,
-          "post" : "/tenants/search",
-          "authorization" : {
-            "rbac" : {
-              "authorities" : [ "TENANT_CREATE" ]
-            }
-          },
-          "group" : "PLATFORM",
-          "responseEmpty" : false,
-          "multipart" : false,
-          "internal" : false,
-          "hide" : false
-        },
-        "deprecated" : false,
-        "requestStreaming" : false,
-        "responseStreaming" : false,
-        "requestRef" : "com.apihug.rad.api.tenant.SearchTenantsRequest",
-        "responseRef" : "com.apihug.rad.api.tenant.TenantSummary",
-        "protoLine" : 135,
-        "protoColumn" : 3,
-        "name" : "SearchTenants",
-        "httpMethod" : "POST",
-        "path" : "/api/tenants/tenants/search",
-        "description" : "搜索租户（分页）",
-        "priority" : "LOW"
-      } ],
-      "protoFrom" : "com/apihug/rad/api/tenant/api.proto",
-      "protoLine" : 9,
-      "protoColumn" : 1,
-      "protoEntity" : "TenantService",
-      "deprecated" : false
-    },
     "com.apihug.rad.api.tenant.TenantMemberService" : {
-      "path" : "/tenant-members",
+      "path" : "/tenants",
       "description" : "租户成员管理服务，提供成员与租户关系管理功能",
       "clzName" : "com.apihug.rad.api.tenant.TenantMemberService",
       "name" : "TenantMemberService",
@@ -8294,7 +8350,9 @@
           "get" : "/tenants/{tenantId}/members",
           "authorization" : {
             "rbac" : {
-              "authorities" : [ "TENANT_MEMBER_VIEW" ]
+              "predefinedRoleChecker" : "TENANT_MANAGER",
+              "authorities" : [ "TENANT_MEMBER_VIEW" ],
+              "combinator" : "OR"
             }
           },
           "group" : "TENANT",
@@ -8312,7 +8370,7 @@
         "protoColumn" : 3,
         "name" : "GetTenantMembers",
         "httpMethod" : "GET",
-        "path" : "/api/tenant-members/tenants/{tenantId}/members",
+        "path" : "/api/tenants/tenants/{tenantId}/members",
         "description" : "获取租户成员列表",
         "priority" : "LOW"
       }, {
@@ -8341,7 +8399,9 @@
           "post" : "/tenants/{tenantId}/members",
           "authorization" : {
             "rbac" : {
-              "authorities" : [ "TENANT_MEMBER_ADD" ]
+              "predefinedRoleChecker" : "TENANT_MANAGER",
+              "authorities" : [ "TENANT_MEMBER_ADD" ],
+              "combinator" : "OR"
             }
           },
           "group" : "TENANT",
@@ -8355,11 +8415,11 @@
         "responseStreaming" : false,
         "requestRef" : "com.apihug.rad.api.tenant.AddTenantMemberRequest",
         "responseRef" : "hope.common.adaptor.Empty",
-        "protoLine" : 44,
+        "protoLine" : 46,
         "protoColumn" : 3,
         "name" : "AddMemberToTenant",
         "httpMethod" : "POST",
-        "path" : "/api/tenant-members/tenants/{tenantId}/members",
+        "path" : "/api/tenants/tenants/{tenantId}/members",
         "description" : "添加客户为租户成员",
         "priority" : "MIDDLE"
       }, {
@@ -8396,7 +8456,9 @@
           "delete" : "/tenants/{tenantId}/members/{memberId}",
           "authorization" : {
             "rbac" : {
-              "authorities" : [ "TENANT_MEMBER_REMOVE" ]
+              "predefinedRoleChecker" : "TENANT_MANAGER",
+              "authorities" : [ "TENANT_MEMBER_REMOVE" ],
+              "combinator" : "OR"
             }
           },
           "group" : "TENANT",
@@ -8410,11 +8472,11 @@
         "responseStreaming" : false,
         "requestRef" : "hope.common.adaptor.Empty",
         "responseRef" : "hope.common.adaptor.Empty",
-        "protoLine" : 70,
+        "protoLine" : 74,
         "protoColumn" : 3,
         "name" : "RemoveMemberFromTenant",
         "httpMethod" : "DELETE",
-        "path" : "/api/tenant-members/tenants/{tenantId}/members/{memberId}",
+        "path" : "/api/tenants/tenants/{tenantId}/members/{memberId}",
         "description" : "从租户移除成员",
         "priority" : "HIGH"
       }, {
@@ -8451,7 +8513,9 @@
           "post" : "/tenants/{tenantId}/members/{memberId}/toggle-lock",
           "authorization" : {
             "rbac" : {
-              "authorities" : [ "TENANT_MEMBER_LOCK" ]
+              "predefinedRoleChecker" : "TENANT_MANAGER",
+              "authorities" : [ "TENANT_MEMBER_LOCK" ],
+              "combinator" : "OR"
             }
           },
           "group" : "TENANT",
@@ -8465,11 +8529,11 @@
         "responseStreaming" : false,
         "requestRef" : "hope.common.adaptor.Empty",
         "responseRef" : "hope.common.adaptor.Empty",
-        "protoLine" : 104,
+        "protoLine" : 110,
         "protoColumn" : 3,
         "name" : "ToggleMemberLock",
         "httpMethod" : "POST",
-        "path" : "/api/tenant-members/tenants/{tenantId}/members/{memberId}/toggle-lock",
+        "path" : "/api/tenants/tenants/{tenantId}/members/{memberId}/toggle-lock",
         "description" : "锁定/解锁租户成员",
         "priority" : "MIDDLE"
       }, {
@@ -8506,7 +8570,9 @@
           "put" : "/tenants/{tenantId}/members/{memberId}/role",
           "authorization" : {
             "rbac" : {
-              "authorities" : [ "TENANT_MEMBER_ASSIGN_ROLE" ]
+              "predefinedRoleChecker" : "TENANT_MANAGER",
+              "authorities" : [ "TENANT_MEMBER_ASSIGN_ROLE" ],
+              "combinator" : "OR"
             }
           },
           "group" : "TENANT",
@@ -8520,11 +8586,11 @@
         "responseStreaming" : false,
         "requestRef" : "com.apihug.rad.api.tenant.UpdateMemberRoleRequest",
         "responseRef" : "hope.common.adaptor.Empty",
-        "protoLine" : 138,
+        "protoLine" : 146,
         "protoColumn" : 3,
         "name" : "UpdateMemberRole",
         "httpMethod" : "PUT",
-        "path" : "/api/tenant-members/tenants/{tenantId}/members/{memberId}/role",
+        "path" : "/api/tenants/tenants/{tenantId}/members/{memberId}/role",
         "description" : "更新成员在租户中的角色（拥有者/管理员/普通成员）",
         "priority" : "MIDDLE"
       }, {
@@ -8561,7 +8627,9 @@
           "put" : "/tenants/{tenantId}/members/{memberId}/department",
           "authorization" : {
             "rbac" : {
-              "authorities" : [ "TENANT_MEMBER_ASSIGN_ROLE" ]
+              "predefinedRoleChecker" : "TENANT_MANAGER",
+              "authorities" : [ "TENANT_MEMBER_ASSIGN_ROLE" ],
+              "combinator" : "OR"
             }
           },
           "group" : "TENANT",
@@ -8575,11 +8643,11 @@
         "responseStreaming" : false,
         "requestRef" : "com.apihug.rad.api.tenant.AssignMemberDepartmentRequest",
         "responseRef" : "hope.common.adaptor.Empty",
-        "protoLine" : 172,
+        "protoLine" : 182,
         "protoColumn" : 3,
         "name" : "AssignMemberDepartment",
         "httpMethod" : "PUT",
-        "path" : "/api/tenant-members/tenants/{tenantId}/members/{memberId}/department",
+        "path" : "/api/tenants/tenants/{tenantId}/members/{memberId}/department",
         "description" : "将成员分配到指定部门",
         "priority" : "MIDDLE"
       }, {
@@ -8616,7 +8684,9 @@
           "get" : "/tenants/{tenantId}/members/{memberId}/detail",
           "authorization" : {
             "rbac" : {
-              "authorities" : [ "TENANT_MEMBER_VIEW" ]
+              "predefinedRoleChecker" : "TENANT_MANAGER",
+              "authorities" : [ "TENANT_MEMBER_VIEW" ],
+              "combinator" : "OR"
             }
           },
           "group" : "TENANT",
@@ -8631,58 +8701,13 @@
         "responseStreaming" : false,
         "requestRef" : "hope.common.adaptor.Empty",
         "responseRef" : "com.apihug.rad.api.tenant.TenantMemberDetail",
-        "protoLine" : 206,
+        "protoLine" : 218,
         "protoColumn" : 3,
         "name" : "GetMemberDetail",
         "httpMethod" : "GET",
-        "path" : "/api/tenant-members/tenants/{tenantId}/members/{memberId}/detail",
+        "path" : "/api/tenants/tenants/{tenantId}/members/{memberId}/detail",
         "description" : "获取租户成员详细信息（含客户账号信息和成员身份信息）",
         "priority" : "LOW"
-      }, {
-        "schema" : {
-          "tags" : [ "tenant-member" ],
-          "summary" : "设置默认租户",
-          "description" : "将指定租户设为客户的默认租户",
-          "deprecated" : false,
-          "priority" : "MIDDLE",
-          "pageable" : false,
-          "raw" : false,
-          "request" : false,
-          "response" : false,
-          "session" : false,
-          "inputPlural" : false,
-          "outputPlural" : false,
-          "parameters" : [ {
-            "name" : "tenantId",
-            "in" : "PATH",
-            "schema" : {
-              "format" : "INTEGER",
-              "empty" : false
-            },
-            "plural" : false
-          } ],
-          "post" : "/tenants/{tenantId}/set-default",
-          "authorization" : {
-            "lowLimitRiskyMode" : "LOGIN"
-          },
-          "group" : "CUSTOMER",
-          "responseEmpty" : false,
-          "multipart" : false,
-          "internal" : false,
-          "hide" : false
-        },
-        "deprecated" : false,
-        "requestStreaming" : false,
-        "responseStreaming" : false,
-        "requestRef" : "hope.common.adaptor.Empty",
-        "responseRef" : "hope.common.adaptor.Empty",
-        "protoLine" : 244,
-        "protoColumn" : 3,
-        "name" : "SetDefaultTenant",
-        "httpMethod" : "POST",
-        "path" : "/api/tenant-members/tenants/{tenantId}/set-default",
-        "description" : "将指定租户设为客户的默认租户",
-        "priority" : "MIDDLE"
       }, {
         "schema" : {
           "tags" : [ "tenant-member" ],
@@ -8717,7 +8742,9 @@
           "post" : "/tenants/{tenantId}/members/{memberId}/roles",
           "authorization" : {
             "rbac" : {
-              "authorities" : [ "TENANT_MEMBER_ASSIGN_ROLE" ]
+              "predefinedRoleChecker" : "TENANT_MANAGER",
+              "authorities" : [ "TENANT_MEMBER_ASSIGN_ROLE" ],
+              "combinator" : "OR"
             }
           },
           "group" : "TENANT",
@@ -8731,11 +8758,11 @@
         "responseStreaming" : false,
         "requestRef" : "com.apihug.rad.api.tenant.AssignRolesRequest",
         "responseRef" : "hope.common.adaptor.Empty",
-        "protoLine" : 268,
+        "protoLine" : 259,
         "protoColumn" : 3,
         "name" : "AssignRolesToMember",
         "httpMethod" : "POST",
-        "path" : "/api/tenant-members/tenants/{tenantId}/members/{memberId}/roles",
+        "path" : "/api/tenants/tenants/{tenantId}/members/{memberId}/roles",
         "description" : "为租户成员分配 RBAC 角色（全量覆盖，替换已有角色）",
         "priority" : "MIDDLE"
       }, {
@@ -8772,7 +8799,9 @@
           "get" : "/tenants/{tenantId}/members/{memberId}/roles",
           "authorization" : {
             "rbac" : {
-              "authorities" : [ "TENANT_MEMBER_VIEW" ]
+              "predefinedRoleChecker" : "TENANT_MANAGER",
+              "authorities" : [ "TENANT_MEMBER_VIEW" ],
+              "combinator" : "OR"
             }
           },
           "group" : "TENANT",
@@ -8786,11 +8815,11 @@
         "responseStreaming" : false,
         "requestRef" : "hope.common.adaptor.Empty",
         "responseRef" : "com.apihug.rad.api.tenant.MemberRoleSummary",
-        "protoLine" : 302,
+        "protoLine" : 295,
         "protoColumn" : 3,
         "name" : "GetMemberRoles",
         "httpMethod" : "GET",
-        "path" : "/api/tenant-members/tenants/{tenantId}/members/{memberId}/roles",
+        "path" : "/api/tenants/tenants/{tenantId}/members/{memberId}/roles",
         "description" : "获取租户成员的 RBAC 角色列表",
         "priority" : "LOW"
       }, {
@@ -8835,7 +8864,9 @@
           "delete" : "/tenants/{tenantId}/members/{memberId}/roles/{roleId}",
           "authorization" : {
             "rbac" : {
-              "authorities" : [ "TENANT_MEMBER_ASSIGN_ROLE" ]
+              "predefinedRoleChecker" : "TENANT_MANAGER",
+              "authorities" : [ "TENANT_MEMBER_ASSIGN_ROLE" ],
+              "combinator" : "OR"
             }
           },
           "group" : "TENANT",
@@ -8849,15 +8880,15 @@
         "responseStreaming" : false,
         "requestRef" : "hope.common.adaptor.Empty",
         "responseRef" : "hope.common.adaptor.Empty",
-        "protoLine" : 336,
+        "protoLine" : 331,
         "protoColumn" : 3,
         "name" : "RemoveRoleFromMember",
         "httpMethod" : "DELETE",
-        "path" : "/api/tenant-members/tenants/{tenantId}/members/{memberId}/roles/{roleId}",
+        "path" : "/api/tenants/tenants/{tenantId}/members/{memberId}/roles/{roleId}",
         "description" : "移除租户成员的某个 RBAC 角色",
         "priority" : "HIGH"
       } ],
-      "protoFrom" : "com/apihug/rad/api/tenant/member.proto",
+      "protoFrom" : "com/apihug/rad/api/tenant/api.proto",
       "protoLine" : 11,
       "protoColumn" : 1,
       "protoEntity" : "TenantMemberService",

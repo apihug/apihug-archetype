@@ -352,69 +352,6 @@ class TenantMemberServiceImplTest {
             service.assignMemberDepartment(stringBuilder, tenantId, memberId, request));
     }
 
-    // ========== setDefaultTenant ==========
-
-    @Test
-    @DisplayName("设置默认租户 - 成功")
-    void testSetDefaultTenant_Success() {
-        Integer tenantId = 2;
-
-        TenantMemberEntity currentDefault = new TenantMemberEntity()
-            .setId(1L)
-            .setCustomerId(100L)
-            .setTenantId(1L)
-            .setIsDefault(true);
-
-        TenantMemberEntity targetMember = new TenantMemberEntity()
-            .setId(2L)
-            .setCustomerId(100L)
-            .setTenantId(2L)
-            .setIsDefault(false);
-
-        CustomerEntity customer = new CustomerEntity()
-            .setId(100L)
-            .setDefaultTenantId(1L);
-
-        try (MockedStatic<HopeContextHolder> holderMock = mockStatic(HopeContextHolder.class)) {
-            Customer mockCustomer = mock(Customer.class);
-            when(mockCustomer.getId()).thenReturn(100L);
-            holderMock.when(HopeContextHolder::customer).thenReturn(mockCustomer);
-
-            when(tenantMemberRepository.findByCustomerIdAndTenantId(100L, 2L))
-                .thenReturn(Optional.of(targetMember));
-            when(tenantMemberRepository.findByCustomerIdAndIsDefault(100L, true))
-                .thenReturn(Optional.of(currentDefault));
-            when(tenantMemberRepository.save(any(TenantMemberEntity.class)))
-                .thenAnswer(inv -> inv.getArgument(0));
-            when(customerRepository.findById(100L)).thenReturn(Optional.of(customer));
-            when(customerRepository.save(any(CustomerEntity.class)))
-                .thenAnswer(inv -> inv.getArgument(0));
-
-            service.setDefaultTenant(stringBuilder, tenantId);
-
-            assertFalse(currentDefault.getIsDefault());
-            assertTrue(targetMember.getIsDefault());
-            assertEquals(2L, customer.getDefaultTenantId());
-        }
-    }
-
-    @Test
-    @DisplayName("设置默认租户 - 不是该租户成员")
-    void testSetDefaultTenant_NotMember() {
-        Integer tenantId = 999;
-
-        try (MockedStatic<HopeContextHolder> holderMock = mockStatic(HopeContextHolder.class)) {
-            Customer mockCustomer = mock(Customer.class);
-            when(mockCustomer.getId()).thenReturn(100L);
-            holderMock.when(HopeContextHolder::customer).thenReturn(mockCustomer);
-
-            when(tenantMemberRepository.findByCustomerIdAndTenantId(100L, 999L))
-                .thenReturn(Optional.empty());
-
-            assertThrows(HopeErrorDetailException.class, () ->
-                service.setDefaultTenant(stringBuilder, tenantId));
-        }
-    }
 
     // ========== getMemberDetail ==========
 

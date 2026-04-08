@@ -15,7 +15,7 @@ project:
   status:
     deprecated: false
     createdTimestamp: "2026-03-20"
-    updatedTimestamp: "2026-04-02 20:53:59"
+    updatedTimestamp: "2026-04-08 17:37:44"
 module: com.apihug.rad.wire.api.RadApiModule
 services:
   "com.apihug.rad.api.platform.PlatformService":
@@ -45,7 +45,8 @@ services:
   - "GetCurrentCustomerInfo"
   - "GetCustomerTenants"
   - "SwitchTenant"
-  "com.apihug.rad.api.tenant.TenantService":
+  - "SetDefaultTenant"
+  "com.apihug.rad.api.platform.TenantService":
   - "CreateTenant"
   - "GetTenant"
   - "UpdateTenant"
@@ -60,7 +61,6 @@ services:
   - "UpdateMemberRole"
   - "AssignMemberDepartment"
   - "GetMemberDetail"
-  - "SetDefaultTenant"
   - "AssignRolesToMember"
   - "GetMemberRoles"
   - "RemoveRoleFromMember"

@@ -2,6 +2,7 @@
 package com.apihug.rad.infra.security;
 
 import com.apihug.rad.infra.customer.CustomerPlatformTypeEnum;
+import com.apihug.rad.infra.tenant.MemberRoleEnum;
 import hope.common.meta.annotation.Template;
 import hope.common.spring.security.internal.CustomerLongIdentifyLongTenant;
 import java.util.Collection;
@@ -54,9 +55,14 @@ import javax.annotation.Generated;
 @Generated("H.O.P.E. Infra Team")
 public class RadCustomer extends CustomerLongIdentifyLongTenant<RadCustomer> {
 
+  /** The platform-level role type of the customer within the entire platform ecosystem. */
   protected CustomerPlatformTypeEnum platformType = CustomerPlatformTypeEnum.NA;
 
+  /** The set of granted authority strings for authorization and access control. */
   protected Set<String> authorities;
+
+  /** The tenant-level role type of the customer within a specific tenant organization. */
+  protected MemberRoleEnum tenantType = MemberRoleEnum.NA;
 
   @Override
   public Collection<String> getAuthorities() {
@@ -75,6 +81,15 @@ public class RadCustomer extends CustomerLongIdentifyLongTenant<RadCustomer> {
 
   public RadCustomer setPlatformType(CustomerPlatformTypeEnum platformType) {
     this.platformType = platformType;
+    return this;
+  }
+
+  public MemberRoleEnum getTenantType() {
+    return tenantType;
+  }
+
+  public RadCustomer setTenantType(MemberRoleEnum tenantType) {
+    this.tenantType = tenantType;
     return this;
   }
 }

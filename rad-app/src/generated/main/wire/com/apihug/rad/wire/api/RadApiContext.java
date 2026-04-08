@@ -102,20 +102,20 @@ public class RadApiContext extends ApiContext<RadApiContext> {
   }
 
   /**
-   * RoleService : 角色管理服务，提供角色 CRUD 和权限分配功能
+   * TenantService : 租户管理服务，提供租户 CRUD 和配置功能（平台级管理）
    */
-  public final RadApiContext roleService(final Consumer<RoleService> consumer) {
-    final RoleService svc = new RoleService();
+  public final RadApiContext tenantService(final Consumer<TenantService> consumer) {
+    final TenantService svc = new TenantService();
     consumer.accept(svc);
     svc.done();
     return RadApiContext.this;
   }
 
   /**
-   * TenantService : 租户管理服务，提供租户 CRUD 和配置功能
+   * RoleService : 角色管理服务，提供角色 CRUD 和权限分配功能
    */
-  public final RadApiContext tenantService(final Consumer<TenantService> consumer) {
-    final TenantService svc = new TenantService();
+  public final RadApiContext roleService(final Consumer<RoleService> consumer) {
+    final RoleService svc = new RoleService();
     consumer.accept(svc);
     svc.done();
     return RadApiContext.this;
@@ -259,6 +259,7 @@ public class RadApiContext extends ApiContext<RadApiContext> {
       all.add("GetCurrentCustomerInfo");
       all.add("GetCustomerTenants");
       all.add("SwitchTenant");
+      all.add("SetDefaultTenant");
     }
 
     public CustomerService methods(Consumer<Methods> consumer) {
@@ -334,6 +335,22 @@ public class RadApiContext extends ApiContext<RadApiContext> {
        */
       public final CustomerService _SwitchTenant() {
         CustomerService.this.exclude("SwitchTenant");
+        return CustomerService.this;
+      }
+
+      /**
+       * Include SetDefaultTenant
+       */
+      public final CustomerService SetDefaultTenant() {
+        CustomerService.this.include("SetDefaultTenant");
+        return CustomerService.this;
+      }
+
+      /**
+       * Exclude SetDefaultTenant
+       */
+      public final CustomerService _SetDefaultTenant() {
+        CustomerService.this.exclude("SetDefaultTenant");
         return CustomerService.this;
       }
     }
@@ -931,6 +948,130 @@ public class RadApiContext extends ApiContext<RadApiContext> {
   }
 
   /**
+   * 租户管理服务，提供租户 CRUD 和配置功能（平台级管理）
+   */
+  public final class TenantService extends ApiServiceContextBuilder<TenantService, RadApiContext> {
+    public TenantService() {
+      super(RadApiContext.this);
+      all.add("CreateTenant");
+      all.add("GetTenant");
+      all.add("UpdateTenant");
+      all.add("DisableTenant");
+      all.add("ConfigureTenant");
+      all.add("SearchTenants");
+    }
+
+    public TenantService methods(Consumer<Methods> consumer) {
+      final Methods methods = new Methods();
+      consumer.accept(methods);
+      return TenantService.this;
+    }
+
+    @Override
+    public String clz() {
+      return "com.apihug.rad.api.platform.TenantService";
+    }
+
+    public class Methods {
+      /**
+       * Include CreateTenant
+       */
+      public final TenantService CreateTenant() {
+        TenantService.this.include("CreateTenant");
+        return TenantService.this;
+      }
+
+      /**
+       * Exclude CreateTenant
+       */
+      public final TenantService _CreateTenant() {
+        TenantService.this.exclude("CreateTenant");
+        return TenantService.this;
+      }
+
+      /**
+       * Include GetTenant
+       */
+      public final TenantService GetTenant() {
+        TenantService.this.include("GetTenant");
+        return TenantService.this;
+      }
+
+      /**
+       * Exclude GetTenant
+       */
+      public final TenantService _GetTenant() {
+        TenantService.this.exclude("GetTenant");
+        return TenantService.this;
+      }
+
+      /**
+       * Include UpdateTenant
+       */
+      public final TenantService UpdateTenant() {
+        TenantService.this.include("UpdateTenant");
+        return TenantService.this;
+      }
+
+      /**
+       * Exclude UpdateTenant
+       */
+      public final TenantService _UpdateTenant() {
+        TenantService.this.exclude("UpdateTenant");
+        return TenantService.this;
+      }
+
+      /**
+       * Include DisableTenant
+       */
+      public final TenantService DisableTenant() {
+        TenantService.this.include("DisableTenant");
+        return TenantService.this;
+      }
+
+      /**
+       * Exclude DisableTenant
+       */
+      public final TenantService _DisableTenant() {
+        TenantService.this.exclude("DisableTenant");
+        return TenantService.this;
+      }
+
+      /**
+       * Include ConfigureTenant
+       */
+      public final TenantService ConfigureTenant() {
+        TenantService.this.include("ConfigureTenant");
+        return TenantService.this;
+      }
+
+      /**
+       * Exclude ConfigureTenant
+       */
+      public final TenantService _ConfigureTenant() {
+        TenantService.this.exclude("ConfigureTenant");
+        return TenantService.this;
+      }
+
+      /**
+       * Include SearchTenants
+       */
+      public final TenantService SearchTenants() {
+        TenantService.this.include("SearchTenants");
+        return TenantService.this;
+      }
+
+      /**
+       * Exclude SearchTenants
+       */
+      public final TenantService _SearchTenants() {
+        TenantService.this.exclude("SearchTenants");
+        return TenantService.this;
+      }
+    }
+  }
+
+  /**
    * 角色管理服务，提供角色 CRUD 和权限分配功能
    */
   public final class RoleService extends ApiServiceContextBuilder<RoleService, RadApiContext> {
@@ -1089,130 +1230,6 @@ public class RadApiContext extends ApiContext<RadApiContext> {
   }
 
   /**
-   * 租户管理服务，提供租户 CRUD 和配置功能
-   */
-  public final class TenantService extends ApiServiceContextBuilder<TenantService, RadApiContext> {
-    public TenantService() {
-      super(RadApiContext.this);
-      all.add("CreateTenant");
-      all.add("GetTenant");
-      all.add("UpdateTenant");
-      all.add("DisableTenant");
-      all.add("ConfigureTenant");
-      all.add("SearchTenants");
-    }
-
-    public TenantService methods(Consumer<Methods> consumer) {
-      final Methods methods = new Methods();
-      consumer.accept(methods);
-      return TenantService.this;
-    }
-
-    @Override
-    public String clz() {
-      return "com.apihug.rad.api.tenant.TenantService";
-    }
-
-    public class Methods {
-      /**
-       * Include CreateTenant
-       */
-      public final TenantService CreateTenant() {
-        TenantService.this.include("CreateTenant");
-        return TenantService.this;
-      }
-
-      /**
-       * Exclude CreateTenant
-       */
-      public final TenantService _CreateTenant() {
-        TenantService.this.exclude("CreateTenant");
-        return TenantService.this;
-      }
-
-      /**
-       * Include GetTenant
-       */
-      public final TenantService GetTenant() {
-        TenantService.this.include("GetTenant");
-        return TenantService.this;
-      }
-
-      /**
-       * Exclude GetTenant
-       */
-      public final TenantService _GetTenant() {
-        TenantService.this.exclude("GetTenant");
-        return TenantService.this;
-      }
-
-      /**
-       * Include UpdateTenant
-       */
-      public final TenantService UpdateTenant() {
-        TenantService.this.include("UpdateTenant");
-        return TenantService.this;
-      }
-
-      /**
-       * Exclude UpdateTenant
-       */
-      public final TenantService _UpdateTenant() {
-        TenantService.this.exclude("UpdateTenant");
-        return TenantService.this;
-      }
-
-      /**
-       * Include DisableTenant
-       */
-      public final TenantService DisableTenant() {
-        TenantService.this.include("DisableTenant");
-        return TenantService.this;
-      }
-
-      /**
-       * Exclude DisableTenant
-       */
-      public final TenantService _DisableTenant() {
-        TenantService.this.exclude("DisableTenant");
-        return TenantService.this;
-      }
-
-      /**
-       * Include ConfigureTenant
-       */
-      public final TenantService ConfigureTenant() {
-        TenantService.this.include("ConfigureTenant");
-        return TenantService.this;
-      }
-
-      /**
-       * Exclude ConfigureTenant
-       */
-      public final TenantService _ConfigureTenant() {
-        TenantService.this.exclude("ConfigureTenant");
-        return TenantService.this;
-      }
-
-      /**
-       * Include SearchTenants
-       */
-      public final TenantService SearchTenants() {
-        TenantService.this.include("SearchTenants");
-        return TenantService.this;
-      }
-
-      /**
-       * Exclude SearchTenants
-       */
-      public final TenantService _SearchTenants() {
-        TenantService.this.exclude("SearchTenants");
-        return TenantService.this;
-      }
-    }
-  }
-
-  /**
    * 租户成员管理服务，提供成员与租户关系管理功能
    */
   public final class TenantMemberService extends ApiServiceContextBuilder<TenantMemberService, RadApiContext> {
@@ -1225,7 +1242,6 @@ public class RadApiContext extends ApiContext<RadApiContext> {
       all.add("UpdateMemberRole");
       all.add("AssignMemberDepartment");
       all.add("GetMemberDetail");
-      all.add("SetDefaultTenant");
       all.add("AssignRolesToMember");
       all.add("GetMemberRoles");
       all.add("RemoveRoleFromMember");
@@ -1352,22 +1368,6 @@ public class RadApiContext extends ApiContext<RadApiContext> {
        */
       public final TenantMemberService _GetMemberDetail() {
         TenantMemberService.this.exclude("GetMemberDetail");
-        return TenantMemberService.this;
-      }
-
-      /**
-       * Include SetDefaultTenant
-       */
-      public final TenantMemberService SetDefaultTenant() {
-        TenantMemberService.this.include("SetDefaultTenant");
-        return TenantMemberService.this;
-      }
-
-      /**
-       * Exclude SetDefaultTenant
-       */
-      public final TenantMemberService _SetDefaultTenant() {
-        TenantMemberService.this.exclude("SetDefaultTenant");
         return TenantMemberService.this;
       }
 

@@ -1,5 +1,5 @@
 // @formatter:off
-package com.apihug.rad.api.tenant;
+package com.apihug.rad.api.platform;
 
 import hope.common.api.PageRequest;
 import hope.common.api.Pageable;
@@ -36,7 +36,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @ProtoFrom(
-    value = "com/apihug/rad/api/tenant/api.proto",
+    value = "com/apihug/rad/api/platform/tenant.proto",
     entity = "TenantService",
     kind = Kind.RPC,
     line = 9,
@@ -44,7 +44,7 @@ import org.springframework.web.bind.annotation.RestController;
 )
 @Generated("H.O.P.E. Infra Team")
 public class TenantController {
-  public static final String _SVC_NAME = "com.apihug.rad.api.tenant.TenantService";
+  public static final String _SVC_NAME = "com.apihug.rad.api.platform.TenantService";
 
   protected final TenantService _service;
 
@@ -59,14 +59,14 @@ public class TenantController {
    * Authorization:
    *
    * <ul>
-   * 	<li>PredefinedRoleCheckerType: PLATFORM</li>
+   * 	<li>PredefinedRoleCheckerType: PLATFORM_MANAGER</li>
    * 	<li>Authorities: [TENANT_CREATE]</li>
    * </ul>
    * @apiNote
-   * 	<p>{@code /api/tenants/tenants}
+   * 	<p>{@code /api/platforms/tenants/create}
    * 	<p>{@code 创建新租户}
    */
-  @PostMapping("/api/tenants/tenants")
+  @PostMapping("/api/platforms/tenants/create")
   public ResponseEntity<Result<TenantSummary>> createTenant(
       @RequestBody @Valid CreateTenantRequest createTenantRequest) {
     final SimpleResultBuilder<TenantSummary> builder = new SimpleResultBuilder<TenantSummary>();
@@ -86,11 +86,17 @@ public class TenantController {
   }
 
   /**
+   *
+   * Authorization:
+   *
+   * <ul>
+   * 	<li>PredefinedRoleCheckerType: PLATFORM</li>
+   * </ul>
    * @apiNote
-   * 	<p>{@code /api/tenants/tenants/{tenantId}}
+   * 	<p>{@code /api/platforms/tenants/get/{tenantId}}
    * 	<p>{@code 获取租户详情}
    */
-  @GetMapping("/api/tenants/tenants/{tenantId}")
+  @GetMapping("/api/platforms/tenants/get/{tenantId}")
   public ResponseEntity<Result<TenantDetail>> getTenant(
       @PathVariable(name = "tenantId", required = true) Long tenantId) {
     final SimpleResultBuilder<TenantDetail> builder = new SimpleResultBuilder<TenantDetail>();
@@ -113,13 +119,14 @@ public class TenantController {
    * Authorization:
    *
    * <ul>
+   * 	<li>PredefinedRoleCheckerType: PLATFORM_MANAGER</li>
    * 	<li>Authorities: [TENANT_UPDATE]</li>
    * </ul>
    * @apiNote
-   * 	<p>{@code /api/tenants/tenants/{tenantId}}
+   * 	<p>{@code /api/platforms/tenants/update/{tenantId}}
    * 	<p>{@code 更新租户信息}
    */
-  @PutMapping("/api/tenants/tenants/{tenantId}")
+  @PutMapping("/api/platforms/tenants/update/{tenantId}")
   public ResponseEntity<Result<String>> updateTenant(
       @PathVariable(name = "tenantId", required = true) Integer tenantId,
       @RequestBody @Valid UpdateTenantRequest updateTenantRequest) {
@@ -144,13 +151,14 @@ public class TenantController {
    * Authorization:
    *
    * <ul>
+   * 	<li>PredefinedRoleCheckerType: PLATFORM</li>
    * 	<li>Authorities: [TENANT_DISABLE]</li>
    * </ul>
    * @apiNote
-   * 	<p>{@code /api/tenants/tenants/{tenantId}/disable}
+   * 	<p>{@code /api/platforms/tenants/{tenantId}/disable}
    * 	<p>{@code 停用租户}
    */
-  @DeleteMapping("/api/tenants/tenants/{tenantId}/disable")
+  @DeleteMapping("/api/platforms/tenants/{tenantId}/disable")
   public ResponseEntity<Result<String>> disableTenant(
       @PathVariable(name = "tenantId", required = true) Integer tenantId) {
     final SimpleResultBuilder<String> builder = new SimpleResultBuilder<String>();
@@ -173,13 +181,14 @@ public class TenantController {
    * Authorization:
    *
    * <ul>
+   * 	<li>PredefinedRoleCheckerType: PLATFORM</li>
    * 	<li>Authorities: [TENANT_CONFIGURE]</li>
    * </ul>
    * @apiNote
-   * 	<p>{@code /api/tenants/tenants/{tenantId}/configure}
+   * 	<p>{@code /api/platforms/tenants/{tenantId}/configure}
    * 	<p>{@code 配置租户功能}
    */
-  @PostMapping("/api/tenants/tenants/{tenantId}/configure")
+  @PostMapping("/api/platforms/tenants/{tenantId}/configure")
   public ResponseEntity<Result<String>> configureTenant(
       @PathVariable(name = "tenantId", required = true) Integer tenantId,
       @RequestBody @Valid ConfigureTenantRequest configureTenantRequest) {
@@ -204,13 +213,14 @@ public class TenantController {
    * Authorization:
    *
    * <ul>
+   * 	<li>PredefinedRoleCheckerType: PLATFORM</li>
    * 	<li>Authorities: [TENANT_CREATE]</li>
    * </ul>
    * @apiNote
-   * 	<p>{@code /api/tenants/tenants/search}
+   * 	<p>{@code /api/platforms/tenants/search}
    * 	<p>{@code 搜索租户（分页）}
    */
-  @PostMapping("/api/tenants/tenants/search")
+  @PostMapping("/api/platforms/tenants/search")
   public ResponseEntity<Result<Pageable<TenantSummary>>> searchTenants(
       @RequestBody @Valid SearchTenantsRequest searchTenantsRequest,
       @ParameterObject PageRequest pageParameter) {
@@ -236,16 +246,16 @@ public class TenantController {
   }
 
   public interface Apis {
-    ServiceMethodContext CreateTenant = new ServiceMethodContext("com.apihug.rad.api.tenant.TenantService", "CreateTenant", "/api/tenants/tenants", Priority.HIGH, ServiceMethod.HttpMethod.POST);
+    ServiceMethodContext CreateTenant = new ServiceMethodContext("com.apihug.rad.api.platform.TenantService", "CreateTenant", "/api/platforms/tenants/create", Priority.HIGH, ServiceMethod.HttpMethod.POST);
 
-    ServiceMethodContext GetTenant = new ServiceMethodContext("com.apihug.rad.api.tenant.TenantService", "GetTenant", "/api/tenants/tenants/{tenantId}", Priority.LOW, ServiceMethod.HttpMethod.GET);
+    ServiceMethodContext GetTenant = new ServiceMethodContext("com.apihug.rad.api.platform.TenantService", "GetTenant", "/api/platforms/tenants/get/{tenantId}", Priority.LOW, ServiceMethod.HttpMethod.GET);
 
-    ServiceMethodContext UpdateTenant = new ServiceMethodContext("com.apihug.rad.api.tenant.TenantService", "UpdateTenant", "/api/tenants/tenants/{tenantId}", Priority.MIDDLE, ServiceMethod.HttpMethod.PUT);
+    ServiceMethodContext UpdateTenant = new ServiceMethodContext("com.apihug.rad.api.platform.TenantService", "UpdateTenant", "/api/platforms/tenants/update/{tenantId}", Priority.MIDDLE, ServiceMethod.HttpMethod.PUT);
 
-    ServiceMethodContext DisableTenant = new ServiceMethodContext("com.apihug.rad.api.tenant.TenantService", "DisableTenant", "/api/tenants/tenants/{tenantId}/disable", Priority.HIGH, ServiceMethod.HttpMethod.DELETE);
+    ServiceMethodContext DisableTenant = new ServiceMethodContext("com.apihug.rad.api.platform.TenantService", "DisableTenant", "/api/platforms/tenants/{tenantId}/disable", Priority.HIGH, ServiceMethod.HttpMethod.DELETE);
 
-    ServiceMethodContext ConfigureTenant = new ServiceMethodContext("com.apihug.rad.api.tenant.TenantService", "ConfigureTenant", "/api/tenants/tenants/{tenantId}/configure", Priority.MIDDLE, ServiceMethod.HttpMethod.POST);
+    ServiceMethodContext ConfigureTenant = new ServiceMethodContext("com.apihug.rad.api.platform.TenantService", "ConfigureTenant", "/api/platforms/tenants/{tenantId}/configure", Priority.MIDDLE, ServiceMethod.HttpMethod.POST);
 
-    ServiceMethodContext SearchTenants = new ServiceMethodContext("com.apihug.rad.api.tenant.TenantService", "SearchTenants", "/api/tenants/tenants/search", Priority.LOW, ServiceMethod.HttpMethod.POST);
+    ServiceMethodContext SearchTenants = new ServiceMethodContext("com.apihug.rad.api.platform.TenantService", "SearchTenants", "/api/platforms/tenants/search", Priority.LOW, ServiceMethod.HttpMethod.POST);
   }
 }

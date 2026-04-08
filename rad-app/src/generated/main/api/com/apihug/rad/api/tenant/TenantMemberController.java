@@ -35,7 +35,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @ProtoFrom(
-    value = "com/apihug/rad/api/tenant/member.proto",
+    value = "com/apihug/rad/api/tenant/api.proto",
     entity = "TenantMemberService",
     kind = Kind.RPC,
     line = 11,
@@ -58,13 +58,14 @@ public class TenantMemberController {
    * Authorization:
    *
    * <ul>
+   * 	<li>PredefinedRoleCheckerType: TENANT_MANAGER</li>
    * 	<li>Authorities: [TENANT_MEMBER_VIEW]</li>
    * </ul>
    * @apiNote
-   * 	<p>{@code /api/tenant-members/tenants/{tenantId}/members}
+   * 	<p>{@code /api/tenants/tenants/{tenantId}/members}
    * 	<p>{@code 获取租户成员列表}
    */
-  @GetMapping("/api/tenant-members/tenants/{tenantId}/members")
+  @GetMapping("/api/tenants/tenants/{tenantId}/members")
   public ResponseEntity<Result<Pageable<TenantMemberSummary>>> getTenantMembers(
       @PathVariable(name = "tenantId", required = true) Integer tenantId,
       @ParameterObject GetTenantMembersRequest getTenantMembersRequest,
@@ -91,13 +92,14 @@ public class TenantMemberController {
    * Authorization:
    *
    * <ul>
+   * 	<li>PredefinedRoleCheckerType: TENANT_MANAGER</li>
    * 	<li>Authorities: [TENANT_MEMBER_ADD]</li>
    * </ul>
    * @apiNote
-   * 	<p>{@code /api/tenant-members/tenants/{tenantId}/members}
+   * 	<p>{@code /api/tenants/tenants/{tenantId}/members}
    * 	<p>{@code 添加客户为租户成员}
    */
-  @PostMapping("/api/tenant-members/tenants/{tenantId}/members")
+  @PostMapping("/api/tenants/tenants/{tenantId}/members")
   public ResponseEntity<Result<String>> addMemberToTenant(
       @PathVariable(name = "tenantId", required = true) Integer tenantId,
       @RequestBody @Valid AddTenantMemberRequest addTenantMemberRequest) {
@@ -122,13 +124,14 @@ public class TenantMemberController {
    * Authorization:
    *
    * <ul>
+   * 	<li>PredefinedRoleCheckerType: TENANT_MANAGER</li>
    * 	<li>Authorities: [TENANT_MEMBER_REMOVE]</li>
    * </ul>
    * @apiNote
-   * 	<p>{@code /api/tenant-members/tenants/{tenantId}/members/{memberId}}
+   * 	<p>{@code /api/tenants/tenants/{tenantId}/members/{memberId}}
    * 	<p>{@code 从租户移除成员}
    */
-  @DeleteMapping("/api/tenant-members/tenants/{tenantId}/members/{memberId}")
+  @DeleteMapping("/api/tenants/tenants/{tenantId}/members/{memberId}")
   public ResponseEntity<Result<String>> removeMemberFromTenant(
       @PathVariable(name = "tenantId", required = true) Integer tenantId,
       @PathVariable(name = "memberId", required = true) Integer memberId) {
@@ -152,13 +155,14 @@ public class TenantMemberController {
    * Authorization:
    *
    * <ul>
+   * 	<li>PredefinedRoleCheckerType: TENANT_MANAGER</li>
    * 	<li>Authorities: [TENANT_MEMBER_LOCK]</li>
    * </ul>
    * @apiNote
-   * 	<p>{@code /api/tenant-members/tenants/{tenantId}/members/{memberId}/toggle-lock}
+   * 	<p>{@code /api/tenants/tenants/{tenantId}/members/{memberId}/toggle-lock}
    * 	<p>{@code 锁定/解锁租户成员}
    */
-  @PostMapping("/api/tenant-members/tenants/{tenantId}/members/{memberId}/toggle-lock")
+  @PostMapping("/api/tenants/tenants/{tenantId}/members/{memberId}/toggle-lock")
   public ResponseEntity<Result<String>> toggleMemberLock(
       @PathVariable(name = "tenantId", required = true) Integer tenantId,
       @PathVariable(name = "memberId", required = true) Integer memberId) {
@@ -182,13 +186,14 @@ public class TenantMemberController {
    * Authorization:
    *
    * <ul>
+   * 	<li>PredefinedRoleCheckerType: TENANT_MANAGER</li>
    * 	<li>Authorities: [TENANT_MEMBER_ASSIGN_ROLE]</li>
    * </ul>
    * @apiNote
-   * 	<p>{@code /api/tenant-members/tenants/{tenantId}/members/{memberId}/role}
+   * 	<p>{@code /api/tenants/tenants/{tenantId}/members/{memberId}/role}
    * 	<p>{@code 更新成员在租户中的角色（拥有者/管理员/普通成员）}
    */
-  @PutMapping("/api/tenant-members/tenants/{tenantId}/members/{memberId}/role")
+  @PutMapping("/api/tenants/tenants/{tenantId}/members/{memberId}/role")
   public ResponseEntity<Result<String>> updateMemberRole(
       @PathVariable(name = "tenantId", required = true) Integer tenantId,
       @PathVariable(name = "memberId", required = true) Integer memberId,
@@ -214,13 +219,14 @@ public class TenantMemberController {
    * Authorization:
    *
    * <ul>
+   * 	<li>PredefinedRoleCheckerType: TENANT_MANAGER</li>
    * 	<li>Authorities: [TENANT_MEMBER_ASSIGN_ROLE]</li>
    * </ul>
    * @apiNote
-   * 	<p>{@code /api/tenant-members/tenants/{tenantId}/members/{memberId}/department}
+   * 	<p>{@code /api/tenants/tenants/{tenantId}/members/{memberId}/department}
    * 	<p>{@code 将成员分配到指定部门}
    */
-  @PutMapping("/api/tenant-members/tenants/{tenantId}/members/{memberId}/department")
+  @PutMapping("/api/tenants/tenants/{tenantId}/members/{memberId}/department")
   public ResponseEntity<Result<String>> assignMemberDepartment(
       @PathVariable(name = "tenantId", required = true) Integer tenantId,
       @PathVariable(name = "memberId", required = true) Integer memberId,
@@ -246,13 +252,14 @@ public class TenantMemberController {
    * Authorization:
    *
    * <ul>
+   * 	<li>PredefinedRoleCheckerType: TENANT_MANAGER</li>
    * 	<li>Authorities: [TENANT_MEMBER_VIEW]</li>
    * </ul>
    * @apiNote
-   * 	<p>{@code /api/tenant-members/tenants/{tenantId}/members/{memberId}/detail}
+   * 	<p>{@code /api/tenants/tenants/{tenantId}/members/{memberId}/detail}
    * 	<p>{@code 获取租户成员详细信息（含客户账号信息和成员身份信息）}
    */
-  @GetMapping("/api/tenant-members/tenants/{tenantId}/members/{memberId}/detail")
+  @GetMapping("/api/tenants/tenants/{tenantId}/members/{memberId}/detail")
   public ResponseEntity<Result<TenantMemberDetail>> getMemberDetail(
       @PathVariable(name = "tenantId", required = true) Integer tenantId,
       @PathVariable(name = "memberId", required = true) Integer memberId) {
@@ -272,40 +279,18 @@ public class TenantMemberController {
   }
 
   /**
-   * @apiNote
-   * 	<p>{@code /api/tenant-members/tenants/{tenantId}/set-default}
-   * 	<p>{@code 将指定租户设为客户的默认租户}
-   */
-  @PostMapping("/api/tenant-members/tenants/{tenantId}/set-default")
-  public ResponseEntity<Result<String>> setDefaultTenant(
-      @PathVariable(name = "tenantId", required = true) Integer tenantId) {
-    final SimpleResultBuilder<String> builder = new SimpleResultBuilder<String>();
-    final Map<String, Object> _ctx = Map.of(Aspect.START_TIME, System.currentTimeMillis(), Aspect.CHANNEL, "API", "tenantId", tenantId);
-    try {
-      aspect().before(Apis.SetDefaultTenant, _ctx);
-      _service.setDefaultTenant(builder, tenantId);
-      ResponseEntity<Result<String>> res = builder.done();
-      aspect().after(Apis.SetDefaultTenant, _ctx, res);
-      return res;
-    } catch (Throwable exception) {
-      logger.error("FAIL_ACTION" + Apis.SetDefaultTenant, exception);
-      aspect().exception(Apis.SetDefaultTenant, _ctx, exception);
-      throw exception;
-    }
-  }
-
-  /**
    *
    * Authorization:
    *
    * <ul>
+   * 	<li>PredefinedRoleCheckerType: TENANT_MANAGER</li>
    * 	<li>Authorities: [TENANT_MEMBER_ASSIGN_ROLE]</li>
    * </ul>
    * @apiNote
-   * 	<p>{@code /api/tenant-members/tenants/{tenantId}/members/{memberId}/roles}
+   * 	<p>{@code /api/tenants/tenants/{tenantId}/members/{memberId}/roles}
    * 	<p>{@code 为租户成员分配 RBAC 角色（全量覆盖，替换已有角色）}
    */
-  @PostMapping("/api/tenant-members/tenants/{tenantId}/members/{memberId}/roles")
+  @PostMapping("/api/tenants/tenants/{tenantId}/members/{memberId}/roles")
   public ResponseEntity<Result<String>> assignRolesToMember(
       @PathVariable(name = "tenantId", required = true) Integer tenantId,
       @PathVariable(name = "memberId", required = true) Integer memberId,
@@ -331,13 +316,14 @@ public class TenantMemberController {
    * Authorization:
    *
    * <ul>
+   * 	<li>PredefinedRoleCheckerType: TENANT_MANAGER</li>
    * 	<li>Authorities: [TENANT_MEMBER_VIEW]</li>
    * </ul>
    * @apiNote
-   * 	<p>{@code /api/tenant-members/tenants/{tenantId}/members/{memberId}/roles}
+   * 	<p>{@code /api/tenants/tenants/{tenantId}/members/{memberId}/roles}
    * 	<p>{@code 获取租户成员的 RBAC 角色列表}
    */
-  @GetMapping("/api/tenant-members/tenants/{tenantId}/members/{memberId}/roles")
+  @GetMapping("/api/tenants/tenants/{tenantId}/members/{memberId}/roles")
   public ResponseEntity<Result<MemberRoleSummary>> getMemberRoles(
       @PathVariable(name = "tenantId", required = true) Integer tenantId,
       @PathVariable(name = "memberId", required = true) Integer memberId) {
@@ -361,13 +347,14 @@ public class TenantMemberController {
    * Authorization:
    *
    * <ul>
+   * 	<li>PredefinedRoleCheckerType: TENANT_MANAGER</li>
    * 	<li>Authorities: [TENANT_MEMBER_ASSIGN_ROLE]</li>
    * </ul>
    * @apiNote
-   * 	<p>{@code /api/tenant-members/tenants/{tenantId}/members/{memberId}/roles/{roleId}}
+   * 	<p>{@code /api/tenants/tenants/{tenantId}/members/{memberId}/roles/{roleId}}
    * 	<p>{@code 移除租户成员的某个 RBAC 角色}
    */
-  @DeleteMapping("/api/tenant-members/tenants/{tenantId}/members/{memberId}/roles/{roleId}")
+  @DeleteMapping("/api/tenants/tenants/{tenantId}/members/{memberId}/roles/{roleId}")
   public ResponseEntity<Result<String>> removeRoleFromMember(
       @PathVariable(name = "tenantId", required = true) Integer tenantId,
       @PathVariable(name = "memberId", required = true) Integer memberId,
@@ -392,26 +379,24 @@ public class TenantMemberController {
   }
 
   public interface Apis {
-    ServiceMethodContext GetTenantMembers = new ServiceMethodContext("com.apihug.rad.api.tenant.TenantMemberService", "GetTenantMembers", "/api/tenant-members/tenants/{tenantId}/members", Priority.LOW, ServiceMethod.HttpMethod.GET);
+    ServiceMethodContext GetTenantMembers = new ServiceMethodContext("com.apihug.rad.api.tenant.TenantMemberService", "GetTenantMembers", "/api/tenants/tenants/{tenantId}/members", Priority.LOW, ServiceMethod.HttpMethod.GET);
 
-    ServiceMethodContext AddMemberToTenant = new ServiceMethodContext("com.apihug.rad.api.tenant.TenantMemberService", "AddMemberToTenant", "/api/tenant-members/tenants/{tenantId}/members", Priority.MIDDLE, ServiceMethod.HttpMethod.POST);
+    ServiceMethodContext AddMemberToTenant = new ServiceMethodContext("com.apihug.rad.api.tenant.TenantMemberService", "AddMemberToTenant", "/api/tenants/tenants/{tenantId}/members", Priority.MIDDLE, ServiceMethod.HttpMethod.POST);
 
-    ServiceMethodContext RemoveMemberFromTenant = new ServiceMethodContext("com.apihug.rad.api.tenant.TenantMemberService", "RemoveMemberFromTenant", "/api/tenant-members/tenants/{tenantId}/members/{memberId}", Priority.HIGH, ServiceMethod.HttpMethod.DELETE);
+    ServiceMethodContext RemoveMemberFromTenant = new ServiceMethodContext("com.apihug.rad.api.tenant.TenantMemberService", "RemoveMemberFromTenant", "/api/tenants/tenants/{tenantId}/members/{memberId}", Priority.HIGH, ServiceMethod.HttpMethod.DELETE);
 
-    ServiceMethodContext ToggleMemberLock = new ServiceMethodContext("com.apihug.rad.api.tenant.TenantMemberService", "ToggleMemberLock", "/api/tenant-members/tenants/{tenantId}/members/{memberId}/toggle-lock", Priority.MIDDLE, ServiceMethod.HttpMethod.POST);
+    ServiceMethodContext ToggleMemberLock = new ServiceMethodContext("com.apihug.rad.api.tenant.TenantMemberService", "ToggleMemberLock", "/api/tenants/tenants/{tenantId}/members/{memberId}/toggle-lock", Priority.MIDDLE, ServiceMethod.HttpMethod.POST);
 
-    ServiceMethodContext UpdateMemberRole = new ServiceMethodContext("com.apihug.rad.api.tenant.TenantMemberService", "UpdateMemberRole", "/api/tenant-members/tenants/{tenantId}/members/{memberId}/role", Priority.MIDDLE, ServiceMethod.HttpMethod.PUT);
+    ServiceMethodContext UpdateMemberRole = new ServiceMethodContext("com.apihug.rad.api.tenant.TenantMemberService", "UpdateMemberRole", "/api/tenants/tenants/{tenantId}/members/{memberId}/role", Priority.MIDDLE, ServiceMethod.HttpMethod.PUT);
 
-    ServiceMethodContext AssignMemberDepartment = new ServiceMethodContext("com.apihug.rad.api.tenant.TenantMemberService", "AssignMemberDepartment", "/api/tenant-members/tenants/{tenantId}/members/{memberId}/department", Priority.MIDDLE, ServiceMethod.HttpMethod.PUT);
+    ServiceMethodContext AssignMemberDepartment = new ServiceMethodContext("com.apihug.rad.api.tenant.TenantMemberService", "AssignMemberDepartment", "/api/tenants/tenants/{tenantId}/members/{memberId}/department", Priority.MIDDLE, ServiceMethod.HttpMethod.PUT);
 
-    ServiceMethodContext GetMemberDetail = new ServiceMethodContext("com.apihug.rad.api.tenant.TenantMemberService", "GetMemberDetail", "/api/tenant-members/tenants/{tenantId}/members/{memberId}/detail", Priority.LOW, ServiceMethod.HttpMethod.GET);
+    ServiceMethodContext GetMemberDetail = new ServiceMethodContext("com.apihug.rad.api.tenant.TenantMemberService", "GetMemberDetail", "/api/tenants/tenants/{tenantId}/members/{memberId}/detail", Priority.LOW, ServiceMethod.HttpMethod.GET);
 
-    ServiceMethodContext SetDefaultTenant = new ServiceMethodContext("com.apihug.rad.api.tenant.TenantMemberService", "SetDefaultTenant", "/api/tenant-members/tenants/{tenantId}/set-default", Priority.MIDDLE, ServiceMethod.HttpMethod.POST);
+    ServiceMethodContext AssignRolesToMember = new ServiceMethodContext("com.apihug.rad.api.tenant.TenantMemberService", "AssignRolesToMember", "/api/tenants/tenants/{tenantId}/members/{memberId}/roles", Priority.MIDDLE, ServiceMethod.HttpMethod.POST);
 
-    ServiceMethodContext AssignRolesToMember = new ServiceMethodContext("com.apihug.rad.api.tenant.TenantMemberService", "AssignRolesToMember", "/api/tenant-members/tenants/{tenantId}/members/{memberId}/roles", Priority.MIDDLE, ServiceMethod.HttpMethod.POST);
+    ServiceMethodContext GetMemberRoles = new ServiceMethodContext("com.apihug.rad.api.tenant.TenantMemberService", "GetMemberRoles", "/api/tenants/tenants/{tenantId}/members/{memberId}/roles", Priority.LOW, ServiceMethod.HttpMethod.GET);
 
-    ServiceMethodContext GetMemberRoles = new ServiceMethodContext("com.apihug.rad.api.tenant.TenantMemberService", "GetMemberRoles", "/api/tenant-members/tenants/{tenantId}/members/{memberId}/roles", Priority.LOW, ServiceMethod.HttpMethod.GET);
-
-    ServiceMethodContext RemoveRoleFromMember = new ServiceMethodContext("com.apihug.rad.api.tenant.TenantMemberService", "RemoveRoleFromMember", "/api/tenant-members/tenants/{tenantId}/members/{memberId}/roles/{roleId}", Priority.HIGH, ServiceMethod.HttpMethod.DELETE);
+    ServiceMethodContext RemoveRoleFromMember = new ServiceMethodContext("com.apihug.rad.api.tenant.TenantMemberService", "RemoveRoleFromMember", "/api/tenants/tenants/{tenantId}/members/{memberId}/roles/{roleId}", Priority.HIGH, ServiceMethod.HttpMethod.DELETE);
   }
 }

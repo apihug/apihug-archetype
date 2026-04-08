@@ -1,34 +1,27 @@
 // @formatter:off
-package com.apihug.rad.api.tenant;
+package com.apihug.rad.api.platform;
 
 import com.apihug.rad.infra.tenant.TenantStatusEnum;
 import hope.common.meta.annotation.Kind;
 import hope.common.meta.annotation.ProtoFrom;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
-import java.lang.Boolean;
 import java.lang.Override;
 import java.lang.String;
 import java.util.StringJoiner;
 import javax.annotation.Generated;
 
 /**
- * 创建租户请求
+ * 更新租户请求
  */
 @Generated("H.O.P.E. Infra Team")
 @ProtoFrom(
-    value = "com/apihug/rad/api/tenant/api.proto",
-    entity = "CreateTenantRequest",
+    value = "com/apihug/rad/api/platform/tenant.proto",
+    entity = "UpdateTenantRequest",
     kind = Kind.MESSAGE
 )
-public class CreateTenantRequest {
+public class UpdateTenantRequest {
   private static final long serialVersionUID = 0L;
-
-  @NotEmpty
-  @Size(
-      max = 50
-  )
-  protected String tenantCode;
 
   @NotEmpty
   @Size(
@@ -49,27 +42,11 @@ public class CreateTenantRequest {
 
   protected TenantStatusEnum status;
 
-  protected Boolean isPlatform;
-
-  @Size(
-      max = 500
-  )
-  protected String description;
-
-  public String getTenantCode() {
-    return tenantCode;
-  }
-
-  public CreateTenantRequest setTenantCode(String tenantCode) {
-    this.tenantCode = tenantCode;
-    return this;
-  }
-
   public String getTenantName() {
     return tenantName;
   }
 
-  public CreateTenantRequest setTenantName(String tenantName) {
+  public UpdateTenantRequest setTenantName(String tenantName) {
     this.tenantName = tenantName;
     return this;
   }
@@ -78,7 +55,7 @@ public class CreateTenantRequest {
     return contactEmail;
   }
 
-  public CreateTenantRequest setContactEmail(String contactEmail) {
+  public UpdateTenantRequest setContactEmail(String contactEmail) {
     this.contactEmail = contactEmail;
     return this;
   }
@@ -87,7 +64,7 @@ public class CreateTenantRequest {
     return contactPhone;
   }
 
-  public CreateTenantRequest setContactPhone(String contactPhone) {
+  public UpdateTenantRequest setContactPhone(String contactPhone) {
     this.contactPhone = contactPhone;
     return this;
   }
@@ -96,39 +73,18 @@ public class CreateTenantRequest {
     return status;
   }
 
-  public CreateTenantRequest setStatus(TenantStatusEnum status) {
+  public UpdateTenantRequest setStatus(TenantStatusEnum status) {
     this.status = status;
-    return this;
-  }
-
-  public Boolean getIsPlatform() {
-    return isPlatform;
-  }
-
-  public CreateTenantRequest setIsPlatform(Boolean isPlatform) {
-    this.isPlatform = isPlatform;
-    return this;
-  }
-
-  public String getDescription() {
-    return description;
-  }
-
-  public CreateTenantRequest setDescription(String description) {
-    this.description = description;
     return this;
   }
 
   @Override
   public String toString() {
-    return new StringJoiner(", ", "CreateTenantRequest[" , "]")
-    	.add("tenantCode=" + tenantCode)
+    return new StringJoiner(", ", "UpdateTenantRequest[" , "]")
     	.add("tenantName=" + tenantName)
     	.add("contactEmail=" + contactEmail)
     	.add("contactPhone=" + contactPhone)
     	.add("status=" + status)
-    	.add("isPlatform=" + isPlatform)
-    	.add("description=" + description)
         .toString();
   }
 }

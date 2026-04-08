@@ -1,9 +1,13 @@
 // @formatter:off
 package com.apihug.rad.api.customer;
 
+import java.lang.Long;
+import java.lang.String;
+
 import java.lang.Override;
 import java.lang.SuppressWarnings;
 
+import com.apihug.rad.api.tenant.TenantMemberService;
 import com.apihug.rad.domain.customer.CustomerEntity;
 import com.apihug.rad.domain.customer.repository.CustomerEntityRepository;
 import com.apihug.rad.domain.department.repository.DepartmentEntityRepository;
@@ -256,6 +260,48 @@ public class CustomerServiceImpl implements CustomerService {
 
   /**
    * @apiNote
+   *     <p>{@code /api/customer/set-default/{tenantId}}
+   *     <p>{@code 将指定租户设为客户的默认租户}
+   */
+  @Transactional
+  @Override
+  public void setDefaultTenant(SimpleResultBuilder<String> builder, final Long tenantId) {
+    Long customerId = (Long) HopeContextHolder.customer().getId();
+
+    // 验证客户是该租户的成员
+    TenantMemberEntity member =
+        tenantMemberRepository
+            .findByCustomerIdAndTenantId(customerId, tenantId)
+            .orElseThrow(
+                () ->
+                    HopeErrorDetailException.errorBuilder(TenantMemberErrorEnum.MEMBER_NOT_FOUND)
+                        .build());
+
+    // 取消原来的默认租户
+    tenantMemberRepository
+        .findByCustomerIdAndIsDefault(customerId, true)
+        .ifPresent(
+            old -> {
+              old.setIsDefault(false);
+              tenantMemberRepository.save(old);
+            });
+
+    // 设置新的默认租户
+    member.setIsDefault(true);
+    tenantMemberRepository.save(member);
+
+    // 更新客户的 defaultTenantId
+    customerRepository
+        .findById(customerId)
+        .ifPresent(
+            c -> {
+              c.setDefaultTenantId(tenantId);
+              customerRepository.save(c);
+            });
+  }
+
+  /**
+   * @apiNote
    *     <p>{@code /api/customer/switch-tenant}
    *     <p>{@code 切换到指定租户，重新签发 Token}
    * @see CustomerService#switchTenant
@@ -269,7 +315,6 @@ public class CustomerServiceImpl implements CustomerService {
     RadCustomer contextCustomer = HopeContextHolder.customer();
 
     Long customerId = contextCustomer.getId();
-    Long currentTenantId = contextCustomer.getTenantId();
     Long targetTenantId = switchTenantRequest.getTenantId();
 
     // 1. 验证客户存在

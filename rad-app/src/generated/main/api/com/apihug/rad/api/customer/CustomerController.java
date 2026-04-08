@@ -11,6 +11,7 @@ import hope.common.spring.SimpleResultBuilder;
 import hope.common.spring.aspect.Aspect;
 import hope.common.spring.aspect.AspectManager;
 import jakarta.validation.Valid;
+import java.lang.Long;
 import java.lang.String;
 import java.lang.System;
 import java.lang.Throwable;
@@ -20,6 +21,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -134,6 +136,29 @@ public class CustomerController {
     }
   }
 
+  /**
+   * @apiNote
+   * 	<p>{@code /api/customer/set-default/{tenantId}}
+   * 	<p>{@code 将指定租户设为客户的默认租户}
+   */
+  @PostMapping("/api/customer/set-default/{tenantId}")
+  public ResponseEntity<Result<String>> setDefaultTenant(
+      @PathVariable(name = "tenantId", required = true) Long tenantId) {
+    final SimpleResultBuilder<String> builder = new SimpleResultBuilder<String>();
+    final Map<String, Object> _ctx = Map.of(Aspect.START_TIME, System.currentTimeMillis(), Aspect.CHANNEL, "API", "tenantId", tenantId);
+    try {
+      aspect().before(Apis.SetDefaultTenant, _ctx);
+      _service.setDefaultTenant(builder, tenantId);
+      ResponseEntity<Result<String>> res = builder.done();
+      aspect().after(Apis.SetDefaultTenant, _ctx, res);
+      return res;
+    } catch (Throwable exception) {
+      logger.error("FAIL_ACTION" + Apis.SetDefaultTenant, exception);
+      aspect().exception(Apis.SetDefaultTenant, _ctx, exception);
+      throw exception;
+    }
+  }
+
   public AspectManager aspect() {
     return AspectManager.get();
   }
@@ -146,5 +171,7 @@ public class CustomerController {
     ServiceMethodContext GetCustomerTenants = new ServiceMethodContext("com.apihug.rad.api.customer.CustomerService", "GetCustomerTenants", "/api/customer/tenants", Priority.LOW, ServiceMethod.HttpMethod.GET);
 
     ServiceMethodContext SwitchTenant = new ServiceMethodContext("com.apihug.rad.api.customer.CustomerService", "SwitchTenant", "/api/customer/switch-tenant", Priority.MIDDLE, ServiceMethod.HttpMethod.POST);
+
+    ServiceMethodContext SetDefaultTenant = new ServiceMethodContext("com.apihug.rad.api.customer.CustomerService", "SetDefaultTenant", "/api/customer/set-default/{tenantId}", Priority.MIDDLE, ServiceMethod.HttpMethod.POST);
   }
 }

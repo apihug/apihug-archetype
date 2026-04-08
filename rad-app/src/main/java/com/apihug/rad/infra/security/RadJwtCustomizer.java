@@ -1,6 +1,7 @@
 // @formatter:off
 package com.apihug.rad.infra.security;
 
+import com.apihug.rad.domain.security.CustomerPlatformTenantPredefinedTypeService;
 import hope.common.meta.annotation.Template;
 import hope.common.spring.security.DefaultJwtCustomizer;
 import hope.common.spring.security.HopeSecurityProperties;
@@ -75,13 +76,17 @@ public class RadJwtCustomizer extends DefaultJwtCustomizer<RadCustomer> {
 
   private static final String CLAIM_ROLES = "roles";
   private static final String CLAIM_AUTHORITIES = "authorities";
+  protected final CustomerPlatformTenantPredefinedTypeService
+      customerPlatformTenantPredefinedTypeService;
 
   public RadJwtCustomizer(
       JwtDecoder jwtDecoder,
       JwtEncoder jwtEncoder,
       HopeSecurityProperties properties,
-      ObjectProvider<JwtTrivialConfigurationProvider> jwtTrivialConfigurationProviders) {
+      ObjectProvider<JwtTrivialConfigurationProvider> jwtTrivialConfigurationProviders,
+      CustomerPlatformTenantPredefinedTypeService customerPlatformTenantPredefinedTypeService) {
     super(jwtDecoder, jwtEncoder, properties, jwtTrivialConfigurationProviders);
+    this.customerPlatformTenantPredefinedTypeService = customerPlatformTenantPredefinedTypeService;
     DEFAULT.setDelegator(this);
   }
 
@@ -166,6 +171,9 @@ public class RadJwtCustomizer extends DefaultJwtCustomizer<RadCustomer> {
   @SuppressWarnings("unchecked")
   @Override
   public RadCustomer postDecode(RadCustomer customer, Jwt jwt) {
+    if (customer == null || customer.isAnonymous()) {
+      return customer;
+    }
     Map<String, Object> claims = jwt.getClaims();
     if (claims.containsKey(CLAIM_ROLES)) {
       customer.setRoles((Collection<String>) claims.get(CLAIM_ROLES));
@@ -173,6 +181,8 @@ public class RadJwtCustomizer extends DefaultJwtCustomizer<RadCustomer> {
     if (claims.containsKey(CLAIM_AUTHORITIES)) {
       customer.setAuthorities((Collection<String>) claims.get(CLAIM_AUTHORITIES));
     }
+
+    customerPlatformTenantPredefinedTypeService.popupCustomerPlatformAndTenantRoleType(customer);
     return customer;
   }
 

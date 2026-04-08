@@ -318,41 +318,6 @@ public class TenantMemberServiceImpl implements TenantMemberService {
   }
 
   /**
-   * @apiNote
-   * 	<p>{@code /api/tenant-members/tenants/{tenantId}/set-default}
-   * 	<p>{@code 将指定租户设为客户的默认租户}
-   * @see TenantMemberService#setDefaultTenant
-   */
-  @Transactional
-  @Override
-  public void setDefaultTenant(SimpleResultBuilder<String> builder, Integer tenantId) {
-    Long customerId = (Long) HopeContextHolder.customer().getId();
-    Long tid = tenantId.longValue();
-
-    // 验证客户是该租户的成员
-    TenantMemberEntity member = tenantMemberRepository.findByCustomerIdAndTenantId(customerId, tid)
-        .orElseThrow(() -> HopeErrorDetailException.errorBuilder(TenantMemberErrorEnum.MEMBER_NOT_FOUND).build());
-
-    // 取消原来的默认租户
-    tenantMemberRepository.findByCustomerIdAndIsDefault(customerId, true)
-        .ifPresent(old -> {
-          old.setIsDefault(false);
-          tenantMemberRepository.save(old);
-        });
-
-    // 设置新的默认租户
-    member.setIsDefault(true);
-    tenantMemberRepository.save(member);
-
-    // 更新客户的 defaultTenantId
-    customerRepository.findById(customerId)
-        .ifPresent(c -> {
-          c.setDefaultTenantId(tid);
-          customerRepository.save(c);
-        });
-  }
-
-  /**
    *
    * Authorization:
    *

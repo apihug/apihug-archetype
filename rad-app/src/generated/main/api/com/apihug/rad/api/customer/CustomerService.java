@@ -4,6 +4,8 @@ package com.apihug.rad.api.customer;
 import hope.common.meta.annotation.Kind;
 import hope.common.meta.annotation.ProtoFrom;
 import hope.common.spring.SimpleResultBuilder;
+import java.lang.Long;
+import java.lang.String;
 import javax.annotation.Generated;
 
 @ProtoFrom(
@@ -49,6 +51,15 @@ public interface CustomerService {
    */
   default void switchTenant(SimpleResultBuilder<LoginResponse> builder,
       SwitchTenantRequest switchTenantRequest) {
+    builder.notImplemented();
+  }
+
+  /**
+   * @apiNote
+   * 	<p>{@code /api/customer/set-default/{tenantId}}
+   * 	<p>{@code 将指定租户设为客户的默认租户}
+   */
+  default void setDefaultTenant(SimpleResultBuilder<String> builder, Long tenantId) {
     builder.notImplemented();
   }
 }
