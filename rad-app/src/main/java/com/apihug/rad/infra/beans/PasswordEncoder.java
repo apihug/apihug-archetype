@@ -8,10 +8,11 @@ import org.springframework.stereotype.Service;
  * Password encoder using Spring Security's BCrypt implementation.
  *
  * <p>BCrypt is a strong password hashing function that includes:
+ *
  * <ul>
- *   <li>Built-in salt generation and storage</li>
- *   <li>Configurable work factor (log rounds)</li>
- *   <li>Resistance to rainbow table attacks</li>
+ *   <li>Built-in salt generation and storage
+ *   <li>Configurable work factor (log rounds)
+ *   <li>Resistance to rainbow table attacks
  * </ul>
  */
 @Service
@@ -25,7 +26,7 @@ import org.springframework.stereotype.Service;
           artifactId = "spring-security-crypto"),
     })
 public class PasswordEncoder {
-  
+
   private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
   public PasswordEncoder() {
@@ -55,8 +56,8 @@ public class PasswordEncoder {
   }
 
   /**
-   * Returns true if the encoded password should be encoded again for better security.
-   * BCrypt doesn't typically need re-encoding unless the strength parameter changes.
+   * Returns true if the encoded password should be encoded again for better security. BCrypt
+   * doesn't typically need re-encoding unless the strength parameter changes.
    *
    * @param encodedPassword the encoded password to check
    * @return false (BCrypt doesn't support upgrade encoding)

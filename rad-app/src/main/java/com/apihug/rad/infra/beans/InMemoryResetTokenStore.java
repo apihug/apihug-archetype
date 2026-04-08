@@ -9,10 +9,12 @@ import org.springframework.stereotype.Component;
 /**
  * 基于内存的密码重置 Token 存储（dev 环境使用）。
  *
- * <p>使用 ConcurrentHashMap 存储 token → 客户 ID 的映射，
- * 适用于开发、测试环境。应用重启后所有 token 失效。
+ * <p>使用 ConcurrentHashMap 存储 token → 客户 ID 的映射， 适用于开发、测试环境。应用重启后所有 token 失效。
  */
-@Template(type = Template.Type.SERVICE, usage = "In-memory reset token store for dev environment", percentage = 100)
+@Template(
+    type = Template.Type.SERVICE,
+    usage = "In-memory reset token store for dev environment",
+    percentage = 100)
 @Component
 @Profile({"dev", "test"})
 public class InMemoryResetTokenStore implements ResetTokenStore {

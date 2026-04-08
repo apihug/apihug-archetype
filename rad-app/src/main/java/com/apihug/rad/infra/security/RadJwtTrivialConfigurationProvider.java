@@ -31,19 +31,20 @@ public class RadJwtTrivialConfigurationProvider implements JwtTrivialConfigurati
   }
 
   /**
-   * Handles JWT processing exceptions, providing an extension point to transform or enrich
-   * the raw exception before it propagates.
-   * <p>
-   * This method is invoked when an exception occurs during JWT decoding or validation
-   * (e.g., signature mismatch, expiration, malformed token). Subclasses may override it
-   * to perform custom error handling, such as logging, translating the exception into a
-   * domain-specific exception, or wrapping it in a more meaningful error type.
-   * <p>
-   * By default, the method does nothing, allowing the original exception to propagate.
-   * Overriding implementations may throw a custom runtime exception to replace the
-   * original one, or simply perform side effects like logging.
-   * <p>
-   * Example usage that categorizes the error based on the exception message:
+   * Handles JWT processing exceptions, providing an extension point to transform or enrich the raw
+   * exception before it propagates.
+   *
+   * <p>This method is invoked when an exception occurs during JWT decoding or validation (e.g.,
+   * signature mismatch, expiration, malformed token). Subclasses may override it to perform custom
+   * error handling, such as logging, translating the exception into a domain-specific exception, or
+   * wrapping it in a more meaningful error type.
+   *
+   * <p>By default, the method does nothing, allowing the original exception to propagate.
+   * Overriding implementations may throw a custom runtime exception to replace the original one, or
+   * simply perform side effects like logging.
+   *
+   * <p>Example usage that categorizes the error based on the exception message:
+   *
    * <pre>{@code
    * @Override
    * public void jwtException(Exception rawException, String token) {
@@ -62,12 +63,11 @@ public class RadJwtTrivialConfigurationProvider implements JwtTrivialConfigurati
    * }</pre>
    *
    * @param rawException the original exception thrown during JWT decoding or validation
-   * @param token        the raw JWT string that caused the exception (may be {@code null}
-   *                   if not available)
-   * @throws RuntimeException implementations may throw custom runtime exceptions to
-   *                        replace or wrap the original exception
+   * @param token the raw JWT string that caused the exception (may be {@code null} if not
+   *     available)
+   * @throws RuntimeException implementations may throw custom runtime exceptions to replace or wrap
+   *     the original exception
    */
   @Override
-  public void jwtException(Exception rawException, String token) {
-  }
+  public void jwtException(Exception rawException, String token) {}
 }

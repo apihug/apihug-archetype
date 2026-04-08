@@ -8,9 +8,8 @@ import com.apihug.rad.infra.platform.PlatformMemberStatusEnum;
 import com.apihug.rad.infra.security.RadCustomer;
 import com.apihug.rad.infra.tenant.TenantMemberStatusEnum;
 import hope.common.meta.annotation.Template;
-import org.springframework.stereotype.Service;
-
 import java.util.Optional;
+import org.springframework.stereotype.Service;
 
 /**
  * Service for resolving and populating customer's platform-level and tenant-level role types.

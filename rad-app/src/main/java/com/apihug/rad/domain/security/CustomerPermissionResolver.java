@@ -12,13 +12,12 @@ import com.apihug.rad.domain.tenant.repository.MemberRoleEntityRepository;
 import com.apihug.rad.domain.tenant.repository.TenantMemberEntityRepository;
 import com.apihug.rad.infra.tenant.MemberRoleEnum;
 import hope.common.meta.annotation.Template;
-import org.springframework.stereotype.Service;
-
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
+import org.springframework.stereotype.Service;
 
 /**
  * Core permission resolver service (internal, non-API).

@@ -3,6 +3,7 @@ package com.apihug.rad.api.customer;
 
 import com.apihug.rad.domain.customer.CustomerEntity;
 import com.apihug.rad.domain.customer.repository.CustomerEntityRepository;
+import com.apihug.rad.domain.security.CustomerPermissionResolver;
 import com.apihug.rad.domain.tenant.TenantMemberEntity;
 import com.apihug.rad.domain.tenant.repository.TenantEntityRepository;
 import com.apihug.rad.domain.tenant.repository.TenantMemberEntityRepository;
@@ -12,19 +13,17 @@ import com.apihug.rad.infra.customer.CustomerStatusEnum;
 import com.apihug.rad.infra.security.RadCustomer;
 import com.apihug.rad.infra.tenant.TenantMemberStatusEnum;
 import com.apihug.rad.infra.tenant.TenantStatusEnum;
-import com.apihug.rad.domain.security.CustomerPermissionResolver;
 import hope.common.api.exceptions.HopeErrorDetailException;
 import hope.common.meta.annotation.Kind;
 import hope.common.meta.annotation.ProtoFrom;
-import hope.common.meta.annotation.Template;import hope.common.spring.SimpleResultBuilder;
-import java.lang.Override;
-import java.lang.String;
-import java.lang.SuppressWarnings;
+import hope.common.meta.annotation.Template;
+import hope.common.spring.SimpleResultBuilder;
 import hope.common.spring.security.JwtCustomizer;
 import java.util.List;
 import java.util.Set;
-import org.slf4j.Logger;import org.slf4j.LoggerFactory;import org.springframework.stereotype.Service;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
 
 @Template(type = Template.Type.SERVICE, usage = "Customer authorization service", percentage = 88)
 @Service
@@ -37,7 +36,7 @@ import org.slf4j.Logger;import org.slf4j.LoggerFactory;import org.springframewor
     column = 1)
 public class CustomerAuthServiceImpl implements CustomerAuthService {
 
-    static final Logger logger = LoggerFactory.getLogger(CustomerAuthServiceImpl.class);
+  static final Logger logger = LoggerFactory.getLogger(CustomerAuthServiceImpl.class);
 
   private final CustomerEntityRepository customerRepository;
   private final TenantEntityRepository tenantRepository;
@@ -86,16 +85,18 @@ public class CustomerAuthServiceImpl implements CustomerAuthService {
     // TODO no need pick here
     // 4. 解析权限（新增）
     Set<String> roles = permissionResolver.resolveRoles(customer.getId(), effectiveTenantId);
-    Set<String> authorities = permissionResolver.resolveAuthorities(customer.getId(), effectiveTenantId);
+    Set<String> authorities =
+        permissionResolver.resolveAuthorities(customer.getId(), effectiveTenantId);
 
     // 5. 生成 JWT Token
     // 创建 RadCustomer 对象，包含用户核心信息
-    RadCustomer radCustomer = new RadCustomer()
-        .setId(customer.getId())
-        .setTenantId(effectiveTenantId)
-        .setAccount(customer.getUsername())
-        .setName(customer.getUsername())
-        .setActive(true);
+    RadCustomer radCustomer =
+        new RadCustomer()
+            .setId(customer.getId())
+            .setTenantId(effectiveTenantId)
+            .setAccount(customer.getUsername())
+            .setName(customer.getUsername())
+            .setActive(true);
     radCustomer.setRoles(roles);
     radCustomer.setAuthorities(authorities);
 
@@ -115,16 +116,17 @@ public class CustomerAuthServiceImpl implements CustomerAuthService {
   @Override
   public void logout(SimpleResultBuilder<String> builder) {
     // controller handles response automatically
-      // TODO remove this session?
+    // TODO remove this session?
   }
 
   /**
    * 解析有效租户 ID。
+   *
    * <ol>
-   *   <li>优先使用 defaultTenantId，验证租户状态 ACTIVE 且成员状态 TM_ACTIVE</li>
-   *   <li>默认租户不可用时，降级到该用户的其他活跃租户</li>
-   *   <li>如果降级成功，同步更新 defaultTenantId</li>
-   *   <li>无任何可用租户则返回 null（平台用户可以无租户登录）</li>
+   *   <li>优先使用 defaultTenantId，验证租户状态 ACTIVE 且成员状态 TM_ACTIVE
+   *   <li>默认租户不可用时，降级到该用户的其他活跃租户
+   *   <li>如果降级成功，同步更新 defaultTenantId
+   *   <li>无任何可用租户则返回 null（平台用户可以无租户登录）
    * </ol>
    */
   private Long resolveEffectiveTenant(CustomerEntity customer) {
@@ -132,25 +134,31 @@ public class CustomerAuthServiceImpl implements CustomerAuthService {
 
     // 尝试默认租户
     if (defaultTenantId != null) {
-      boolean defaultValid = tenantRepository.findById(defaultTenantId)
-          .filter(t -> TenantStatusEnum.ACTIVE == t.getStatus())
-          .isPresent()
-          && tenantMemberRepository.findByCustomerIdAndTenantId(customer.getId(), defaultTenantId)
-              .filter(m -> TenantMemberStatusEnum.TM_ACTIVE == m.getStatus())
-              .isPresent();
+      boolean defaultValid =
+          tenantRepository
+                  .findById(defaultTenantId)
+                  .filter(t -> TenantStatusEnum.ACTIVE == t.getStatus())
+                  .isPresent()
+              && tenantMemberRepository
+                  .findByCustomerIdAndTenantId(customer.getId(), defaultTenantId)
+                  .filter(m -> TenantMemberStatusEnum.TM_ACTIVE == m.getStatus())
+                  .isPresent();
       if (defaultValid) {
         return defaultTenantId;
       }
     }
 
     // 降级：查找该用户所有活跃成员关系，匹配一个活跃租户
-    List<TenantMemberEntity> activeMembers = tenantMemberRepository
-        .findByCustomerIdAndStatus(customer.getId(), TenantMemberStatusEnum.TM_ACTIVE);
+    List<TenantMemberEntity> activeMembers =
+        tenantMemberRepository.findByCustomerIdAndStatus(
+            customer.getId(), TenantMemberStatusEnum.TM_ACTIVE);
 
     for (TenantMemberEntity member : activeMembers) {
-      boolean tenantActive = tenantRepository.findById(member.getTenantId())
-          .filter(t -> TenantStatusEnum.ACTIVE == t.getStatus())
-          .isPresent();
+      boolean tenantActive =
+          tenantRepository
+              .findById(member.getTenantId())
+              .filter(t -> TenantStatusEnum.ACTIVE == t.getStatus())
+              .isPresent();
       if (tenantActive) {
         // 降级成功，同步更新 defaultTenantId
         customer.setDefaultTenantId(member.getTenantId());

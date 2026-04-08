@@ -1,27 +1,22 @@
 // @formatter:off
 package com.apihug.rad.api.customer;
 
-import java.lang.Long;
-import java.lang.String;
 
-import java.lang.Override;
-import java.lang.SuppressWarnings;
 
-import com.apihug.rad.api.tenant.TenantMemberService;
 import com.apihug.rad.domain.customer.CustomerEntity;
 import com.apihug.rad.domain.customer.repository.CustomerEntityRepository;
 import com.apihug.rad.domain.department.repository.DepartmentEntityRepository;
 import com.apihug.rad.domain.role.RoleEntity;
 import com.apihug.rad.domain.role.repository.RoleEntityRepository;
+import com.apihug.rad.domain.security.CustomerPermissionResolver;
 import com.apihug.rad.domain.tenant.MemberRoleEntity;
+import com.apihug.rad.domain.tenant.TenantEntity;
 import com.apihug.rad.domain.tenant.TenantMemberEntity;
 import com.apihug.rad.domain.tenant.repository.MemberRoleEntityRepository;
-import com.apihug.rad.domain.tenant.repository.TenantMemberEntityRepository;
-import com.apihug.rad.domain.tenant.TenantEntity;
 import com.apihug.rad.domain.tenant.repository.TenantEntityRepository;
+import com.apihug.rad.domain.tenant.repository.TenantMemberEntityRepository;
 import com.apihug.rad.infra.customer.CustomerErrorEnum;
 import com.apihug.rad.infra.security.RadCustomer;
-import com.apihug.rad.domain.security.CustomerPermissionResolver;
 import com.apihug.rad.infra.tenant.TenantMemberErrorEnum;
 import com.apihug.rad.infra.tenant.TenantMemberStatusEnum;
 import hope.common.api.exceptions.HopeErrorDetailException;

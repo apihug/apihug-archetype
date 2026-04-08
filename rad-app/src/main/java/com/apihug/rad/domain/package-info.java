@@ -1,5 +1,5 @@
 /**
- * Domain related logic: <br/>
+ * Domain related logic: <br>
  * <code>
  *     1. Adapter: between the front-end protocol and backend Entity;
  *     2. Mapping: between Entity and Front-end View object;

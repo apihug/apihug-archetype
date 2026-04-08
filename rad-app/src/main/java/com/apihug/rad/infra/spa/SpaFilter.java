@@ -6,60 +6,57 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.lang.Integer;
-import java.lang.Override;
-import java.lang.String;
 import java.util.Set;
 import javax.annotation.Generated;
 import org.springframework.core.annotation.Order;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 /**
- *
  * SPA (Single Page Application) routing filter template.
  *
- * <p>This class serves as a starting point for implementing client-side routing in reactive Spring applications.
- * Modify the template logic according to your application's routing requirements.
+ * <p>This class serves as a starting point for implementing client-side routing in reactive Spring
+ * applications. Modify the template logic according to your application's routing requirements.
  *
  * <p><strong>Template Instructions:</strong>
+ *
  * <ol>
- *   <li>Adjust {@code excludePrefixes} to match your API endpoints and protected paths</li>
- *   <li>Implement {@code resolveIndexPath()} for multi-entry SPA routing if needed</li>
- *   <li>Complete the forwarding logic in {@code filter()} method</li>
+ *   <li>Adjust {@code excludePrefixes} to match your API endpoints and protected paths
+ *   <li>Implement {@code resolveIndexPath()} for multi-entry SPA routing if needed
+ *   <li>Complete the forwarding logic in {@code filter()} method
  * </ol>
  *
  * <p>The filter runs with the highest priority ({@code @Order(Integer.MIN_VALUE)}) to intercept
  * requests before other filters process them.
  *
- * <p><strong>Default behavior:</strong> Passes all requests through without SPA routing.
- * Implement the commented forwarding logic to enable SPA functionality.
+ * <p><strong>Default behavior:</strong> Passes all requests through without SPA routing. Implement
+ * the commented forwarding logic to enable SPA functionality.
  */
 @Order(Integer.MIN_VALUE)
 @Generated("H.O.P.E. Infra Team")
 public class SpaFilter extends OncePerRequestFilter {
   /**
-   * Path prefixes that should bypass SPA routing.
-   * Default includes common API endpoints and management interfaces.
+   * Path prefixes that should bypass SPA routing. Default includes common API endpoints and
+   * management interfaces.
    *
-   * <p><strong>Customization required:</strong> Update this set to match your application's
-   * API endpoints, documentation paths, and administrative interfaces.
+   * <p><strong>Customization required:</strong> Update this set to match your application's API
+   * endpoints, documentation paths, and administrative interfaces.
    */
-  Set<String> excludePrefixes = Set.of("/api", "/management", "/v3/api-docs", "/hope/meta", "/h2-console");
+  Set<String> excludePrefixes =
+      Set.of("/api", "/management", "/v3/api-docs", "/hope/meta", "/h2-console");
 
   /**
-   *
    * Determines if a request path should bypass SPA routing.
    *
    * <p>Exclusion logic:
+   *
    * <ol>
-   *   <li>Paths starting with any prefix in {@code excludePrefixes}</li>
-   *   <li>Paths containing dots (indicating static resources like .js, .css, .png)</li>
-   *   <li>The root path "/"</li>
+   *   <li>Paths starting with any prefix in {@code excludePrefixes}
+   *   <li>Paths containing dots (indicating static resources like .js, .css, .png)
+   *   <li>The root path "/"
    * </ol>
    *
    * @param path Request path without context
    * @return true if request should bypass SPA routing, false if it should be handled by SPA
-   *
    */
   boolean shouldExclude(String path) {
     // 1. Check for excluded prefixes
@@ -85,6 +82,7 @@ public class SpaFilter extends OncePerRequestFilter {
    * application has multiple SPA entry points (e.g., separate admin and user interfaces).
    *
    * <p>Example implementation:
+   *
    * <pre>
    * if (path.startsWith("/admin")) {
    *   return "/admin/index.html";
@@ -94,19 +92,19 @@ public class SpaFilter extends OncePerRequestFilter {
    *
    * @param path Request path without context
    * @return Path to the appropriate SPA entry HTML file
-   *
    */
   String resolveIndexPath(String path) {
-    //FIXME add your logic
-    //if (path.startsWith("/admin")) {
+    // FIXME add your logic
+    // if (path.startsWith("/admin")) {
     //      return "/admin/index.html";
-    //}
+    // }
     return "index.html";
   }
 
   @Override
-  protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
-      FilterChain filterChain) throws ServletException, IOException {
+  protected void doFilterInternal(
+      HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+      throws ServletException, IOException {
 
     // 1. Extract the request path relative to the application context
     // This removes the application context prefix (e.g., "/myapp") from the full URI
@@ -122,7 +120,6 @@ public class SpaFilter extends OncePerRequestFilter {
       filterChain.doFilter(request, response);
       return;
     }
-
 
     // 3. SPA Routing Logic (To be implemented)
     // -----------------------------------------------------------------
@@ -141,7 +138,6 @@ public class SpaFilter extends OncePerRequestFilter {
     // -----------------------------------------------------------------
     // This line should be removed or commented out once SPA routing is implemented
     // It currently acts as a pass-through, allowing all requests to proceed normally
-
 
     filterChain.doFilter(request, response);
 

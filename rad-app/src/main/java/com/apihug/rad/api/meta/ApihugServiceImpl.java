@@ -6,9 +6,6 @@ import hope.common.meta.annotation.Kind;
 import hope.common.meta.annotation.ProtoFrom;
 import hope.common.meta.annotation.Template;
 import hope.common.spring.SimpleResultBuilder;
-import java.lang.Override;
-import java.lang.String;
-import java.lang.SuppressWarnings;
 import org.springframework.stereotype.Service;
 
 @Template(

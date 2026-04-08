@@ -1,5 +1,7 @@
 package com.apihug.rad.domain.apihug;
 
+import static java.nio.charset.StandardCharsets.UTF_8;
+
 import hope.common.meta.annotation.Template;
 import hope.common.meta.artifact.Artifact;
 import hope.common.meta.constant.authority.DomainAuthority;
@@ -13,8 +15,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.data.util.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StreamUtils;
-
-import static java.nio.charset.StandardCharsets.UTF_8;
 
 @SuppressWarnings("Duplicates")
 @Service

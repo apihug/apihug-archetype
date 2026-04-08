@@ -1,9 +1,5 @@
 // @formatter:off
 package com.apihug.rad.api.role;
-import java.lang.Integer;
-import java.lang.Override;
-import java.lang.String;
-import java.lang.SuppressWarnings;
 
 import com.apihug.rad.domain.menu.MenuEntity;
 import com.apihug.rad.domain.menu.repository.MenuEntityRepository;
@@ -13,14 +9,15 @@ import com.apihug.rad.domain.role.repository.RoleEntityRepository;
 import com.apihug.rad.domain.role.repository.RoleMenuEntityRepository;
 import com.apihug.rad.infra.role.RoleErrorEnum;
 import com.apihug.rad.infra.role.RoleStatusEnum;
-import com.apihug.rad.infra.security.RadCustomer;import hope.common.api.PageRequest;
+import com.apihug.rad.infra.security.RadCustomer;
+import hope.common.api.PageRequest;
 import hope.common.api.exceptions.HopeErrorDetailException;
 import hope.common.meta.annotation.Kind;
 import hope.common.meta.annotation.ProtoFrom;
-import hope.common.meta.annotation.Template;import hope.common.spring.PageableResultBuilder;
+import hope.common.meta.annotation.Template;
+import hope.common.spring.PageableResultBuilder;
 import hope.common.spring.SimpleResultBuilder;
 import hope.common.spring.security.context.HopeContextHolder;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;

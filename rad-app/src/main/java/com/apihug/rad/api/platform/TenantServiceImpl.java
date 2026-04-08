@@ -1,15 +1,11 @@
 // @formatter:off
 package com.apihug.rad.api.platform;
 
-import java.lang.Long;
-import java.lang.Override;
-import java.lang.SuppressWarnings;
 
 import com.apihug.rad.api.tenant.*;
 import com.apihug.rad.domain.platform.repository.PlatformMemberEntityRepository;
 import com.apihug.rad.domain.tenant.TenantEntity;
 import com.apihug.rad.domain.tenant.repository.TenantEntityRepository;
-import com.apihug.rad.infra.security.RadCustomer;
 import com.apihug.rad.infra.tenant.TenantErrorEnum;
 import com.apihug.rad.infra.tenant.TenantStatusEnum;
 import hope.common.api.PageRequest;
@@ -20,7 +16,6 @@ import hope.common.meta.annotation.Template;
 import hope.common.spring.PageableResultBuilder;
 import hope.common.spring.SimpleResultBuilder;
 import java.util.stream.Collectors;
-import hope.common.spring.security.context.HopeContextHolder;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
